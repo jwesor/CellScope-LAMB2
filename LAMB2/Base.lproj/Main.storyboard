@@ -37,6 +37,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
+            <point key="canvasLocation" x="196" y="325"/>
         </scene>
         <!--Camera View Controller-->
         <scene sceneID="sbE-Y8-rCb">
@@ -51,10 +52,15 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5hf-IU-McK">
-                                <rect key="frame" x="277" y="570" width="46" height="30"/>
-                                <state key="normal" title="Button">
+                                <rect key="frame" x="283" y="570" width="35" height="30"/>
+                                <state key="normal" title="Scan">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
+                                <connections>
+                                    <segue destination="V60-s5-4WI" kind="popoverPresentation" identifier="listBLEDevices" popoverAnchorView="5hf-IU-McK" id="NRS-W4-tA4">
+                                        <popoverArrowDirection key="popoverArrowDirection" up="YES" down="YES" left="YES" right="YES"/>
+                                    </segue>
+                                </connections>
                             </button>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="smI-IQ-MW9">
                                 <rect key="frame" x="147" y="20" width="307" height="544"/>
@@ -78,7 +84,33 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="sjn-Yh-8gb" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1504" y="152"/>
+            <point key="canvasLocation" x="1004" y="312"/>
+        </scene>
+        <!--Device Table View Controller-->
+        <scene sceneID="R6e-Td-VMc">
+            <objects>
+                <tableViewController id="V60-s5-4WI" customClass="DeviceTableViewController" customModule="LAMB2" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="v7y-wY-QI1">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <prototypes>
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="DeviceListPrototypeCell" id="UOy-Dg-Krv">
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="UOy-Dg-Krv" id="JrO-lW-KF1">
+                                    <autoresizingMask key="autoresizingMask"/>
+                                </tableViewCellContentView>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="V60-s5-4WI" id="kr6-YW-xxr"/>
+                            <outlet property="delegate" destination="V60-s5-4WI" id="qwc-kb-IJJ"/>
+                        </connections>
+                    </tableView>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="OFn-0Q-v7o" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1004" y="1111"/>
         </scene>
     </scenes>
 </document>

@@ -13,6 +13,9 @@
 		188074EA1A38F72D0039725B /* AssetsLibrary.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 188074E91A38F72D0039725B /* AssetsLibrary.framework */; };
 		188074EC1A38F7350039725B /* CoreMedia.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 188074EB1A38F7350039725B /* CoreMedia.framework */; };
 		188074EE1A38FA6C0039725B /* CameraViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 188074ED1A38FA6C0039725B /* CameraViewController.swift */; };
+		18E1578B1A67507E00DFEFFF /* BLE.m in Sources */ = {isa = PBXBuildFile; fileRef = 18E157891A67507E00DFEFFF /* BLE.m */; };
+		18E1578D1A67510900DFEFFF /* DeviceConnector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18E1578C1A67510900DFEFFF /* DeviceConnector.swift */; };
+		18E157971A68A52600DFEFFF /* DeviceTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18E157961A68A52600DFEFFF /* DeviceTableViewController.swift */; };
 		18ED380E1A200B8B005BA3CE /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18ED380D1A200B8B005BA3CE /* AppDelegate.swift */; };
 		18ED38111A200B8B005BA3CE /* LAMB2.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 18ED380F1A200B8B005BA3CE /* LAMB2.xcdatamodeld */; };
 		18ED38131A200B8B005BA3CE /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18ED38121A200B8B005BA3CE /* ViewController.swift */; };
@@ -41,6 +44,11 @@
 		188074E91A38F72D0039725B /* AssetsLibrary.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AssetsLibrary.framework; path = System/Library/Frameworks/AssetsLibrary.framework; sourceTree = SDKROOT; };
 		188074EB1A38F7350039725B /* CoreMedia.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMedia.framework; path = System/Library/Frameworks/CoreMedia.framework; sourceTree = SDKROOT; };
 		188074ED1A38FA6C0039725B /* CameraViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CameraViewController.swift; sourceTree = "<group>"; };
+		18E157881A67507E00DFEFFF /* BLE.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BLE.h; sourceTree = "<group>"; };
+		18E157891A67507E00DFEFFF /* BLE.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BLE.m; sourceTree = "<group>"; };
+		18E1578A1A67507E00DFEFFF /* BLEDefines.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BLEDefines.h; sourceTree = "<group>"; };
+		18E1578C1A67510900DFEFFF /* DeviceConnector.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeviceConnector.swift; sourceTree = "<group>"; };
+		18E157961A68A52600DFEFFF /* DeviceTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeviceTableViewController.swift; sourceTree = "<group>"; };
 		18ED38081A200B8B005BA3CE /* LAMB2.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LAMB2.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		18ED380C1A200B8B005BA3CE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		18ED380D1A200B8B005BA3CE /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -76,6 +84,16 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		18E157871A67507E00DFEFFF /* BLE */ = {
+			isa = PBXGroup;
+			children = (
+				18E157881A67507E00DFEFFF /* BLE.h */,
+				18E157891A67507E00DFEFFF /* BLE.m */,
+				18E1578A1A67507E00DFEFFF /* BLEDefines.h */,
+			);
+			path = BLE;
+			sourceTree = "<group>";
+		};
 		18ED37FF1A200B8B005BA3CE = {
 			isa = PBXGroup;
 			children = (
@@ -110,6 +128,8 @@
 				18ED380B1A200B8B005BA3CE /* Supporting Files */,
 				188074E41A38F4A60039725B /* CameraSession.h */,
 				188074E51A38F4A60039725B /* CameraSession.mm */,
+				18E1578C1A67510900DFEFFF /* DeviceConnector.swift */,
+				18E157961A68A52600DFEFFF /* DeviceTableViewController.swift */,
 				188074ED1A38FA6C0039725B /* CameraViewController.swift */,
 				184D8DFE1A205AC600105FDA /* LAMB2-Bridging-Header.h */,
 			);
@@ -119,6 +139,7 @@
 		18ED380B1A200B8B005BA3CE /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				18E157871A67507E00DFEFFF /* BLE */,
 				18ED380C1A200B8B005BA3CE /* Info.plist */,
 			);
 			name = "Supporting Files";
@@ -243,10 +264,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				18ED38131A200B8B005BA3CE /* ViewController.swift in Sources */,
+				18E157971A68A52600DFEFFF /* DeviceTableViewController.swift in Sources */,
 				188074EE1A38FA6C0039725B /* CameraViewController.swift in Sources */,
 				188074E61A38F4A60039725B /* CameraSession.mm in Sources */,
+				18E1578B1A67507E00DFEFFF /* BLE.m in Sources */,
 				18ED38111A200B8B005BA3CE /* LAMB2.xcdatamodeld in Sources */,
 				18ED380E1A200B8B005BA3CE /* AppDelegate.swift in Sources */,
+				18E1578D1A67510900DFEFFF /* DeviceConnector.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
