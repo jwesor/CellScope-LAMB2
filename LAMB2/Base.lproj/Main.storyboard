@@ -4,6 +4,7 @@
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6244"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
         <!--View Controller-->
@@ -51,7 +52,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5hf-IU-McK">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5hf-IU-McK" customClass="DeviceStatusButton" customModule="LAMB2" customModuleProvider="target">
                                 <rect key="frame" x="283" y="570" width="35" height="30"/>
                                 <state key="normal" title="Scan">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -79,6 +80,7 @@
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="deviceButton" destination="5hf-IU-McK" id="psK-DC-hpv"/>
                         <outlet property="preview" destination="smI-IQ-MW9" id="dAK-0A-Xpz"/>
                     </connections>
                 </viewController>
@@ -99,6 +101,28 @@
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="UOy-Dg-Krv" id="JrO-lW-KF1">
                                     <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <button opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="QTK-wy-cUJ" customClass="DeviceStatusButton" customModule="LAMB2" customModuleProvider="target">
+                                            <rect key="frame" x="8" y="7" width="584" height="30"/>
+                                            <state key="normal" title="Button">
+                                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                            </state>
+                                            <connections>
+                                                <action selector="onDeviceButtonPressed:" destination="V60-s5-4WI" eventType="touchUpInside" id="3a5-d6-0uf"/>
+                                            </connections>
+                                        </button>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstAttribute="centerX" secondItem="QTK-wy-cUJ" secondAttribute="centerX" constant="269" id="HNa-on-DGe"/>
+                                        <constraint firstItem="QTK-wy-cUJ" firstAttribute="top" secondItem="JrO-lW-KF1" secondAttribute="topMargin" constant="-1" id="HcL-br-yK8"/>
+                                        <constraint firstItem="QTK-wy-cUJ" firstAttribute="leading" secondItem="JrO-lW-KF1" secondAttribute="leadingMargin" id="sLD-1Q-Vn2"/>
+                                        <constraint firstItem="QTK-wy-cUJ" firstAttribute="trailing" secondItem="JrO-lW-KF1" secondAttribute="trailingMargin" id="uat-yS-zLC"/>
+                                    </constraints>
+                                    <variation key="default">
+                                        <mask key="constraints">
+                                            <exclude reference="HNa-on-DGe"/>
+                                        </mask>
+                                    </variation>
                                 </tableViewCellContentView>
                             </tableViewCell>
                         </prototypes>
@@ -110,7 +134,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="OFn-0Q-v7o" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1004" y="1111"/>
+            <point key="canvasLocation" x="1004" y="1085"/>
         </scene>
     </scenes>
 </document>

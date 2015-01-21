@@ -10,6 +10,7 @@ import UIKit
 
 class CameraViewController: UIViewController {
     
+    @IBOutlet weak var deviceButton: DeviceStatusButton!
     @IBOutlet weak var preview: UIImageView!
     var session:CameraSession?
     var device:DeviceConnector?
@@ -19,6 +20,8 @@ class CameraViewController: UIViewController {
         session = CameraSession.initWithPreview(preview)
         session?.startCameraSession()
         device = DeviceConnector()
+        device?.addDelegate(deviceButton)
+        deviceButton.updateDeviceStatusDisconnected()
     }
     
     override func didReceiveMemoryWarning() {

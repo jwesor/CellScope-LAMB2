@@ -16,6 +16,7 @@
 		18E1578B1A67507E00DFEFFF /* BLE.m in Sources */ = {isa = PBXBuildFile; fileRef = 18E157891A67507E00DFEFFF /* BLE.m */; };
 		18E1578D1A67510900DFEFFF /* DeviceConnector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18E1578C1A67510900DFEFFF /* DeviceConnector.swift */; };
 		18E157971A68A52600DFEFFF /* DeviceTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18E157961A68A52600DFEFFF /* DeviceTableViewController.swift */; };
+		18E157A11A70290300DFEFFF /* DeviceStatusButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18E157A01A70290300DFEFFF /* DeviceStatusButton.swift */; };
 		18ED380E1A200B8B005BA3CE /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18ED380D1A200B8B005BA3CE /* AppDelegate.swift */; };
 		18ED38111A200B8B005BA3CE /* LAMB2.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 18ED380F1A200B8B005BA3CE /* LAMB2.xcdatamodeld */; };
 		18ED38131A200B8B005BA3CE /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18ED38121A200B8B005BA3CE /* ViewController.swift */; };
@@ -49,6 +50,7 @@
 		18E1578A1A67507E00DFEFFF /* BLEDefines.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BLEDefines.h; sourceTree = "<group>"; };
 		18E1578C1A67510900DFEFFF /* DeviceConnector.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeviceConnector.swift; sourceTree = "<group>"; };
 		18E157961A68A52600DFEFFF /* DeviceTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeviceTableViewController.swift; sourceTree = "<group>"; };
+		18E157A01A70290300DFEFFF /* DeviceStatusButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeviceStatusButton.swift; sourceTree = "<group>"; };
 		18ED38081A200B8B005BA3CE /* LAMB2.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LAMB2.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		18ED380C1A200B8B005BA3CE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		18ED380D1A200B8B005BA3CE /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -129,6 +131,7 @@
 				188074E41A38F4A60039725B /* CameraSession.h */,
 				188074E51A38F4A60039725B /* CameraSession.mm */,
 				18E1578C1A67510900DFEFFF /* DeviceConnector.swift */,
+				18E157A01A70290300DFEFFF /* DeviceStatusButton.swift */,
 				18E157961A68A52600DFEFFF /* DeviceTableViewController.swift */,
 				188074ED1A38FA6C0039725B /* CameraViewController.swift */,
 				184D8DFE1A205AC600105FDA /* LAMB2-Bridging-Header.h */,
@@ -264,6 +267,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				18ED38131A200B8B005BA3CE /* ViewController.swift in Sources */,
+				18E157A11A70290300DFEFFF /* DeviceStatusButton.swift in Sources */,
 				18E157971A68A52600DFEFFF /* DeviceTableViewController.swift in Sources */,
 				188074EE1A38FA6C0039725B /* CameraViewController.swift in Sources */,
 				188074E61A38F4A60039725B /* CameraSession.mm in Sources */,
