@@ -25,7 +25,7 @@
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
-                                    <segue destination="IVN-5g-NjA" kind="show" id="hC3-i4-nNV"/>
+                                    <segue destination="IVN-5g-NjA" kind="show" identifier="launchCameraSession" id="hC3-i4-nNV"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -63,25 +63,26 @@
                                     </segue>
                                 </connections>
                             </button>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="smI-IQ-MW9">
-                                <rect key="frame" x="147" y="20" width="307" height="544"/>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dIM-hT-lXZ">
+                                <rect key="frame" x="154" y="38" width="294" height="524"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" secondItem="smI-IQ-MW9" secondAttribute="height" multiplier="9:16" constant="1" id="lOk-Xr-HfI"/>
+                                    <constraint firstAttribute="width" secondItem="dIM-hT-lXZ" secondAttribute="height" multiplier="9:16" id="Cwq-Ni-Zm7"/>
                                 </constraints>
-                            </imageView>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstItem="dIM-hT-lXZ" firstAttribute="centerX" secondItem="5hf-IU-McK" secondAttribute="centerX" id="5dg-pD-gQc"/>
                             <constraint firstAttribute="centerX" secondItem="5hf-IU-McK" secondAttribute="centerX" id="Dwo-EW-V81"/>
-                            <constraint firstItem="5hf-IU-McK" firstAttribute="top" secondItem="smI-IQ-MW9" secondAttribute="bottom" constant="6" id="KyM-L3-dOX"/>
-                            <constraint firstItem="smI-IQ-MW9" firstAttribute="centerX" secondItem="5hf-IU-McK" secondAttribute="centerX" id="LLA-vG-OEN"/>
-                            <constraint firstItem="smI-IQ-MW9" firstAttribute="centerY" secondItem="z5F-gW-cCO" secondAttribute="centerY" constant="-8" id="TYe-ec-R7g"/>
+                            <constraint firstAttribute="centerY" secondItem="dIM-hT-lXZ" secondAttribute="centerY" id="Hck-6t-BGW"/>
+                            <constraint firstItem="5hf-IU-McK" firstAttribute="top" secondItem="dIM-hT-lXZ" secondAttribute="bottom" constant="8" id="WJO-ro-lKa"/>
                             <constraint firstItem="0ah-ec-OzF" firstAttribute="top" secondItem="5hf-IU-McK" secondAttribute="bottom" id="hWL-jc-DGT"/>
                         </constraints>
                     </view>
                     <connections>
                         <outlet property="deviceButton" destination="5hf-IU-McK" id="psK-DC-hpv"/>
-                        <outlet property="preview" destination="smI-IQ-MW9" id="dAK-0A-Xpz"/>
+                        <outlet property="preview" destination="dIM-hT-lXZ" id="0vy-cZ-G57"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="sjn-Yh-8gb" userLabel="First Responder" sceneMemberID="firstResponder"/>

@@ -10,8 +10,8 @@ import UIKit
 
 class CameraViewController: UIViewController {
     
+    @IBOutlet weak var preview: UIView!
     @IBOutlet weak var deviceButton: DeviceStatusButton!
-    @IBOutlet weak var preview: UIImageView!
     var session: CameraSession?
     var device: DeviceConnector?
     var touch: TouchStagePan?

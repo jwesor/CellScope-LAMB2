@@ -11,13 +11,14 @@
 #import <opencv2/opencv.hpp>
 #endif
 #import <opencv2/highgui/cap_ios.h>
+#import "FixedCvCamera.h"
 
 @interface CameraSession : NSObject <CvVideoCameraDelegate> {
   CvVideoCamera* _videoCamera;
 }
 @property (nonatomic, retain) CvVideoCamera* videoCamera;
 
-+ (CameraSession *) initWithPreview: (UIImageView*) preview;
++ (CameraSession *) initWithPreview: (UIView*) view;
 
 - (void) startCameraSession;
 
