@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		180F870A1A7057620001CD3C /* TouchStagePan.swift in Sources */ = {isa = PBXBuildFile; fileRef = 180F87091A7057620001CD3C /* TouchStagePan.swift */; };
 		188074E31A38F43A0039725B /* opencv2.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 188074E21A38F43A0039725B /* opencv2.framework */; };
 		188074E61A38F4A60039725B /* CameraSession.mm in Sources */ = {isa = PBXBuildFile; fileRef = 188074E51A38F4A60039725B /* CameraSession.mm */; };
 		188074E81A38F7210039725B /* CoreVideo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 188074E71A38F7210039725B /* CoreVideo.framework */; };
@@ -37,6 +38,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		180F87091A7057620001CD3C /* TouchStagePan.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TouchStagePan.swift; sourceTree = "<group>"; };
 		184D8DFE1A205AC600105FDA /* LAMB2-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "LAMB2-Bridging-Header.h"; sourceTree = "<group>"; };
 		188074E21A38F43A0039725B /* opencv2.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = opencv2.framework; sourceTree = "<group>"; };
 		188074E41A38F4A60039725B /* CameraSession.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CameraSession.h; sourceTree = "<group>"; };
@@ -134,6 +136,7 @@
 				18E157A01A70290300DFEFFF /* DeviceStatusButton.swift */,
 				18E157961A68A52600DFEFFF /* DeviceTableViewController.swift */,
 				188074ED1A38FA6C0039725B /* CameraViewController.swift */,
+				180F87091A7057620001CD3C /* TouchStagePan.swift */,
 				184D8DFE1A205AC600105FDA /* LAMB2-Bridging-Header.h */,
 			);
 			path = LAMB2;
@@ -272,6 +275,7 @@
 				188074EE1A38FA6C0039725B /* CameraViewController.swift in Sources */,
 				188074E61A38F4A60039725B /* CameraSession.mm in Sources */,
 				18E1578B1A67507E00DFEFFF /* BLE.m in Sources */,
+				180F870A1A7057620001CD3C /* TouchStagePan.swift in Sources */,
 				18ED38111A200B8B005BA3CE /* LAMB2.xcdatamodeld in Sources */,
 				18ED380E1A200B8B005BA3CE /* AppDelegate.swift in Sources */,
 				18E1578D1A67510900DFEFFF /* DeviceConnector.swift in Sources */,

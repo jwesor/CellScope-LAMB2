@@ -12,8 +12,9 @@ class CameraViewController: UIViewController {
     
     @IBOutlet weak var deviceButton: DeviceStatusButton!
     @IBOutlet weak var preview: UIImageView!
-    var session:CameraSession?
-    var device:DeviceConnector?
+    var session: CameraSession?
+    var device: DeviceConnector?
+    var touch: TouchStagePan?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -22,6 +23,7 @@ class CameraViewController: UIViewController {
         device = DeviceConnector()
         device?.addDelegate(deviceButton)
         deviceButton.updateDeviceStatusDisconnected()
+        touch = TouchStagePan(view: preview, device: device!)
     }
     
     override func didReceiveMemoryWarning() {
@@ -37,7 +39,5 @@ class CameraViewController: UIViewController {
         }
     }
     
-//    @IBAction func onScanButtonClick(sender: AnyObject) {
-//        device?.scanForPeripherals()
-//    }
+
 }
