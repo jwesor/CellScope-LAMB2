@@ -10,14 +10,14 @@
 using namespace cv;
 
 @interface CameraSession()
-
+- (void) addImageProcessor: (ImageProcessor *) imgproc;
 @end
 
 @implementation CameraSession
 
 
 + (CameraSession *) initWithPreview:(UIView *)view {
-    CameraSession* session = [[CameraSession alloc] init];
+    CameraSession *session = [[CameraSession alloc] init];
     
     UIImageView *preview = [[UIImageView alloc] initWithFrame:view.bounds];
     
@@ -29,18 +29,22 @@ using namespace cv;
     session.videoCamera.defaultFPS = 30;
     session.videoCamera.grayscaleMode = NO;
     session.videoCamera.delegate = session;
-    
     [view addSubview:preview];
-
+    
     return session;
 }
 
+- (id) init {
+    processors = [[NSMutableArray alloc] init];
+    return self;
+}
 
-- (void)startCameraSession {
+
+- (void) startCameraSession {
     [self.videoCamera start];
 }
 
-- (float)getAspectRatio {
+- (float) getAspectRatio {
     if (self.videoCamera.defaultAVCaptureSessionPreset == AVCaptureSessionPreset1920x1080) {
         return 1920.0 / 1080.0;
     } else if (self.videoCamera.defaultAVCaptureSessionPreset == AVCaptureSessionPreset1280x720) {
@@ -50,21 +54,26 @@ using namespace cv;
     }
 }
 
+- (void) addImageProcessor: (ImageProcessor*) imgproc {
+    [processors addObject:imgproc];
+}
+
 #pragma mark - Protocol CvVideoCameraDelegate
 
 - (void)processImage:(Mat&)image {
     // Do some OpenCV stuff with the image
-    Mat image_copy;
-    cvtColor(image, image_copy, COLOR_BGR2GRAY);
     
-    // invert image
-    bitwise_not(image_copy, image);
+    for (ImageProcessor *imgproc in processors) {
+        if (imgproc.enabled) {
+            [imgproc processImage:image];
+        }
+    }
     
-    //Convert BGR to BGRA (three channel to four channel)
-    /*Mat bgr;
-    cvtColor(image_copy, bgr, COLOR_GRAY2BGR);
-    
-    cvtColor(bgr, image, COLOR_BGR2BGRA);*/
+    for (ImageProcessor *imgproc in processors) {
+        if (imgproc.enabled) {
+            [imgproc updateDisplayOverlay:image];
+        }
+    }
 }
 
 

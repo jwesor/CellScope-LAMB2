@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		180F870A1A7057620001CD3C /* TouchStagePan.swift in Sources */ = {isa = PBXBuildFile; fileRef = 180F87091A7057620001CD3C /* TouchStagePan.swift */; };
 		180F870D1A79692B0001CD3C /* FixedCvCamera.m in Sources */ = {isa = PBXBuildFile; fileRef = 180F870C1A79692B0001CD3C /* FixedCvCamera.m */; };
+		180F87171A7C67D90001CD3C /* IPColorInverter.mm in Sources */ = {isa = PBXBuildFile; fileRef = 180F87161A7C67D90001CD3C /* IPColorInverter.mm */; };
+		180F87191A7C6DD30001CD3C /* ImageProcessor.mm in Sources */ = {isa = PBXBuildFile; fileRef = 180F87181A7C6DD30001CD3C /* ImageProcessor.mm */; };
 		188074E31A38F43A0039725B /* opencv2.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 188074E21A38F43A0039725B /* opencv2.framework */; };
 		188074E61A38F4A60039725B /* CameraSession.mm in Sources */ = {isa = PBXBuildFile; fileRef = 188074E51A38F4A60039725B /* CameraSession.mm */; };
 		188074E81A38F7210039725B /* CoreVideo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 188074E71A38F7210039725B /* CoreVideo.framework */; };
@@ -42,6 +44,10 @@
 		180F87091A7057620001CD3C /* TouchStagePan.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TouchStagePan.swift; sourceTree = "<group>"; };
 		180F870B1A79692B0001CD3C /* FixedCvCamera.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FixedCvCamera.h; sourceTree = "<group>"; };
 		180F870C1A79692B0001CD3C /* FixedCvCamera.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FixedCvCamera.m; sourceTree = "<group>"; };
+		180F87141A7C666E0001CD3C /* ImageProcessor.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ImageProcessor.h; sourceTree = "<group>"; };
+		180F87151A7C67D90001CD3C /* IPColorInverter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IPColorInverter.h; sourceTree = "<group>"; };
+		180F87161A7C67D90001CD3C /* IPColorInverter.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = IPColorInverter.mm; sourceTree = "<group>"; };
+		180F87181A7C6DD30001CD3C /* ImageProcessor.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = ImageProcessor.mm; sourceTree = "<group>"; };
 		184D8DFE1A205AC600105FDA /* LAMB2-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "LAMB2-Bridging-Header.h"; sourceTree = "<group>"; };
 		188074E21A38F43A0039725B /* opencv2.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = opencv2.framework; sourceTree = "<group>"; };
 		188074E41A38F4A60039725B /* CameraSession.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CameraSession.h; sourceTree = "<group>"; };
@@ -91,6 +97,38 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		180F871A1A7C72F50001CD3C /* ImageProcessing */ = {
+			isa = PBXGroup;
+			children = (
+				180F87151A7C67D90001CD3C /* IPColorInverter.h */,
+				180F87161A7C67D90001CD3C /* IPColorInverter.mm */,
+				180F87141A7C666E0001CD3C /* ImageProcessor.h */,
+				180F87181A7C6DD30001CD3C /* ImageProcessor.mm */,
+			);
+			name = ImageProcessing;
+			sourceTree = "<group>";
+		};
+		180F871B1A7C730F0001CD3C /* Camera */ = {
+			isa = PBXGroup;
+			children = (
+				188074E41A38F4A60039725B /* CameraSession.h */,
+				188074E51A38F4A60039725B /* CameraSession.mm */,
+				180F870B1A79692B0001CD3C /* FixedCvCamera.h */,
+				180F870C1A79692B0001CD3C /* FixedCvCamera.m */,
+			);
+			name = Camera;
+			sourceTree = "<group>";
+		};
+		180F871C1A7C73340001CD3C /* Device */ = {
+			isa = PBXGroup;
+			children = (
+				18E1578C1A67510900DFEFFF /* DeviceConnector.swift */,
+				18E157A01A70290300DFEFFF /* DeviceStatusButton.swift */,
+				18E157961A68A52600DFEFFF /* DeviceTableViewController.swift */,
+			);
+			name = Device;
+			sourceTree = "<group>";
+		};
 		18E157871A67507E00DFEFFF /* BLE */ = {
 			isa = PBXGroup;
 			children = (
@@ -127,22 +165,18 @@
 			isa = PBXGroup;
 			children = (
 				18ED380D1A200B8B005BA3CE /* AppDelegate.swift */,
-				18ED38121A200B8B005BA3CE /* ViewController.swift */,
 				18ED38141A200B8B005BA3CE /* Main.storyboard */,
 				18ED38171A200B8B005BA3CE /* Images.xcassets */,
 				18ED38191A200B8B005BA3CE /* LaunchScreen.xib */,
 				18ED380F1A200B8B005BA3CE /* LAMB2.xcdatamodeld */,
+				184D8DFE1A205AC600105FDA /* LAMB2-Bridging-Header.h */,
 				18ED380B1A200B8B005BA3CE /* Supporting Files */,
-				188074E41A38F4A60039725B /* CameraSession.h */,
-				188074E51A38F4A60039725B /* CameraSession.mm */,
-				180F870B1A79692B0001CD3C /* FixedCvCamera.h */,
-				180F870C1A79692B0001CD3C /* FixedCvCamera.m */,
-				18E1578C1A67510900DFEFFF /* DeviceConnector.swift */,
-				18E157A01A70290300DFEFFF /* DeviceStatusButton.swift */,
-				18E157961A68A52600DFEFFF /* DeviceTableViewController.swift */,
+				180F871A1A7C72F50001CD3C /* ImageProcessing */,
+				180F871B1A7C730F0001CD3C /* Camera */,
+				180F871C1A7C73340001CD3C /* Device */,
 				188074ED1A38FA6C0039725B /* CameraViewController.swift */,
 				180F87091A7057620001CD3C /* TouchStagePan.swift */,
-				184D8DFE1A205AC600105FDA /* LAMB2-Bridging-Header.h */,
+				18ED38121A200B8B005BA3CE /* ViewController.swift */,
 			);
 			path = LAMB2;
 			sourceTree = "<group>";
@@ -274,6 +308,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				180F87191A7C6DD30001CD3C /* ImageProcessor.mm in Sources */,
 				18ED38131A200B8B005BA3CE /* ViewController.swift in Sources */,
 				18E157A11A70290300DFEFFF /* DeviceStatusButton.swift in Sources */,
 				18E157971A68A52600DFEFFF /* DeviceTableViewController.swift in Sources */,
@@ -285,6 +320,7 @@
 				18ED38111A200B8B005BA3CE /* LAMB2.xcdatamodeld in Sources */,
 				18ED380E1A200B8B005BA3CE /* AppDelegate.swift in Sources */,
 				18E1578D1A67510900DFEFFF /* DeviceConnector.swift in Sources */,
+				180F87171A7C67D90001CD3C /* IPColorInverter.mm in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -24,6 +24,9 @@ class CameraViewController: UIViewController {
         device?.addDelegate(deviceButton)
         deviceButton.updateDeviceStatusDisconnected()
         touch = TouchStagePan(view: preview, device: device!)
+        
+        let grayscale = IPColorInverter()
+        session?.addImageProcessor(grayscale)
     }
     
     override func didReceiveMemoryWarning() {
