@@ -16,6 +16,9 @@ using namespace cv;
     cv::Rect tracked;
     Mat templateRegion;
     Mat newTemplateRegion;
+    Mat currentImage;
+    NSOperation *operation;
+    NSOperationQueue *opQueue;
 }
 @end
 
@@ -27,19 +30,33 @@ using namespace cv;
     roi = cv::Rect(0, 0, 200, 200);
     tracked = cv::Rect(0, 0, 200, 200);
     templateRegion = Mat(roi.height, roi.width, CV_8UC1);
-    //trackedRegion = Mat(roi.height, roi.width, CV_32FC1);
     newTemplateRegion = Mat(roi.height, roi.width, CV_8UC1);
+    opQueue = [[NSOperationQueue alloc] init];
+    [opQueue setMaxConcurrentOperationCount:1];
     return self;
 }
 
 - (void) processImage:(Mat &)image {
-    cropped.x = (image.cols - cropped.width) / 2;
-    cropped.y = (image.rows - cropped.height) / 2;
-    roi.x = (image.cols - roi.width) / 2;
-    roi.y = (image.rows - roi.height) / 2;
+    if (operation == nil || operation.isFinished) {
+        currentImage = image.clone();
+        operation = [NSBlockOperation blockOperationWithBlock:
+                      ^{
+                          [self executeCrossCorrelation];
+                      }
+                      ];
+        [opQueue addOperation:operation];
+    }
+    
+}
+
+- (void) executeCrossCorrelation {
+    cropped.x = (currentImage.cols - cropped.width) / 2;
+    cropped.y = (currentImage.rows - cropped.height) / 2;
+    roi.x = (currentImage.cols - roi.width) / 2;
+    roi.y = (currentImage.rows - roi.height) / 2;
     
     vector<Mat> channels(3);
-    split(image, channels);
+    split(currentImage, channels);
     
     Mat(channels[0], roi).copyTo(newTemplateRegion);
     
