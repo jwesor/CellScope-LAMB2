@@ -4,3 +4,4 @@
 #import "CameraSession.h"
 #import "BLE/BLE.h"
 #import "IPColorInverter.h"
+#import "IPPanTracker.h"

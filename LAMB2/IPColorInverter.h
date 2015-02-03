@@ -6,7 +6,6 @@
 //  Copyright (c) 2015 Fletchlab. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
 #import "ImageProcessor.h"
 
 @interface IPColorInverter : ImageProcessor

@@ -11,6 +11,7 @@
 		180F870D1A79692B0001CD3C /* FixedCvCamera.m in Sources */ = {isa = PBXBuildFile; fileRef = 180F870C1A79692B0001CD3C /* FixedCvCamera.m */; };
 		180F87171A7C67D90001CD3C /* IPColorInverter.mm in Sources */ = {isa = PBXBuildFile; fileRef = 180F87161A7C67D90001CD3C /* IPColorInverter.mm */; };
 		180F87191A7C6DD30001CD3C /* ImageProcessor.mm in Sources */ = {isa = PBXBuildFile; fileRef = 180F87181A7C6DD30001CD3C /* ImageProcessor.mm */; };
+		180F871F1A7FFEB50001CD3C /* IPPanTracker.mm in Sources */ = {isa = PBXBuildFile; fileRef = 180F871E1A7FFEB50001CD3C /* IPPanTracker.mm */; };
 		188074E31A38F43A0039725B /* opencv2.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 188074E21A38F43A0039725B /* opencv2.framework */; };
 		188074E61A38F4A60039725B /* CameraSession.mm in Sources */ = {isa = PBXBuildFile; fileRef = 188074E51A38F4A60039725B /* CameraSession.mm */; };
 		188074E81A38F7210039725B /* CoreVideo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 188074E71A38F7210039725B /* CoreVideo.framework */; };
@@ -48,6 +49,8 @@
 		180F87151A7C67D90001CD3C /* IPColorInverter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IPColorInverter.h; sourceTree = "<group>"; };
 		180F87161A7C67D90001CD3C /* IPColorInverter.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = IPColorInverter.mm; sourceTree = "<group>"; };
 		180F87181A7C6DD30001CD3C /* ImageProcessor.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = ImageProcessor.mm; sourceTree = "<group>"; };
+		180F871D1A7FFEB50001CD3C /* IPPanTracker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IPPanTracker.h; sourceTree = "<group>"; };
+		180F871E1A7FFEB50001CD3C /* IPPanTracker.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = IPPanTracker.mm; sourceTree = "<group>"; };
 		184D8DFE1A205AC600105FDA /* LAMB2-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "LAMB2-Bridging-Header.h"; sourceTree = "<group>"; };
 		188074E21A38F43A0039725B /* opencv2.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = opencv2.framework; sourceTree = "<group>"; };
 		188074E41A38F4A60039725B /* CameraSession.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CameraSession.h; sourceTree = "<group>"; };
@@ -100,10 +103,12 @@
 		180F871A1A7C72F50001CD3C /* ImageProcessing */ = {
 			isa = PBXGroup;
 			children = (
-				180F87151A7C67D90001CD3C /* IPColorInverter.h */,
-				180F87161A7C67D90001CD3C /* IPColorInverter.mm */,
 				180F87141A7C666E0001CD3C /* ImageProcessor.h */,
 				180F87181A7C6DD30001CD3C /* ImageProcessor.mm */,
+				180F87151A7C67D90001CD3C /* IPColorInverter.h */,
+				180F87161A7C67D90001CD3C /* IPColorInverter.mm */,
+				180F871D1A7FFEB50001CD3C /* IPPanTracker.h */,
+				180F871E1A7FFEB50001CD3C /* IPPanTracker.mm */,
 			);
 			name = ImageProcessing;
 			sourceTree = "<group>";
@@ -315,6 +320,7 @@
 				180F870D1A79692B0001CD3C /* FixedCvCamera.m in Sources */,
 				188074EE1A38FA6C0039725B /* CameraViewController.swift in Sources */,
 				188074E61A38F4A60039725B /* CameraSession.mm in Sources */,
+				180F871F1A7FFEB50001CD3C /* IPPanTracker.mm in Sources */,
 				18E1578B1A67507E00DFEFFF /* BLE.m in Sources */,
 				180F870A1A7057620001CD3C /* TouchStagePan.swift in Sources */,
 				18ED38111A200B8B005BA3CE /* LAMB2.xcdatamodeld in Sources */,

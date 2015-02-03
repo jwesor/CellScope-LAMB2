@@ -22,8 +22,6 @@ using namespace cv;
 }
 
 - (void) updateDisplayOverlay:(Mat &)image {
-    Scalar color = Scalar(0, 255, 0, 255);
-    circle(image, cv::Point(image.cols / 2, image.rows / 2), 100, color, 5);
 }
 
 @end
