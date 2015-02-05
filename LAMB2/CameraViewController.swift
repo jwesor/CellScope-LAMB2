@@ -21,7 +21,7 @@ class CameraViewController: UIViewController {
         session = CameraSession.initWithPreview(preview)
         session?.startCameraSession()
         device = DeviceConnector()
-        device?.addDelegate(deviceButton)
+        device?.addStatusDelegate(deviceButton)
         deviceButton.updateDeviceStatusDisconnected()
         touch = TouchStagePan(view: preview, device: device!)
         
@@ -40,6 +40,16 @@ class CameraViewController: UIViewController {
             var table = segue.destinationViewController as DeviceTableViewController
             table.device = device
         }
+    }
+    
+    @IBAction func test(sender: AnyObject) {
+        var seq = ActionSequencer()
+        seq.addAction(DeviceAction(dc: device!, id: "a", data: [0x04, 0x0, 0x0]))
+        seq.addAction(DeviceAction(dc: device!, id: "b", data: [0x14, 0x0, 0x0]))
+        seq.addAction(DeviceAction(dc: device!, id: "c", data: [0x04, 0x0, 0x0]))
+        seq.addAction(DeviceAction(dc: device!, id: "d", data: [0x14, 0x0, 0x0]))
+        seq.addAction(DeviceAction(dc: device!, id: "e", data: [0x04, 0x0, 0x0]))
+        seq.executeSequence()
     }
     
 

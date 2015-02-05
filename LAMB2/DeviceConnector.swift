@@ -17,6 +17,7 @@ class DeviceConnector: BLEDelegate {
     var scanTimer: NSTimer?
     var scanning: Bool
     var statusDelegates: [DeviceStatusDelegate]
+    var dataDelegates: [String: DeviceDataDelegate]
     
     init() {
         connected = false
@@ -24,6 +25,7 @@ class DeviceConnector: BLEDelegate {
         ble = BLE()
         ble.controlSetup()
         statusDelegates = []
+        dataDelegates = Dictionary<String, DeviceDataDelegate>()
         ble.delegate = self
     }
     
@@ -106,7 +108,10 @@ class DeviceConnector: BLEDelegate {
     }
     
     func bleDidReceiveData(data: UnsafeMutablePointer<UInt8>, length: Int32) {
-        
+        let result:UInt8 = data.memory
+        for (id, delegate) in dataDelegates {
+            delegate.deviceDidReceiveData(result)
+        }
     }
     
     func bleSendData(buf: [Byte]) {
@@ -134,8 +139,16 @@ class DeviceConnector: BLEDelegate {
         }
     }
     
-    func addDelegate(delegate: DeviceStatusDelegate) {
+    func addStatusDelegate(delegate: DeviceStatusDelegate) {
         statusDelegates.append(delegate)
+    }
+    
+    func addDataDelegate(delegate: DeviceDataDelegate, id: String) {
+        dataDelegates[id] = delegate
+    }
+    
+    func removeDataDelegate(delegate: DeviceDataDelegate, id: String) {
+        dataDelegates[id] = nil
     }
 }
 
@@ -144,4 +157,8 @@ protocol DeviceStatusDelegate {
     func updateDeviceStatusDisconnected()
     func updateDeviceStatusConnecting(peripheral: CBPeripheral)
     func updateDeviceStatusConnected(peripheral: CBPeripheral)
+}
+
+protocol DeviceDataDelegate {
+    func deviceDidReceiveData(data:UInt8)
 }

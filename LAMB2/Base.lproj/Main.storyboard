@@ -70,14 +70,25 @@
                                     <constraint firstAttribute="width" secondItem="dIM-hT-lXZ" secondAttribute="height" multiplier="9:16" id="Cwq-Ni-Zm7"/>
                                 </constraints>
                             </view>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lXu-ti-R15">
+                                <rect key="frame" x="16" y="20" width="101" height="30"/>
+                                <state key="normal" title="Test Sequence">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="test:" destination="IVN-5g-NjA" eventType="touchDown" id="cxn-vx-4HO"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="dIM-hT-lXZ" firstAttribute="centerX" secondItem="5hf-IU-McK" secondAttribute="centerX" id="5dg-pD-gQc"/>
                             <constraint firstAttribute="centerX" secondItem="5hf-IU-McK" secondAttribute="centerX" id="Dwo-EW-V81"/>
                             <constraint firstAttribute="centerY" secondItem="dIM-hT-lXZ" secondAttribute="centerY" id="Hck-6t-BGW"/>
+                            <constraint firstItem="lXu-ti-R15" firstAttribute="leading" secondItem="z5F-gW-cCO" secondAttribute="leadingMargin" id="PTc-uE-jaW"/>
                             <constraint firstItem="5hf-IU-McK" firstAttribute="top" secondItem="dIM-hT-lXZ" secondAttribute="bottom" constant="8" id="WJO-ro-lKa"/>
                             <constraint firstItem="0ah-ec-OzF" firstAttribute="top" secondItem="5hf-IU-McK" secondAttribute="bottom" id="hWL-jc-DGT"/>
+                            <constraint firstItem="lXu-ti-R15" firstAttribute="top" secondItem="MCh-9S-kWx" secondAttribute="bottom" id="jAs-En-PBa"/>
                         </constraints>
                     </view>
                     <connections>
