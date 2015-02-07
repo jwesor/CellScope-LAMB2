@@ -15,6 +15,8 @@
 		180F87211A82F7530001CD3C /* ActionSequencer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 180F87201A82F7530001CD3C /* ActionSequencer.swift */; };
 		180F87241A82F7700001CD3C /* DeviceAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 180F87231A82F7700001CD3C /* DeviceAction.swift */; };
 		180F872A1A82F7C80001CD3C /* AbstractAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 180F87291A82F7C80001CD3C /* AbstractAction.swift */; };
+		180F87951A858FF20001CD3C /* SequenceAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 180F87941A858FF20001CD3C /* SequenceAction.swift */; };
+		180F879A1A8593C20001CD3C /* StageEngageStepAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 180F87991A8593C20001CD3C /* StageEngageStepAction.swift */; };
 		188074E31A38F43A0039725B /* opencv2.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 188074E21A38F43A0039725B /* opencv2.framework */; };
 		188074E61A38F4A60039725B /* CameraSession.mm in Sources */ = {isa = PBXBuildFile; fileRef = 188074E51A38F4A60039725B /* CameraSession.mm */; };
 		188074E81A38F7210039725B /* CoreVideo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 188074E71A38F7210039725B /* CoreVideo.framework */; };
@@ -57,6 +59,8 @@
 		180F87201A82F7530001CD3C /* ActionSequencer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActionSequencer.swift; sourceTree = "<group>"; };
 		180F87231A82F7700001CD3C /* DeviceAction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeviceAction.swift; sourceTree = "<group>"; };
 		180F87291A82F7C80001CD3C /* AbstractAction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AbstractAction.swift; sourceTree = "<group>"; };
+		180F87941A858FF20001CD3C /* SequenceAction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SequenceAction.swift; sourceTree = "<group>"; };
+		180F87991A8593C20001CD3C /* StageEngageStepAction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StageEngageStepAction.swift; sourceTree = "<group>"; };
 		184D8DFE1A205AC600105FDA /* LAMB2-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "LAMB2-Bridging-Header.h"; sourceTree = "<group>"; };
 		188074E21A38F43A0039725B /* opencv2.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = opencv2.framework; sourceTree = "<group>"; };
 		188074E41A38F4A60039725B /* CameraSession.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CameraSession.h; sourceTree = "<group>"; };
@@ -143,11 +147,21 @@
 		180F87221A82F75B0001CD3C /* Actions */ = {
 			isa = PBXGroup;
 			children = (
+				180F87981A85934B0001CD3C /* Stage */,
 				180F87201A82F7530001CD3C /* ActionSequencer.swift */,
 				180F87231A82F7700001CD3C /* DeviceAction.swift */,
+				180F87941A858FF20001CD3C /* SequenceAction.swift */,
 				180F87291A82F7C80001CD3C /* AbstractAction.swift */,
 			);
 			name = Actions;
+			sourceTree = "<group>";
+		};
+		180F87981A85934B0001CD3C /* Stage */ = {
+			isa = PBXGroup;
+			children = (
+				180F87991A8593C20001CD3C /* StageEngageStepAction.swift */,
+			);
+			name = Stage;
 			sourceTree = "<group>";
 		};
 		18E157871A67507E00DFEFFF /* BLE */ = {
@@ -196,9 +210,9 @@
 				180F871B1A7C730F0001CD3C /* Camera */,
 				180F871C1A7C73340001CD3C /* Device */,
 				180F87221A82F75B0001CD3C /* Actions */,
+				188074ED1A38FA6C0039725B /* CameraViewController.swift */,
 				180F87091A7057620001CD3C /* TouchStagePan.swift */,
 				18ED38121A200B8B005BA3CE /* ViewController.swift */,
-				188074ED1A38FA6C0039725B /* CameraViewController.swift */,
 			);
 			path = LAMB2;
 			sourceTree = "<group>";
@@ -342,8 +356,10 @@
 				180F870A1A7057620001CD3C /* TouchStagePan.swift in Sources */,
 				18ED38111A200B8B005BA3CE /* LAMB2.xcdatamodeld in Sources */,
 				180F87241A82F7700001CD3C /* DeviceAction.swift in Sources */,
+				180F87951A858FF20001CD3C /* SequenceAction.swift in Sources */,
 				18ED380E1A200B8B005BA3CE /* AppDelegate.swift in Sources */,
 				180F872A1A82F7C80001CD3C /* AbstractAction.swift in Sources */,
+				180F879A1A8593C20001CD3C /* StageEngageStepAction.swift in Sources */,
 				180F87211A82F7530001CD3C /* ActionSequencer.swift in Sources */,
 				18E1578D1A67510900DFEFFF /* DeviceConnector.swift in Sources */,
 				180F87171A7C67D90001CD3C /* IPColorInverter.mm in Sources */,

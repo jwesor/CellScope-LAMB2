@@ -12,9 +12,11 @@ class ActionSequencer {
     
     var actions:[AbstractAction]
     var running:Bool
+    var completionDelegates:[SequenceCompletionDelegate]
     
     init() {
         actions = []
+        completionDelegates = []
         running = false
     }
     
@@ -35,7 +37,21 @@ class ActionSequencer {
             action.run(sequencer: self)
         } else {
             running = false
+            for delegate in completionDelegates {
+                delegate.onActionSequenceComplete()
+            }
         }
     }
+    
+    func addCompletionDelegate(delegate: SequenceCompletionDelegate) {
+        completionDelegates.append(delegate)
+    }
+    
+}
+
+
+protocol SequenceCompletionDelegate {
+    
+    func onActionSequenceComplete()
     
 }

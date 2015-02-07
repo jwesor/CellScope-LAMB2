@@ -2,6 +2,9 @@
 //  DeviceAction.swift
 //  LAMB2
 //
+//  Action that sends data to a connected device and waits
+//  for a response.
+//
 //  Created by Fletcher Lab Mac Mini on 2/4/15.
 //  Copyright (c) 2015 Fletchlab. All rights reserved.
 //
@@ -31,7 +34,9 @@ class DeviceAction: AbstractAction, DeviceDataDelegate {
     }
     
     func deviceDidReceiveData(data:UInt8) {
-        sleep(1)
+        //sleep(1)
+        NSLog("received %d %@", data, id)
+        device.removeDataDelegate(id)
         finish()
     }
     

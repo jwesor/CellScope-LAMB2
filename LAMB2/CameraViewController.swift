@@ -43,13 +43,16 @@ class CameraViewController: UIViewController {
     }
     
     @IBAction func test(sender: AnyObject) {
-        var seq = ActionSequencer()
-        seq.addAction(DeviceAction(dc: device!, id: "a", data: [0x04, 0x0, 0x0]))
-        seq.addAction(DeviceAction(dc: device!, id: "b", data: [0x14, 0x0, 0x0]))
-        seq.addAction(DeviceAction(dc: device!, id: "c", data: [0x04, 0x0, 0x0]))
-        seq.addAction(DeviceAction(dc: device!, id: "d", data: [0x14, 0x0, 0x0]))
-        seq.addAction(DeviceAction(dc: device!, id: "e", data: [0x04, 0x0, 0x0]))
-        seq.executeSequence()
+        var sequence = ActionSequencer()
+//        var seq = SequenceAction()
+//        seq.addSubAction(DeviceAction(dc: device!, id: "a", data: [0x04, 0x0, 0x0]))
+//        seq.addSubAction(DeviceAction(dc: device!, id: "b", data: [0x14, 0x0, 0x0]))
+//        seq.addSubAction(DeviceAction(dc: device!, id: "c", data: [0x04, 0x0, 0x0]))
+//        seq.addSubAction(DeviceAction(dc: device!, id: "d", data: [0x14, 0x0, 0x0]))
+//        seq.addSubAction(DeviceAction(dc: device!, id: "e", data: [0x04, 0x0, 0x0]))
+//        sequence.addAction(seq)
+        sequence.addAction(StageEngageStepAction(dc: device!, motor: StageEngageStepAction.MOTOR_1, dir: StageEngageStepAction.DIR_HIGH, steps: 2500))
+        sequence.executeSequence()
     }
     
 

@@ -147,7 +147,7 @@ class DeviceConnector: BLEDelegate {
         dataDelegates[id] = delegate
     }
     
-    func removeDataDelegate(delegate: DeviceDataDelegate, id: String) {
+    func removeDataDelegate(id: String) {
         dataDelegates[id] = nil
     }
 }
