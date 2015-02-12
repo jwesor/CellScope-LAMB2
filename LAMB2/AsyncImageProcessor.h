@@ -13,7 +13,7 @@
 #endif
 
 
-@protocol AsyncImageProcessorDelegate <NSObject>
+@protocol AsyncImageProcessorDelegate
 
 - (void) onBeginImageProcess;
 - (void) onFinishImageProcess;
@@ -32,5 +32,7 @@
 - (void) processImageAsync: (cv::Mat&) currentImage;
 #endif
 - (void) addDelegate: (id <AsyncImageProcessorDelegate>) delegate;
+- (void) removeDelegate: (id <AsyncImageProcessorDelegate>) delegate;
+
 
 @end

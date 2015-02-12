@@ -17,6 +17,7 @@ class CameraViewController: UIViewController {
     var touch: TouchStagePan?
     var state:Bool = false
     var queue:NSOperationQueue?
+    var tracker:IPPanTracker?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -28,8 +29,8 @@ class CameraViewController: UIViewController {
         deviceButton.updateDeviceStatusDisconnected()
         touch = TouchStagePan(view: preview, device: device!)
         
-        let tracker = IPPanTracker()
-        tracker.queue = queue
+        tracker = IPPanTracker()
+        tracker?.queue = queue
         session?.addImageProcessor(tracker)
         
         session?.startCameraSession()
@@ -65,6 +66,7 @@ class CameraViewController: UIViewController {
 //        seq.addSubAction(DeviceAction(dc: device!, id: "e", data: [0x04, 0x0, 0x0]))
 //        sequence.addAction(seq)
         sequence.addAction(StageEngageStepAction(dc: device!, motor: StageEngageStepAction.MOTOR_1, dir: StageEngageStepAction.DIR_HIGH, steps: 2500))
+        sequence.addAction(ImageProcessorAction(processor: tracker!))
         sequence.addAction(StageEngageStepAction(dc: device!, motor: StageEngageStepAction.MOTOR_1, dir: StageEngageStepAction.DIR_LOW, steps: 2500))
         sequence.executeSequence()
     }

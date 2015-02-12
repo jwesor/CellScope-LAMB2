@@ -30,6 +30,10 @@ using namespace cv;
     [delegates addObject:delegate];
 }
 
+- (void) removeDelegate:(id <AsyncImageProcessorDelegate>)delegate {
+    [delegates removeObject:delegate];
+}
+
 - (void) processImage:(Mat &)image {
     if (!self.queue)
         return;

@@ -34,8 +34,6 @@ class DeviceAction: AbstractAction, DeviceDataDelegate {
     }
     
     func deviceDidReceiveData(data:UInt8) {
-        //sleep(1)
-        NSLog("received %d %@", data, id)
         device.removeDataDelegate(id)
         finish()
     }
