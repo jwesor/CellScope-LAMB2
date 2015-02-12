@@ -15,18 +15,25 @@ class CameraViewController: UIViewController {
     var session: CameraSession?
     var device: DeviceConnector?
     var touch: TouchStagePan?
+    var state:Bool = false
+    var queue:NSOperationQueue?
     
     override func viewDidLoad() {
         super.viewDidLoad()
         session = CameraSession.initWithPreview(preview)
-        session?.startCameraSession()
+        queue = NSOperationQueue()
+        
         device = DeviceConnector()
         device?.addStatusDelegate(deviceButton)
         deviceButton.updateDeviceStatusDisconnected()
         touch = TouchStagePan(view: preview, device: device!)
         
-        let tracker = IPPanTracker();
-        session?.addImageProcessor(tracker);
+        let tracker = IPPanTracker()
+        tracker.queue = queue
+        session?.addImageProcessor(tracker)
+        
+        session?.startCameraSession()
+        state = false
     }
     
     override func didReceiveMemoryWarning() {
@@ -44,6 +51,12 @@ class CameraViewController: UIViewController {
     
     @IBAction func test(sender: AnyObject) {
         var sequence = ActionSequencer()
+//        if (state) {
+//            sequence.addAction(DeviceAction(dc: device!, id: "en", data: [0x14, 0x0, 0x0]))
+//        } else {
+//            sequence.addAction(DeviceAction(dc: device!, id: "disen", data: [0x04, 0x0, 0x0]))
+//        }
+//        state = !state
 //        var seq = SequenceAction()
 //        seq.addSubAction(DeviceAction(dc: device!, id: "a", data: [0x04, 0x0, 0x0]))
 //        seq.addSubAction(DeviceAction(dc: device!, id: "b", data: [0x14, 0x0, 0x0]))
@@ -52,6 +65,7 @@ class CameraViewController: UIViewController {
 //        seq.addSubAction(DeviceAction(dc: device!, id: "e", data: [0x04, 0x0, 0x0]))
 //        sequence.addAction(seq)
         sequence.addAction(StageEngageStepAction(dc: device!, motor: StageEngageStepAction.MOTOR_1, dir: StageEngageStepAction.DIR_HIGH, steps: 2500))
+        sequence.addAction(StageEngageStepAction(dc: device!, motor: StageEngageStepAction.MOTOR_1, dir: StageEngageStepAction.DIR_LOW, steps: 2500))
         sequence.executeSequence()
     }
     

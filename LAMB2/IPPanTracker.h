@@ -6,8 +6,8 @@
 //  Copyright (c) 2015 Fletchlab. All rights reserved.
 //
 
-#import "ImageProcessor.h"
+#import "AsyncImageProcessor.h"
 
-@interface IPPanTracker : ImageProcessor
+@interface IPPanTracker : AsyncImageProcessor
 
 @end
