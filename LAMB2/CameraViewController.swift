@@ -18,6 +18,7 @@ class CameraViewController: UIViewController {
     var state:Bool = false
     var queue:NSOperationQueue?
     var tracker:IPPanTracker?
+    var sequence:ActionManager?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -31,10 +32,15 @@ class CameraViewController: UIViewController {
         
         tracker = IPPanTracker()
         tracker?.queue = queue
+        tracker?.defaultStandby = 20;
+        tracker?.enabled = false;
+        tracker?.framesToProcess = 10;
         session?.addImageProcessor(tracker)
         
         session?.startCameraSession()
         state = false
+        sequence = ActionQueue()
+        sequence!.beginActions()
     }
     
     override func didReceiveMemoryWarning() {
@@ -51,7 +57,6 @@ class CameraViewController: UIViewController {
     }
     
     @IBAction func test(sender: AnyObject) {
-        var sequence = ActionSequencer()
 //        if (state) {
 //            sequence.addAction(DeviceAction(dc: device!, id: "en", data: [0x14, 0x0, 0x0]))
 //        } else {
@@ -65,10 +70,11 @@ class CameraViewController: UIViewController {
 //        seq.addSubAction(DeviceAction(dc: device!, id: "d", data: [0x14, 0x0, 0x0]))
 //        seq.addSubAction(DeviceAction(dc: device!, id: "e", data: [0x04, 0x0, 0x0]))
 //        sequence.addAction(seq)
-        sequence.addAction(StageEngageStepAction(dc: device!, motor: StageEngageStepAction.MOTOR_1, dir: StageEngageStepAction.DIR_HIGH, steps: 2500))
-        sequence.addAction(ImageProcessorAction(processor: tracker!))
-        sequence.addAction(StageEngageStepAction(dc: device!, motor: StageEngageStepAction.MOTOR_1, dir: StageEngageStepAction.DIR_LOW, steps: 2500))
-        sequence.executeSequence()
+        sequence!.addAction(StageEngageStepAction(dc: device!, motor: StageEngageStepAction.MOTOR_1, dir: StageEngageStepAction.DIR_HIGH, steps: 2500))
+        sequence!.addAction(ImageProcessorAction(processor: tracker!))
+        sequence!.addAction(ImageProcessorAction(processor: tracker!))
+        sequence!.addAction(ImageProcessorAction(processor: tracker!))
+        sequence!.addAction(StageEngageStepAction(dc: device!, motor: StageEngageStepAction.MOTOR_1, dir: StageEngageStepAction.DIR_LOW, steps: 2500))
     }
     
 

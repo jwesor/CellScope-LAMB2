@@ -14,24 +14,27 @@ import Foundation
 
 class AbstractAction {
     
-    var seq:ActionSequencer?
     var running:Bool
+    var completionDelegates:[ActionCompletionDelegate]
     
     init() {
         running = false
+        completionDelegates = []
     }
     
-    final func run(sequencer: ActionSequencer? = nil) {
-        seq = sequencer
+    final func run(delegates: ActionCompletionDelegate...) {
+        completionDelegates += delegates
         doExecution()
         running = true
     }
     
     final func finish() {
         if running {
-            seq?.runNextAction()
+            for delegate in completionDelegates {
+                delegate.onActionCompleted()
+            }
+            completionDelegates = []
             running = false
-            seq = nil
         }
     }
     
@@ -39,4 +42,8 @@ class AbstractAction {
         finish()
     }
     
+}
+
+protocol ActionCompletionDelegate {
+    func onActionCompleted()
 }

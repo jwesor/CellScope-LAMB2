@@ -13,16 +13,22 @@ using namespace cv;
     NSOperation *operation;
     NSMutableArray *delegates;
     Mat currentImage;
+    int currentFrame;
 }
 @end
 
 @implementation AsyncImageProcessor
 
 @synthesize queue;
+@synthesize defaultStandby;
+@synthesize standby;
+@synthesize framesToProcess;
 
 - (id) init {
     self = [super init];
     delegates = [[NSMutableArray alloc] init];
+    framesToProcess = 1;
+    currentFrame = 0;
     return self;
 }
 
@@ -39,20 +45,36 @@ using namespace cv;
         return;
     if (operation == nil || operation.isFinished) {
         currentImage = image.clone();
-        operation = [NSBlockOperation blockOperationWithBlock:
-                     ^{
-                         for (id <AsyncImageProcessorDelegate> delegate in delegates) {
-                             [delegate onBeginImageProcess];
-                         }
-                         [self processImageAsync: currentImage];
-                         for (id <AsyncImageProcessorDelegate> delegate in delegates) {
-                             [delegate onFinishImageProcess];
-                         }
-                     }
-                     ];
+        if (standby > 0) {
+            standby --;
+            return;
+        }
+        currentFrame ++;
+        operation = [NSBlockOperation blockOperationWithBlock: ^{
+            if (currentFrame == 1) {
+                for (id <AsyncImageProcessorDelegate> delegate in delegates) {
+                    [delegate onBeginImageProcess];
+                }
+            }
+            [self processImageAsync: currentImage];
+            if (currentFrame >= framesToProcess) {
+                for (id <AsyncImageProcessorDelegate> delegate in delegates) {
+                    [delegate onFinishImageProcess];
+                }
+                currentFrame = 0;
+            }
+        }];
         [self.queue addOperation:operation];
     }
     
+}
+
+- (void) setEnabled:(bool)enabled {
+    if (_enabled != enabled) {
+        _enabled = enabled;
+        if (enabled)
+            standby = defaultStandby;
+    }
 }
 
 - (void) processImageAsync: (Mat&)currentImage {}

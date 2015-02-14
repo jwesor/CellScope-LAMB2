@@ -21,18 +21,17 @@
 @end
 
 @interface AsyncImageProcessor : ImageProcessor {
-#ifdef __cplusplus
-//    cv::Mat currentImage;
-#endif
 }
 
 @property NSOperationQueue *queue;
+@property int defaultStandby;
+@property int standby;
+@property int framesToProcess;
 
 #ifdef __cplusplus
 - (void) processImageAsync: (cv::Mat&) currentImage;
 #endif
 - (void) addDelegate: (id <AsyncImageProcessorDelegate>) delegate;
 - (void) removeDelegate: (id <AsyncImageProcessorDelegate>) delegate;
-
 
 @end

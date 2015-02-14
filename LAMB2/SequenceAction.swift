@@ -26,7 +26,7 @@ class SequenceAction: AbstractAction, SequenceCompletionDelegate {
     
     override func doExecution() {
         sequence.addCompletionDelegate(self)
-        sequence.executeSequence()
+        sequence.beginActions()
     }
     
     func onActionSequenceComplete() {

@@ -12,7 +12,9 @@
 #import <opencv2/opencv.hpp>
 #endif
 
-@interface ImageProcessor: NSObject
+@interface ImageProcessor: NSObject {
+    bool _enabled;
+}
 
 @property bool enabled;
 

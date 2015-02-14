@@ -2,44 +2,52 @@
 //  ActionSequencer.swift
 //  LAMB2
 //
+//  Sequence of actions to run. Once the sequence is executed,
+//  no additonal actions may be added.
+//
 //  Created by Fletcher Lab Mac Mini on 2/4/15.
 //  Copyright (c) 2015 Fletchlab. All rights reserved.
 //
 
 import Foundation
 
-class ActionSequencer {
+class ActionSequencer: ActionManager {
     
     var actions:[AbstractAction]
     var running:Bool
+    var completed:Bool
     var completionDelegates:[SequenceCompletionDelegate]
     
     init() {
         actions = []
         completionDelegates = []
         running = false
+        completed = false
     }
     
     func addAction(action: AbstractAction) {
-        actions.append(action)
-    }
-    
-    func executeSequence() {
         if (!running) {
-            running = true
-            runNextAction()
+            actions.append(action)
         }
     }
     
-    func runNextAction() {
+    func beginActions() {
+        if (!running) {
+            running = true
+            onActionCompleted()
+        }
+    }
+    
+    func onActionCompleted() {
         if (actions.count > 0) {
             let action = actions.removeAtIndex(0)
-            action.run(sequencer: self)
+            action.run(self)
         } else {
             running = false
             for delegate in completionDelegates {
                 delegate.onActionSequenceComplete()
             }
+            completed = true
         }
     }
     
