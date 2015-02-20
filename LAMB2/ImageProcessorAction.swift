@@ -6,6 +6,7 @@
 //  run before returning. If the AsyncImageProcessor is initially
 //  disabled, the action will automatically enable it when running
 //  and disable it again upon completion.
+//  The added AsyncImageProcessor must already be attached to a CameraSession
 //
 //  Created by Fletcher Lab Mac Mini on 2/11/15.
 //  Copyright (c) 2015 Fletchlab. All rights reserved.

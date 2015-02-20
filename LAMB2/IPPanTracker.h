@@ -8,6 +8,6 @@
 
 #import "AsyncImageProcessor.h"
 
-@interface IPPanTracker : AsyncImageProcessor
+@interface IPPanTracker : ImageProcessor
 
 @end

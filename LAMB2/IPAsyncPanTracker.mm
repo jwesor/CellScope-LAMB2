@@ -1,16 +1,16 @@
 //
-//  IPPanTracker.m
+//  IPAsyncPanTracker.m
 //  LAMB2
 //
-//  Created by Fletcher Lab Mac Mini on 2/2/15.
+//  Created by Fletcher Lab Mac Mini on 2/19/15.
 //  Copyright (c) 2015 Fletchlab. All rights reserved.
 //
 
-#import "IPPanTracker.h"
+#import "IPAsyncPanTracker.h"
 #import <opencv2/opencv.hpp>
 using namespace cv;
 
-@interface IPPanTracker() {
+@interface IPAsyncPanTracker() {
     cv::Rect cropped;
     cv::Rect roi;
     cv::Rect tracked;
@@ -19,7 +19,7 @@ using namespace cv;
 }
 @end
 
-@implementation IPPanTracker
+@implementation IPAsyncPanTracker
 
 - (id) init {
     self = [super init];
@@ -31,7 +31,7 @@ using namespace cv;
     return self;
 }
 
-- (void) processImage: (Mat&) image {
+- (void) processImageAsync: (Mat&) image {
     cropped.x = (image.cols - cropped.width) / 2;
     cropped.y = (image.rows - cropped.height) / 2;
     roi.x = (image.cols - roi.width) / 2;

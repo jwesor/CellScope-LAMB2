@@ -18,7 +18,8 @@ class CameraViewController: UIViewController {
     var touch: TouchStagePan?
     var state:Bool = false
     var queue:NSOperationQueue?
-    var tracker:IPPanTracker?
+    var tracker:IPAsyncPanTracker?
+    var multi:AsyncImageMultiProcessor?
     var sequence:ActionManager?
     
     override func viewDidLoad() {
@@ -31,12 +32,16 @@ class CameraViewController: UIViewController {
         deviceButton.updateDeviceStatusDisconnected()
         touch = TouchStagePan(view: preview, device: device!)
         
-        tracker = IPPanTracker()
+        tracker = IPAsyncPanTracker()
         tracker?.queue = queue
         tracker?.defaultStandby = 20
         tracker?.enabled = false
         tracker?.framesToProcess = 10
         session?.addImageProcessor(tracker)
+        
+        multi = AsyncImageMultiProcessor.initWithProcessors([IPPanTracker(), IPColorInverter(), IPPanTracker()]);
+        multi?.queue = queue;
+        session?.addImageProcessor(multi);
         
         session?.enableCapture = true
         session?.startCameraSession()
@@ -84,8 +89,8 @@ class CameraViewController: UIViewController {
         sequence!.addAction(ImageProcessorAction(processor: tracker!))
         sequence!.addAction(ImageProcessorAction(processor: tracker!))
         sequence!.addAction(ImageProcessorAction(processor: tracker!))
+        
         sequence!.addAction(StageEngageStepAction(dc: device!, motor: StageEngageStepAction.MOTOR_1, dir: StageEngageStepAction.DIR_LOW, steps: 2500))
     }
-    
 
 }
