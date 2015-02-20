@@ -2,6 +2,9 @@
 //  DeviceConnector.swift
 //  LAMB2
 //
+//  Handles operations for scanning, connecting to, and communicating
+//  with a BLE device.
+//
 //  Created by Fletcher Lab Mac Mini on 1/14/15.
 //  Copyright (c) 2015 Fletchlab. All rights reserved.
 //

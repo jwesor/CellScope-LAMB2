@@ -1,6 +1,11 @@
 //
-//  ImgProcAction.swift
+//  ImgageProcessorAction.swift
 //  LAMB2
+//
+//  Action that will wait for an AsyncImageProcesssor to
+//  run before returning. If the AsyncImageProcessor is initially
+//  disabled, the action will automatically enable it when running
+//  and disable it again upon completion.
 //
 //  Created by Fletcher Lab Mac Mini on 2/11/15.
 //  Copyright (c) 2015 Fletchlab. All rights reserved.

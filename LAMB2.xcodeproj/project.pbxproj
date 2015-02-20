@@ -22,6 +22,7 @@
 		180F87A31A8EE48E0001CD3C /* ActionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 180F87A21A8EE48E0001CD3C /* ActionManager.swift */; };
 		180F87A51A8EECC70001CD3C /* ActionQueue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 180F87A41A8EECC70001CD3C /* ActionQueue.swift */; };
 		182CE8241A8F01B6002162DF /* CameraViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 182CE8231A8F01B6002162DF /* CameraViewController.swift */; };
+		182CE82A1A96E0CF002162DF /* AsyncImageMultiProcessor.m in Sources */ = {isa = PBXBuildFile; fileRef = 182CE8291A96E0CF002162DF /* AsyncImageMultiProcessor.m */; };
 		188074E31A38F43A0039725B /* opencv2.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 188074E21A38F43A0039725B /* opencv2.framework */; };
 		188074E61A38F4A60039725B /* CameraSession.mm in Sources */ = {isa = PBXBuildFile; fileRef = 188074E51A38F4A60039725B /* CameraSession.mm */; };
 		188074E81A38F7210039725B /* CoreVideo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 188074E71A38F7210039725B /* CoreVideo.framework */; };
@@ -71,6 +72,8 @@
 		180F87A21A8EE48E0001CD3C /* ActionManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActionManager.swift; sourceTree = "<group>"; };
 		180F87A41A8EECC70001CD3C /* ActionQueue.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActionQueue.swift; sourceTree = "<group>"; };
 		182CE8231A8F01B6002162DF /* CameraViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CameraViewController.swift; sourceTree = "<group>"; };
+		182CE8281A96E0CF002162DF /* AsyncImageMultiProcessor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AsyncImageMultiProcessor.h; sourceTree = "<group>"; };
+		182CE8291A96E0CF002162DF /* AsyncImageMultiProcessor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AsyncImageMultiProcessor.m; sourceTree = "<group>"; };
 		184D8DFE1A205AC600105FDA /* LAMB2-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "LAMB2-Bridging-Header.h"; sourceTree = "<group>"; };
 		188074E21A38F43A0039725B /* opencv2.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = opencv2.framework; sourceTree = "<group>"; };
 		188074E41A38F4A60039725B /* CameraSession.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CameraSession.h; sourceTree = "<group>"; };
@@ -126,6 +129,8 @@
 				180F87181A7C6DD30001CD3C /* ImageProcessor.mm */,
 				180F879D1A8C23740001CD3C /* AsyncImageProcessor.h */,
 				180F879E1A8C23740001CD3C /* AsyncImageProcessor.mm */,
+				182CE8281A96E0CF002162DF /* AsyncImageMultiProcessor.h */,
+				182CE8291A96E0CF002162DF /* AsyncImageMultiProcessor.m */,
 				180F87151A7C67D90001CD3C /* IPColorInverter.h */,
 				180F87161A7C67D90001CD3C /* IPColorInverter.mm */,
 				180F871D1A7FFEB50001CD3C /* IPPanTracker.h */,
@@ -162,9 +167,9 @@
 				180F87A21A8EE48E0001CD3C /* ActionManager.swift */,
 				180F87A41A8EECC70001CD3C /* ActionQueue.swift */,
 				180F87201A82F7530001CD3C /* ActionSequencer.swift */,
+				180F87291A82F7C80001CD3C /* AbstractAction.swift */,
 				180F87231A82F7700001CD3C /* DeviceAction.swift */,
 				180F87941A858FF20001CD3C /* SequenceAction.swift */,
-				180F87291A82F7C80001CD3C /* AbstractAction.swift */,
 				180F879B1A8C21D90001CD3C /* ImageProcessorAction.swift */,
 			);
 			name = Actions;
@@ -359,6 +364,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				180F87191A7C6DD30001CD3C /* ImageProcessor.mm in Sources */,
+				182CE82A1A96E0CF002162DF /* AsyncImageMultiProcessor.m in Sources */,
 				18ED38131A200B8B005BA3CE /* ViewController.swift in Sources */,
 				18E157A11A70290300DFEFFF /* DeviceStatusButton.swift in Sources */,
 				182CE8241A8F01B6002162DF /* CameraViewController.swift in Sources */,

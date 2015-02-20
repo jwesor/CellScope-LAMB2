@@ -1,5 +1,5 @@
 //
-//  CvCameraFixed.m
+//  FixedCvCamera.m
 //  LAMB2
 //
 //  Created by Fletcher Lab Mac Mini on 1/28/15.
