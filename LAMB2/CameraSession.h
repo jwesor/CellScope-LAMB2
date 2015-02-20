@@ -18,7 +18,13 @@
 @interface CameraSession : NSObject <CvVideoCameraDelegate> {
     CvVideoCamera *_videoCamera;
     NSMutableArray *processors;
+    UIImageView *imageView;
+    bool enableCapture;
 }
+
+// enableCapture must be toggled true in order for captureImage to work. This adds an additional
+// mat clone in every frame and will slow the framerate.
+@property bool enableCapture;
 @property (nonatomic, retain) CvVideoCamera* videoCamera;
 
 + (CameraSession *) initWithPreview: (UIView*) view;
@@ -26,5 +32,7 @@
 - (void) startCameraSession;
 
 - (void) addImageProcessor: (ImageProcessor *) imgproc;
+
+- (UIImage *) captureImage;
 
 @end

@@ -7,19 +7,26 @@
 //
 
 #import "CameraSession.h"
+#import <AssetsLibrary/AssetsLibrary.h>
 using namespace cv;
 
-@interface CameraSession()
+@interface CameraSession() {
+    Mat currentImg;
+    bool capturedDirty;
+    UIImage *capturedImage;
+}
 - (void) addImageProcessor: (ImageProcessor *) imgproc;
 @end
 
 @implementation CameraSession
 
+@synthesize enableCapture;
 
 + (CameraSession *) initWithPreview:(UIView *)view {
     CameraSession *session = [[CameraSession alloc] init];
     
     UIImageView *preview = [[UIImageView alloc] initWithFrame:view.bounds];
+    session->imageView = preview;
     
     session.videoCamera = [[FixedCvCamera alloc] init];
     session.videoCamera.parentView = preview;
@@ -58,10 +65,30 @@ using namespace cv;
     [processors addObject:imgproc];
 }
 
+- (UIImage *) captureImage {
+    @synchronized (self) {
+        if (!enableCapture) {
+            return nil;
+        } else if (capturedDirty) {
+            capturedImage = [CameraSession imageWithCVMat:currentImg];
+            capturedDirty = false;
+        }
+        return capturedImage;
+
+    }
+}
+
 #pragma mark - Protocol CvVideoCameraDelegate
 
-- (void)processImage:(Mat&)image {
+- (void) processImage:(Mat&)image {
     // Do some OpenCV stuff with the image
+    
+    if (enableCapture) {
+        @synchronized (self) {
+            currentImg = image.clone();
+            capturedDirty = true;
+        }
+    }
     
     for (ImageProcessor *imgproc in processors) {
         if (imgproc.enabled) {
@@ -76,5 +103,39 @@ using namespace cv;
     }
 }
 
++ (UIImage *)imageWithCVMat:(Mat&)cvMat {
+    
+    CGColorSpaceRef colorSpace;
+    
+    if (cvMat.elemSize() == 1) {
+        colorSpace = CGColorSpaceCreateDeviceGray();
+    } else {
+        cvtColor(cvMat, cvMat, COLOR_BGRA2RGBA);
+        colorSpace = CGColorSpaceCreateDeviceRGB();
+    }
+    
+    NSData *data = [NSData dataWithBytes:cvMat.data length:cvMat.elemSize() * cvMat.total()];
+    
+    CGDataProviderRef provider = CGDataProviderCreateWithCFData((__bridge CFDataRef)data);
+    
+    CGImageRef imageRef = CGImageCreate(cvMat.cols,                                     // Width
+                                        cvMat.rows,                                     // Height
+                                        8,                                              // Bits per component
+                                        8 * cvMat.elemSize(),                           // Bits per pixel
+                                        cvMat.step[0],                                  // Bytes per row
+                                        colorSpace,                                     // Colorspace
+                                        kCGImageAlphaNone | kCGBitmapByteOrderDefault,  // Bitmap info flags
+                                        provider,                                       // CGDataProviderRef
+                                        NULL,                                           // Decode
+                                        false,                                          // Should interpolate
+                                        kCGRenderingIntentDefault);                     // Intent
+    
+    UIImage *image = [[UIImage alloc] initWithCGImage:imageRef];
+    CGImageRelease(imageRef);
+    CGDataProviderRelease(provider);
+    CGColorSpaceRelease(colorSpace);
+    
+    return image;
+}
 
 @end

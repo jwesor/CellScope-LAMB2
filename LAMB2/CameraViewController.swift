@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import AssetsLibrary
 
 class CameraViewController: UIViewController {
     
@@ -32,11 +33,12 @@ class CameraViewController: UIViewController {
         
         tracker = IPPanTracker()
         tracker?.queue = queue
-        tracker?.defaultStandby = 20;
-        tracker?.enabled = false;
-        tracker?.framesToProcess = 10;
+        tracker?.defaultStandby = 20
+        tracker?.enabled = false
+        tracker?.framesToProcess = 10
         session?.addImageProcessor(tracker)
         
+        session?.enableCapture = true
         session?.startCameraSession()
         state = false
         sequence = ActionQueue()
@@ -46,6 +48,14 @@ class CameraViewController: UIViewController {
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+    }
+    
+    @IBAction func captureimage(sender: AnyObject) {
+        var img:UIImage? = session?.captureImage()
+        if (img != nil) {
+            var library = ALAssetsLibrary()
+            library.writeImageDataToSavedPhotosAlbum(UIImagePNGRepresentation(img!), metadata: nil, completionBlock: nil)
+        }
     }
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
