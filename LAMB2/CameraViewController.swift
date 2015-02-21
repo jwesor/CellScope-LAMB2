@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import AssetsLibrary
 
 class CameraViewController: UIViewController {
     
@@ -21,6 +20,7 @@ class CameraViewController: UIViewController {
     var tracker:IPAsyncPanTracker?
     var multi:AsyncImageMultiProcessor?
     var sequence:ActionManager?
+    var album:PhotoAlbum?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -48,6 +48,8 @@ class CameraViewController: UIViewController {
         state = false
         sequence = ActionQueue()
         sequence!.beginActions()
+        
+        album = PhotoAlbum(name: "LambTest")
     }
     
     override func didReceiveMemoryWarning() {
@@ -58,8 +60,9 @@ class CameraViewController: UIViewController {
     @IBAction func captureimage(sender: AnyObject) {
         var img:UIImage? = session?.captureImage()
         if (img != nil) {
-            var library = ALAssetsLibrary()
-            library.writeImageDataToSavedPhotosAlbum(UIImagePNGRepresentation(img!), metadata: nil, completionBlock: nil)
+            album?.savePhoto(img!)
+//            var library = ALAssetsLibrary()
+//            library.writeImageDataToSavedPhotosAlbum(UIImagePNGRepresentation(img!), metadata: nil, completionBlock: nil)
         }
     }
     
