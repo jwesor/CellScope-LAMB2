@@ -21,8 +21,11 @@ class PhotoAlbum {
     
     let library: ALAssetsLibrary
     let albumName: NSString
+    var delegates: [String: PhotoAlbumSaveDelegate]
     
-    init(name: NSString) {
+    init(name: String) {
+        delegates = Dictionary<String, PhotoAlbumSaveDelegate>()
+        
         let dateFormat = NSDateFormatter()
         dateFormat.dateStyle = NSDateFormatterStyle.ShortStyle
         dateFormat.timeStyle = NSDateFormatterStyle.ShortStyle
@@ -38,6 +41,14 @@ class PhotoAlbum {
         )
     }
     
+    func addSaveDelegate(delegate: PhotoAlbumSaveDelegate, id:String) {
+        delegates[id] = delegate
+    }
+    
+    func removeSaveDelegate(id: String) {
+        delegates[id] = nil
+    }
+    
     func savePhoto(image: UIImage) {
         var albumGroup:ALAssetsGroup? = nil
         library.enumerateGroupsWithTypes(ALAssetsGroupAll,
@@ -45,15 +56,13 @@ class PhotoAlbum {
                 if (group == nil) {
                     self.writeImageToAlbum(image, albumGroup: albumGroup)
                 }
-                if (group !=  nil) {
-                    NSLog("check album %@", group)
-                }
                 if group != nil && group.valueForProperty(ALAssetsGroupPropertyName).isEqualToString(self.albumName) {
                     NSLog("found album %@", self.albumName)
                     albumGroup = group
                 }
             }, failureBlock: { (error: NSError!) -> Void in
                 NSLog("Failed to enumerate albums.\nError: %@", error.localizedDescription)
+                self.notifyCompletion(false)
             }
         )
     }
@@ -72,10 +81,22 @@ class PhotoAlbum {
                             NSLog("Asset retrieve failed with error code %i\n%@", error.code, error.localizedDescription)
                         }
                     )
+                    self.notifyCompletion(true)
                 } else {
                     NSLog("Saved image failed with error code %i\n%@", error.code, error.localizedDescription)
+                    self.notifyCompletion(false)
                 }
             }
         )
     }
+    
+    func notifyCompletion(success: Bool) {
+        for (id, delegate) in delegates {
+            delegate.onSavePhotoComplete(success)
+        }
+    }
+}
+
+protocol PhotoAlbumSaveDelegate {
+    func onSavePhotoComplete(success: Bool);
 }

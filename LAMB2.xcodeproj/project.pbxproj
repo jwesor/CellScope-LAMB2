@@ -30,6 +30,7 @@
 		188074EA1A38F72D0039725B /* AssetsLibrary.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 188074E91A38F72D0039725B /* AssetsLibrary.framework */; };
 		188074EC1A38F7350039725B /* CoreMedia.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 188074EB1A38F7350039725B /* CoreMedia.framework */; };
 		18A0721D1A98040D00A93391 /* PhotoAlbum.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18A0721C1A98040D00A93391 /* PhotoAlbum.swift */; };
+		18A0721F1A981AEF00A93391 /* CapturePhotoAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18A0721E1A981AEF00A93391 /* CapturePhotoAction.swift */; };
 		18E1578B1A67507E00DFEFFF /* BLE.m in Sources */ = {isa = PBXBuildFile; fileRef = 18E157891A67507E00DFEFFF /* BLE.m */; };
 		18E1578D1A67510900DFEFFF /* DeviceConnector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18E1578C1A67510900DFEFFF /* DeviceConnector.swift */; };
 		18E157971A68A52600DFEFFF /* DeviceTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18E157961A68A52600DFEFFF /* DeviceTableViewController.swift */; };
@@ -86,6 +87,7 @@
 		188074E91A38F72D0039725B /* AssetsLibrary.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AssetsLibrary.framework; path = System/Library/Frameworks/AssetsLibrary.framework; sourceTree = SDKROOT; };
 		188074EB1A38F7350039725B /* CoreMedia.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMedia.framework; path = System/Library/Frameworks/CoreMedia.framework; sourceTree = SDKROOT; };
 		18A0721C1A98040D00A93391 /* PhotoAlbum.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhotoAlbum.swift; sourceTree = "<group>"; };
+		18A0721E1A981AEF00A93391 /* CapturePhotoAction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CapturePhotoAction.swift; sourceTree = "<group>"; };
 		18E157881A67507E00DFEFFF /* BLE.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BLE.h; sourceTree = "<group>"; };
 		18E157891A67507E00DFEFFF /* BLE.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BLE.m; sourceTree = "<group>"; };
 		18E1578A1A67507E00DFEFFF /* BLEDefines.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BLEDefines.h; sourceTree = "<group>"; };
@@ -177,6 +179,7 @@
 				180F87291A82F7C80001CD3C /* AbstractAction.swift */,
 				180F87231A82F7700001CD3C /* DeviceAction.swift */,
 				180F87941A858FF20001CD3C /* SequenceAction.swift */,
+				18A0721E1A981AEF00A93391 /* CapturePhotoAction.swift */,
 				180F879B1A8C21D90001CD3C /* ImageProcessorAction.swift */,
 			);
 			name = Actions;
@@ -388,6 +391,7 @@
 				180F870A1A7057620001CD3C /* TouchStagePan.swift in Sources */,
 				18ED38111A200B8B005BA3CE /* LAMB2.xcdatamodeld in Sources */,
 				180F87241A82F7700001CD3C /* DeviceAction.swift in Sources */,
+				18A0721F1A981AEF00A93391 /* CapturePhotoAction.swift in Sources */,
 				180F87951A858FF20001CD3C /* SequenceAction.swift in Sources */,
 				18ED380E1A200B8B005BA3CE /* AppDelegate.swift in Sources */,
 				180F872A1A82F7C80001CD3C /* AbstractAction.swift in Sources */,

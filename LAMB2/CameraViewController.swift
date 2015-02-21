@@ -92,7 +92,8 @@ class CameraViewController: UIViewController {
         sequence!.addAction(ImageProcessorAction(processor: tracker!))
         sequence!.addAction(ImageProcessorAction(processor: tracker!))
         sequence!.addAction(ImageProcessorAction(processor: tracker!))
-        
+        sequence!.addAction(CapturePhotoAction(album: album!, camera: session!))
+        sequence!.addAction(CapturePhotoAction(album: album!, camera: session!))
         sequence!.addAction(StageEngageStepAction(dc: device!, motor: StageEngageStepAction.MOTOR_1, dir: StageEngageStepAction.DIR_LOW, steps: 2500))
     }
 
