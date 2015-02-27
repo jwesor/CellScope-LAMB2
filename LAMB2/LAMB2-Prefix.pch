@@ -1,0 +1,17 @@
+//
+//  LAMB2-Prefix.pch
+//  LAMB2
+//
+//  Created by Fletcher Lab Mac Mini on 2/26/15.
+//  Copyright (c) 2015 Fletchlab. All rights reserved.
+//
+
+#ifndef LAMB2_LAMB2_Prefix_pch
+#define LAMB2_LAMB2_Prefix_pch
+
+#import <UIKit/UIKit.h>
+
+// Include any system framework and library headers here that should be included in all compilation units.
+// You will also need to set the Prefix Header build setting of one or more of your targets to reference this file.
+
+#endif

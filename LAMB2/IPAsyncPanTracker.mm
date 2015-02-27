@@ -7,7 +7,6 @@
 //
 
 #import "IPAsyncPanTracker.h"
-#import <opencv2/opencv.hpp>
 using namespace cv;
 
 @interface IPAsyncPanTracker() {

@@ -8,6 +8,7 @@
 
 #import "CameraSession.h"
 #import <AssetsLibrary/AssetsLibrary.h>
+#import "ImageUtils.h"
 using namespace cv;
 
 @interface CameraSession() {
@@ -70,7 +71,7 @@ using namespace cv;
         if (!enableCapture) {
             return nil;
         } else if (capturedDirty) {
-            capturedImage = [CameraSession imageWithCVMat:currentImg];
+            capturedImage = [ImageUtils imageWithCVMat:currentImg];
             capturedDirty = false;
         }
         return capturedImage;
@@ -101,41 +102,6 @@ using namespace cv;
             [imgproc updateDisplayOverlay:image];
         }
     }
-}
-
-+ (UIImage *)imageWithCVMat:(Mat&)cvMat {
-    
-    CGColorSpaceRef colorSpace;
-    
-    if (cvMat.elemSize() == 1) {
-        colorSpace = CGColorSpaceCreateDeviceGray();
-    } else {
-        cvtColor(cvMat, cvMat, COLOR_BGRA2RGBA);
-        colorSpace = CGColorSpaceCreateDeviceRGB();
-    }
-    
-    NSData *data = [NSData dataWithBytes:cvMat.data length:cvMat.elemSize() * cvMat.total()];
-    
-    CGDataProviderRef provider = CGDataProviderCreateWithCFData((__bridge CFDataRef)data);
-    
-    CGImageRef imageRef = CGImageCreate(cvMat.cols,                                     // Width
-                                        cvMat.rows,                                     // Height
-                                        8,                                              // Bits per component
-                                        8 * cvMat.elemSize(),                           // Bits per pixel
-                                        cvMat.step[0],                                  // Bytes per row
-                                        colorSpace,                                     // Colorspace
-                                        kCGImageAlphaNone | kCGBitmapByteOrderDefault,  // Bitmap info flags
-                                        provider,                                       // CGDataProviderRef
-                                        NULL,                                           // Decode
-                                        false,                                          // Should interpolate
-                                        kCGRenderingIntentDefault);                     // Intent
-    
-    UIImage *image = [[UIImage alloc] initWithCGImage:imageRef];
-    CGImageRelease(imageRef);
-    CGDataProviderRelease(provider);
-    CGColorSpaceRelease(colorSpace);
-    
-    return image;
 }
 
 @end

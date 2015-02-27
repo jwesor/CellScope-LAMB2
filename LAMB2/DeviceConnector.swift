@@ -9,7 +9,6 @@
 //  Copyright (c) 2015 Fletchlab. All rights reserved.
 //
 
-import Foundation
 
 class DeviceConnector: BLEDelegate {
     

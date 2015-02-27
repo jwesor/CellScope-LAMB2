@@ -6,7 +6,6 @@
 //  Copyright (c) 2015 Fletchlab. All rights reserved.
 //
 
-import UIKit
 
 class DeviceStatusButton: UIButton, DeviceStatusDelegate {
     

@@ -2,17 +2,19 @@
 //  AsyncImageMultiProcessor.h
 //  LAMB2
 //
-//  An AsyncImageProcessor that wraps multiple
-//  ImageProcessors and executes them asynchronously
-//  in sequence. Useful for running a sequence
-//  of synchronous ImageProcessors as a single action.
-//  This is also more efficient than running each as individual
+//  An AsyncImageProcessor that wraps multiple ImageProcessors
+//  and executes them asynchronously in sequence.
+//  Useful for running a chain of synchronous ImageProcessors as
+//  a single async action, especially if they all need to use
+//  the same frame.
+//
+//  This is also more efficient than running each as an individual
 //  AsyncImageProcessors, since every AsyncImageProcessor creates
 //  its own clone of every frame. Using an AsyncImageMultiProcessor
-//  will share the clone between all processors.
+//  will create a single clone shared between all processes.
 //
-//  Don't add other AsyncImageProcessors to this one, because
-//  it won't accomplish anything.
+//  Adding other AsyncImageProcessors to this one will not accomplish
+//  very much.
 //
 //  Definitely do not add it to itself, unless you like infinite
 //  recursion.
@@ -22,7 +24,6 @@
 //
 
 #import "AsyncImageProcessor.h"
-#import "ImageProcessor.h"
 #ifdef __cplusplus
 #import <opencv2/opencv.hpp>
 #endif

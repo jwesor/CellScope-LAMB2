@@ -13,11 +13,9 @@
 //  Copyright (c) 2015 Fletchlab. All rights reserved.
 //
 
-import Foundation
 import AssetsLibrary
 
-
-class PhotoAlbum {
+@objc class PhotoAlbum {
     
     let library: ALAssetsLibrary
     let albumName: NSString

@@ -31,6 +31,8 @@
 		188074EC1A38F7350039725B /* CoreMedia.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 188074EB1A38F7350039725B /* CoreMedia.framework */; };
 		18A0721D1A98040D00A93391 /* PhotoAlbum.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18A0721C1A98040D00A93391 /* PhotoAlbum.swift */; };
 		18A0721F1A981AEF00A93391 /* CapturePhotoAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18A0721E1A981AEF00A93391 /* CapturePhotoAction.swift */; };
+		18A072291AA004E100A93391 /* IPImageCapture.mm in Sources */ = {isa = PBXBuildFile; fileRef = 18A072281AA004E100A93391 /* IPImageCapture.mm */; };
+		18A0722D1AA0098D00A93391 /* ImageUtils.mm in Sources */ = {isa = PBXBuildFile; fileRef = 18A0722C1AA0098D00A93391 /* ImageUtils.mm */; };
 		18E1578B1A67507E00DFEFFF /* BLE.m in Sources */ = {isa = PBXBuildFile; fileRef = 18E157891A67507E00DFEFFF /* BLE.m */; };
 		18E1578D1A67510900DFEFFF /* DeviceConnector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18E1578C1A67510900DFEFFF /* DeviceConnector.swift */; };
 		18E157971A68A52600DFEFFF /* DeviceTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18E157961A68A52600DFEFFF /* DeviceTableViewController.swift */; };
@@ -88,6 +90,11 @@
 		188074EB1A38F7350039725B /* CoreMedia.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMedia.framework; path = System/Library/Frameworks/CoreMedia.framework; sourceTree = SDKROOT; };
 		18A0721C1A98040D00A93391 /* PhotoAlbum.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhotoAlbum.swift; sourceTree = "<group>"; };
 		18A0721E1A981AEF00A93391 /* CapturePhotoAction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CapturePhotoAction.swift; sourceTree = "<group>"; };
+		18A072271AA004E100A93391 /* IPImageCapture.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IPImageCapture.h; sourceTree = "<group>"; };
+		18A072281AA004E100A93391 /* IPImageCapture.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = IPImageCapture.mm; sourceTree = "<group>"; };
+		18A0722A1AA0086F00A93391 /* LAMB2-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "LAMB2-Prefix.pch"; sourceTree = "<group>"; };
+		18A0722B1AA0098D00A93391 /* ImageUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImageUtils.h; sourceTree = "<group>"; };
+		18A0722C1AA0098D00A93391 /* ImageUtils.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = ImageUtils.mm; sourceTree = "<group>"; };
 		18E157881A67507E00DFEFFF /* BLE.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BLE.h; sourceTree = "<group>"; };
 		18E157891A67507E00DFEFFF /* BLE.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BLE.m; sourceTree = "<group>"; };
 		18E1578A1A67507E00DFEFFF /* BLEDefines.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BLEDefines.h; sourceTree = "<group>"; };
@@ -144,6 +151,8 @@
 				182CE82C1A96E5F7002162DF /* IPAsyncPanTracker.mm */,
 				180F871D1A7FFEB50001CD3C /* IPPanTracker.h */,
 				180F871E1A7FFEB50001CD3C /* IPPanTracker.mm */,
+				18A072271AA004E100A93391 /* IPImageCapture.h */,
+				18A072281AA004E100A93391 /* IPImageCapture.mm */,
 			);
 			name = ImageProcessing;
 			sourceTree = "<group>";
@@ -153,6 +162,8 @@
 			children = (
 				188074E41A38F4A60039725B /* CameraSession.h */,
 				188074E51A38F4A60039725B /* CameraSession.mm */,
+				18A0722B1AA0098D00A93391 /* ImageUtils.h */,
+				18A0722C1AA0098D00A93391 /* ImageUtils.mm */,
 				180F870B1A79692B0001CD3C /* FixedCvCamera.h */,
 				180F870C1A79692B0001CD3C /* FixedCvCamera.m */,
 			);
@@ -252,6 +263,7 @@
 			children = (
 				18E157871A67507E00DFEFFF /* BLE */,
 				18ED380C1A200B8B005BA3CE /* Info.plist */,
+				18A0722A1AA0086F00A93391 /* LAMB2-Prefix.pch */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -381,10 +393,12 @@
 				182CE8241A8F01B6002162DF /* CameraViewController.swift in Sources */,
 				18E157971A68A52600DFEFFF /* DeviceTableViewController.swift in Sources */,
 				182CE82D1A96E5F7002162DF /* IPAsyncPanTracker.mm in Sources */,
+				18A0722D1AA0098D00A93391 /* ImageUtils.mm in Sources */,
 				180F870D1A79692B0001CD3C /* FixedCvCamera.m in Sources */,
 				188074E61A38F4A60039725B /* CameraSession.mm in Sources */,
 				180F871F1A7FFEB50001CD3C /* IPPanTracker.mm in Sources */,
 				180F87A31A8EE48E0001CD3C /* ActionManager.swift in Sources */,
+				18A072291AA004E100A93391 /* IPImageCapture.mm in Sources */,
 				18E1578B1A67507E00DFEFFF /* BLE.m in Sources */,
 				180F879F1A8C23740001CD3C /* AsyncImageProcessor.mm in Sources */,
 				180F879C1A8C21D90001CD3C /* ImageProcessorAction.swift in Sources */,
@@ -461,10 +475,13 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
+				DEFINES_MODULE = YES;
+				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREFIX_HEADER = "LAMB2/LAMB2-Prefix.pch";
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
 					"$(inherited)",
@@ -504,9 +521,12 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = YES;
+				DEFINES_MODULE = YES;
+				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_PREFIX_HEADER = "LAMB2/LAMB2-Prefix.pch";
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
 				GCC_WARN_UNDECLARED_SELECTOR = YES;

@@ -8,3 +8,4 @@
 #import "IPAsyncPanTracker.h"
 #import "AsyncImageProcessor.h"
 #import "AsyncImageMultiProcessor.h"
+#import "IPImageCapture.h"

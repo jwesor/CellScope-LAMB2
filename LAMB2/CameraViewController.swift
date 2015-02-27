@@ -6,8 +6,6 @@
 //  Copyright (c) 2014 Fletchlab. All rights reserved.
 //
 
-import UIKit
-
 class CameraViewController: UIViewController {
     
     @IBOutlet weak var preview: UIView!
@@ -17,10 +15,11 @@ class CameraViewController: UIViewController {
     var touch: TouchStagePan?
     var state:Bool = false
     var queue:NSOperationQueue?
-    var tracker:IPAsyncPanTracker?
-    var multi:AsyncImageMultiProcessor?
+    
     var sequence:ActionManager?
     var album:PhotoAlbum?
+    
+    var multi:AsyncImageMultiProcessor?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -32,24 +31,19 @@ class CameraViewController: UIViewController {
         deviceButton.updateDeviceStatusDisconnected()
         touch = TouchStagePan(view: preview, device: device!)
         
-        tracker = IPAsyncPanTracker()
-        tracker?.queue = queue
-        tracker?.defaultStandby = 20
-        tracker?.enabled = false
-        tracker?.framesToProcess = 10
-        session?.addImageProcessor(tracker)
+        album = PhotoAlbum(name: "LambTest")
         
-        multi = AsyncImageMultiProcessor.initWithProcessors([IPPanTracker(), IPColorInverter(), IPPanTracker()]);
+        multi = AsyncImageMultiProcessor.initWithProcessors([IPPanTracker(), IPColorInverter(), IPPanTracker(), IPColorInverter(),IPImageCapture.initWithAlbum(album)]);
         multi?.queue = queue;
         session?.addImageProcessor(multi);
+        multi?.enabled = false
         
-        session?.enableCapture = true
+        //session?.enableCapture = true
         session?.startCameraSession()
         state = false
         sequence = ActionQueue()
         sequence!.beginActions()
         
-        album = PhotoAlbum(name: "LambTest")
     }
     
     override func didReceiveMemoryWarning() {
@@ -89,11 +83,7 @@ class CameraViewController: UIViewController {
 //        seq.addSubAction(DeviceAction(dc: device!, id: "e", data: [0x04, 0x0, 0x0]))
 //        sequence.addAction(seq)
         sequence!.addAction(StageEngageStepAction(dc: device!, motor: StageEngageStepAction.MOTOR_1, dir: StageEngageStepAction.DIR_HIGH, steps: 2500))
-        sequence!.addAction(ImageProcessorAction(processor: tracker!))
-        sequence!.addAction(ImageProcessorAction(processor: tracker!))
-        sequence!.addAction(ImageProcessorAction(processor: tracker!))
-        sequence!.addAction(CapturePhotoAction(album: album!, camera: session!))
-        sequence!.addAction(CapturePhotoAction(album: album!, camera: session!))
+        sequence!.addAction(ImageProcessorAction(processor: multi!))
         sequence!.addAction(StageEngageStepAction(dc: device!, motor: StageEngageStepAction.MOTOR_1, dir: StageEngageStepAction.DIR_LOW, steps: 2500))
     }
 
