@@ -19,7 +19,10 @@ class StageEngageStepAction: SequenceAction {
     init(dc: DeviceConnector, motor: Int, dir: Bool, steps: UInt) {
         super.init()
         
-        let dirCode:Byte = (dir ? 0x13 : 0x03)
+        var dirCode:Byte = (dir ? 0x13 : 0x03)
+        if (motor == StageEngageStepAction.MOTOR_3) {
+            dirCode = (dir ? 0x09 : 0x08)
+        }
         var enCode:Byte = 0x0
         var stepCode:Byte = 0x0
         

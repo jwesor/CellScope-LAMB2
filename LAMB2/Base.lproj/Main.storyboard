@@ -88,23 +88,98 @@
                                     <constraint firstAttribute="width" secondItem="dIM-hT-lXZ" secondAttribute="height" multiplier="9:16" id="Cwq-Ni-Zm7"/>
                                 </constraints>
                             </view>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="M3l-ar-q0H">
+                                <rect key="frame" x="16" y="562" width="30" height="30"/>
+                                <state key="normal" title="z-">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="moveXPlus:" destination="IVN-5g-NjA" eventType="touchUpInside" id="3Cc-JN-QAX"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4Cq-Ka-AMX">
+                                <rect key="frame" x="16" y="524" width="30" height="30"/>
+                                <state key="normal" title="z+">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="moveXPlus:" destination="IVN-5g-NjA" eventType="touchUpInside" id="VGY-dl-N44"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0Hk-ax-zKZ">
+                                <rect key="frame" x="16" y="486" width="30" height="30"/>
+                                <state key="normal" title="y-">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="moveXPlus:" destination="IVN-5g-NjA" eventType="touchUpInside" id="czd-XX-qqP"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="P2A-jE-pGb">
+                                <rect key="frame" x="16" y="448" width="30" height="30"/>
+                                <state key="normal" title="y+">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="moveXPlus:" destination="IVN-5g-NjA" eventType="touchUpInside" id="PT8-tN-VkB"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="oMG-aO-gZ3">
+                                <rect key="frame" x="16" y="410" width="30" height="30"/>
+                                <state key="normal" title="x-">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="moveXPlus:" destination="IVN-5g-NjA" eventType="touchUpInside" id="QGw-El-WYy"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aYj-RH-wFm">
+                                <rect key="frame" x="16" y="372" width="30" height="30"/>
+                                <state key="normal" title="x+">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="moveXPlus:" destination="IVN-5g-NjA" eventType="touchUpInside" id="1il-wc-HME"/>
+                                </connections>
+                            </button>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="1000" borderStyle="roundedRect" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="3xr-Ui-qjt">
+                                <rect key="frame" x="16" y="334" width="53" height="30"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
+                            </textField>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstItem="3xr-Ui-qjt" firstAttribute="top" secondItem="MCh-9S-kWx" secondAttribute="bottom" constant="314" id="1MA-vs-r3P"/>
                             <constraint firstItem="dIM-hT-lXZ" firstAttribute="centerX" secondItem="5hf-IU-McK" secondAttribute="centerX" id="5dg-pD-gQc"/>
                             <constraint firstAttribute="centerX" secondItem="5hf-IU-McK" secondAttribute="centerX" id="Dwo-EW-V81"/>
                             <constraint firstItem="2ds-AV-lVK" firstAttribute="trailing" secondItem="z5F-gW-cCO" secondAttribute="trailingMargin" id="Gbk-x6-u15"/>
                             <constraint firstAttribute="centerY" secondItem="dIM-hT-lXZ" secondAttribute="centerY" id="Hck-6t-BGW"/>
+                            <constraint firstItem="aYj-RH-wFm" firstAttribute="top" secondItem="MCh-9S-kWx" secondAttribute="bottom" constant="352" id="MxB-E3-dD1"/>
                             <constraint firstItem="lXu-ti-R15" firstAttribute="leading" secondItem="z5F-gW-cCO" secondAttribute="leadingMargin" id="PTc-uE-jaW"/>
+                            <constraint firstItem="0Hk-ax-zKZ" firstAttribute="leading" secondItem="z5F-gW-cCO" secondAttribute="leadingMargin" id="QoQ-dD-hix"/>
+                            <constraint firstItem="oMG-aO-gZ3" firstAttribute="top" secondItem="aYj-RH-wFm" secondAttribute="bottom" constant="8" id="TYy-t3-f90"/>
                             <constraint firstItem="5hf-IU-McK" firstAttribute="top" secondItem="dIM-hT-lXZ" secondAttribute="bottom" constant="8" id="WJO-ro-lKa"/>
+                            <constraint firstItem="0Hk-ax-zKZ" firstAttribute="top" secondItem="P2A-jE-pGb" secondAttribute="bottom" constant="8" id="XpP-hI-Q54"/>
                             <constraint firstItem="2ds-AV-lVK" firstAttribute="top" secondItem="MCh-9S-kWx" secondAttribute="bottom" id="bKe-6r-UoD"/>
+                            <constraint firstItem="oMG-aO-gZ3" firstAttribute="leading" secondItem="z5F-gW-cCO" secondAttribute="leadingMargin" id="cTy-Bu-nEQ"/>
+                            <constraint firstItem="M3l-ar-q0H" firstAttribute="top" secondItem="4Cq-Ka-AMX" secondAttribute="bottom" constant="8" id="dYp-dn-iar"/>
+                            <constraint firstItem="P2A-jE-pGb" firstAttribute="top" secondItem="oMG-aO-gZ3" secondAttribute="bottom" constant="8" id="hDZ-qO-IXC"/>
                             <constraint firstItem="0ah-ec-OzF" firstAttribute="top" secondItem="5hf-IU-McK" secondAttribute="bottom" id="hWL-jc-DGT"/>
+                            <constraint firstItem="3xr-Ui-qjt" firstAttribute="leading" secondItem="z5F-gW-cCO" secondAttribute="leadingMargin" id="iAs-Ue-ikm"/>
                             <constraint firstItem="lXu-ti-R15" firstAttribute="top" secondItem="MCh-9S-kWx" secondAttribute="bottom" id="jAs-En-PBa"/>
+                            <constraint firstItem="4Cq-Ka-AMX" firstAttribute="top" secondItem="0Hk-ax-zKZ" secondAttribute="bottom" constant="8" id="kBk-Po-yKB"/>
+                            <constraint firstItem="0Hk-ax-zKZ" firstAttribute="top" secondItem="P2A-jE-pGb" secondAttribute="bottom" constant="8" id="roO-O4-GvF"/>
+                            <constraint firstItem="aYj-RH-wFm" firstAttribute="leading" secondItem="z5F-gW-cCO" secondAttribute="leadingMargin" id="sDF-yS-HBU"/>
+                            <constraint firstItem="P2A-jE-pGb" firstAttribute="leading" secondItem="z5F-gW-cCO" secondAttribute="leadingMargin" id="veV-wW-ivG"/>
+                            <constraint firstItem="4Cq-Ka-AMX" firstAttribute="leading" secondItem="z5F-gW-cCO" secondAttribute="leadingMargin" id="wnE-GP-Ra5"/>
+                            <constraint firstItem="M3l-ar-q0H" firstAttribute="leading" secondItem="z5F-gW-cCO" secondAttribute="leadingMargin" id="xPB-Pf-JL3"/>
                         </constraints>
                     </view>
                     <connections>
                         <outlet property="deviceButton" destination="5hf-IU-McK" id="psK-DC-hpv"/>
                         <outlet property="preview" destination="dIM-hT-lXZ" id="0vy-cZ-G57"/>
+                        <outlet property="stepText" destination="3xr-Ui-qjt" id="T5s-4X-ROv"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="sjn-Yh-8gb" userLabel="First Responder" sceneMemberID="firstResponder"/>

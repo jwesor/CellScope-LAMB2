@@ -30,11 +30,11 @@ class ScanFocusAction: SequenceAction, ActionCompletionDelegate {
         ipAction.addCompletionDelegate(self)
         addSubAction(ipAction)
         for i in 1...levels {
-            addSubAction(StageEngageStepAction(dc: device, motor: StageEngageStepAction.MOTOR_1, dir: StageEngageStepAction.DIR_HIGH, steps: stepsPerLevel))
+            addSubAction(StageEngageStepAction(dc: device, motor: StageEngageStepAction.MOTOR_3, dir: StageEngageStepAction.DIR_HIGH, steps: stepsPerLevel))
             addSubAction(ipAction)
         }
         let returnSteps = stepsPerLevel * levels;
-        addSubAction(StageEngageStepAction(dc: device, motor: StageEngageStepAction.MOTOR_1, dir: StageEngageStepAction.DIR_LOW, steps: returnSteps))
+        addSubAction(StageEngageStepAction(dc: device, motor: StageEngageStepAction.MOTOR_3, dir: StageEngageStepAction.DIR_LOW, steps: returnSteps))
     }
     
     func onActionCompleted(action: AbstractAction) {

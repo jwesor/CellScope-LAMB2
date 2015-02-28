@@ -8,6 +8,7 @@
 
 class CameraViewController: UIViewController {
     
+    @IBOutlet weak var stepText: UITextField!
     @IBOutlet weak var preview: UIView!
     @IBOutlet weak var deviceButton: DeviceStatusButton!
     var session: CameraSession?
@@ -89,4 +90,30 @@ class CameraViewController: UIViewController {
         sequence!.addAction(ScanFocusAction(levels:10, stepsPerLevel:1000, camera:session!, device: device!, queue: queue!))
     }
 
+    @IBAction func moveXPlus(sender: AnyObject) {
+        println(sender.currentTitle)
+        println(stepText.text)
+        var steps = UInt(stepText.text.toInt()!)
+        
+        var text = sender.currentTitle!!
+        var motor: Int
+        var dir: Bool
+        
+        if (text.rangeOfString("x") != nil) {
+            motor = StageEngageStepAction.MOTOR_1
+        } else if (text.rangeOfString("y") != nil) {
+            motor = StageEngageStepAction.MOTOR_2
+        } else {
+            motor = StageEngageStepAction.MOTOR_3
+        }
+        
+        if (text.rangeOfString("+") != nil) {
+            dir = StageEngageStepAction.DIR_HIGH
+        } else {
+            dir = StageEngageStepAction.DIR_LOW
+        }
+        
+        sequence!.addAction(StageEngageStepAction(dc: device!, motor: motor, dir: dir, steps:steps))
+    }
+    
 }
