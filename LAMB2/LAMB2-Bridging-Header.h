@@ -9,3 +9,6 @@
 #import "AsyncImageProcessor.h"
 #import "AsyncImageMultiProcessor.h"
 #import "IPImageCapture.h"
+
+
+#import "IPFocusDetector.h"

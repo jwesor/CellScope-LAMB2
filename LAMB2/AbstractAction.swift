@@ -12,29 +12,34 @@
 
 import Foundation
 
-class AbstractAction {
+class AbstractAction: NSObject {
     
     var running:Bool
     var completionDelegates:[ActionCompletionDelegate]
+    var runtimeCompletionDelegates:[ActionCompletionDelegate]
     
-    init() {
+    override init() {
         running = false
         completionDelegates = []
+        runtimeCompletionDelegates = []
     }
     
     final func run(delegates: ActionCompletionDelegate...) {
-        completionDelegates += delegates
+        runtimeCompletionDelegates += delegates
         doExecution()
         running = true
     }
     
     final func finish() {
         if running {
-            for delegate in completionDelegates {
-                delegate.onActionCompleted()
-            }
-            completionDelegates = []
             running = false
+            for delegate in completionDelegates {
+                delegate.onActionCompleted(self)
+            }
+            for delegate in runtimeCompletionDelegates {
+                delegate.onActionCompleted(self)
+            }
+            runtimeCompletionDelegates = []
         }
     }
     
@@ -42,8 +47,11 @@ class AbstractAction {
         finish()
     }
     
+    func addCompletionDelegate(delegate: ActionCompletionDelegate) {
+        completionDelegates.append(delegate)
+    }
 }
 
 protocol ActionCompletionDelegate {
-    func onActionCompleted()
+    func onActionCompleted(action: AbstractAction)
 }

@@ -33,10 +33,10 @@ class CameraViewController: UIViewController {
         
         album = PhotoAlbum(name: "LambTest")
         
-        multi = AsyncImageMultiProcessor.initWithProcessors([IPPanTracker(), IPColorInverter(), IPPanTracker(), IPColorInverter(),IPImageCapture.initWithAlbum(album)]);
+        /* = AsyncImageMultiProcessor.initWithProcessors([IPPanTracker(), IPColorInverter(), IPPanTracker(), IPColorInverter(),IPImageCapture.initWithAlbum(album)]);
         multi?.queue = queue;
         session?.addImageProcessor(multi);
-        multi?.enabled = false
+        multi?.enabled = false*/
         
         //session?.enableCapture = true
         session?.startCameraSession()
@@ -82,9 +82,11 @@ class CameraViewController: UIViewController {
 //        seq.addSubAction(DeviceAction(dc: device!, id: "d", data: [0x14, 0x0, 0x0]))
 //        seq.addSubAction(DeviceAction(dc: device!, id: "e", data: [0x04, 0x0, 0x0]))
 //        sequence.addAction(seq)
-        sequence!.addAction(StageEngageStepAction(dc: device!, motor: StageEngageStepAction.MOTOR_1, dir: StageEngageStepAction.DIR_HIGH, steps: 2500))
+        /*sequence!.addAction(StageEngageStepAction(dc: device!, motor: StageEngageStepAction.MOTOR_1, dir: StageEngageStepAction.DIR_HIGH, steps: 2500))
         sequence!.addAction(ImageProcessorAction(processor: multi!))
-        sequence!.addAction(StageEngageStepAction(dc: device!, motor: StageEngageStepAction.MOTOR_1, dir: StageEngageStepAction.DIR_LOW, steps: 2500))
+        sequence!.addAction(StageEngageStepAction(dc: device!, motor: StageEngageStepAction.MOTOR_1, dir: StageEngageStepAction.DIR_LOW, steps: 2500))*/
+        
+        sequence!.addAction(ScanFocusAction(levels:10, stepsPerLevel:1000, camera:session!, device: device!, queue: queue!))
     }
 
 }

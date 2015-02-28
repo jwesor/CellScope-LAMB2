@@ -21,7 +21,7 @@ class ActionQueue : ActionManager {
         queue.suspended = true
     }
     
-    func onActionCompleted() {
+    func onActionCompleted(action: AbstractAction) {
     }
     
     func addAction(action: AbstractAction) {
@@ -66,7 +66,7 @@ class ActionOperation : NSOperation, ActionCompletionDelegate {
         return done
     }
     
-    func onActionCompleted() {
+    func onActionCompleted(action: AbstractAction) {
         self.willChangeValueForKey("isFinished")
         self.willChangeValueForKey("isExecuting")
         exec = false

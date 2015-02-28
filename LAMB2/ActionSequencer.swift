@@ -34,14 +34,14 @@ class ActionSequencer: ActionManager {
     func beginActions() {
         if (!running) {
             running = true
-            onActionCompleted()
+            runNextAction()
         }
     }
     
-    func onActionCompleted() {
+    func runNextAction() {
         if (actions.count > 0) {
-            let action = actions.removeAtIndex(0)
-            action.run(self)
+            let nextAction = actions.removeAtIndex(0)
+            nextAction.run(self)
         } else {
             running = false
             for delegate in completionDelegates {
@@ -49,6 +49,10 @@ class ActionSequencer: ActionManager {
             }
             completed = true
         }
+    }
+    
+    func onActionCompleted(action: AbstractAction) {
+        runNextAction()
     }
     
     func addCompletionDelegate(delegate: SequenceCompletionDelegate) {

@@ -33,6 +33,9 @@
 		18A0721F1A981AEF00A93391 /* CapturePhotoAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18A0721E1A981AEF00A93391 /* CapturePhotoAction.swift */; };
 		18A072291AA004E100A93391 /* IPImageCapture.mm in Sources */ = {isa = PBXBuildFile; fileRef = 18A072281AA004E100A93391 /* IPImageCapture.mm */; };
 		18A0722D1AA0098D00A93391 /* ImageUtils.mm in Sources */ = {isa = PBXBuildFile; fileRef = 18A0722C1AA0098D00A93391 /* ImageUtils.mm */; };
+		18A072301AA13E6400A93391 /* IPFocusDetector.mm in Sources */ = {isa = PBXBuildFile; fileRef = 18A0722F1AA13E6400A93391 /* IPFocusDetector.mm */; };
+		18A072331AA1404800A93391 /* AutofocuserAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18A072321AA1404800A93391 /* AutofocuserAction.swift */; };
+		18A072391AA140C200A93391 /* ScanFocusAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18A072381AA140C200A93391 /* ScanFocusAction.swift */; };
 		18E1578B1A67507E00DFEFFF /* BLE.m in Sources */ = {isa = PBXBuildFile; fileRef = 18E157891A67507E00DFEFFF /* BLE.m */; };
 		18E1578D1A67510900DFEFFF /* DeviceConnector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18E1578C1A67510900DFEFFF /* DeviceConnector.swift */; };
 		18E157971A68A52600DFEFFF /* DeviceTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18E157961A68A52600DFEFFF /* DeviceTableViewController.swift */; };
@@ -95,6 +98,10 @@
 		18A0722A1AA0086F00A93391 /* LAMB2-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "LAMB2-Prefix.pch"; sourceTree = "<group>"; };
 		18A0722B1AA0098D00A93391 /* ImageUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImageUtils.h; sourceTree = "<group>"; };
 		18A0722C1AA0098D00A93391 /* ImageUtils.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = ImageUtils.mm; sourceTree = "<group>"; };
+		18A0722E1AA13E6400A93391 /* IPFocusDetector.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IPFocusDetector.h; sourceTree = "<group>"; };
+		18A0722F1AA13E6400A93391 /* IPFocusDetector.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = IPFocusDetector.mm; sourceTree = "<group>"; };
+		18A072321AA1404800A93391 /* AutofocuserAction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AutofocuserAction.swift; sourceTree = "<group>"; };
+		18A072381AA140C200A93391 /* ScanFocusAction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ScanFocusAction.swift; path = ../ScanFocusAction.swift; sourceTree = "<group>"; };
 		18E157881A67507E00DFEFFF /* BLE.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BLE.h; sourceTree = "<group>"; };
 		18E157891A67507E00DFEFFF /* BLE.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BLE.m; sourceTree = "<group>"; };
 		18E1578A1A67507E00DFEFFF /* BLEDefines.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BLEDefines.h; sourceTree = "<group>"; };
@@ -204,6 +211,17 @@
 			name = Stage;
 			sourceTree = "<group>";
 		};
+		18A072311AA13E6F00A93391 /* Autofocus */ = {
+			isa = PBXGroup;
+			children = (
+				18A072321AA1404800A93391 /* AutofocuserAction.swift */,
+				18A072381AA140C200A93391 /* ScanFocusAction.swift */,
+				18A0722E1AA13E6400A93391 /* IPFocusDetector.h */,
+				18A0722F1AA13E6400A93391 /* IPFocusDetector.mm */,
+			);
+			name = Autofocus;
+			sourceTree = "<group>";
+		};
 		18E157871A67507E00DFEFFF /* BLE */ = {
 			isa = PBXGroup;
 			children = (
@@ -254,6 +272,7 @@
 				18A0721C1A98040D00A93391 /* PhotoAlbum.swift */,
 				182CE8231A8F01B6002162DF /* CameraViewController.swift */,
 				18ED38121A200B8B005BA3CE /* ViewController.swift */,
+				18A072311AA13E6F00A93391 /* Autofocus */,
 			);
 			path = LAMB2;
 			sourceTree = "<group>";
@@ -405,12 +424,15 @@
 				180F870A1A7057620001CD3C /* TouchStagePan.swift in Sources */,
 				18ED38111A200B8B005BA3CE /* LAMB2.xcdatamodeld in Sources */,
 				180F87241A82F7700001CD3C /* DeviceAction.swift in Sources */,
+				18A072391AA140C200A93391 /* ScanFocusAction.swift in Sources */,
 				18A0721F1A981AEF00A93391 /* CapturePhotoAction.swift in Sources */,
+				18A072331AA1404800A93391 /* AutofocuserAction.swift in Sources */,
 				180F87951A858FF20001CD3C /* SequenceAction.swift in Sources */,
 				18ED380E1A200B8B005BA3CE /* AppDelegate.swift in Sources */,
 				180F872A1A82F7C80001CD3C /* AbstractAction.swift in Sources */,
 				180F87A51A8EECC70001CD3C /* ActionQueue.swift in Sources */,
 				180F879A1A8593C20001CD3C /* StageEngageStepAction.swift in Sources */,
+				18A072301AA13E6400A93391 /* IPFocusDetector.mm in Sources */,
 				180F87211A82F7530001CD3C /* ActionSequencer.swift in Sources */,
 				18E1578D1A67510900DFEFFF /* DeviceConnector.swift in Sources */,
 				18A0721D1A98040D00A93391 /* PhotoAlbum.swift in Sources */,
