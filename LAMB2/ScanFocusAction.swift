@@ -38,8 +38,8 @@ class ScanFocusAction: SequenceAction, ActionCompletionDelegate {
             addSubAction(StageEngageStepAction(dc: device, motor: StageEngageStepAction.MOTOR_3, dir: StageEngageStepAction.DIR_HIGH, steps: stepsPerLevel))
             addSubAction(ipAction)
         }
-        let returnSteps = stepsPerLevel * levels;
-        addSubAction(StageEngageStepAction(dc: device, motor: StageEngageStepAction.MOTOR_3, dir: StageEngageStepAction.DIR_LOW, steps: returnSteps))
+        //let returnSteps = stepsPerLevel * levels;
+        //addSubAction(StageEngageStepAction(dc: device, motor: StageEngageStepAction.MOTOR_3, dir: StageEngageStepAction.DIR_LOW, steps: returnSteps))
     }
     
     func onActionCompleted(action: AbstractAction) {
@@ -51,7 +51,7 @@ class ScanFocusAction: SequenceAction, ActionCompletionDelegate {
                 bestFocusScore = newFocus
                 bestFocusLevel = currentFocusLevel
             }
-            bestFocusLevel += 1
+            currentFocusLevel += 1
         }
         println(focuses)
         println(bestFocusLevel)

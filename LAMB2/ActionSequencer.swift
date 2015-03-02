@@ -26,9 +26,7 @@ class ActionSequencer: ActionManager {
     }
     
     func addAction(action: AbstractAction) {
-        if (!running) {
-            actions.append(action)
-        }
+        actions.append(action)
     }
     
     func beginActions() {

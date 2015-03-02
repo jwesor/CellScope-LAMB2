@@ -60,7 +60,7 @@ class CameraViewController: UIViewController {
     }
     
     @IBAction func test(sender: AnyObject) {
-        sequence!.addAction(ScanFocusAction(levels:10, stepsPerLevel:1000, camera:session!, device: device!))
+        sequence!.addAction(AutofocuserAction(levels:10, stepsPerLevel:1000, camera:session!, device: device!))
     }
 
     @IBAction func moveXPlus(sender: AnyObject) {
