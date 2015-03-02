@@ -15,8 +15,6 @@ class CameraViewController: UIViewController {
     var device: DeviceConnector?
     var touch: TouchStagePan?
     var state:Bool = false
-    var queue:NSOperationQueue?
-    
     var sequence:ActionManager?
     var album:PhotoAlbum?
     
@@ -25,7 +23,6 @@ class CameraViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         session = CameraSession.initWithPreview(preview)
-        queue = NSOperationQueue()
         
         device = DeviceConnector()
         device?.addStatusDelegate(deviceButton)
@@ -34,12 +31,7 @@ class CameraViewController: UIViewController {
         
         album = PhotoAlbum(name: "LambTest")
         
-        /* = AsyncImageMultiProcessor.initWithProcessors([IPPanTracker(), IPColorInverter(), IPPanTracker(), IPColorInverter(),IPImageCapture.initWithAlbum(album)]);
-        multi?.queue = queue;
-        session?.addImageProcessor(multi);
-        multi?.enabled = false*/
-        
-        //session?.enableCapture = true
+        session?.enableCapture = true
         session?.startCameraSession()
         state = false
         sequence = ActionQueue()
@@ -56,8 +48,6 @@ class CameraViewController: UIViewController {
         var img:UIImage? = session?.captureImage()
         if (img != nil) {
             album?.savePhoto(img!)
-//            var library = ALAssetsLibrary()
-//            library.writeImageDataToSavedPhotosAlbum(UIImagePNGRepresentation(img!), metadata: nil, completionBlock: nil)
         }
     }
     
@@ -70,24 +60,7 @@ class CameraViewController: UIViewController {
     }
     
     @IBAction func test(sender: AnyObject) {
-//        if (state) {
-//            sequence.addAction(DeviceAction(dc: device!, id: "en", data: [0x14, 0x0, 0x0]))
-//        } else {
-//            sequence.addAction(DeviceAction(dc: device!, id: "disen", data: [0x04, 0x0, 0x0]))
-//        }
-//        state = !state
-//        var seq = SequenceAction()
-//        seq.addSubAction(DeviceAction(dc: device!, id: "a", data: [0x04, 0x0, 0x0]))
-//        seq.addSubAction(DeviceAction(dc: device!, id: "b", data: [0x14, 0x0, 0x0]))
-//        seq.addSubAction(DeviceAction(dc: device!, id: "c", data: [0x04, 0x0, 0x0]))
-//        seq.addSubAction(DeviceAction(dc: device!, id: "d", data: [0x14, 0x0, 0x0]))
-//        seq.addSubAction(DeviceAction(dc: device!, id: "e", data: [0x04, 0x0, 0x0]))
-//        sequence.addAction(seq)
-        /*sequence!.addAction(StageEngageStepAction(dc: device!, motor: StageEngageStepAction.MOTOR_1, dir: StageEngageStepAction.DIR_HIGH, steps: 2500))
-        sequence!.addAction(ImageProcessorAction(processor: multi!))
-        sequence!.addAction(StageEngageStepAction(dc: device!, motor: StageEngageStepAction.MOTOR_1, dir: StageEngageStepAction.DIR_LOW, steps: 2500))*/
-        
-        sequence!.addAction(ScanFocusAction(levels:10, stepsPerLevel:1000, camera:session!, device: device!, queue: queue!))
+        sequence!.addAction(ScanFocusAction(levels:10, stepsPerLevel:1000, camera:session!, device: device!))
     }
 
     @IBAction func moveXPlus(sender: AnyObject) {

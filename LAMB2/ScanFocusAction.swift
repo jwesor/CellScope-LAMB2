@@ -14,18 +14,23 @@ class ScanFocusAction: SequenceAction, ActionCompletionDelegate {
     let asyncIpWrapper: AsyncImageMultiProcessor
     let ipAction: ImageProcessorAction
     var focuses: [Int32]
+    var currentFocusLevel: UInt;
+    var bestFocusLevel: UInt;
+    var bestFocusScore: Int32;
     
-    init(levels: UInt, stepsPerLevel: UInt, camera: CameraSession, device: DeviceConnector, queue: NSOperationQueue) {
+    init(levels: UInt, stepsPerLevel: UInt, camera: CameraSession, device: DeviceConnector) {
         focusIp = IPFocusDetector()
         
         asyncIpWrapper = AsyncImageMultiProcessor.initWithProcessors([focusIp])
-        asyncIpWrapper.queue = queue
         asyncIpWrapper.enabled = false
         
-        camera.addImageProcessor(asyncIpWrapper)
+        camera.addAsyncImageProcessor(asyncIpWrapper)
         
         ipAction = ImageProcessorAction(processor: asyncIpWrapper)
         focuses = []
+        currentFocusLevel = 0;
+        bestFocusLevel = 0;
+        bestFocusScore = 0;
         super.init()
         ipAction.addCompletionDelegate(self)
         addSubAction(ipAction)
@@ -40,8 +45,16 @@ class ScanFocusAction: SequenceAction, ActionCompletionDelegate {
     func onActionCompleted(action: AbstractAction) {
         println("action complete %@", action)
         if (action == ipAction) {
-            focuses.append(focusIp.focus)
+            let newFocus = focusIp.focus
+            focuses.append(newFocus)
+            if (newFocus > bestFocusScore) {
+                bestFocusScore = newFocus
+                bestFocusLevel = currentFocusLevel
+            }
+            bestFocusLevel += 1
         }
         println(focuses)
+        println(bestFocusLevel)
+        println(bestFocusScore)
     }
 }

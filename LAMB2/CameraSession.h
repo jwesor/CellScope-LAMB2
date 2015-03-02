@@ -10,13 +10,9 @@
 //
 
 #import <Foundation/Foundation.h>
-#ifdef __cplusplus
-#import <opencv2/opencv.hpp>
-#endif
 #import <opencv2/highgui/cap_ios.h>
 #import "FixedCvCamera.h"
-#import "ImageProcessor.h"
-
+#import "AsyncImageProcessor.h"
 
 @interface CameraSession : NSObject <CvVideoCameraDelegate> {
     CvVideoCamera *_videoCamera;
@@ -30,6 +26,7 @@
  */
 @property bool enableCapture;
 @property (nonatomic, retain) CvVideoCamera* videoCamera;
+@property NSOperationQueue *opQueue;
 
 /* Create a new camera session with a preview inside of this view.
  */
@@ -38,6 +35,8 @@
 - (void) startCameraSession;
 
 - (void) addImageProcessor: (ImageProcessor *) imgproc;
+
+- (void) addAsyncImageProcessor: (AsyncImageProcessor *) imgproc;
 
 /* Convert the current frame into a UIImage for saving or
  * whatever other purposes. enableCapture must be true,

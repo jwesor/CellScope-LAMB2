@@ -22,6 +22,7 @@ using namespace cv;
 @implementation CameraSession
 
 @synthesize enableCapture;
+@synthesize opQueue;
 
 + (CameraSession *) initWithPreview:(UIView *)view {
     CameraSession *session = [[CameraSession alloc] init];
@@ -44,6 +45,8 @@ using namespace cv;
 
 - (id) init {
     processors = [[NSMutableArray alloc] init];
+    opQueue = [[NSOperationQueue alloc] init];
+    opQueue.maxConcurrentOperationCount = 1;
     return self;
 }
 
@@ -64,6 +67,13 @@ using namespace cv;
 
 - (void) addImageProcessor: (ImageProcessor*) imgproc {
     [processors addObject:imgproc];
+}
+
+- (void) addAsyncImageProcessor:(AsyncImageProcessor *) proc {
+    if (proc.queue == nil) {
+        proc.queue = opQueue;
+    }
+    [processors addObject:proc];
 }
 
 - (UIImage *) captureImage {

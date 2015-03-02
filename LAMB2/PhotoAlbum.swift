@@ -17,11 +17,12 @@ import AssetsLibrary
 
 @objc class PhotoAlbum {
     
-    let library: ALAssetsLibrary
+    var library: ALAssetsLibrary
     let albumName: NSString
+    var albumCreated: Bool
     var delegates: [String: PhotoAlbumSaveDelegate]
     
-    init(name: String) {
+    init(name: String, initAlbum: Bool = false) {
         delegates = Dictionary<String, PhotoAlbumSaveDelegate>()
         
         let dateFormat = NSDateFormatter()
@@ -29,14 +30,17 @@ import AssetsLibrary
         dateFormat.timeStyle = NSDateFormatterStyle.ShortStyle
         self.albumName = name + " " + dateFormat.stringFromDate(NSDate())
         library = ALAssetsLibrary()
+        albumCreated = initAlbum
         
-        library.addAssetsGroupAlbumWithName(albumName,
-            resultBlock: { (group: ALAssetsGroup!) -> Void in
-                NSLog("added album: %@", group != nil)
-            }, failureBlock: { (error: NSError!) -> Void in
-                NSLog("error adding album")
-            }
-        )
+        if (initAlbum) {
+            library.addAssetsGroupAlbumWithName(albumName,
+                resultBlock: { (group: ALAssetsGroup!) -> Void in
+                    NSLog("added album: %@", group != nil)
+                }, failureBlock: { (error: NSError!) -> Void in
+                    NSLog("error adding album")
+                }
+            )
+        }
     }
     
     func addSaveDelegate(delegate: PhotoAlbumSaveDelegate, id:String) {
@@ -48,6 +52,23 @@ import AssetsLibrary
     }
     
     func savePhoto(image: UIImage) {
+        println("Attempting to save...")
+        if (!albumCreated) {
+            println("Album does not yet exist!")
+            library.addAssetsGroupAlbumWithName(albumName,
+                resultBlock: { (group: ALAssetsGroup!) -> Void in
+                    NSLog("added album: %@", group != nil)
+                    self.albumCreated = true
+                    self.savePhoto(image)
+                }, failureBlock: { (error: NSError!) -> Void in
+                    NSLog("error adding album")
+                    self.albumCreated = true
+                    self.savePhoto(image)
+                }
+            )
+            return
+            
+        }
         var albumGroup:ALAssetsGroup? = nil
         library.enumerateGroupsWithTypes(ALAssetsGroupAll,
             usingBlock: { (group: ALAssetsGroup!, stop: UnsafeMutablePointer<ObjCBool>) -> Void in
