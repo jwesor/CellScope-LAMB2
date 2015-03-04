@@ -8,6 +8,7 @@
 
 class CameraViewController: UIViewController {
     
+    @IBOutlet weak var debugText: UITextView!
     @IBOutlet weak var stepText: UITextField!
     @IBOutlet weak var preview: UIView!
     @IBOutlet weak var deviceButton: DeviceStatusButton!
@@ -22,6 +23,10 @@ class CameraViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        DebugUtil.debugView = debugText
+        DebugUtil.log("initializing...")
+        
         session = CameraSession.initWithPreview(preview)
         
         device = DeviceConnector()
@@ -60,7 +65,7 @@ class CameraViewController: UIViewController {
     }
     
     @IBAction func test(sender: AnyObject) {
-        sequence!.addAction(AutofocuserAction(levels:10, stepsPerLevel:1000, camera:session!, device: device!))
+        sequence!.addAction(AutofocuserAction(levels:10, stepsPerLevel:10, camera:session!, device: device!))
     }
 
     @IBAction func moveXPlus(sender: AnyObject) {
@@ -87,6 +92,22 @@ class CameraViewController: UIViewController {
         }
         
         sequence!.addAction(StageEngageStepAction(dc: device!, motor: motor, dir: dir, steps:steps))
+    }
+    
+    @IBAction func led2off(sender: AnyObject) {
+        device?.bleSendData([0x27, 0, 0])
+    }
+    
+    @IBAction func led2on(sender: AnyObject) {
+        device?.bleSendData([0x28, 0, 0])
+    }
+    
+    @IBAction func led1off(sender: AnyObject) {
+        device?.bleSendData([0x25, 0, 0])
+    }
+    
+    @IBAction func led1on(sender: AnyObject) {
+        device?.bleSendData([0x26, 0, 0])
     }
     
 }

@@ -19,9 +19,8 @@ class StageEngageStepAction: SequenceAction {
     init(dc: DeviceConnector, motor: Int, dir: Bool, steps: UInt) {
         super.init()
         
-        var dirCode:Byte = (dir ? 0x13 : 0x03)
+        var dirCode:Byte = 0;
         if (motor == StageEngageStepAction.MOTOR_3) {
-            dirCode = (dir ? 0x09 : 0x08)
         }
         var enCode:Byte = 0x0
         var stepCode:Byte = 0x0
@@ -30,14 +29,17 @@ class StageEngageStepAction: SequenceAction {
         case StageEngageStepAction.MOTOR_1:
             enCode = 0x04
             stepCode = 0x18
+            dirCode = (dir ? 0x17 : 0x07)
             break
         case StageEngageStepAction.MOTOR_2:
             enCode = 0x05
             stepCode = 0x19
+            dirCode = (dir ? 0x13 : 0x03)
             break
         case StageEngageStepAction.MOTOR_3:
             enCode = 0x06
             stepCode = 0x20
+            dirCode = (dir ? 0x09 : 0x08)
             break
         default:
             break
