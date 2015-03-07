@@ -23,6 +23,7 @@ using namespace cv;
 
 @synthesize enableCapture;
 @synthesize opQueue;
+@synthesize continuousAutofocus = _autofocus;
 
 + (CameraSession *) initWithPreview:(UIView *)view {
     CameraSession *session = [[CameraSession alloc] init];
@@ -39,8 +40,8 @@ using namespace cv;
     session.videoCamera.grayscaleMode = NO;
     session.videoCamera.delegate = session;
     session.videoCamera.rotateVideo = false;
-    [view addSubview:preview];
     
+    [view addSubview:preview];
     
     return session;
 }
@@ -55,6 +56,11 @@ using namespace cv;
 
 - (void) startCameraSession {
     [self.videoCamera start];
+}
+
+- (void) startCameraSessionWithContinuousAutofocus: (bool)autofocus {
+    [self.videoCamera start];
+    self.continuousAutofocus = autofocus;
 }
 
 - (float) getAspectRatio {
@@ -87,7 +93,46 @@ using namespace cv;
             capturedDirty = false;
         }
         return capturedImage;
+    }
+}
 
+/* See opencv/modules/videoio/src/cap_ios_abstract_camera.mm for reference on changing
+ * autofocus settings.
+ */
+- (void) setContinuousAutofocus:(bool)continuousAutofocus {
+    AVCaptureDevice *device = [AVCaptureDevice defaultDeviceWithMediaType:AVMediaTypeVideo];
+    NSError *error = nil;
+    if (device == nil)
+        return;
+    if ([device lockForConfiguration:&error]) {
+        if (!continuousAutofocus && [device isFocusModeSupported:AVCaptureFocusModeLocked]) {
+            device.focusMode = AVCaptureFocusModeLocked;
+            [device unlockForConfiguration];
+            _autofocus = continuousAutofocus;
+        } else if (continuousAutofocus && [device isFocusModeSupported:AVCaptureFocusModeContinuousAutoFocus]) {
+            device.focusMode = AVCaptureFocusModeContinuousAutoFocus;
+            [device unlockForConfiguration];
+            _autofocus = continuousAutofocus;
+        }
+    } else {
+        NSLog(@"unable to lock device for autofocus configuration %@", [error localizedDescription]);
+    }
+}
+
+- (void) doSingleAutofocus {
+    if (_autofocus)
+        return;
+    AVCaptureDevice *device = [AVCaptureDevice defaultDeviceWithMediaType:AVMediaTypeVideo];
+    NSError *error = nil;
+    if (device == nil)
+        return;
+    if ([device lockForConfiguration:&error]) {
+        if ([device isFocusModeSupported:AVCaptureFocusModeAutoFocus]) {
+            device.focusMode = AVCaptureFocusModeAutoFocus;
+            [device unlockForConfiguration];
+        }
+    } else {
+        NSLog(@"unable to lock device for autofocus configuration %@", [error localizedDescription]);
     }
 }
 

@@ -26,6 +26,7 @@
 @property bool enableCapture;
 @property (nonatomic, retain) CvVideoCamera* videoCamera;
 @property NSOperationQueue *opQueue;
+@property (nonatomic) bool continuousAutofocus;
 
 /* Create a new camera session with a preview inside of this view.
  */
@@ -33,9 +34,13 @@
 
 - (void) startCameraSession;
 
+- (void) startCameraSessionWithContinuousAutofocus: (bool) autofocus;
+
 - (void) addImageProcessor: (ImageProcessor *) imgproc;
 
 - (void) addAsyncImageProcessor: (AsyncImageProcessor *) imgproc;
+
+- (void) doSingleAutofocus;
 
 /* Convert the current frame into a UIImage for saving or
  * whatever other purposes. enableCapture must be true,

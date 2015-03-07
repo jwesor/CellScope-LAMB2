@@ -210,6 +210,15 @@
                                     <rect key="frame" x="346" y="40" width="108" height="192"/>
                                 </variation>
                             </view>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hv7-7u-rff">
+                                <rect key="frame" x="714" y="76" width="70" height="30"/>
+                                <state key="normal" title="Autofocus">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="doAutofocus:" destination="IVN-5g-NjA" eventType="touchDown" id="gAJ-D6-GsM"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
@@ -239,12 +248,14 @@
                             <constraint firstItem="P2A-jE-pGb" firstAttribute="top" secondItem="oMG-aO-gZ3" secondAttribute="bottom" constant="8" id="hDZ-qO-IXC"/>
                             <constraint firstItem="0ah-ec-OzF" firstAttribute="top" secondItem="5hf-IU-McK" secondAttribute="bottom" constant="10" id="hSf-dL-J1k"/>
                             <constraint firstItem="3xr-Ui-qjt" firstAttribute="leading" secondItem="z5F-gW-cCO" secondAttribute="leadingMargin" id="iAs-Ue-ikm"/>
+                            <constraint firstItem="hv7-7u-rff" firstAttribute="trailing" secondItem="z5F-gW-cCO" secondAttribute="trailingMargin" id="iIb-ys-BHe"/>
                             <constraint firstItem="lXu-ti-R15" firstAttribute="top" secondItem="MCh-9S-kWx" secondAttribute="bottom" id="jAs-En-PBa"/>
                             <constraint firstItem="4Cq-Ka-AMX" firstAttribute="top" secondItem="0Hk-ax-zKZ" secondAttribute="bottom" constant="8" id="kBk-Po-yKB"/>
                             <constraint firstItem="b4n-Ce-Dn7" firstAttribute="leading" secondItem="z5F-gW-cCO" secondAttribute="leadingMargin" id="oar-aL-7xo"/>
                             <constraint firstItem="0Hk-ax-zKZ" firstAttribute="top" secondItem="P2A-jE-pGb" secondAttribute="bottom" constant="8" id="roO-O4-GvF"/>
                             <constraint firstItem="Agj-PH-npc" firstAttribute="top" secondItem="MCh-9S-kWx" secondAttribute="bottom" constant="416" id="rvx-eU-1PY"/>
                             <constraint firstItem="aYj-RH-wFm" firstAttribute="leading" secondItem="z5F-gW-cCO" secondAttribute="leadingMargin" id="sDF-yS-HBU"/>
+                            <constraint firstItem="hv7-7u-rff" firstAttribute="top" secondItem="2ds-AV-lVK" secondAttribute="bottom" constant="26" id="tnh-aU-gzb"/>
                             <constraint firstItem="P2A-jE-pGb" firstAttribute="leading" secondItem="z5F-gW-cCO" secondAttribute="leadingMargin" id="veV-wW-ivG"/>
                             <constraint firstItem="4Cq-Ka-AMX" firstAttribute="leading" secondItem="z5F-gW-cCO" secondAttribute="leadingMargin" id="wnE-GP-Ra5"/>
                             <constraint firstItem="M3l-ar-q0H" firstAttribute="leading" secondItem="z5F-gW-cCO" secondAttribute="leadingMargin" id="xPB-Pf-JL3"/>

@@ -37,7 +37,7 @@ class CameraViewController: UIViewController {
         album = PhotoAlbum(name: "LambTest")
         
         session?.enableCapture = true
-        session?.startCameraSession()
+        session?.startCameraSessionWithContinuousAutofocus(false);
         state = false
         sequence = ActionQueue()
         sequence!.beginActions()
@@ -110,4 +110,7 @@ class CameraViewController: UIViewController {
         device?.bleSendData([0x26, 0, 0])
     }
     
+    @IBAction func doAutofocus(sender: AnyObject) {
+        session?.doSingleAutofocus()
+    }
 }
