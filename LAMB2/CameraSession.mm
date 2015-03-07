@@ -30,7 +30,7 @@ using namespace cv;
     UIImageView *preview = [[UIImageView alloc] initWithFrame:view.bounds];
     session->imageView = preview;
     
-    session.videoCamera = [[FixedCvCamera alloc] init];
+    session.videoCamera = [[CvVideoCamera alloc] init];
     session.videoCamera.parentView = preview;
     session.videoCamera.defaultAVCaptureDevicePosition = AVCaptureDevicePositionBack;
     session.videoCamera.defaultAVCaptureSessionPreset = AVCaptureSessionPreset1920x1080;
@@ -38,7 +38,9 @@ using namespace cv;
     session.videoCamera.defaultFPS = 30;
     session.videoCamera.grayscaleMode = NO;
     session.videoCamera.delegate = session;
+    session.videoCamera.rotateVideo = false;
     [view addSubview:preview];
+    
     
     return session;
 }

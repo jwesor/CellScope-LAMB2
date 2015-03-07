@@ -11,7 +11,6 @@
 
 #import <Foundation/Foundation.h>
 #import <opencv2/highgui/cap_ios.h>
-#import "FixedCvCamera.h"
 #import "AsyncImageProcessor.h"
 
 @interface CameraSession : NSObject <CvVideoCameraDelegate> {

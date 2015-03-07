@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		180F870A1A7057620001CD3C /* TouchStagePan.swift in Sources */ = {isa = PBXBuildFile; fileRef = 180F87091A7057620001CD3C /* TouchStagePan.swift */; };
-		180F870D1A79692B0001CD3C /* FixedCvCamera.m in Sources */ = {isa = PBXBuildFile; fileRef = 180F870C1A79692B0001CD3C /* FixedCvCamera.m */; };
 		180F87171A7C67D90001CD3C /* IPColorInverter.mm in Sources */ = {isa = PBXBuildFile; fileRef = 180F87161A7C67D90001CD3C /* IPColorInverter.mm */; };
 		180F87191A7C6DD30001CD3C /* ImageProcessor.mm in Sources */ = {isa = PBXBuildFile; fileRef = 180F87181A7C6DD30001CD3C /* ImageProcessor.mm */; };
 		180F871F1A7FFEB50001CD3C /* IPPanTracker.mm in Sources */ = {isa = PBXBuildFile; fileRef = 180F871E1A7FFEB50001CD3C /* IPPanTracker.mm */; };
@@ -62,8 +61,6 @@
 
 /* Begin PBXFileReference section */
 		180F87091A7057620001CD3C /* TouchStagePan.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TouchStagePan.swift; sourceTree = "<group>"; };
-		180F870B1A79692B0001CD3C /* FixedCvCamera.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FixedCvCamera.h; sourceTree = "<group>"; };
-		180F870C1A79692B0001CD3C /* FixedCvCamera.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FixedCvCamera.m; sourceTree = "<group>"; };
 		180F87141A7C666E0001CD3C /* ImageProcessor.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ImageProcessor.h; sourceTree = "<group>"; };
 		180F87151A7C67D90001CD3C /* IPColorInverter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IPColorInverter.h; sourceTree = "<group>"; };
 		180F87161A7C67D90001CD3C /* IPColorInverter.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = IPColorInverter.mm; sourceTree = "<group>"; };
@@ -173,8 +170,6 @@
 				188074E51A38F4A60039725B /* CameraSession.mm */,
 				18A0722B1AA0098D00A93391 /* ImageUtils.h */,
 				18A0722C1AA0098D00A93391 /* ImageUtils.mm */,
-				180F870B1A79692B0001CD3C /* FixedCvCamera.h */,
-				180F870C1A79692B0001CD3C /* FixedCvCamera.m */,
 			);
 			name = Camera;
 			sourceTree = "<group>";
@@ -416,7 +411,6 @@
 				18E157971A68A52600DFEFFF /* DeviceTableViewController.swift in Sources */,
 				182CE82D1A96E5F7002162DF /* IPAsyncPanTracker.mm in Sources */,
 				18A0722D1AA0098D00A93391 /* ImageUtils.mm in Sources */,
-				180F870D1A79692B0001CD3C /* FixedCvCamera.m in Sources */,
 				188074E61A38F4A60039725B /* CameraSession.mm in Sources */,
 				180F871F1A7FFEB50001CD3C /* IPPanTracker.mm in Sources */,
 				180F87A31A8EE48E0001CD3C /* ActionManager.swift in Sources */,
