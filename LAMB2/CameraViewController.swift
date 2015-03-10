@@ -42,6 +42,7 @@ class CameraViewController: UIViewController {
         sequence = ActionQueue()
         sequence!.beginActions()
         
+        
     }
     
     override func didReceiveMemoryWarning() {
@@ -65,7 +66,13 @@ class CameraViewController: UIViewController {
     }
     
     @IBAction func test(sender: AnyObject) {
+        sequence!.addAction(CameraAutofocusAction(camera: session!))
         sequence!.addAction(AutofocuserAction(levels:10, stepsPerLevel:10, camera:session!, device: device!))
+        sequence!.addAction(CameraAutofocusAction(camera: session!))
+        sequence!.addAction(CameraManualFocusAction(camera: session!, lensPosition: 0));
+        sequence!.addAction(CameraAutofocusAction(camera: session!))
+        sequence!.addAction(CameraManualFocusAction(camera: session!, lensPosition: 1));
+        sequence!.addAction(CameraAutofocusAction(camera: session!))
     }
 
     @IBAction func moveXPlus(sender: AnyObject) {

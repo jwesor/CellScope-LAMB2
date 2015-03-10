@@ -36,6 +36,8 @@
 		18A072331AA1404800A93391 /* AutofocuserAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18A072321AA1404800A93391 /* AutofocuserAction.swift */; };
 		18DB4C8F1AA4FA8700165F0F /* ScanFocusAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18DB4C8E1AA4FA8700165F0F /* ScanFocusAction.swift */; };
 		18DB4C911AA7C67500165F0F /* DebugUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18DB4C901AA7C67500165F0F /* DebugUtil.swift */; };
+		18DB4C931AAE670900165F0F /* CameraAutofocusAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18DB4C921AAE670900165F0F /* CameraAutofocusAction.swift */; };
+		18DB4C971AAE7A7600165F0F /* CameraManualFocusAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18DB4C961AAE7A7600165F0F /* CameraManualFocusAction.swift */; };
 		18E1578B1A67507E00DFEFFF /* BLE.m in Sources */ = {isa = PBXBuildFile; fileRef = 18E157891A67507E00DFEFFF /* BLE.m */; };
 		18E1578D1A67510900DFEFFF /* DeviceConnector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18E1578C1A67510900DFEFFF /* DeviceConnector.swift */; };
 		18E157971A68A52600DFEFFF /* DeviceTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18E157961A68A52600DFEFFF /* DeviceTableViewController.swift */; };
@@ -101,6 +103,8 @@
 		18A072321AA1404800A93391 /* AutofocuserAction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AutofocuserAction.swift; sourceTree = "<group>"; };
 		18DB4C8E1AA4FA8700165F0F /* ScanFocusAction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScanFocusAction.swift; sourceTree = "<group>"; };
 		18DB4C901AA7C67500165F0F /* DebugUtil.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DebugUtil.swift; sourceTree = "<group>"; };
+		18DB4C921AAE670900165F0F /* CameraAutofocusAction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CameraAutofocusAction.swift; sourceTree = "<group>"; };
+		18DB4C961AAE7A7600165F0F /* CameraManualFocusAction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CameraManualFocusAction.swift; sourceTree = "<group>"; };
 		18E157881A67507E00DFEFFF /* BLE.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BLE.h; sourceTree = "<group>"; };
 		18E157891A67507E00DFEFFF /* BLE.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BLE.m; sourceTree = "<group>"; };
 		18E1578A1A67507E00DFEFFF /* BLEDefines.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BLEDefines.h; sourceTree = "<group>"; };
@@ -187,25 +191,24 @@
 		180F87221A82F75B0001CD3C /* Actions */ = {
 			isa = PBXGroup;
 			children = (
-				180F87981A85934B0001CD3C /* Stage */,
 				180F87A21A8EE48E0001CD3C /* ActionManager.swift */,
 				180F87A41A8EECC70001CD3C /* ActionQueue.swift */,
 				180F87201A82F7530001CD3C /* ActionSequencer.swift */,
 				180F87291A82F7C80001CD3C /* AbstractAction.swift */,
-				180F87231A82F7700001CD3C /* DeviceAction.swift */,
 				180F87941A858FF20001CD3C /* SequenceAction.swift */,
-				18A0721E1A981AEF00A93391 /* CapturePhotoAction.swift */,
-				180F879B1A8C21D90001CD3C /* ImageProcessorAction.swift */,
+				180F87981A85934B0001CD3C /* Device */,
+				18DB4C941AAE679800165F0F /* Camera */,
 			);
 			name = Actions;
 			sourceTree = "<group>";
 		};
-		180F87981A85934B0001CD3C /* Stage */ = {
+		180F87981A85934B0001CD3C /* Device */ = {
 			isa = PBXGroup;
 			children = (
+				180F87231A82F7700001CD3C /* DeviceAction.swift */,
 				180F87991A8593C20001CD3C /* StageEngageStepAction.swift */,
 			);
-			name = Stage;
+			name = Device;
 			sourceTree = "<group>";
 		};
 		18A072311AA13E6F00A93391 /* Autofocus */ = {
@@ -217,6 +220,17 @@
 				18A0722F1AA13E6400A93391 /* IPFocusDetector.mm */,
 			);
 			name = Autofocus;
+			sourceTree = "<group>";
+		};
+		18DB4C941AAE679800165F0F /* Camera */ = {
+			isa = PBXGroup;
+			children = (
+				18A0721E1A981AEF00A93391 /* CapturePhotoAction.swift */,
+				180F879B1A8C21D90001CD3C /* ImageProcessorAction.swift */,
+				18DB4C921AAE670900165F0F /* CameraAutofocusAction.swift */,
+				18DB4C961AAE7A7600165F0F /* CameraManualFocusAction.swift */,
+			);
+			name = Camera;
 			sourceTree = "<group>";
 		};
 		18E157871A67507E00DFEFFF /* BLE */ = {
@@ -405,6 +419,7 @@
 			files = (
 				180F87191A7C6DD30001CD3C /* ImageProcessor.mm in Sources */,
 				182CE82A1A96E0CF002162DF /* AsyncImageMultiProcessor.mm in Sources */,
+				18DB4C971AAE7A7600165F0F /* CameraManualFocusAction.swift in Sources */,
 				18ED38131A200B8B005BA3CE /* ViewController.swift in Sources */,
 				18E157A11A70290300DFEFFF /* DeviceStatusButton.swift in Sources */,
 				182CE8241A8F01B6002162DF /* CameraViewController.swift in Sources */,
@@ -415,6 +430,7 @@
 				180F871F1A7FFEB50001CD3C /* IPPanTracker.mm in Sources */,
 				180F87A31A8EE48E0001CD3C /* ActionManager.swift in Sources */,
 				18A072291AA004E100A93391 /* IPImageCapture.mm in Sources */,
+				18DB4C931AAE670900165F0F /* CameraAutofocusAction.swift in Sources */,
 				18E1578B1A67507E00DFEFFF /* BLE.m in Sources */,
 				180F879F1A8C23740001CD3C /* AsyncImageProcessor.mm in Sources */,
 				180F879C1A8C21D90001CD3C /* ImageProcessorAction.swift in Sources */,

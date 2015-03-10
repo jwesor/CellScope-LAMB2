@@ -24,12 +24,13 @@ using namespace cv;
 @synthesize enableCapture;
 @synthesize opQueue;
 @synthesize continuousAutofocus = _autofocus;
+@synthesize captureDevice = _device;
 
 + (CameraSession *) initWithPreview:(UIView *)view {
     CameraSession *session = [[CameraSession alloc] init];
     
     UIImageView *preview = [[UIImageView alloc] initWithFrame:view.bounds];
-    session->imageView = preview;
+    session->_imageView = preview;
     
     session.videoCamera = [[CvVideoCamera alloc] init];
     session.videoCamera.parentView = preview;
@@ -40,6 +41,7 @@ using namespace cv;
     session.videoCamera.grayscaleMode = NO;
     session.videoCamera.delegate = session;
     session.videoCamera.rotateVideo = false;
+    session->_device = [AVCaptureDevice defaultDeviceWithMediaType:AVMediaTypeVideo];
     
     [view addSubview:preview];
     
@@ -47,7 +49,7 @@ using namespace cv;
 }
 
 - (id) init {
-    processors = [[NSMutableArray alloc] init];
+    _processors = [[NSMutableArray alloc] init];
     opQueue = [[NSOperationQueue alloc] init];
     opQueue.maxConcurrentOperationCount = 1;
     return self;
@@ -74,14 +76,14 @@ using namespace cv;
 }
 
 - (void) addImageProcessor: (ImageProcessor*) imgproc {
-    [processors addObject:imgproc];
+    [_processors addObject:imgproc];
 }
 
 - (void) addAsyncImageProcessor:(AsyncImageProcessor *) proc {
     if (proc.queue == nil) {
         proc.queue = opQueue;
     }
-    [processors addObject:proc];
+    [_processors addObject:proc];
 }
 
 - (UIImage *) captureImage {
@@ -100,8 +102,8 @@ using namespace cv;
  * autofocus settings.
  */
 - (void) setContinuousAutofocus:(bool)continuousAutofocus {
-    AVCaptureDevice *device = [AVCaptureDevice defaultDeviceWithMediaType:AVMediaTypeVideo];
     NSError *error = nil;
+    AVCaptureDevice *device = self.captureDevice;
     if (device == nil)
         return;
     if ([device lockForConfiguration:&error]) {
@@ -122,7 +124,7 @@ using namespace cv;
 - (void) doSingleAutofocus {
     if (_autofocus)
         return;
-    AVCaptureDevice *device = [AVCaptureDevice defaultDeviceWithMediaType:AVMediaTypeVideo];
+    AVCaptureDevice *device = self.captureDevice;
     NSError *error = nil;
     if (device == nil)
         return;
@@ -148,13 +150,13 @@ using namespace cv;
         }
     }
     
-    for (ImageProcessor *imgproc in processors) {
+    for (ImageProcessor *imgproc in _processors) {
         if (imgproc.enabled) {
             [imgproc processImage:image];
         }
     }
     
-    for (ImageProcessor *imgproc in processors) {
+    for (ImageProcessor *imgproc in _processors) {
         if (imgproc.enabled) {
             [imgproc updateDisplayOverlay:image];
         }

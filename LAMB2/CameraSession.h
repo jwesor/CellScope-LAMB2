@@ -15,8 +15,9 @@
 
 @interface CameraSession : NSObject <CvVideoCameraDelegate> {
     CvVideoCamera *_videoCamera;
-    NSMutableArray *processors;
-    UIImageView *imageView;
+    NSMutableArray *_processors;
+    UIImageView *_imageView;
+    AVCaptureDevice *_device;
 }
 
 /* enableCapture must be toggled true in order for captureImage to work.
@@ -24,9 +25,10 @@
  * it false unless the application needs image captures.
  */
 @property bool enableCapture;
-@property (nonatomic, retain) CvVideoCamera* videoCamera;
+@property (nonatomic, retain) CvVideoCamera *videoCamera;
 @property NSOperationQueue *opQueue;
 @property (nonatomic) bool continuousAutofocus;
+@property (readonly) AVCaptureDevice *captureDevice;
 
 /* Create a new camera session with a preview inside of this view.
  */
