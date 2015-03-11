@@ -29,6 +29,7 @@
 @property NSOperationQueue *opQueue;
 @property (nonatomic, getter = getAutoFocus, setter = setAutoFocus:) bool continuousAutoFocus;
 @property (nonatomic, getter = getWhiteBalance, setter = setWhiteBalance:) bool continuousAutoWhiteBalance;
+@property (nonatomic, getter = getExposure, setter = setExposure:) bool continuousAutoExposure;
 @property (readonly) AVCaptureDevice *captureDevice;
 
 /* Create a new camera session with a preview inside of this view.
@@ -44,6 +45,8 @@
 - (bool) doSingleAutoFocus;
 
 - (bool) doSingleAutoWhiteBalance;
+
+- (bool) doSingleAutoExposure;
 
 /* Convert the current frame into a UIImage for saving or
  * whatever other purposes. enableCapture must be true,

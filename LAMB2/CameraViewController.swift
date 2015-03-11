@@ -79,6 +79,9 @@ class CameraViewController: UIViewController {
         sequence!.addAction(CameraAutoFocusAction(camera: session!))
         sequence!.addAction(CameraManualWhiteBalanceAction(camera: session!, red: 1, green: session!.captureDevice.maxWhiteBalanceGain, blue: 1))
         sequence!.addAction(CameraAutoWhiteBalanceAction(camera: session!))
+        sequence!.addAction(CameraManualExposureAction(camera: session!, milliseconds: 250, iso: 100))
+        sequence!.addAction(CameraAutoExposureAction(camera: session!))
+        sequence!.addAction(CameraAutoFocusAction(camera: session!))
     }
 
     @IBAction func moveXPlus(sender: AnyObject) {
@@ -125,5 +128,7 @@ class CameraViewController: UIViewController {
     
     @IBAction func doAutofocus(sender: AnyObject) {
         session?.doSingleAutoFocus()
+        session?.doSingleAutoWhiteBalance()
+        session?.doSingleAutoExposure()
     }
 }

@@ -26,6 +26,7 @@ using namespace cv;
 @synthesize opQueue;
 @synthesize continuousAutoFocus = _autofocus;
 @synthesize continuousAutoWhiteBalance = _autowhite;
+@synthesize continuousAutoExposure = _autoexpose;
 @synthesize captureDevice = _device;
 
 + (CameraSession *) initWithPreview:(UIView *)view {
@@ -56,6 +57,7 @@ using namespace cv;
     opQueue.maxConcurrentOperationCount = 1;
     _autofocus = true;
     _autowhite = true;
+    _autoexpose = true;
     started = false;
     return self;
 }
@@ -66,6 +68,7 @@ using namespace cv;
     started = true;
     self.continuousAutoFocus = _autofocus;
     self.continuousAutoWhiteBalance = _autowhite;
+    self.continuousAutoExposure = _autoexpose;
 }
 
 - (float) getAspectRatio {
@@ -101,9 +104,6 @@ using namespace cv;
     }
 }
 
-/* See opencv/modules/videoio/src/cap_ios_abstract_camera.mm for reference on changing
- * autofocus settings.
- */
 - (void) setAutoFocus:(bool)continuousAutoFocus {
     NSError *error = nil;
     AVCaptureDevice *device = self.captureDevice;
@@ -198,6 +198,55 @@ using namespace cv;
         }
     } else {
         NSLog(@"unable to lock device for white balance configuration %@", [error localizedDescription]);
+    }
+    return false;
+}
+
+- (void) setExposure:(bool)continuousAutoExposure {
+    NSError *error = nil;
+    AVCaptureDevice *device = self.captureDevice;
+    if (device == nil) {
+        _autoexpose = continuousAutoExposure;
+        return;
+    }
+    if ([device lockForConfiguration:&error]) {
+        if (!continuousAutoExposure && [device isExposureModeSupported:AVCaptureExposureModeLocked]) {
+            device.exposureMode = AVCaptureExposureModeLocked;
+            [device unlockForConfiguration];
+            _autoexpose = continuousAutoExposure;
+        } else if (continuousAutoExposure && [device isExposureModeSupported:AVCaptureExposureModeContinuousAutoExposure]) {
+            device.exposureMode = AVCaptureExposureModeContinuousAutoExposure;
+            [device unlockForConfiguration];
+            _autoexpose = continuousAutoExposure;
+        }
+    } else {
+        NSLog(@"unable to lock device for auto exposure configuration %@", [error localizedDescription]);
+    }
+}
+
+- (bool) getExposure {
+    AVCaptureDevice *device = self.captureDevice;
+    if (device != nil) {
+        _autoexpose = device.exposureMode == AVCaptureExposureModeContinuousAutoExposure;
+    }
+    return _autoexpose;
+}
+
+- (bool) doSingleAutoExposure {
+    if (self.continuousAutoExposure)
+        return true;
+    AVCaptureDevice *device = self.captureDevice;
+    NSError *error = nil;
+    if (device == nil)
+        return false;
+    if ([device lockForConfiguration:&error]) {
+        if ([device isExposureModeSupported:AVCaptureExposureModeAutoExpose]) {
+            device.exposureMode = AVCaptureExposureModeAutoExpose;
+            [device unlockForConfiguration];
+            return true;
+        }
+    } else {
+        NSLog(@"unable to lock device for exposure configuration %@", [error localizedDescription]);
     }
     return false;
 }

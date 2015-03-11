@@ -23,6 +23,8 @@
 		182CE8241A8F01B6002162DF /* CameraViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 182CE8231A8F01B6002162DF /* CameraViewController.swift */; };
 		182CE82A1A96E0CF002162DF /* AsyncImageMultiProcessor.mm in Sources */ = {isa = PBXBuildFile; fileRef = 182CE8291A96E0CF002162DF /* AsyncImageMultiProcessor.mm */; };
 		182CE82D1A96E5F7002162DF /* IPAsyncPanTracker.mm in Sources */ = {isa = PBXBuildFile; fileRef = 182CE82C1A96E5F7002162DF /* IPAsyncPanTracker.mm */; };
+		183AF31F1AB0CD1C006C9503 /* CameraAutoExposureAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 183AF31E1AB0CD1C006C9503 /* CameraAutoExposureAction.swift */; };
+		183AF3211AB0CD87006C9503 /* CameraManualExposureAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 183AF3201AB0CD87006C9503 /* CameraManualExposureAction.swift */; };
 		188074E31A38F43A0039725B /* opencv2.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 188074E21A38F43A0039725B /* opencv2.framework */; };
 		188074E61A38F4A60039725B /* CameraSession.mm in Sources */ = {isa = PBXBuildFile; fileRef = 188074E51A38F4A60039725B /* CameraSession.mm */; };
 		188074E81A38F7210039725B /* CoreVideo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 188074E71A38F7210039725B /* CoreVideo.framework */; };
@@ -86,6 +88,8 @@
 		182CE8291A96E0CF002162DF /* AsyncImageMultiProcessor.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = AsyncImageMultiProcessor.mm; sourceTree = "<group>"; };
 		182CE82B1A96E5F7002162DF /* IPAsyncPanTracker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IPAsyncPanTracker.h; sourceTree = "<group>"; };
 		182CE82C1A96E5F7002162DF /* IPAsyncPanTracker.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = IPAsyncPanTracker.mm; sourceTree = "<group>"; };
+		183AF31E1AB0CD1C006C9503 /* CameraAutoExposureAction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CameraAutoExposureAction.swift; sourceTree = "<group>"; };
+		183AF3201AB0CD87006C9503 /* CameraManualExposureAction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CameraManualExposureAction.swift; sourceTree = "<group>"; };
 		184D8DFE1A205AC600105FDA /* LAMB2-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "LAMB2-Bridging-Header.h"; sourceTree = "<group>"; };
 		188074E21A38F43A0039725B /* opencv2.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = opencv2.framework; sourceTree = "<group>"; };
 		188074E41A38F4A60039725B /* CameraSession.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CameraSession.h; sourceTree = "<group>"; };
@@ -235,6 +239,8 @@
 				18DB4C961AAE7A7600165F0F /* CameraManualFocusAction.swift */,
 				18DB4C981AAFC24500165F0F /* CameraAutoWhiteBalanceAction.swift */,
 				18DB4C9A1AAFC31400165F0F /* CameraManualWhiteBalanceAction.swift */,
+				183AF31E1AB0CD1C006C9503 /* CameraAutoExposureAction.swift */,
+				183AF3201AB0CD87006C9503 /* CameraManualExposureAction.swift */,
 			);
 			name = Camera;
 			sourceTree = "<group>";
@@ -426,6 +432,7 @@
 				180F87191A7C6DD30001CD3C /* ImageProcessor.mm in Sources */,
 				182CE82A1A96E0CF002162DF /* AsyncImageMultiProcessor.mm in Sources */,
 				18DB4C971AAE7A7600165F0F /* CameraManualFocusAction.swift in Sources */,
+				183AF31F1AB0CD1C006C9503 /* CameraAutoExposureAction.swift in Sources */,
 				18DB4C9B1AAFC31400165F0F /* CameraManualWhiteBalanceAction.swift in Sources */,
 				18ED38131A200B8B005BA3CE /* ViewController.swift in Sources */,
 				18E157A11A70290300DFEFFF /* DeviceStatusButton.swift in Sources */,
@@ -438,6 +445,7 @@
 				180F87A31A8EE48E0001CD3C /* ActionManager.swift in Sources */,
 				18A072291AA004E100A93391 /* IPImageCapture.mm in Sources */,
 				18DB4C991AAFC24500165F0F /* CameraAutoWhiteBalanceAction.swift in Sources */,
+				183AF3211AB0CD87006C9503 /* CameraManualExposureAction.swift in Sources */,
 				18DB4C931AAE670900165F0F /* CameraAutoFocusAction.swift in Sources */,
 				18E1578B1A67507E00DFEFFF /* BLE.m in Sources */,
 				180F879F1A8C23740001CD3C /* AsyncImageProcessor.mm in Sources */,
