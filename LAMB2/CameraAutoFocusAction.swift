@@ -1,5 +1,5 @@
 //
-//  CameraAutofocusAction.swift
+//  CameraAutoFocusAction.swift
 //  LAMB2
 //
 //  Refocuses the camera using the built-in autofocus and
@@ -11,7 +11,7 @@
 
 import Foundation
 
-class CameraAutofocusAction : AbstractAction {
+class CameraAutoFocusAction : AbstractAction {
     
     let camera: CameraSession
     
@@ -22,8 +22,12 @@ class CameraAutofocusAction : AbstractAction {
     
     override func doExecution() {
         camera.captureDevice.addObserver(self, forKeyPath: "adjustingFocus", options: NSKeyValueObservingOptions.New, context: nil)
-        if (!camera.continuousAutofocus) {
-            camera.doSingleAutofocus()
+        if (!camera.continuousAutoFocus) {
+            let success = camera.doSingleAutoFocus()
+            if (!success) {
+                camera.captureDevice.removeObserver(self, forKeyPath: "adjustingFocus")
+                finish()
+            }
         }
     }
     

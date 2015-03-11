@@ -25,9 +25,10 @@ class AbstractAction: NSObject {
     }
     
     final func run(delegates: ActionCompletionDelegate...) {
+        DebugUtil.log("\(self)\n")
         runtimeCompletionDelegates += delegates
-        doExecution()
         running = true
+        doExecution()
     }
     
     final func finish() {

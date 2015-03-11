@@ -14,6 +14,7 @@ using namespace cv;
 @interface CameraSession() {
     Mat currentImg;
     bool capturedDirty;
+    bool started;
     UIImage *capturedImage;
 }
 - (void) addImageProcessor: (ImageProcessor *) imgproc;
@@ -23,7 +24,8 @@ using namespace cv;
 
 @synthesize enableCapture;
 @synthesize opQueue;
-@synthesize continuousAutofocus = _autofocus;
+@synthesize continuousAutoFocus = _autofocus;
+@synthesize continuousAutoWhiteBalance = _autowhite;
 @synthesize captureDevice = _device;
 
 + (CameraSession *) initWithPreview:(UIView *)view {
@@ -52,17 +54,18 @@ using namespace cv;
     _processors = [[NSMutableArray alloc] init];
     opQueue = [[NSOperationQueue alloc] init];
     opQueue.maxConcurrentOperationCount = 1;
+    _autofocus = true;
+    _autowhite = true;
+    started = false;
     return self;
 }
 
 
 - (void) startCameraSession {
     [self.videoCamera start];
-}
-
-- (void) startCameraSessionWithContinuousAutofocus: (bool)autofocus {
-    [self.videoCamera start];
-    self.continuousAutofocus = autofocus;
+    started = true;
+    self.continuousAutoFocus = _autofocus;
+    self.continuousAutoWhiteBalance = _autowhite;
 }
 
 - (float) getAspectRatio {
@@ -101,41 +104,102 @@ using namespace cv;
 /* See opencv/modules/videoio/src/cap_ios_abstract_camera.mm for reference on changing
  * autofocus settings.
  */
-- (void) setContinuousAutofocus:(bool)continuousAutofocus {
+- (void) setAutoFocus:(bool)continuousAutoFocus {
     NSError *error = nil;
     AVCaptureDevice *device = self.captureDevice;
-    if (device == nil)
+    if (device == nil) {
+        _autofocus = continuousAutoFocus;
         return;
+    }
     if ([device lockForConfiguration:&error]) {
-        if (!continuousAutofocus && [device isFocusModeSupported:AVCaptureFocusModeLocked]) {
+        if (!continuousAutoFocus && [device isFocusModeSupported:AVCaptureFocusModeLocked]) {
             device.focusMode = AVCaptureFocusModeLocked;
             [device unlockForConfiguration];
-            _autofocus = continuousAutofocus;
-        } else if (continuousAutofocus && [device isFocusModeSupported:AVCaptureFocusModeContinuousAutoFocus]) {
+            _autofocus = continuousAutoFocus;
+        } else if (continuousAutoFocus && [device isFocusModeSupported:AVCaptureFocusModeContinuousAutoFocus]) {
             device.focusMode = AVCaptureFocusModeContinuousAutoFocus;
             [device unlockForConfiguration];
-            _autofocus = continuousAutofocus;
+            _autofocus = continuousAutoFocus;
         }
     } else {
         NSLog(@"unable to lock device for autofocus configuration %@", [error localizedDescription]);
     }
 }
 
-- (void) doSingleAutofocus {
-    if (_autofocus)
-        return;
+- (bool) getAutoFocus {
+    AVCaptureDevice *device = self.captureDevice;
+    if (device != nil) {
+        _autofocus = device.focusMode == AVCaptureFocusModeContinuousAutoFocus;
+    }
+    return _autofocus;
+}
+
+- (bool) doSingleAutoFocus {
+    if (self.continuousAutoFocus)
+        return true;
     AVCaptureDevice *device = self.captureDevice;
     NSError *error = nil;
     if (device == nil)
-        return;
+        return false;
     if ([device lockForConfiguration:&error]) {
         if ([device isFocusModeSupported:AVCaptureFocusModeAutoFocus]) {
             device.focusMode = AVCaptureFocusModeAutoFocus;
             [device unlockForConfiguration];
+            return true;
         }
     } else {
         NSLog(@"unable to lock device for autofocus configuration %@", [error localizedDescription]);
     }
+    return false;
+}
+
+- (void) setWhiteBalance:(bool)continuousAutoWhiteBalance {
+    NSError *error = nil;
+    AVCaptureDevice *device = self.captureDevice;
+    if (device == nil) {
+        _autowhite = continuousAutoWhiteBalance;
+        return;
+    }
+    if ([device lockForConfiguration:&error]) {
+        if (!continuousAutoWhiteBalance && [device isWhiteBalanceModeSupported:AVCaptureWhiteBalanceModeLocked]) {
+            device.whiteBalanceMode = AVCaptureWhiteBalanceModeLocked;
+            [device unlockForConfiguration];
+            _autowhite = continuousAutoWhiteBalance;
+        } else if (continuousAutoWhiteBalance && [device isWhiteBalanceModeSupported:AVCaptureWhiteBalanceModeContinuousAutoWhiteBalance]) {
+            device.whiteBalanceMode = AVCaptureWhiteBalanceModeContinuousAutoWhiteBalance;
+            [device unlockForConfiguration];
+            _autowhite = continuousAutoWhiteBalance;
+        }
+    } else {
+        NSLog(@"unable to lock device for auto white balance configuration %@", [error localizedDescription]);
+    }
+}
+
+- (bool) getWhiteBalance {
+    AVCaptureDevice *device = self.captureDevice;
+    if (device != nil) {
+        _autowhite = device.whiteBalanceMode == AVCaptureWhiteBalanceModeContinuousAutoWhiteBalance;
+    }
+    return _autowhite;
+}
+
+- (bool) doSingleAutoWhiteBalance {
+    if (self.continuousAutoWhiteBalance)
+        return true;
+    AVCaptureDevice *device = self.captureDevice;
+    NSError *error = nil;
+    if (device == nil)
+        return false;
+    if ([device lockForConfiguration:&error]) {
+        if ([device isWhiteBalanceModeSupported:AVCaptureWhiteBalanceModeAutoWhiteBalance]) {
+            device.whiteBalanceMode = AVCaptureWhiteBalanceModeAutoWhiteBalance;
+            [device unlockForConfiguration];
+            return true;
+        }
+    } else {
+        NSLog(@"unable to lock device for white balance configuration %@", [error localizedDescription]);
+    }
+    return false;
 }
 
 #pragma mark - Protocol CvVideoCameraDelegate
