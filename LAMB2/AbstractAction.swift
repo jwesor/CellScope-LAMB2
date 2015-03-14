@@ -34,13 +34,14 @@ class AbstractAction: NSObject {
     final func finish() {
         if running {
             running = false
+            let tmpDelegates = runtimeCompletionDelegates
+            runtimeCompletionDelegates = []
             for delegate in completionDelegates {
                 delegate.onActionCompleted(self)
             }
-            for delegate in runtimeCompletionDelegates {
+            for delegate in tmpDelegates {
                 delegate.onActionCompleted(self)
             }
-            runtimeCompletionDelegates = []
         }
     }
     
