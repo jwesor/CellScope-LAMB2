@@ -14,44 +14,74 @@ import Foundation
 
 class AbstractAction: NSObject {
     
-    var running:Bool
+    var state:ActionState
     var completionDelegates:[ActionCompletionDelegate]
     var runtimeCompletionDelegates:[ActionCompletionDelegate]
+    var timeout: Double
     
     override init() {
-        running = false
+        state = ActionState.READY
         completionDelegates = []
         runtimeCompletionDelegates = []
+        timeout = 0
     }
     
     final func run(delegates: ActionCompletionDelegate...) {
         DebugUtil.log("\(self)\n")
         runtimeCompletionDelegates += delegates
-        running = true
+        state = ActionState.RUNNING
+        if timeout > 0 {
+            let delayTime = dispatch_time(DISPATCH_TIME_NOW, Int64(timeout * Double(NSEC_PER_SEC)))
+            dispatch_after(delayTime, dispatch_get_main_queue(), { () -> Void in
+                self.finish(completed: false)
+            })
+        }
+        
         doExecution()
     }
     
-    final func finish() {
-        if running {
-            running = false
-            let tmpDelegates = runtimeCompletionDelegates
-            runtimeCompletionDelegates = []
-            for delegate in completionDelegates {
-                delegate.onActionCompleted(self)
-            }
-            for delegate in tmpDelegates {
-                delegate.onActionCompleted(self)
+    final func finish(completed:Bool = true) {
+        if state != ActionState.RUNNING {
+            return
+        }
+        let lockQueue = dispatch_queue_create("action completion queue", nil)
+        dispatch_sync(lockQueue) {
+            if self.state == ActionState.RUNNING {
+                self.state = (completed ? ActionState.COMPLETED : ActionState.TIMED_OUT)
+                self.cleanup()
+                let tmpDelegates = self.runtimeCompletionDelegates
+                self.runtimeCompletionDelegates = []
+                for delegate in self.completionDelegates {
+                    delegate.onActionCompleted(self)
+                }
+                for delegate in tmpDelegates {
+                    delegate.onActionCompleted(self)
+                }
             }
         }
     }
     
+    // Override to dictate action behavior
     func doExecution() {
         finish()
+    }
+    
+    // Override to implement any on-finish behavior.
+    // Particularly useful if the action was used as a delegate
+    // and needs to be removed.
+    func cleanup() {
     }
     
     func addCompletionDelegate(delegate: ActionCompletionDelegate) {
         completionDelegates.append(delegate)
     }
+}
+
+enum ActionState {
+    case READY
+    case RUNNING
+    case COMPLETED
+    case TIMED_OUT
 }
 
 protocol ActionCompletionDelegate {

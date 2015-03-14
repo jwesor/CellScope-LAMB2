@@ -25,7 +25,6 @@ class CameraAutoFocusAction : AbstractAction {
         if (!camera.continuousAutoFocus) {
             let success = camera.doSingleAutoFocus()
             if (!success) {
-                camera.captureDevice.removeObserver(self, forKeyPath: "adjustingFocus")
                 finish()
             }
         }
@@ -36,11 +35,14 @@ class CameraAutoFocusAction : AbstractAction {
             var focusing = change[NSKeyValueChangeNewKey]?.integerValue == 1;
             if (!focusing) {
                 //Focusing is done
-                camera.captureDevice.removeObserver(self, forKeyPath: "adjustingFocus")
                 finish()
             }
         } else {
             super.observeValueForKeyPath(keyPath, ofObject: object, change: change, context: context)
         }
+    }
+    
+    override func cleanup() {
+        camera.captureDevice.removeObserver(self, forKeyPath: "adjustingFocus")
     }
 }

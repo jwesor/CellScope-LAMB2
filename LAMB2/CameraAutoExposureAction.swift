@@ -22,7 +22,6 @@ class CameraAutoExposureAction : AbstractAction {
         if (!camera.continuousAutoExposure) {
             let success = camera.doSingleAutoExposure()
             if (!success) {
-                camera.captureDevice.removeObserver(self, forKeyPath: "adjustingExposure")
                 finish()
             }
         }
@@ -32,11 +31,14 @@ class CameraAutoExposureAction : AbstractAction {
         if (keyPath == "adjustingExposure") {
             var exposing = change[NSKeyValueChangeNewKey]?.integerValue == 1;
             if (!exposing) {
-                camera.captureDevice.removeObserver(self, forKeyPath: "adjustingExposure")
                 finish()
             }
         } else {
             super.observeValueForKeyPath(keyPath, ofObject: object, change: change, context: context)
         }
+    }
+    
+    override func cleanup() {
+        camera.captureDevice.removeObserver(self, forKeyPath: "adjustingExposure")
     }
 }

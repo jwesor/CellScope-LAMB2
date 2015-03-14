@@ -24,7 +24,6 @@ class CameraAutoWhiteBalanceAction : AbstractAction {
         if (!camera.continuousAutoWhiteBalance) {
             let success = camera.doSingleAutoWhiteBalance()
             if (!success) {
-                //camera.captureDevice.removeObserver(self, forKeyPath: "adjustingWhiteBalance")
                 // Seems like auto white balance is not currently supported. Here's a workaround that enables continuous auto white balance then goes back to locked
                 autoOnOff = true
                 camera.continuousAutoWhiteBalance = true
@@ -40,7 +39,6 @@ class CameraAutoWhiteBalanceAction : AbstractAction {
             var balancing = change[NSKeyValueChangeNewKey]?.integerValue == 1;
             if (!balancing) {
                 //white balancing is done
-                camera.captureDevice.removeObserver(self, forKeyPath: "adjustingWhiteBalance")
                 if (self.autoOnOff) {
                     camera.continuousAutoWhiteBalance = false
                 }
@@ -49,5 +47,9 @@ class CameraAutoWhiteBalanceAction : AbstractAction {
         } else {
             super.observeValueForKeyPath(keyPath, ofObject: object, change: change, context: context)
         }
+    }
+    
+    override func cleanup() {
+        camera.captureDevice.removeObserver(self, forKeyPath: "adjustingWhiteBalance")
     }
 }

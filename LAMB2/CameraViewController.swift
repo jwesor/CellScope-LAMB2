@@ -76,6 +76,7 @@ class CameraViewController: UIViewController {
         sequence!.addAction(CameraManualFocusAction(camera: session!, lensPosition: 1));
         sequence!.addAction(CameraAutoFocusAction(camera: session!))*/
         sequence!.addAction(AutofocuserAction(levels: 10, stepsPerLevel: 100, camera: session!, device: device!))
+        sequence!.addAction(HangAction())
         sequence!.addAction(CameraManualFocusAction(camera: session!, lensPosition: 0))
         sequence!.addAction(CameraAutoFocusAction(camera: session!))
         sequence!.addAction(CameraManualWhiteBalanceAction(camera: session!, red: 1, green: session!.captureDevice.maxWhiteBalanceGain, blue: 1))

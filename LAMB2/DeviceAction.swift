@@ -34,8 +34,13 @@ class DeviceAction: AbstractAction, DeviceDataDelegate {
     }
     
     func deviceDidReceiveData(data:UInt8) {
-        device.removeDataDelegate(id)
         finish()
+    }
+    
+    override func cleanup() {
+        if device.connected {
+            device.removeDataDelegate(id)
+        }
     }
     
 }
