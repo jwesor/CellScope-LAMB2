@@ -14,12 +14,10 @@ class CameraViewController: UIViewController {
     @IBOutlet weak var deviceButton: DeviceStatusButton!
     var session: CameraSession?
     var device: DeviceConnector?
-    var touch: TouchStagePan?
-    var state:Bool = false
     var sequence:ActionManager?
     var album:PhotoAlbum?
     
-    var multi:AsyncImageMultiProcessor?
+    var async:AsyncImageMultiProcessor?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -29,27 +27,26 @@ class CameraViewController: UIViewController {
         
         session = CameraSession.initWithPreview(preview)
         session?.continuousAutoFocus = false
-        session?.continuousAutoWhiteBalance = false
+        session?.continuousAutoWhiteBalance = true
+        session?.continuousAutoWhiteBalance = true
+        
+        var inverter = IPColorInverter()
+        async = AsyncImageMultiProcessor.initWithProcessors([inverter])
+        async?.enabled = false
+        async?.framesToProcess = 20
+        
+        session?.addAsyncImageProcessor(async)
+        
+        session?.startCameraSession()
         
         device = DeviceConnector()
         device?.addStatusDelegate(deviceButton)
         deviceButton.updateDeviceStatusDisconnected()
-        touch = TouchStagePan(view: preview, device: device!)
         
         album = PhotoAlbum(name: "LambTest")
         
-        session?.enableCapture = true
-        session?.startCameraSession()
-        state = false
         sequence = ActionQueue()
         sequence!.beginActions()
-        
-        
-    }
-    
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
     }
     
     @IBAction func captureimage(sender: AnyObject) {
@@ -68,25 +65,8 @@ class CameraViewController: UIViewController {
     }
     
     @IBAction func test(sender: AnyObject) {
-        /*sequence!.addAction(CameraAutoFocusAction(camera: session!))
-        sequence!.addAction(AutofocuserAction(levels:10, stepsPerLevel:10, camera:session!, device: device!))
         sequence!.addAction(CameraAutoFocusAction(camera: session!))
-        sequence!.addAction(CameraManualFocusAction(camera: session!, lensPosition: 0));
-        sequence!.addAction(CameraAutoFocusAction(camera: session!))
-        sequence!.addAction(CameraManualFocusAction(camera: session!, lensPosition: 1));
-        sequence!.addAction(CameraAutoFocusAction(camera: session!))*/
         sequence!.addAction(AutofocuserAction(levels: 10, stepsPerLevel: 100, camera: session!, device: device!))
-        sequence!.addAction(HangAction())
-        sequence!.addAction(CameraManualFocusAction(camera: session!, lensPosition: 0))
-        sequence!.addAction(CameraAutoFocusAction(camera: session!))
-        sequence!.addAction(CameraManualWhiteBalanceAction(camera: session!, red: 1, green: session!.captureDevice.maxWhiteBalanceGain, blue: 1))
-        sequence!.addAction(CameraAutoWhiteBalanceAction(camera: session!))
-        sequence!.addAction(CameraManualExposureAction(camera: session!, milliseconds: 250, iso: 100))
-        sequence!.addAction(CameraAutoExposureAction(camera: session!))
-        sequence!.addAction(CameraExposureBiasAction(camera: session!, bias: session!.captureDevice.maxExposureTargetBias))
-        //sequence!.addAction(CameraAutoExposureAction(camera: session!))
-        sequence!.addAction(CameraAutoFocusAction(camera: session!))
-
     }
 
     @IBAction func moveXPlus(sender: AnyObject) {

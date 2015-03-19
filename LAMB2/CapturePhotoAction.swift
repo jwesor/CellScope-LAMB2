@@ -1,7 +1,12 @@
-
 //
 //  CapturePhotoAction
 //  LAMB2
+//
+//  Action that directly captures and saves and image
+//  from a CameraSession.
+//
+//  It's generally preferable to use an ImageProccessorAction
+//  with IPImageCapture instead of this class.
 //
 //  Created by Fletcher Lab Mac Mini on 2/20/15.
 //  Copyright (c) 2015 Fletchlab. All rights reserved.

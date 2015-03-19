@@ -24,7 +24,6 @@ using namespace cv;
 
 + (AsyncImageMultiProcessor *) initWithProcessors: (NSArray *) procs {
     AsyncImageMultiProcessor *aimp = [[AsyncImageMultiProcessor alloc] init];
-    
     for (ImageProcessor* proc in procs) {
         [aimp addImageProcessor:proc];
     }

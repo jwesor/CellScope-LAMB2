@@ -67,8 +67,8 @@ class AbstractAction: NSObject {
     }
     
     // Override to implement any on-finish behavior.
-    // Particularly useful if the action was used as a delegate
-    // and needs to be removed.
+    // Particularly useful if the action added a delegate/listener
+    // to something during execution and needs to be removed.
     func cleanup() {
     }
     

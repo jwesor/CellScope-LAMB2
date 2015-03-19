@@ -2,8 +2,11 @@
 //  ActionSequencer.swift
 //  LAMB2
 //
-//  Sequence of actions to run. Once the sequence is executed,
+//  Sequence of actions to run. Once the sequence is completed,
 //  no additonal actions may be added.
+//
+//  It's generally preferable to use an ActionQueue. This class
+//  mainly exists as a part of SequenceAction's implentation.
 //
 //  Created by Fletcher Lab Mac Mini on 2/4/15.
 //  Copyright (c) 2015 Fletchlab. All rights reserved.

@@ -2,6 +2,8 @@
 //  TouchStagePan.swift
 //  LAMB2
 //
+//  Here's something that fiddles around with a touch-controlled stage.
+//
 //  Created by Fletcher Lab Mac Mini on 1/21/15.
 //  Copyright (c) 2015 Fletchlab. All rights reserved.
 //

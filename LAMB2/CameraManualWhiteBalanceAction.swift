@@ -2,6 +2,8 @@
 //  CameraManualWhiteBalanceAction.swift
 //  LAMB2
 //
+//  Instructs built-in camera to set white balance
+//
 //  Created by Fletcher Lab Mac Mini on 3/10/15.
 //  Copyright (c) 2015 Fletchlab. All rights reserved.
 //

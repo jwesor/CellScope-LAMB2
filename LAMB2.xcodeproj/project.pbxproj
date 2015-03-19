@@ -186,6 +186,7 @@
 				188074E51A38F4A60039725B /* CameraSession.mm */,
 				18A0722B1AA0098D00A93391 /* ImageUtils.h */,
 				18A0722C1AA0098D00A93391 /* ImageUtils.mm */,
+				18A0721C1A98040D00A93391 /* PhotoAlbum.swift */,
 			);
 			name = Camera;
 			sourceTree = "<group>";
@@ -238,8 +239,8 @@
 		18DB4C941AAE679800165F0F /* Camera */ = {
 			isa = PBXGroup;
 			children = (
-				18A0721E1A981AEF00A93391 /* CapturePhotoAction.swift */,
 				180F879B1A8C21D90001CD3C /* ImageProcessorAction.swift */,
+				18A0721E1A981AEF00A93391 /* CapturePhotoAction.swift */,
 				18DB4C921AAE670900165F0F /* CameraAutoFocusAction.swift */,
 				18DB4C961AAE7A7600165F0F /* CameraManualFocusAction.swift */,
 				18DB4C981AAFC24500165F0F /* CameraAutoWhiteBalanceAction.swift */,
@@ -299,7 +300,6 @@
 				180F87221A82F75B0001CD3C /* Actions */,
 				180F87091A7057620001CD3C /* TouchStagePan.swift */,
 				18DB4C901AA7C67500165F0F /* DebugUtil.swift */,
-				18A0721C1A98040D00A93391 /* PhotoAlbum.swift */,
 				182CE8231A8F01B6002162DF /* CameraViewController.swift */,
 				18ED38121A200B8B005BA3CE /* ViewController.swift */,
 				18A072311AA13E6F00A93391 /* Autofocus */,

@@ -2,6 +2,9 @@
 //  CameraManualExposureAction.swift
 //  LAMB2
 //
+//  Instructs built-in camera to set exposure to the specified
+//  settings.
+//
 //  Created by Fletcher Lab Mac Mini on 3/11/15.
 //  Copyright (c) 2015 Fletchlab. All rights reserved.
 //
