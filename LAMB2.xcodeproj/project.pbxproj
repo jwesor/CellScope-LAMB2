@@ -42,6 +42,11 @@
 		18D6B8F01ACCCA31002B1A9E /* StageDisableAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18D6B8EF1ACCCA31002B1A9E /* StageDisableAction.swift */; };
 		18D6B8F21ACCCB0B002B1A9E /* StageConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18D6B8F11ACCCB0B002B1A9E /* StageConstants.swift */; };
 		18D6B8F41ACCCC78002B1A9E /* StageStepAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18D6B8F31ACCCC78002B1A9E /* StageStepAction.swift */; };
+		18D6B8E11ACCAFD4002B1A9E /* libGTLTouchStaticLib.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 18D6B8E01ACCAFD4002B1A9E /* libGTLTouchStaticLib.a */; };
+		18D6B8E31ACCAFDC002B1A9E /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 18D6B8E21ACCAFDC002B1A9E /* Security.framework */; };
+		18D6B8E51ACCAFE3002B1A9E /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 18D6B8E41ACCAFE3002B1A9E /* SystemConfiguration.framework */; };
+		18D6B8E71ACCB07C002B1A9E /* GTMOAuth2ViewTouch.xib in Resources */ = {isa = PBXBuildFile; fileRef = 18D6B8E61ACCB07C002B1A9E /* GTMOAuth2ViewTouch.xib */; };
+		18D6B8EA1ACCB0BC002B1A9E /* GTLDrive_Sources.m in Sources */ = {isa = PBXBuildFile; fileRef = 18D6B8E81ACCB0BC002B1A9E /* GTLDrive_Sources.m */; };
 		18DB4C8F1AA4FA8700165F0F /* ScanFocusAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18DB4C8E1AA4FA8700165F0F /* ScanFocusAction.swift */; };
 		18DB4C911AA7C67500165F0F /* DebugUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18DB4C901AA7C67500165F0F /* DebugUtil.swift */; };
 		18DB4C931AAE670900165F0F /* CameraAutoFocusAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18DB4C921AAE670900165F0F /* CameraAutoFocusAction.swift */; };
@@ -119,6 +124,12 @@
 		18D6B8EF1ACCCA31002B1A9E /* StageDisableAction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StageDisableAction.swift; sourceTree = "<group>"; };
 		18D6B8F11ACCCB0B002B1A9E /* StageConstants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StageConstants.swift; sourceTree = "<group>"; };
 		18D6B8F31ACCCC78002B1A9E /* StageStepAction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StageStepAction.swift; sourceTree = "<group>"; };
+		18D6B8E01ACCAFD4002B1A9E /* libGTLTouchStaticLib.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libGTLTouchStaticLib.a; path = "google-api-objectivec-client-read-only/Source/build/Debug-iphoneos/libGTLTouchStaticLib.a"; sourceTree = "<group>"; };
+		18D6B8E21ACCAFDC002B1A9E /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
+		18D6B8E41ACCAFE3002B1A9E /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
+		18D6B8E61ACCB07C002B1A9E /* GTMOAuth2ViewTouch.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = GTMOAuth2ViewTouch.xib; path = "google-api-objectivec-client-read-only/Source/OAuth2/Touch/GTMOAuth2ViewTouch.xib"; sourceTree = SOURCE_ROOT; };
+		18D6B8E81ACCB0BC002B1A9E /* GTLDrive_Sources.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GTLDrive_Sources.m; path = "google-api-objectivec-client-read-only/Source/Services/Drive/Generated/GTLDrive_Sources.m"; sourceTree = "<group>"; };
+		18D6B8E91ACCB0BC002B1A9E /* GTLDrive.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GTLDrive.h; path = "google-api-objectivec-client-read-only/Source/Services/Drive/Generated/GTLDrive.h"; sourceTree = "<group>"; };
 		18DB4C8E1AA4FA8700165F0F /* ScanFocusAction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScanFocusAction.swift; sourceTree = "<group>"; };
 		18DB4C901AA7C67500165F0F /* DebugUtil.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DebugUtil.swift; sourceTree = "<group>"; };
 		18DB4C921AAE670900165F0F /* CameraAutoFocusAction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CameraAutoFocusAction.swift; sourceTree = "<group>"; };
@@ -153,6 +164,9 @@
 				188074EA1A38F72D0039725B /* AssetsLibrary.framework in Frameworks */,
 				188074E81A38F7210039725B /* CoreVideo.framework in Frameworks */,
 				188074E31A38F43A0039725B /* opencv2.framework in Frameworks */,
+				18D6B8E51ACCAFE3002B1A9E /* SystemConfiguration.framework in Frameworks */,
+				18D6B8E31ACCAFDC002B1A9E /* Security.framework in Frameworks */,
+				18D6B8E11ACCAFD4002B1A9E /* libGTLTouchStaticLib.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -272,15 +286,22 @@
 				18E157891A67507E00DFEFFF /* BLE.m */,
 				18E1578A1A67507E00DFEFFF /* BLEDefines.h */,
 			);
-			path = BLE;
+			name = BLE;
+			path = LAMB2/BLE;
 			sourceTree = "<group>";
 		};
 		18ED37FF1A200B8B005BA3CE = {
 			isa = PBXGroup;
 			children = (
+				18D6B8E41ACCAFE3002B1A9E /* SystemConfiguration.framework */,
+				18D6B8E21ACCAFDC002B1A9E /* Security.framework */,
+				18D6B8E01ACCAFD4002B1A9E /* libGTLTouchStaticLib.a */,
+				18D6B8E81ACCB0BC002B1A9E /* GTLDrive_Sources.m */,
+				18D6B8E91ACCB0BC002B1A9E /* GTLDrive.h */,
 				18ED380A1A200B8B005BA3CE /* LAMB2 */,
 				18ED38231A200B8C005BA3CE /* LAMB2Tests */,
 				18ED38091A200B8B005BA3CE /* Products */,
+				18E157871A67507E00DFEFFF /* BLE */,
 				188074EB1A38F7350039725B /* CoreMedia.framework */,
 				188074E91A38F72D0039725B /* AssetsLibrary.framework */,
 				188074E71A38F7210039725B /* CoreVideo.framework */,
@@ -322,7 +343,7 @@
 		18ED380B1A200B8B005BA3CE /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				18E157871A67507E00DFEFFF /* BLE */,
+				18D6B8E61ACCB07C002B1A9E /* GTMOAuth2ViewTouch.xib */,
 				18ED380C1A200B8B005BA3CE /* Info.plist */,
 				18A0722A1AA0086F00A93391 /* LAMB2-Prefix.pch */,
 			);
@@ -427,6 +448,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				18D6B8E71ACCB07C002B1A9E /* GTMOAuth2ViewTouch.xib in Resources */,
 				18ED38161A200B8B005BA3CE /* Main.storyboard in Resources */,
 				18ED381B1A200B8B005BA3CE /* LaunchScreen.xib in Resources */,
 				18ED38181A200B8B005BA3CE /* Images.xcassets in Resources */,
@@ -463,6 +485,7 @@
 				18A0722D1AA0098D00A93391 /* ImageUtils.mm in Sources */,
 				188074E61A38F4A60039725B /* CameraSession.mm in Sources */,
 				180F871F1A7FFEB50001CD3C /* IPPanTracker.mm in Sources */,
+				18D6B8EA1ACCB0BC002B1A9E /* GTLDrive_Sources.m in Sources */,
 				180F87A31A8EE48E0001CD3C /* ActionManager.swift in Sources */,
 				18A072291AA004E100A93391 /* IPImageCapture.mm in Sources */,
 				18D6B8F21ACCCB0B002B1A9E /* StageConstants.swift in Sources */,
@@ -632,11 +655,20 @@
 				INFOPLIST_FILE = LAMB2/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/google-api-objectivec-client-read-only/Source/build/Debug-iphoneos",
+				);
+				OTHER_LDFLAGS = (
+					"-ObjC",
+					"-all_load",
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "LAMB2/LAMB2-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				TARGETED_DEVICE_FAMILY = "1,2";
+				USER_HEADER_SEARCH_PATHS = "./google-api-objectivec-client-read-only/Source/**";
 			};
 			name = Debug;
 		};
@@ -655,10 +687,19 @@
 				INFOPLIST_FILE = LAMB2/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/google-api-objectivec-client-read-only/Source/build/Debug-iphoneos",
+				);
+				OTHER_LDFLAGS = (
+					"-ObjC",
+					"-all_load",
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "LAMB2/LAMB2-Bridging-Header.h";
 				TARGETED_DEVICE_FAMILY = "1,2";
+				USER_HEADER_SEARCH_PATHS = "./google-api-objectivec-client-read-only/Source/**";
 			};
 			name = Release;
 		};
