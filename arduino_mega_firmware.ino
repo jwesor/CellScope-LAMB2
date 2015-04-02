@@ -22,8 +22,8 @@
 #define EN_2    33
 #define EN_3    34
 
-#define DIR_PIN    26
-#define DIR_PIN_2  35
+#define DIR_PIN    35
+#define DIR_PIN_2  26
 #define DIR_PIN_3  32 
 
 #define xLimit  44

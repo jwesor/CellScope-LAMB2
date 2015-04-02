@@ -33,12 +33,12 @@ class StageEngageStepAction: SequenceAction {
         case StageEngageStepAction.MOTOR_1:
             enCode = 0x04
             stepCode = 0x18
-            dirCode = (dir ? 0x17 : 0x07)
+            dirCode = (dir ? 0x13 : 0x03)
             break
         case StageEngageStepAction.MOTOR_2:
             enCode = 0x05
             stepCode = 0x19
-            dirCode = (dir ? 0x13 : 0x03)
+            dirCode = (dir ? 0x17 : 0x07)
             break
         case StageEngageStepAction.MOTOR_3:
             enCode = 0x06
