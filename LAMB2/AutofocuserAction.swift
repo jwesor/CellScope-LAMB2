@@ -28,7 +28,7 @@ class AutofocuserAction : SequenceAction, ActionCompletionDelegate {
     func onActionCompleted(action: AbstractAction) {
         let level = scanAction.bestFocusLevel
         let stepsToMove = (totalLevels - level) * stepsPerLevel
-        let moveAction = StageEngageStepAction(dc: device, motor: StageEngageStepAction.MOTOR_3, dir: StageEngageStepAction.DIR_LOW, steps: stepsToMove)
+        let moveAction = StageEnableStepAction(device, motor: StageConstants.MOTOR_3, dir: StageConstants.DIR_LOW, steps: stepsToMove)
         NSLog("Autofocus target at level %d", level)
         addSubAction(moveAction)
     }

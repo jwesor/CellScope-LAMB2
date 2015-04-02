@@ -14,7 +14,7 @@ class TouchStagePan {
     let pan:UIPanGestureRecognizer = UIPanGestureRecognizer()
     let device: DeviceConnector
     
-    init(view: UIView, device: DeviceConnector) {
+    init(view: UIView, queue: ActionQueue, device: DeviceConnector) {
         self.view = view
         self.device = device
         view.userInteractionEnabled = true
@@ -26,7 +26,7 @@ class TouchStagePan {
         let tap = UITapGestureRecognizer()
         tap.addTarget(self, action: "tapStage:")
         view.addGestureRecognizer(tap)
-        tap.enabled = true
+        tap.enabled = false
     }
     
     @objc func tapStage(sender: UITapGestureRecognizer) {

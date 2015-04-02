@@ -35,7 +35,7 @@ class ScanFocusAction: SequenceAction, ActionCompletionDelegate {
         ipAction.addCompletionDelegate(self)
         addSubAction(ipAction)
         for i in 1...levels {
-            addSubAction(StageEngageStepAction(dc: device, motor: StageEngageStepAction.MOTOR_3, dir: StageEngageStepAction.DIR_HIGH, steps: stepsPerLevel))
+            addSubAction(StageEnableStepAction(device, motor: StageConstants.MOTOR_3, dir: StageConstants.DIR_HIGH, steps: stepsPerLevel))
             addSubAction(ipAction)
         }
     }

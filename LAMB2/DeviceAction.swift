@@ -17,7 +17,7 @@ class DeviceAction: AbstractAction, DeviceDataDelegate {
     var id:String
     var data:[Byte]
     
-    init(dc:DeviceConnector, id:String, data:[Byte]) {
+    init(_ dc:DeviceConnector, id:String, data:[Byte]) {
         self.device = dc
         self.id = id
         self.data = data

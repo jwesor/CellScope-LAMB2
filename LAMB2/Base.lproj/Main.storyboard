@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6250" systemVersion="14A389" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6751" systemVersion="14A389" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="BYZ-38-t0r">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6244"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6736"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
@@ -132,32 +132,14 @@
                                     <action selector="moveXPlus:" destination="IVN-5g-NjA" eventType="touchUpInside" id="QGw-El-WYy"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aYj-RH-wFm">
-                                <rect key="frame" x="16" y="372" width="30" height="30"/>
-                                <state key="normal" title="x+">
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <connections>
-                                    <action selector="moveXPlus:" destination="IVN-5g-NjA" eventType="touchUpInside" id="1il-wc-HME"/>
-                                </connections>
-                            </button>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="100" borderStyle="roundedRect" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="3xr-Ui-qjt">
-                                <rect key="frame" x="16" y="334" width="45" height="30"/>
+                                <rect key="frame" x="16" y="334" width="101" height="30"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
                             </textField>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Swh-24-mPd" userLabel="LED 2 HIGH">
-                                <rect key="frame" x="709" y="550" width="75" height="30"/>
-                                <state key="normal" title="LED 2 OFF">
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <connections>
-                                    <action selector="led2off:" destination="IVN-5g-NjA" eventType="touchDown" id="4a8-cz-Bhs"/>
-                                </connections>
-                            </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ITr-SE-cev" userLabel="LED 2 LOW">
-                                <rect key="frame" x="715" y="512" width="69" height="30"/>
-                                <state key="normal" title="LED 2 ON">
+                                <rect key="frame" x="700" y="512" width="84" height="30"/>
+                                <state key="normal" title="LED 2 HIGH">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
@@ -165,8 +147,8 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="sp4-Wq-EhF" userLabel="LED 1 HIGH">
-                                <rect key="frame" x="709" y="474" width="75" height="30"/>
-                                <state key="normal" title="LED 1 OFF">
+                                <rect key="frame" x="704" y="474" width="80" height="30"/>
+                                <state key="normal" title="LED 1 LOW">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
@@ -174,8 +156,8 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Agj-PH-npc" userLabel="LED 1 LOW">
-                                <rect key="frame" x="715" y="436" width="69" height="30"/>
-                                <state key="normal" title="LED 1 ON">
+                                <rect key="frame" x="700" y="436" width="84" height="30"/>
+                                <state key="normal" title="LED 1 HIGH">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
@@ -183,7 +165,7 @@
                                 </connections>
                             </button>
                             <view contentMode="scaleToFill" placeholderIntrinsicWidth="108" placeholderIntrinsicHeight="192" translatesAutoresizingMaskIntoConstraints="NO" id="QHK-hJ-vXj">
-                                <rect key="frame" x="147" y="40" width="506" height="900"/>
+                                <rect key="frame" x="147" y="70" width="506" height="900"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstAttribute="height" relation="greaterThanOrEqual" priority="750" constant="900" id="Ha0-Gc-cgf"/>
@@ -208,41 +190,58 @@
                                     <action selector="doAutofocus:" destination="IVN-5g-NjA" eventType="touchDown" id="gAJ-D6-GsM"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Swh-24-mPd" userLabel="LED 2 HIGH">
+                                <rect key="frame" x="704" y="550" width="80" height="30"/>
+                                <state key="normal" title="LED 2 LOW">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="led2off:" destination="IVN-5g-NjA" eventType="touchDown" id="4a8-cz-Bhs"/>
+                                </connections>
+                            </button>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="b4n-Ce-Dn7">
-                                <rect key="frame" x="16" y="58" width="240" height="128"/>
+                                <rect key="frame" x="147" y="20" width="506" height="44"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="240" id="YhA-rZ-s2k"/>
-                                    <constraint firstAttribute="height" constant="128" id="b2h-oS-t0C"/>
+                                    <constraint firstAttribute="width" constant="506" id="YhA-rZ-s2k"/>
+                                    <constraint firstAttribute="height" constant="44" id="b2h-oS-t0C"/>
                                 </constraints>
                                 <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aYj-RH-wFm">
+                                <rect key="frame" x="16" y="372" width="30" height="30"/>
+                                <state key="normal" title="x+">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="moveXPlus:" destination="IVN-5g-NjA" eventType="touchUpInside" id="1il-wc-HME"/>
+                                </connections>
+                            </button>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstItem="b4n-Ce-Dn7" firstAttribute="top" secondItem="MCh-9S-kWx" secondAttribute="bottom" id="0yr-am-kGW"/>
                             <constraint firstItem="3xr-Ui-qjt" firstAttribute="top" secondItem="MCh-9S-kWx" secondAttribute="bottom" constant="314" id="1MA-vs-r3P"/>
+                            <constraint firstAttribute="centerX" secondItem="b4n-Ce-Dn7" secondAttribute="centerX" id="22f-pL-t46"/>
                             <constraint firstAttribute="centerX" secondItem="QHK-hJ-vXj" secondAttribute="centerX" id="2vQ-Ri-60c"/>
                             <constraint firstItem="Agj-PH-npc" firstAttribute="trailing" secondItem="z5F-gW-cCO" secondAttribute="trailingMargin" id="5R3-9f-6Au"/>
-                            <constraint firstItem="b4n-Ce-Dn7" firstAttribute="leading" secondItem="z5F-gW-cCO" secondAttribute="leadingMargin" id="7fp-un-KBp"/>
-                            <constraint firstItem="b4n-Ce-Dn7" firstAttribute="top" secondItem="lXu-ti-R15" secondAttribute="bottom" constant="8" id="9zi-Ne-70y"/>
                             <constraint firstItem="2ds-AV-lVK" firstAttribute="trailing" secondItem="z5F-gW-cCO" secondAttribute="trailingMargin" id="Gbk-x6-u15"/>
                             <constraint firstAttribute="centerX" secondItem="5hf-IU-McK" secondAttribute="centerX" id="HFH-Lv-gK8"/>
                             <constraint firstItem="ITr-SE-cev" firstAttribute="top" secondItem="sp4-Wq-EhF" secondAttribute="bottom" constant="8" id="Ivt-Yh-61J"/>
                             <constraint firstItem="Swh-24-mPd" firstAttribute="top" secondItem="ITr-SE-cev" secondAttribute="bottom" constant="8" id="K50-6n-vSP"/>
-                            <constraint firstItem="aYj-RH-wFm" firstAttribute="top" secondItem="MCh-9S-kWx" secondAttribute="bottom" constant="352" id="MxB-E3-dD1"/>
                             <constraint firstItem="lXu-ti-R15" firstAttribute="leading" secondItem="z5F-gW-cCO" secondAttribute="leadingMargin" id="PTc-uE-jaW"/>
                             <constraint firstItem="0Hk-ax-zKZ" firstAttribute="leading" secondItem="z5F-gW-cCO" secondAttribute="leadingMargin" id="QoQ-dD-hix"/>
                             <constraint firstItem="sp4-Wq-EhF" firstAttribute="top" secondItem="Agj-PH-npc" secondAttribute="bottom" constant="8" id="Qzc-3f-FDn"/>
                             <constraint firstItem="oMG-aO-gZ3" firstAttribute="top" secondItem="aYj-RH-wFm" secondAttribute="bottom" constant="8" id="TYy-t3-f90"/>
                             <constraint firstItem="Swh-24-mPd" firstAttribute="trailing" secondItem="z5F-gW-cCO" secondAttribute="trailingMargin" id="Vii-G5-JYO"/>
+                            <constraint firstItem="aYj-RH-wFm" firstAttribute="top" secondItem="3xr-Ui-qjt" secondAttribute="bottom" constant="8" id="Vle-wx-9us"/>
                             <constraint firstItem="0Hk-ax-zKZ" firstAttribute="top" secondItem="P2A-jE-pGb" secondAttribute="bottom" constant="8" id="XpP-hI-Q54"/>
                             <constraint firstItem="ITr-SE-cev" firstAttribute="trailing" secondItem="z5F-gW-cCO" secondAttribute="trailingMargin" id="ZuC-Vx-UKM"/>
-                            <constraint firstItem="b4n-Ce-Dn7" firstAttribute="leading" secondItem="lXu-ti-R15" secondAttribute="trailing" constant="-101" id="aYn-Ur-Hof"/>
                             <constraint firstItem="2ds-AV-lVK" firstAttribute="top" secondItem="MCh-9S-kWx" secondAttribute="bottom" id="bKe-6r-UoD"/>
                             <constraint firstItem="oMG-aO-gZ3" firstAttribute="leading" secondItem="z5F-gW-cCO" secondAttribute="leadingMargin" id="cTy-Bu-nEQ"/>
-                            <constraint firstItem="QHK-hJ-vXj" firstAttribute="top" secondItem="MCh-9S-kWx" secondAttribute="bottom" priority="750" constant="20" id="cwB-89-JE5"/>
+                            <constraint firstItem="QHK-hJ-vXj" firstAttribute="top" secondItem="MCh-9S-kWx" secondAttribute="bottom" priority="750" constant="50" id="cwB-89-JE5"/>
                             <constraint firstItem="sp4-Wq-EhF" firstAttribute="trailing" secondItem="z5F-gW-cCO" secondAttribute="trailingMargin" id="dSV-2v-4IF"/>
                             <constraint firstItem="M3l-ar-q0H" firstAttribute="top" secondItem="4Cq-Ka-AMX" secondAttribute="bottom" constant="8" id="dYp-dn-iar"/>
                             <constraint firstItem="P2A-jE-pGb" firstAttribute="top" secondItem="oMG-aO-gZ3" secondAttribute="bottom" constant="8" id="hDZ-qO-IXC"/>
@@ -251,11 +250,13 @@
                             <constraint firstItem="hv7-7u-rff" firstAttribute="trailing" secondItem="z5F-gW-cCO" secondAttribute="trailingMargin" id="iIb-ys-BHe"/>
                             <constraint firstItem="lXu-ti-R15" firstAttribute="top" secondItem="MCh-9S-kWx" secondAttribute="bottom" id="jAs-En-PBa"/>
                             <constraint firstItem="4Cq-Ka-AMX" firstAttribute="top" secondItem="0Hk-ax-zKZ" secondAttribute="bottom" constant="8" id="kBk-Po-yKB"/>
-                            <constraint firstItem="b4n-Ce-Dn7" firstAttribute="leading" secondItem="z5F-gW-cCO" secondAttribute="leadingMargin" id="oar-aL-7xo"/>
+                            <constraint firstItem="QHK-hJ-vXj" firstAttribute="width" secondItem="b4n-Ce-Dn7" secondAttribute="width" id="rjg-oj-yeY"/>
                             <constraint firstItem="0Hk-ax-zKZ" firstAttribute="top" secondItem="P2A-jE-pGb" secondAttribute="bottom" constant="8" id="roO-O4-GvF"/>
+                            <constraint firstItem="QHK-hJ-vXj" firstAttribute="top" secondItem="b4n-Ce-Dn7" secondAttribute="bottom" constant="6" id="rtP-M8-Cif"/>
                             <constraint firstItem="Agj-PH-npc" firstAttribute="top" secondItem="MCh-9S-kWx" secondAttribute="bottom" constant="416" id="rvx-eU-1PY"/>
                             <constraint firstItem="aYj-RH-wFm" firstAttribute="leading" secondItem="z5F-gW-cCO" secondAttribute="leadingMargin" id="sDF-yS-HBU"/>
                             <constraint firstItem="hv7-7u-rff" firstAttribute="top" secondItem="2ds-AV-lVK" secondAttribute="bottom" constant="26" id="tnh-aU-gzb"/>
+                            <constraint firstItem="3xr-Ui-qjt" firstAttribute="width" secondItem="lXu-ti-R15" secondAttribute="width" id="uFh-DN-Ia0"/>
                             <constraint firstItem="P2A-jE-pGb" firstAttribute="leading" secondItem="z5F-gW-cCO" secondAttribute="leadingMargin" id="veV-wW-ivG"/>
                             <constraint firstItem="4Cq-Ka-AMX" firstAttribute="leading" secondItem="z5F-gW-cCO" secondAttribute="leadingMargin" id="wnE-GP-Ra5"/>
                             <constraint firstItem="M3l-ar-q0H" firstAttribute="leading" secondItem="z5F-gW-cCO" secondAttribute="leadingMargin" id="xPB-Pf-JL3"/>

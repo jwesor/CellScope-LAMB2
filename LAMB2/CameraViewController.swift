@@ -79,20 +79,20 @@ class CameraViewController: UIViewController {
         var dir: Bool
         
         if (text.rangeOfString("x") != nil) {
-            motor = StageEngageStepAction.MOTOR_1
+            motor = StageConstants.MOTOR_1
         } else if (text.rangeOfString("y") != nil) {
-            motor = StageEngageStepAction.MOTOR_2
+            motor = StageConstants.MOTOR_2
         } else {
-            motor = StageEngageStepAction.MOTOR_3
+            motor = StageConstants.MOTOR_3
         }
         
         if (text.rangeOfString("+") != nil) {
-            dir = StageEngageStepAction.DIR_HIGH
+            dir = StageConstants.DIR_HIGH
         } else {
-            dir = StageEngageStepAction.DIR_LOW
+            dir = StageConstants.DIR_LOW
         }
         
-        sequence!.addAction(StageEngageStepAction(dc: device!, motor: motor, dir: dir, steps:steps))
+        sequence!.addAction(StageEnableStepAction(device!, motor: motor, dir: dir, steps:steps))
     }
     
     @IBAction func led2off(sender: AnyObject) {
