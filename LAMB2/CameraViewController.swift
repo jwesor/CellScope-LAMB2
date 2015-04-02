@@ -16,6 +16,11 @@ class CameraViewController: UIViewController {
     var device: DeviceConnector?
     var sequence:ActionManager?
     var album:PhotoAlbum?
+    var startX: Float = 0
+    var startY: Float = 0
+    let threshold: Float = 30
+    let stepsPerPixel: Float = 0.02
+    let pan = UIPanGestureRecognizer()
     
     var async:AsyncImageMultiProcessor?
     
@@ -47,6 +52,10 @@ class CameraViewController: UIViewController {
         
         sequence = ActionQueue()
         sequence!.beginActions()
+        
+        preview.userInteractionEnabled = true
+        pan.addTarget(self, action: Selector("handlePan:"))
+        preview.addGestureRecognizer(pan)
     }
     
     @IBAction func captureimage(sender: AnyObject) {
@@ -70,17 +79,15 @@ class CameraViewController: UIViewController {
     }
 
     @IBAction func moveXPlus(sender: AnyObject) {
-        println(sender.currentTitle)
-        println(stepText.text)
         var steps = UInt(stepText.text.toInt()!)
         
         var text = sender.currentTitle!!
         var motor: Int
         var dir: Bool
         
-        if (text.rangeOfString("x") != nil) {
+        if (text.rangeOfString("y") != nil) {
             motor = StageConstants.MOTOR_1
-        } else if (text.rangeOfString("y") != nil) {
+        } else if (text.rangeOfString("x") != nil) {
             motor = StageConstants.MOTOR_2
         } else {
             motor = StageConstants.MOTOR_3
@@ -115,5 +122,30 @@ class CameraViewController: UIViewController {
         session?.doSingleAutoFocus()
         session?.doSingleAutoWhiteBalance()
         session?.doSingleAutoExposure()
+    }
+    
+    
+    @objc func handlePan(sender: UIPanGestureRecognizer!) {
+        let translation = sender.locationInView(view)
+        let x = Float(translation.x)
+        let y = Float(translation.y)
+        if (sender.state == UIGestureRecognizerState.Began) {
+            startX = x
+            startY = y
+        } else if (sender.state == UIGestureRecognizerState.Ended) {
+            let diffX = abs(startX - x)
+            if (diffX > threshold) {
+                let stepX = UInt(diffX * stepsPerPixel)
+                let dirX = startX > x ? StageConstants.DIR_HIGH : StageConstants.DIR_LOW
+                sequence!.addAction(StageEnableStepAction(device!, motor: StageConstants.MOTOR_2, dir: dirX, steps: stepX))
+            }
+            
+            let diffY = abs(startY - y)
+            if (diffY > threshold) {
+                let stepY = UInt(diffY * stepsPerPixel)
+                let dirY = startY < y ? StageConstants.DIR_HIGH : StageConstants.DIR_LOW
+                sequence!.addAction(StageEnableStepAction(device!, motor: StageConstants.MOTOR_1, dir: dirY, steps: stepY))
+            }
+        }
     }
 }
