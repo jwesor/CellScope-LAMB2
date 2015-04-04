@@ -37,16 +37,17 @@
 		18A0722D1AA0098D00A93391 /* ImageUtils.mm in Sources */ = {isa = PBXBuildFile; fileRef = 18A0722C1AA0098D00A93391 /* ImageUtils.mm */; };
 		18A072301AA13E6400A93391 /* IPFocusDetector.mm in Sources */ = {isa = PBXBuildFile; fileRef = 18A0722F1AA13E6400A93391 /* IPFocusDetector.mm */; };
 		18A072331AA1404800A93391 /* AutofocuserAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18A072321AA1404800A93391 /* AutofocuserAction.swift */; };
-		18D6B8EC1ACCC630002B1A9E /* StageEnableAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18D6B8EB1ACCC630002B1A9E /* StageEnableAction.swift */; };
-		18D6B8EE1ACCC6DD002B1A9E /* StageDirectionAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18D6B8ED1ACCC6DD002B1A9E /* StageDirectionAction.swift */; };
-		18D6B8F01ACCCA31002B1A9E /* StageDisableAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18D6B8EF1ACCCA31002B1A9E /* StageDisableAction.swift */; };
-		18D6B8F21ACCCB0B002B1A9E /* StageConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18D6B8F11ACCCB0B002B1A9E /* StageConstants.swift */; };
-		18D6B8F41ACCCC78002B1A9E /* StageStepAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18D6B8F31ACCCC78002B1A9E /* StageStepAction.swift */; };
 		18D6B8E11ACCAFD4002B1A9E /* libGTLTouchStaticLib.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 18D6B8E01ACCAFD4002B1A9E /* libGTLTouchStaticLib.a */; };
 		18D6B8E31ACCAFDC002B1A9E /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 18D6B8E21ACCAFDC002B1A9E /* Security.framework */; };
 		18D6B8E51ACCAFE3002B1A9E /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 18D6B8E41ACCAFE3002B1A9E /* SystemConfiguration.framework */; };
 		18D6B8E71ACCB07C002B1A9E /* GTMOAuth2ViewTouch.xib in Resources */ = {isa = PBXBuildFile; fileRef = 18D6B8E61ACCB07C002B1A9E /* GTMOAuth2ViewTouch.xib */; };
 		18D6B8EA1ACCB0BC002B1A9E /* GTLDrive_Sources.m in Sources */ = {isa = PBXBuildFile; fileRef = 18D6B8E81ACCB0BC002B1A9E /* GTLDrive_Sources.m */; };
+		18D6B8EC1ACCC630002B1A9E /* StageEnableAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18D6B8EB1ACCC630002B1A9E /* StageEnableAction.swift */; };
+		18D6B8EE1ACCC6DD002B1A9E /* StageDirectionAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18D6B8ED1ACCC6DD002B1A9E /* StageDirectionAction.swift */; };
+		18D6B8F01ACCCA31002B1A9E /* StageDisableAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18D6B8EF1ACCCA31002B1A9E /* StageDisableAction.swift */; };
+		18D6B8F21ACCCB0B002B1A9E /* StageConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18D6B8F11ACCCB0B002B1A9E /* StageConstants.swift */; };
+		18D6B8F41ACCCC78002B1A9E /* StageStepAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18D6B8F31ACCCC78002B1A9E /* StageStepAction.swift */; };
+		18D6B8F71ACF65F1002B1A9E /* TextDocument.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18D6B8F61ACF65F1002B1A9E /* TextDocument.swift */; };
 		18DB4C8F1AA4FA8700165F0F /* ScanFocusAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18DB4C8E1AA4FA8700165F0F /* ScanFocusAction.swift */; };
 		18DB4C911AA7C67500165F0F /* DebugUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18DB4C901AA7C67500165F0F /* DebugUtil.swift */; };
 		18DB4C931AAE670900165F0F /* CameraAutoFocusAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18DB4C921AAE670900165F0F /* CameraAutoFocusAction.swift */; };
@@ -119,17 +120,18 @@
 		18A0722E1AA13E6400A93391 /* IPFocusDetector.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IPFocusDetector.h; sourceTree = "<group>"; };
 		18A0722F1AA13E6400A93391 /* IPFocusDetector.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = IPFocusDetector.mm; sourceTree = "<group>"; };
 		18A072321AA1404800A93391 /* AutofocuserAction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AutofocuserAction.swift; sourceTree = "<group>"; };
-		18D6B8EB1ACCC630002B1A9E /* StageEnableAction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StageEnableAction.swift; sourceTree = "<group>"; };
-		18D6B8ED1ACCC6DD002B1A9E /* StageDirectionAction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StageDirectionAction.swift; sourceTree = "<group>"; };
-		18D6B8EF1ACCCA31002B1A9E /* StageDisableAction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StageDisableAction.swift; sourceTree = "<group>"; };
-		18D6B8F11ACCCB0B002B1A9E /* StageConstants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StageConstants.swift; sourceTree = "<group>"; };
-		18D6B8F31ACCCC78002B1A9E /* StageStepAction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StageStepAction.swift; sourceTree = "<group>"; };
 		18D6B8E01ACCAFD4002B1A9E /* libGTLTouchStaticLib.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libGTLTouchStaticLib.a; path = "google-api-objectivec-client-read-only/Source/build/Debug-iphoneos/libGTLTouchStaticLib.a"; sourceTree = "<group>"; };
 		18D6B8E21ACCAFDC002B1A9E /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		18D6B8E41ACCAFE3002B1A9E /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		18D6B8E61ACCB07C002B1A9E /* GTMOAuth2ViewTouch.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = GTMOAuth2ViewTouch.xib; path = "google-api-objectivec-client-read-only/Source/OAuth2/Touch/GTMOAuth2ViewTouch.xib"; sourceTree = SOURCE_ROOT; };
 		18D6B8E81ACCB0BC002B1A9E /* GTLDrive_Sources.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GTLDrive_Sources.m; path = "google-api-objectivec-client-read-only/Source/Services/Drive/Generated/GTLDrive_Sources.m"; sourceTree = "<group>"; };
 		18D6B8E91ACCB0BC002B1A9E /* GTLDrive.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GTLDrive.h; path = "google-api-objectivec-client-read-only/Source/Services/Drive/Generated/GTLDrive.h"; sourceTree = "<group>"; };
+		18D6B8EB1ACCC630002B1A9E /* StageEnableAction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StageEnableAction.swift; sourceTree = "<group>"; };
+		18D6B8ED1ACCC6DD002B1A9E /* StageDirectionAction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StageDirectionAction.swift; sourceTree = "<group>"; };
+		18D6B8EF1ACCCA31002B1A9E /* StageDisableAction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StageDisableAction.swift; sourceTree = "<group>"; };
+		18D6B8F11ACCCB0B002B1A9E /* StageConstants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StageConstants.swift; sourceTree = "<group>"; };
+		18D6B8F31ACCCC78002B1A9E /* StageStepAction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StageStepAction.swift; sourceTree = "<group>"; };
+		18D6B8F61ACF65F1002B1A9E /* TextDocument.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextDocument.swift; sourceTree = "<group>"; };
 		18DB4C8E1AA4FA8700165F0F /* ScanFocusAction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScanFocusAction.swift; sourceTree = "<group>"; };
 		18DB4C901AA7C67500165F0F /* DebugUtil.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DebugUtil.swift; sourceTree = "<group>"; };
 		18DB4C921AAE670900165F0F /* CameraAutoFocusAction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CameraAutoFocusAction.swift; sourceTree = "<group>"; };
@@ -208,7 +210,6 @@
 				188074E51A38F4A60039725B /* CameraSession.mm */,
 				18A0722B1AA0098D00A93391 /* ImageUtils.h */,
 				18A0722C1AA0098D00A93391 /* ImageUtils.mm */,
-				18A0721C1A98040D00A93391 /* PhotoAlbum.swift */,
 			);
 			name = Camera;
 			sourceTree = "<group>";
@@ -261,6 +262,15 @@
 				18A0722F1AA13E6400A93391 /* IPFocusDetector.mm */,
 			);
 			name = Autofocus;
+			sourceTree = "<group>";
+		};
+		18D6B8F51ACF65A7002B1A9E /* IO */ = {
+			isa = PBXGroup;
+			children = (
+				18A0721C1A98040D00A93391 /* PhotoAlbum.swift */,
+				18D6B8F61ACF65F1002B1A9E /* TextDocument.swift */,
+			);
+			name = IO;
 			sourceTree = "<group>";
 		};
 		18DB4C941AAE679800165F0F /* Camera */ = {
@@ -330,6 +340,7 @@
 				18ED380B1A200B8B005BA3CE /* Supporting Files */,
 				180F871A1A7C72F50001CD3C /* ImageProcessing */,
 				180F871B1A7C730F0001CD3C /* Camera */,
+				18D6B8F51ACF65A7002B1A9E /* IO */,
 				180F871C1A7C73340001CD3C /* Device */,
 				180F87221A82F75B0001CD3C /* Actions */,
 				18DB4C901AA7C67500165F0F /* DebugUtil.swift */,
@@ -481,6 +492,7 @@
 				18E157A11A70290300DFEFFF /* DeviceStatusButton.swift in Sources */,
 				182CE8241A8F01B6002162DF /* CameraViewController.swift in Sources */,
 				18E157971A68A52600DFEFFF /* DeviceTableViewController.swift in Sources */,
+				18D6B8F71ACF65F1002B1A9E /* TextDocument.swift in Sources */,
 				182CE82D1A96E5F7002162DF /* IPAsyncPanTracker.mm in Sources */,
 				18A0722D1AA0098D00A93391 /* ImageUtils.mm in Sources */,
 				188074E61A38F4A60039725B /* CameraSession.mm in Sources */,

@@ -59,10 +59,25 @@ class CameraViewController: UIViewController {
     }
     
     @IBAction func captureimage(sender: AnyObject) {
-        var img:UIImage? = session?.captureImage()
-        if (img != nil) {
-            album?.savePhoto(img!)
-        }
+//        var img:UIImage? = session?.captureImage()
+//        if (img != nil) {
+//            album?.savePhoto(img!)
+//        }
+        
+        let doc = TextDocument(file: "foo.txt", directory: "testtesttest", append: true, prependTimestampToFileName: false)
+        let doc2 = TextDocument(file: "foo3.txt", append: false, prependTimestampToFileName: true)
+        doc.writeLine("Hello world")
+        doc.flush()
+        doc.write("How's")
+        doc.flush()
+        doc.writeLine(" life?")
+        doc.write("Good")
+        doc.writeLine("bye")
+        doc.flush()
+        doc2.write("testing")
+        doc2.flush()
+        doc2.write("testing some more")
+
     }
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
@@ -123,7 +138,6 @@ class CameraViewController: UIViewController {
         session?.doSingleAutoWhiteBalance()
         session?.doSingleAutoExposure()
     }
-    
     
     @objc func handlePan(sender: UIPanGestureRecognizer!) {
         let translation = sender.locationInView(view)
