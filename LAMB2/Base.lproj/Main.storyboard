@@ -52,23 +52,6 @@
                         <rect key="frame" x="0.0" y="0.0" width="800" height="800"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5hf-IU-McK" customClass="DeviceStatusButton" customModule="LAMB2" customModuleProvider="target">
-                                <rect key="frame" x="383" y="760" width="35" height="30"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="30" id="2ST-in-gcK"/>
-                                </constraints>
-                                <state key="normal" title="Scan">
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <variation key="widthClass=regular" misplaced="YES">
-                                    <rect key="frame" x="383" y="760" width="35" height="30"/>
-                                </variation>
-                                <connections>
-                                    <segue destination="V60-s5-4WI" kind="popoverPresentation" identifier="listBLEDevices" popoverAnchorView="5hf-IU-McK" id="NRS-W4-tA4">
-                                        <popoverArrowDirection key="popoverArrowDirection" up="YES" down="YES" left="YES" right="YES"/>
-                                    </segue>
-                                </connections>
-                            </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lXu-ti-R15">
                                 <rect key="frame" x="16" y="20" width="101" height="30"/>
                                 <state key="normal" title="Test Sequence">
@@ -76,15 +59,6 @@
                                 </state>
                                 <connections>
                                     <action selector="test:" destination="IVN-5g-NjA" eventType="touchDown" id="cxn-vx-4HO"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2ds-AV-lVK">
-                                <rect key="frame" x="682" y="20" width="102" height="30"/>
-                                <state key="normal" title="Capture Image">
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <connections>
-                                    <action selector="captureimage:" destination="IVN-5g-NjA" eventType="touchDown" id="48w-1r-5If"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="M3l-ar-q0H">
@@ -181,15 +155,6 @@
                                     <rect key="frame" x="346" y="40" width="108" height="192"/>
                                 </variation>
                             </view>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hv7-7u-rff">
-                                <rect key="frame" x="714" y="76" width="70" height="30"/>
-                                <state key="normal" title="Autofocus">
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <connections>
-                                    <action selector="doAutofocus:" destination="IVN-5g-NjA" eventType="touchDown" id="gAJ-D6-GsM"/>
-                                </connections>
-                            </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Swh-24-mPd" userLabel="LED 2 HIGH">
                                 <rect key="frame" x="704" y="550" width="80" height="30"/>
                                 <state key="normal" title="LED 2 LOW">
@@ -219,6 +184,32 @@
                                     <action selector="moveXPlus:" destination="IVN-5g-NjA" eventType="touchUpInside" id="1il-wc-HME"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5hf-IU-McK" customClass="DeviceStatusButton" customModule="LAMB2" customModuleProvider="target">
+                                <rect key="frame" x="383" y="760" width="35" height="30"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="30" id="2ST-in-gcK"/>
+                                </constraints>
+                                <state key="normal" title="Scan">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <variation key="widthClass=regular" misplaced="YES">
+                                    <rect key="frame" x="383" y="760" width="35" height="30"/>
+                                </variation>
+                                <connections>
+                                    <segue destination="V60-s5-4WI" kind="popoverPresentation" identifier="listBLEDevices" popoverAnchorView="5hf-IU-McK" id="NRS-W4-tA4">
+                                        <popoverArrowDirection key="popoverArrowDirection" up="YES" down="YES" left="YES" right="YES"/>
+                                    </segue>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="WMJ-cl-oTO" customClass="GDriveStatusButton" customModule="LAMB2" customModuleProvider="target">
+                                <rect key="frame" x="16" y="760" width="47" height="30"/>
+                                <state key="normal" title="GDrive">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="connectGDrive:" destination="IVN-5g-NjA" eventType="touchDown" id="jnf-y2-vh7"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
@@ -227,8 +218,8 @@
                             <constraint firstAttribute="centerX" secondItem="b4n-Ce-Dn7" secondAttribute="centerX" id="22f-pL-t46"/>
                             <constraint firstAttribute="centerX" secondItem="QHK-hJ-vXj" secondAttribute="centerX" id="2vQ-Ri-60c"/>
                             <constraint firstItem="Agj-PH-npc" firstAttribute="trailing" secondItem="z5F-gW-cCO" secondAttribute="trailingMargin" id="5R3-9f-6Au"/>
-                            <constraint firstItem="2ds-AV-lVK" firstAttribute="trailing" secondItem="z5F-gW-cCO" secondAttribute="trailingMargin" id="Gbk-x6-u15"/>
                             <constraint firstAttribute="centerX" secondItem="5hf-IU-McK" secondAttribute="centerX" id="HFH-Lv-gK8"/>
+                            <constraint firstItem="WMJ-cl-oTO" firstAttribute="leading" secondItem="z5F-gW-cCO" secondAttribute="leadingMargin" id="I0i-Ie-UX7"/>
                             <constraint firstItem="ITr-SE-cev" firstAttribute="top" secondItem="sp4-Wq-EhF" secondAttribute="bottom" constant="8" id="Ivt-Yh-61J"/>
                             <constraint firstItem="Swh-24-mPd" firstAttribute="top" secondItem="ITr-SE-cev" secondAttribute="bottom" constant="8" id="K50-6n-vSP"/>
                             <constraint firstItem="lXu-ti-R15" firstAttribute="leading" secondItem="z5F-gW-cCO" secondAttribute="leadingMargin" id="PTc-uE-jaW"/>
@@ -239,7 +230,7 @@
                             <constraint firstItem="aYj-RH-wFm" firstAttribute="top" secondItem="3xr-Ui-qjt" secondAttribute="bottom" constant="8" id="Vle-wx-9us"/>
                             <constraint firstItem="0Hk-ax-zKZ" firstAttribute="top" secondItem="P2A-jE-pGb" secondAttribute="bottom" constant="8" id="XpP-hI-Q54"/>
                             <constraint firstItem="ITr-SE-cev" firstAttribute="trailing" secondItem="z5F-gW-cCO" secondAttribute="trailingMargin" id="ZuC-Vx-UKM"/>
-                            <constraint firstItem="2ds-AV-lVK" firstAttribute="top" secondItem="MCh-9S-kWx" secondAttribute="bottom" id="bKe-6r-UoD"/>
+                            <constraint firstItem="0ah-ec-OzF" firstAttribute="top" secondItem="WMJ-cl-oTO" secondAttribute="bottom" constant="10" id="bfs-Ta-LoV"/>
                             <constraint firstItem="oMG-aO-gZ3" firstAttribute="leading" secondItem="z5F-gW-cCO" secondAttribute="leadingMargin" id="cTy-Bu-nEQ"/>
                             <constraint firstItem="QHK-hJ-vXj" firstAttribute="top" secondItem="MCh-9S-kWx" secondAttribute="bottom" priority="750" constant="50" id="cwB-89-JE5"/>
                             <constraint firstItem="sp4-Wq-EhF" firstAttribute="trailing" secondItem="z5F-gW-cCO" secondAttribute="trailingMargin" id="dSV-2v-4IF"/>
@@ -247,7 +238,6 @@
                             <constraint firstItem="P2A-jE-pGb" firstAttribute="top" secondItem="oMG-aO-gZ3" secondAttribute="bottom" constant="8" id="hDZ-qO-IXC"/>
                             <constraint firstItem="0ah-ec-OzF" firstAttribute="top" secondItem="5hf-IU-McK" secondAttribute="bottom" constant="10" id="hSf-dL-J1k"/>
                             <constraint firstItem="3xr-Ui-qjt" firstAttribute="leading" secondItem="z5F-gW-cCO" secondAttribute="leadingMargin" id="iAs-Ue-ikm"/>
-                            <constraint firstItem="hv7-7u-rff" firstAttribute="trailing" secondItem="z5F-gW-cCO" secondAttribute="trailingMargin" id="iIb-ys-BHe"/>
                             <constraint firstItem="lXu-ti-R15" firstAttribute="top" secondItem="MCh-9S-kWx" secondAttribute="bottom" id="jAs-En-PBa"/>
                             <constraint firstItem="4Cq-Ka-AMX" firstAttribute="top" secondItem="0Hk-ax-zKZ" secondAttribute="bottom" constant="8" id="kBk-Po-yKB"/>
                             <constraint firstItem="QHK-hJ-vXj" firstAttribute="width" secondItem="b4n-Ce-Dn7" secondAttribute="width" id="rjg-oj-yeY"/>
@@ -255,7 +245,6 @@
                             <constraint firstItem="QHK-hJ-vXj" firstAttribute="top" secondItem="b4n-Ce-Dn7" secondAttribute="bottom" constant="6" id="rtP-M8-Cif"/>
                             <constraint firstItem="Agj-PH-npc" firstAttribute="top" secondItem="MCh-9S-kWx" secondAttribute="bottom" constant="416" id="rvx-eU-1PY"/>
                             <constraint firstItem="aYj-RH-wFm" firstAttribute="leading" secondItem="z5F-gW-cCO" secondAttribute="leadingMargin" id="sDF-yS-HBU"/>
-                            <constraint firstItem="hv7-7u-rff" firstAttribute="top" secondItem="2ds-AV-lVK" secondAttribute="bottom" constant="26" id="tnh-aU-gzb"/>
                             <constraint firstItem="3xr-Ui-qjt" firstAttribute="width" secondItem="lXu-ti-R15" secondAttribute="width" id="uFh-DN-Ia0"/>
                             <constraint firstItem="P2A-jE-pGb" firstAttribute="leading" secondItem="z5F-gW-cCO" secondAttribute="leadingMargin" id="veV-wW-ivG"/>
                             <constraint firstItem="4Cq-Ka-AMX" firstAttribute="leading" secondItem="z5F-gW-cCO" secondAttribute="leadingMargin" id="wnE-GP-Ra5"/>
@@ -267,6 +256,7 @@
                     <connections>
                         <outlet property="debugText" destination="b4n-Ce-Dn7" id="LWJ-ON-PYM"/>
                         <outlet property="deviceButton" destination="5hf-IU-McK" id="psK-DC-hpv"/>
+                        <outlet property="gdriveButton" destination="WMJ-cl-oTO" id="DzV-js-Zas"/>
                         <outlet property="preview" destination="QHK-hJ-vXj" id="kOZ-Si-slf"/>
                         <outlet property="stepText" destination="3xr-Ui-qjt" id="T5s-4X-ROv"/>
                     </connections>

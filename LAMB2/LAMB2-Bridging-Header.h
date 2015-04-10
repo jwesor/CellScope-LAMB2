@@ -12,3 +12,5 @@
 
 
 #import "IPFocusDetector.h"
+
+#import "GDriveAdapter.h"

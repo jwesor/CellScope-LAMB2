@@ -11,10 +11,10 @@ import Foundation
 class TextDocument {
     
     let filePath: NSString
-    let append: Bool
+    var append: Bool
     var buffer: String
     
-    init(file: String, directory: String = ".", append: Bool = false, prependTimestampToFileName: Bool = false) {
+    init(file: String, directory: String = ".", append: Bool = true, prependTimestampToFileName: Bool = false) {
         let fileManager = NSFileManager.defaultManager()
         let documentsPath = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)[0] as NSString
         let directoryPath = documentsPath.stringByAppendingPathComponent(directory)
