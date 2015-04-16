@@ -7,11 +7,18 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "GTLDrive.h"
 
 @protocol GDriveAdapterStatusDelegate
 
 - (void) onDriveSignIn: (bool)success;
 - (void) onDriveSignOut;
+
+@end
+
+@protocol GDriveAdapterFileQueryResultDelegate
+
+- (void) onDriveFileQueryComplete:(NSString*)fileId success:(bool) success;
 
 @end
 
@@ -25,5 +32,9 @@
 - (void) addStatusDelegate: (id<GDriveAdapterStatusDelegate>) delegate;
 
 - (UIViewController *) getAuthSignInViewController;
+
+- (void) createNewFileWithTitle: (NSString*)title data:(NSData*)data mimeType:(NSString*)mimeType delegate:(id<GDriveAdapterFileQueryResultDelegate>)delegate;
+
+- (void) updateFileWithIdentifier: (NSString*)identifier data:(NSData*)data mimeType:(NSString*)mimeType delegate:(id<GDriveAdapterFileQueryResultDelegate>)delegate;
 
 @end

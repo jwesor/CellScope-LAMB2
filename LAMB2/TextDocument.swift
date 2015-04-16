@@ -10,9 +10,11 @@ import Foundation
 
 class TextDocument {
     
-    let filePath: NSString
+    let filePath: String
+    let fileName: String
     var append: Bool
     var buffer: String
+    var delegates: [TextDocumentFlushDelegate];
     
     init(file: String, directory: String = ".", append: Bool = true, prependTimestampToFileName: Bool = false) {
         let fileManager = NSFileManager.defaultManager()
@@ -32,8 +34,18 @@ class TextDocument {
             fileName = dateFormat.stringFromDate(NSDate()) + "_" + file
         }
         filePath = directoryPath.stringByAppendingPathComponent(fileName)
+        if (directory != ".") {
+            self.fileName = directory + "/" + fileName;
+        } else {
+            self.fileName = fileName;
+        }
         self.append = append
         buffer = ""
+        self.delegates = [];
+    }
+    
+    func addFlushDelegate(delegate:TextDocumentFlushDelegate) {
+        self.delegates.append(delegate);
     }
     
     func write(txt: String) {
@@ -50,10 +62,17 @@ class TextDocument {
             output?.open()
             output?.write(buffer, maxLength: countElements(buffer))
             output?.close()
+            for delegate in delegates {
+                delegate.onTextDocumentFlush(buffer);
+            }
             buffer = ""
             return true
         } else {
             return false
         }
     }
+}
+
+protocol TextDocumentFlushDelegate {
+    func onTextDocumentFlush(buffer:String)
 }

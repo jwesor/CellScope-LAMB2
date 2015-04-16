@@ -50,6 +50,7 @@
 		18D6B8F71ACF65F1002B1A9E /* TextDocument.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18D6B8F61ACF65F1002B1A9E /* TextDocument.swift */; };
 		18D6B8FC1AD3537E002B1A9E /* GDriveAdapter.m in Sources */ = {isa = PBXBuildFile; fileRef = 18D6B8FB1AD3537E002B1A9E /* GDriveAdapter.m */; };
 		18D6B9021AD36FB6002B1A9E /* GDriveStatusButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18D6B9011AD36FB6002B1A9E /* GDriveStatusButton.swift */; };
+		18D6B9041ADF2FB0002B1A9E /* GDriveTextDocument.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18D6B9031ADF2FB0002B1A9E /* GDriveTextDocument.swift */; };
 		18DB4C8F1AA4FA8700165F0F /* ScanFocusAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18DB4C8E1AA4FA8700165F0F /* ScanFocusAction.swift */; };
 		18DB4C911AA7C67500165F0F /* DebugUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18DB4C901AA7C67500165F0F /* DebugUtil.swift */; };
 		18DB4C931AAE670900165F0F /* CameraAutoFocusAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18DB4C921AAE670900165F0F /* CameraAutoFocusAction.swift */; };
@@ -137,6 +138,7 @@
 		18D6B8FA1AD3537E002B1A9E /* GDriveAdapter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GDriveAdapter.h; sourceTree = "<group>"; };
 		18D6B8FB1AD3537E002B1A9E /* GDriveAdapter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GDriveAdapter.m; sourceTree = "<group>"; };
 		18D6B9011AD36FB6002B1A9E /* GDriveStatusButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GDriveStatusButton.swift; sourceTree = "<group>"; };
+		18D6B9031ADF2FB0002B1A9E /* GDriveTextDocument.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GDriveTextDocument.swift; sourceTree = "<group>"; };
 		18DB4C8E1AA4FA8700165F0F /* ScanFocusAction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScanFocusAction.swift; sourceTree = "<group>"; };
 		18DB4C901AA7C67500165F0F /* DebugUtil.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DebugUtil.swift; sourceTree = "<group>"; };
 		18DB4C921AAE670900165F0F /* CameraAutoFocusAction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CameraAutoFocusAction.swift; sourceTree = "<group>"; };
@@ -285,6 +287,7 @@
 				18D6B8FA1AD3537E002B1A9E /* GDriveAdapter.h */,
 				18D6B8FB1AD3537E002B1A9E /* GDriveAdapter.m */,
 				18D6B9011AD36FB6002B1A9E /* GDriveStatusButton.swift */,
+				18D6B9031ADF2FB0002B1A9E /* GDriveTextDocument.swift */,
 			);
 			name = "Google Drive";
 			sourceTree = "<group>";
@@ -536,6 +539,7 @@
 				18ED380E1A200B8B005BA3CE /* AppDelegate.swift in Sources */,
 				18D6B8F01ACCCA31002B1A9E /* StageDisableAction.swift in Sources */,
 				180F872A1A82F7C80001CD3C /* AbstractAction.swift in Sources */,
+				18D6B9041ADF2FB0002B1A9E /* GDriveTextDocument.swift in Sources */,
 				180F87A51A8EECC70001CD3C /* ActionQueue.swift in Sources */,
 				180F879A1A8593C20001CD3C /* StageEnableStepAction.swift in Sources */,
 				18A072301AA13E6400A93391 /* IPFocusDetector.mm in Sources */,

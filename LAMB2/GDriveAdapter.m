@@ -8,7 +8,6 @@
 
 #import "GDriveAdapter.h"
 
-#import "GTLDrive.h"
 #import "GTMOAuth2ViewControllerTouch.h"
 
 // Constants for OAuth 2.0
@@ -18,6 +17,7 @@ static NSString * const kClientSecret = @"b03yxOKVXWCWfcfkDBmNNlx6";
 
 @interface GDriveAdapter() {
     NSMutableArray *statusDelegates;
+    NSMutableDictionary *files;
 }
 @property (readonly, weak) GTLServiceDrive *driveService;
 @end
@@ -31,10 +31,13 @@ static NSString * const kClientSecret = @"b03yxOKVXWCWfcfkDBmNNlx6";
     statusDelegates = [[NSMutableArray alloc] init];
     // Check for authorization.
     GTMOAuth2Authentication *auth = [GTMOAuth2ViewControllerTouch authForGoogleFromKeychainForName:kKeychainItemName clientID:kClientId clientSecret:kClientSecret];
+    files = [[NSMutableDictionary alloc] init];
+    NSLog(@"drive initialized");
     
     if ([auth canAuthorize]) {
         [self.driveService setAuthorizer:auth];
         self.isAuthorized = true;
+        NSLog(@"drive authorization");
     }
     return self;
 }
@@ -42,6 +45,7 @@ static NSString * const kClientSecret = @"b03yxOKVXWCWfcfkDBmNNlx6";
 - (void) authSignOut {
     [self.driveService setAuthorizer:nil];
     self.isAuthorized = false;
+    [files removeAllObjects];
     for (id<GDriveAdapterStatusDelegate> delegate in statusDelegates) {
         [delegate onDriveSignOut];
     }
@@ -79,6 +83,42 @@ static NSString * const kClientSecret = @"b03yxOKVXWCWfcfkDBmNNlx6";
         service.retryEnabled = YES;
     }
     return service;
+}
+
+- (void) createNewFileWithTitle: (NSString*)title data:(NSData*)data mimeType:(NSString*)mimeType delegate:(id<GDriveAdapterFileQueryResultDelegate>)delegate {
+    if (self.isAuthorized) {
+        GTLDriveFile *metadata = [GTLDriveFile object];
+        metadata.title = title;
+        GTLUploadParameters *uploadParams = [GTLUploadParameters uploadParametersWithData:data MIMEType:mimeType];
+        GTLQueryDrive *query = [GTLQueryDrive queryForFilesInsertWithObject:metadata uploadParameters:uploadParams];
+        [self.driveService executeQuery:query completionHandler:^(GTLServiceTicket *ticket, GTLDriveFile *updatedFile, NSError *error) {
+            NSString *ident = updatedFile.identifier;
+            if (error == nil) {
+                [files setObject:updatedFile forKey:ident];
+            }
+            [delegate onDriveFileQueryComplete:ident success:error == nil];
+        }];
+    } else {
+        [delegate onDriveFileQueryComplete:nil success:false];
+    }
+}
+
+- (void) updateFileWithIdentifier:(NSString *)identifier data:(NSData *)data mimeType:(NSString *)mimeType delegate:(id<GDriveAdapterFileQueryResultDelegate>)delegate {
+    if (self.isAuthorized) {
+        GTLDriveFile *metadata = [files objectForKey:identifier];
+        if (metadata == nil) {
+            [delegate onDriveFileQueryComplete:nil success:false];
+            return;
+        }
+        GTLUploadParameters *uploadParams = [GTLUploadParameters uploadParametersWithData:data MIMEType:mimeType];
+        GTLQueryDrive *query = [GTLQueryDrive queryForFilesUpdateWithObject:metadata fileId:metadata.identifier uploadParameters:uploadParams];
+        [self.driveService executeQuery:query completionHandler:^(GTLServiceTicket *ticket, GTLDriveFile *updatedFile, NSError *error) {
+            NSString *ident = updatedFile.identifier;
+            [delegate onDriveFileQueryComplete:ident success:error == nil];
+        }];
+    } else {
+        [delegate onDriveFileQueryComplete:nil success:false];
+    }
 }
 
 @end

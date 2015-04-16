@@ -23,6 +23,8 @@ class CameraViewController: UIViewController, GDriveAdapterStatusDelegate {
     let stepsPerPixel: Float = 0.02
     let pan = UIPanGestureRecognizer()
     let drive: GDriveAdapter = GDriveAdapter()
+    let doc = TextDocument(file: "foo.txt", directory: "lamb2test", append: true, prependTimestampToFileName: false)
+    let doc2 = TextDocument(file: "foo3.txt", directory: "lamb2test", append: false, prependTimestampToFileName: true)
     
     var async:AsyncImageMultiProcessor?
     
@@ -45,6 +47,9 @@ class CameraViewController: UIViewController, GDriveAdapterStatusDelegate {
         drive.addStatusDelegate(gdriveButton)
         drive.addStatusDelegate(self)
         
+        let gdoc = GDriveTextDocument(doc, drive: drive)
+        let gdoc2 = GDriveTextDocument(doc2, drive: drive)
+        
 //        preview.userInteractionEnabled = true
 //        pan.addTarget(self, action: Selector("handlePan:"))
 //        preview.addGestureRecognizer(pan)
@@ -59,19 +64,17 @@ class CameraViewController: UIViewController, GDriveAdapterStatusDelegate {
     }
     
     @IBAction func test(sender: AnyObject) {
-        let doc = TextDocument(file: "foo.txt", directory: "testtesttest", append: true, prependTimestampToFileName: false)
-        let doc2 = TextDocument(file: "foo3.txt", append: false, prependTimestampToFileName: true)
         doc.writeLine("Hello world")
-        doc.flush()
         doc.write("How's")
-        doc.flush()
         doc.writeLine(" life?")
+        doc.flush()
         doc.write("Good")
         doc.writeLine("bye")
         doc.flush()
         doc2.write("testing")
         doc2.flush()
         doc2.write("testing some more")
+        doc2.flush()
         sequence.addAction(CameraAutoFocusAction(camera: session!))
 //        sequence!.addAction(AutofocuserAction(levels: 10, stepsPerLevel: 20, camera: session!, device: device!))
     }
