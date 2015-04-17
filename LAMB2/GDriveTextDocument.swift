@@ -8,7 +8,7 @@
 
 import Foundation
 
-class GDriveTextDocument: TextDocumentFlushDelegate, GDriveAdapterFileQueryResultDelegate {
+class GDriveTextDocument: TextDocumentSaveDelegate, GDriveAdapterFileQueryResultDelegate {
     
     let drive: GDriveAdapter
     let doc: TextDocument
@@ -16,17 +16,17 @@ class GDriveTextDocument: TextDocumentFlushDelegate, GDriveAdapterFileQueryResul
     var contents: String = ""
     var identifier: String?
     var pending: Bool = false
-    var queuedFlush: Bool = false
+    var queuedSave: Bool = false
     
-    init(_ textDocument: TextDocument, drive: GDriveAdapter) {
+    init(_ txtDoc: TextDocument, drive: GDriveAdapter) {
         self.drive = drive
-        self.title = textDocument.fileName
+        self.title = txtDoc.fileName
         self.contents = ""
-        self.doc = textDocument
-        textDocument.addFlushDelegate(self)
+        self.doc = txtDoc
+        txtDoc.addSaveDelegate(self)
     }
     
-    func onTextDocumentFlush(buffer: String) {
+    func onTextDocumentSave(buffer: String) {
         if (doc.append) {
             contents += buffer
         } else {
@@ -35,7 +35,7 @@ class GDriveTextDocument: TextDocumentFlushDelegate, GDriveAdapterFileQueryResul
         if (!pending) {
             pushToDrive(contents)
         } else {
-            queuedFlush = true
+            queuedSave = true
         }
     }
     
@@ -55,8 +55,8 @@ class GDriveTextDocument: TextDocumentFlushDelegate, GDriveAdapterFileQueryResul
             identifier = fileId
         }
         pending = false
-        if (queuedFlush) {
-            queuedFlush = false
+        if (queuedSave) {
+            queuedSave = false
             pushToDrive(contents)
         }
     }

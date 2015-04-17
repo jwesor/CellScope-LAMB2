@@ -51,6 +51,10 @@
 		18D6B8FC1AD3537E002B1A9E /* GDriveAdapter.m in Sources */ = {isa = PBXBuildFile; fileRef = 18D6B8FB1AD3537E002B1A9E /* GDriveAdapter.m */; };
 		18D6B9021AD36FB6002B1A9E /* GDriveStatusButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18D6B9011AD36FB6002B1A9E /* GDriveStatusButton.swift */; };
 		18D6B9041ADF2FB0002B1A9E /* GDriveTextDocument.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18D6B9031ADF2FB0002B1A9E /* GDriveTextDocument.swift */; };
+		18D6B9061AE08BF1002B1A9E /* ImageDocument.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18D6B9051AE08BF1002B1A9E /* ImageDocument.swift */; };
+		18D6B90A1AE08D31002B1A9E /* DocumentDirectory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18D6B9091AE08D31002B1A9E /* DocumentDirectory.swift */; };
+		18D6B90E1AE093CB002B1A9E /* GDriveImageDocument.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18D6B90D1AE093CB002B1A9E /* GDriveImageDocument.swift */; };
+		18D6B9101AE094F0002B1A9E /* ImageDocumentSeriesWriter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18D6B90F1AE094F0002B1A9E /* ImageDocumentSeriesWriter.swift */; };
 		18DB4C8F1AA4FA8700165F0F /* ScanFocusAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18DB4C8E1AA4FA8700165F0F /* ScanFocusAction.swift */; };
 		18DB4C911AA7C67500165F0F /* DebugUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18DB4C901AA7C67500165F0F /* DebugUtil.swift */; };
 		18DB4C931AAE670900165F0F /* CameraAutoFocusAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18DB4C921AAE670900165F0F /* CameraAutoFocusAction.swift */; };
@@ -139,6 +143,10 @@
 		18D6B8FB1AD3537E002B1A9E /* GDriveAdapter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GDriveAdapter.m; sourceTree = "<group>"; };
 		18D6B9011AD36FB6002B1A9E /* GDriveStatusButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GDriveStatusButton.swift; sourceTree = "<group>"; };
 		18D6B9031ADF2FB0002B1A9E /* GDriveTextDocument.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GDriveTextDocument.swift; sourceTree = "<group>"; };
+		18D6B9051AE08BF1002B1A9E /* ImageDocument.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageDocument.swift; sourceTree = "<group>"; };
+		18D6B9091AE08D31002B1A9E /* DocumentDirectory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DocumentDirectory.swift; sourceTree = "<group>"; };
+		18D6B90D1AE093CB002B1A9E /* GDriveImageDocument.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GDriveImageDocument.swift; sourceTree = "<group>"; };
+		18D6B90F1AE094F0002B1A9E /* ImageDocumentSeriesWriter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageDocumentSeriesWriter.swift; sourceTree = "<group>"; };
 		18DB4C8E1AA4FA8700165F0F /* ScanFocusAction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScanFocusAction.swift; sourceTree = "<group>"; };
 		18DB4C901AA7C67500165F0F /* DebugUtil.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DebugUtil.swift; sourceTree = "<group>"; };
 		18DB4C921AAE670900165F0F /* CameraAutoFocusAction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CameraAutoFocusAction.swift; sourceTree = "<group>"; };
@@ -275,6 +283,9 @@
 			isa = PBXGroup;
 			children = (
 				18A0721C1A98040D00A93391 /* PhotoAlbum.swift */,
+				18D6B9051AE08BF1002B1A9E /* ImageDocument.swift */,
+				18D6B90F1AE094F0002B1A9E /* ImageDocumentSeriesWriter.swift */,
+				18D6B9091AE08D31002B1A9E /* DocumentDirectory.swift */,
 				18D6B8F61ACF65F1002B1A9E /* TextDocument.swift */,
 				18D6B8FD1AD36869002B1A9E /* Google Drive */,
 			);
@@ -287,6 +298,7 @@
 				18D6B8FA1AD3537E002B1A9E /* GDriveAdapter.h */,
 				18D6B8FB1AD3537E002B1A9E /* GDriveAdapter.m */,
 				18D6B9011AD36FB6002B1A9E /* GDriveStatusButton.swift */,
+				18D6B90D1AE093CB002B1A9E /* GDriveImageDocument.swift */,
 				18D6B9031ADF2FB0002B1A9E /* GDriveTextDocument.swift */,
 			);
 			name = "Google Drive";
@@ -501,6 +513,7 @@
 			files = (
 				183AF3231AB12A4A006C9503 /* CameraExposureBiasAction.swift in Sources */,
 				18D6B8F41ACCCC78002B1A9E /* StageStepAction.swift in Sources */,
+				18D6B90A1AE08D31002B1A9E /* DocumentDirectory.swift in Sources */,
 				180F87191A7C6DD30001CD3C /* ImageProcessor.mm in Sources */,
 				182CE82A1A96E0CF002162DF /* AsyncImageMultiProcessor.mm in Sources */,
 				18D6B9021AD36FB6002B1A9E /* GDriveStatusButton.swift in Sources */,
@@ -508,6 +521,7 @@
 				183AF31F1AB0CD1C006C9503 /* CameraAutoExposureAction.swift in Sources */,
 				18DB4C9B1AAFC31400165F0F /* CameraManualWhiteBalanceAction.swift in Sources */,
 				18ED38131A200B8B005BA3CE /* ViewController.swift in Sources */,
+				18D6B9061AE08BF1002B1A9E /* ImageDocument.swift in Sources */,
 				1810C2A81AB3C97900197C7E /* HangAction.swift in Sources */,
 				18E157A11A70290300DFEFFF /* DeviceStatusButton.swift in Sources */,
 				182CE8241A8F01B6002162DF /* CameraViewController.swift in Sources */,
@@ -520,6 +534,7 @@
 				180F871F1A7FFEB50001CD3C /* IPPanTracker.mm in Sources */,
 				18D6B8EA1ACCB0BC002B1A9E /* GTLDrive_Sources.m in Sources */,
 				180F87A31A8EE48E0001CD3C /* ActionManager.swift in Sources */,
+				18D6B90E1AE093CB002B1A9E /* GDriveImageDocument.swift in Sources */,
 				18A072291AA004E100A93391 /* IPImageCapture.mm in Sources */,
 				18D6B8F21ACCCB0B002B1A9E /* StageConstants.swift in Sources */,
 				18DB4C991AAFC24500165F0F /* CameraAutoWhiteBalanceAction.swift in Sources */,
@@ -543,6 +558,7 @@
 				180F87A51A8EECC70001CD3C /* ActionQueue.swift in Sources */,
 				180F879A1A8593C20001CD3C /* StageEnableStepAction.swift in Sources */,
 				18A072301AA13E6400A93391 /* IPFocusDetector.mm in Sources */,
+				18D6B9101AE094F0002B1A9E /* ImageDocumentSeriesWriter.swift in Sources */,
 				180F87211A82F7530001CD3C /* ActionSequencer.swift in Sources */,
 				18DB4C911AA7C67500165F0F /* DebugUtil.swift in Sources */,
 				18E1578D1A67510900DFEFFF /* DeviceConnector.swift in Sources */,

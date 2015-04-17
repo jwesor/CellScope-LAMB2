@@ -15,7 +15,7 @@
 
 import AssetsLibrary
 
-@objc class PhotoAlbum {
+class PhotoAlbum: ImageFileWriter {
     
     var library: ALAssetsLibrary
     let albumName: NSString
@@ -52,6 +52,10 @@ import AssetsLibrary
     }
     
     func savePhoto(image: UIImage) {
+        writeImage(image)
+    }
+    
+    func writeImage(image: UIImage) {
         println("Attempting to save...")
         if (!albumCreated) {
             println("Album does not yet exist!")
@@ -59,15 +63,14 @@ import AssetsLibrary
                 resultBlock: { (group: ALAssetsGroup!) -> Void in
                     NSLog("added album: %@", group != nil)
                     self.albumCreated = true
-                    self.savePhoto(image)
+                    self.writeImage(image)
                 }, failureBlock: { (error: NSError!) -> Void in
                     NSLog("error adding album")
                     self.albumCreated = true
-                    self.savePhoto(image)
+                    self.writeImage(image)
                 }
             )
             return
-            
         }
         var albumGroup:ALAssetsGroup? = nil
         library.enumerateGroupsWithTypes(ALAssetsGroupAll,

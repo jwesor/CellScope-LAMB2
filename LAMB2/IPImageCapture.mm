@@ -8,33 +8,31 @@
 
 #import "IPImageCapture.h"
 #import "ImageUtils.h"
-#import "LAMB2-Swift.h"
+
 using namespace cv;
 
 @interface IPImageCapture()
-@property PhotoAlbum *album;
+@property id<ImageFileWriter> writer;
 
 @end
 
 @implementation IPImageCapture
 
-@synthesize album;
+@synthesize writer;
 
-+ (id) initWithAlbum:(PhotoAlbum *)album {
++ (id) initWithWriter:(id<ImageFileWriter>)writer {
     IPImageCapture *ic = [[IPImageCapture alloc] init];
-    ic.album = album;
-    NSLog(@"init album %@ %@", album, ic.album);
+    ic.writer = writer;
     return ic;
 }
 
 - (void) processImage: (Mat&)image {
-    NSLog(@"album %@", album);
-    if (album != nil) {
+    if (writer != nil) {
         Mat mat = image.clone();
         UIImage *uiimage = [ImageUtils imageWithCVMat:mat];
-        [album savePhoto:uiimage];
+        [writer writeImage:uiimage];
     } else {
-        NSLog(@"IPImageCapture: No album was set.");
+        NSLog(@"IPImageCapture: No ImageFileWriter was set.");
     }
 }
 

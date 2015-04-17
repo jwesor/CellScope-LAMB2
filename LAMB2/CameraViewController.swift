@@ -23,8 +23,9 @@ class CameraViewController: UIViewController, GDriveAdapterStatusDelegate {
     let stepsPerPixel: Float = 0.02
     let pan = UIPanGestureRecognizer()
     let drive: GDriveAdapter = GDriveAdapter()
-    let doc = TextDocument(file: "foo.txt", directory: "lamb2test", append: true, prependTimestampToFileName: false)
-    let doc2 = TextDocument(file: "foo3.txt", directory: "lamb2test", append: false, prependTimestampToFileName: true)
+    let directory = DocumentDirectory("lambtest")
+    var doc: TextDocument?
+    var doc2: TextDocument?
     
     var async:AsyncImageMultiProcessor?
     
@@ -47,8 +48,12 @@ class CameraViewController: UIViewController, GDriveAdapterStatusDelegate {
         drive.addStatusDelegate(gdriveButton)
         drive.addStatusDelegate(self)
         
-        let gdoc = GDriveTextDocument(doc, drive: drive)
-        let gdoc2 = GDriveTextDocument(doc2, drive: drive)
+            
+        doc = TextDocument("foo.txt", directory: directory, append: true, prependTimestampToFileName: false)
+        doc2 = TextDocument("foo3.txt", directory: directory, append: false, prependTimestampToFileName: true)
+        
+        let gdoc = GDriveTextDocument(doc!, drive: drive)
+        let gdoc2 = GDriveTextDocument(doc2!, drive: drive)
         
 //        preview.userInteractionEnabled = true
 //        pan.addTarget(self, action: Selector("handlePan:"))
@@ -64,17 +69,17 @@ class CameraViewController: UIViewController, GDriveAdapterStatusDelegate {
     }
     
     @IBAction func test(sender: AnyObject) {
-        doc.writeLine("Hello world")
-        doc.write("How's")
-        doc.writeLine(" life?")
-        doc.flush()
-        doc.write("Good")
-        doc.writeLine("bye")
-        doc.flush()
-        doc2.write("testing")
-        doc2.flush()
-        doc2.write("testing some more")
-        doc2.flush()
+        doc?.writeLine("Hello world")
+        doc?.write("How's")
+        doc?.writeLine(" life?")
+        doc?.save()
+        doc?.write("Good")
+        doc?.writeLine("bye")
+        doc?.save()
+        doc2?.write("testing")
+        doc2?.save()
+        doc2?.write("testing some more")
+        doc2?.save()
         sequence.addAction(CameraAutoFocusAction(camera: session!))
 //        sequence!.addAction(AutofocuserAction(levels: 10, stepsPerLevel: 20, camera: session!, device: device!))
     }
