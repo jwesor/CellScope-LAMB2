@@ -99,6 +99,7 @@ static NSString * const kClientSecret = @"b03yxOKVXWCWfcfkDBmNNlx6";
             [delegate onDriveFileQueryComplete:ident success:error == nil];
         }];
     } else {
+        NSLog(@"GDrive query failed due to lack of authorization!");
         [delegate onDriveFileQueryComplete:nil success:false];
     }
 }
@@ -117,6 +118,7 @@ static NSString * const kClientSecret = @"b03yxOKVXWCWfcfkDBmNNlx6";
             [delegate onDriveFileQueryComplete:ident success:error == nil];
         }];
     } else {
+        NSLog(@"GDrive query failed due to lack of authorization!");
         [delegate onDriveFileQueryComplete:nil success:false];
     }
 }

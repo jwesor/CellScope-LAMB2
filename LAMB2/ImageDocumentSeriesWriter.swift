@@ -25,7 +25,7 @@ class ImageDocumentSeriesWriter: ImageFileWriter {
     }
     
     func writeImage(image: UIImage!) {
-        let doc = ImageDocument("\(filename)\(separator)\(counter)", directory: directory)
+        let doc = ImageDocument("\(filename)\(separator)\(counter).png", directory: directory)
         counter += 1
         delegator?.addDelegateTo(doc)
         doc.writeImage(image)

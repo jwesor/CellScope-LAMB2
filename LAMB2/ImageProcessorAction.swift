@@ -20,7 +20,7 @@ class ImageProcessorAction: AbstractAction, AsyncImageProcessorDelegate {
     var begun:Bool
     var disableWhenDone:Bool
     
-    init(processor: AsyncImageProcessor) {
+    init(_ processor: AsyncImageProcessor) {
         proc = processor
         begun = false
         disableWhenDone = false
@@ -42,7 +42,9 @@ class ImageProcessorAction: AbstractAction, AsyncImageProcessorDelegate {
     
     func onFinishImageProcess() {
         if (begun) {
-            proc.enabled = !disableWhenDone
+            if (disableWhenDone) {
+                proc.enabled = false
+            }
             proc.removeDelegate(self)
             finish()
         }

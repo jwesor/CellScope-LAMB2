@@ -24,6 +24,9 @@ class CameraViewController: UIViewController, GDriveAdapterStatusDelegate {
     let pan = UIPanGestureRecognizer()
     let drive: GDriveAdapter = GDriveAdapter()
     let directory = DocumentDirectory("lambtest")
+    var photo1:IPImageCapture?
+    var photo2:IPImageCapture?
+    let asyncIp = AsyncImageMultiProcessor()
     var doc: TextDocument?
     var doc2: TextDocument?
     
@@ -55,6 +58,22 @@ class CameraViewController: UIViewController, GDriveAdapterStatusDelegate {
         let gdoc = GDriveTextDocument(doc!, drive: drive)
         let gdoc2 = GDriveTextDocument(doc2!, drive: drive)
         
+        let gdocPhoto = GDriveImageDocumentDelegator(drive)
+        
+        let photoSeries = ImageDocumentSeriesWriter(name: "test_image", directory: directory, delegator: gdocPhoto)
+        photo1 = IPImageCapture.initWithWriter(album)
+        photo1?.enabled = true
+        photo2 = IPImageCapture.initWithWriter(photoSeries)
+        photo2?.enabled = true
+        
+        asyncIp.addImageProcessor(photo1!)
+        asyncIp.addImageProcessor(photo2!)
+        asyncIp.enabled = false
+        
+        session?.addAsyncImageProcessor(asyncIp)
+        
+        
+        
 //        preview.userInteractionEnabled = true
 //        pan.addTarget(self, action: Selector("handlePan:"))
 //        preview.addGestureRecognizer(pan)
@@ -69,6 +88,7 @@ class CameraViewController: UIViewController, GDriveAdapterStatusDelegate {
     }
     
     @IBAction func test(sender: AnyObject) {
+        println("Clickity clack")
         doc?.writeLine("Hello world")
         doc?.write("How's")
         doc?.writeLine(" life?")
@@ -80,7 +100,7 @@ class CameraViewController: UIViewController, GDriveAdapterStatusDelegate {
         doc2?.save()
         doc2?.write("testing some more")
         doc2?.save()
-        sequence.addAction(CameraAutoFocusAction(camera: session!))
+        sequence.addAction(ImageProcessorAction(asyncIp))
 //        sequence!.addAction(AutofocuserAction(levels: 10, stepsPerLevel: 20, camera: session!, device: device!))
     }
 

@@ -27,6 +27,7 @@ class GDriveImageDocument: ImageDocumentSaveDelegate, GDriveAdapterFileQueryResu
     
     func onImageDocumentSave(data: NSData) {
         if (!pending) {
+            println("uploading.....\(self.title)")
             pushToDrive(data)
         } else {
             queuedSave = true
@@ -44,6 +45,7 @@ class GDriveImageDocument: ImageDocumentSaveDelegate, GDriveAdapterFileQueryResu
     }
     
     func onDriveFileQueryComplete(fileId: String!, success: Bool) {
+        println("upload complete! \(success) \(self.title) \(fileId)")
         if (success) {
             identifier = fileId
         }

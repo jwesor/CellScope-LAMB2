@@ -20,6 +20,6 @@
 
 @interface IPImageCapture : ImageProcessor
 
-+ (id) initWithWriter: (id) album;
++ (IPImageCapture *) initWithWriter: (id<ImageFileWriter>) album;
 
 @end

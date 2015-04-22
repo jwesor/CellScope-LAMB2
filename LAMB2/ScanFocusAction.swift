@@ -26,7 +26,7 @@ class ScanFocusAction: SequenceAction, ActionCompletionDelegate {
         
         camera.addAsyncImageProcessor(asyncIpWrapper)
         
-        ipAction = ImageProcessorAction(processor: asyncIpWrapper)
+        ipAction = ImageProcessorAction(asyncIpWrapper)
         focuses = []
         currentFocusLevel = 0;
         bestFocusLevel = 0;

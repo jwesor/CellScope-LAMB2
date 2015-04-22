@@ -13,14 +13,13 @@ using namespace cv;
 
 @interface IPImageCapture()
 @property id<ImageFileWriter> writer;
-
 @end
 
 @implementation IPImageCapture
 
 @synthesize writer;
 
-+ (id) initWithWriter:(id<ImageFileWriter>)writer {
++ (IPImageCapture *) initWithWriter:(id<ImageFileWriter>)writer {
     IPImageCapture *ic = [[IPImageCapture alloc] init];
     ic.writer = writer;
     return ic;
