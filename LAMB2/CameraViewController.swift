@@ -29,6 +29,7 @@ class CameraViewController: UIViewController, GDriveAdapterStatusDelegate {
     let asyncIp = AsyncImageMultiProcessor()
     var doc: TextDocument?
     var doc2: TextDocument?
+    var cycle: ActionCycler?
     
     var async:AsyncImageMultiProcessor?
     
@@ -58,7 +59,7 @@ class CameraViewController: UIViewController, GDriveAdapterStatusDelegate {
         let gdoc = GDriveTextDocument(doc!, drive: drive)
         let gdoc2 = GDriveTextDocument(doc2!, drive: drive)
         
-        let gdocPhoto = GDriveImageDocumentDelegator(drive)
+        let gdocPhoto = GDriveImageDocumentGenerator(drive)
         
         let photoSeries = ImageDocumentSeriesWriter(name: "test_image", directory: directory, delegator: gdocPhoto)
         photo1 = IPImageCapture.initWithWriter(album)
@@ -72,7 +73,8 @@ class CameraViewController: UIViewController, GDriveAdapterStatusDelegate {
         
         session?.addAsyncImageProcessor(asyncIp)
         
-        
+        cycle = ActionCycler(queue: sequence)
+        cycle!.addAction(ImageProcessorAction(asyncIp), delay: 1)
         
 //        preview.userInteractionEnabled = true
 //        pan.addTarget(self, action: Selector("handlePan:"))
@@ -100,7 +102,7 @@ class CameraViewController: UIViewController, GDriveAdapterStatusDelegate {
         doc2?.save()
         doc2?.write("testing some more")
         doc2?.save()
-        sequence.addAction(ImageProcessorAction(asyncIp))
+        cycle!.startCycle(3)
 //        sequence!.addAction(AutofocuserAction(levels: 10, stepsPerLevel: 20, camera: session!, device: device!))
     }
 

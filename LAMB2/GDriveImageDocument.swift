@@ -57,7 +57,7 @@ class GDriveImageDocument: ImageDocumentSaveDelegate, GDriveAdapterFileQueryResu
     }
 }
 
-class GDriveImageDocumentDelegator: ImageDocumentDelegator {
+class GDriveImageDocumentGenerator: ImageDocumentDelegator {
     
     let drive: GDriveAdapter
     

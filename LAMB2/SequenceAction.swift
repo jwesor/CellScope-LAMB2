@@ -20,6 +20,14 @@ class SequenceAction: AbstractAction, SequenceCompletionDelegate {
         super.init()
     }
     
+    init(_ actions: [AbstractAction]) {
+        sequence = ActionSequencer()
+        super.init()
+        for action in actions {
+            sequence.addAction(action)
+        }
+    }
+    
     func addSubAction(action: AbstractAction) {
         sequence.addAction(action)
     }
