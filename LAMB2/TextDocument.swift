@@ -18,18 +18,9 @@ class TextDocument {
     var buffer: String
     var delegates: [TextDocumentSaveDelegate];
     
-    init(_ file: String, directory: DocumentDirectory, append: Bool = true, prependTimestampToFileName: Bool = false) {
-        
-        var fileName = file
-        if (prependTimestampToFileName) {
-            let dateFormat = NSDateFormatter()
-            dateFormat.dateFormat = "yyyyMMddHHmm"
-            fileName = dateFormat.stringFromDate(NSDate()) + "_" + file
-        }
-        
+    init(_ file: String, directory: DocumentDirectory, append: Bool = true) {
         self.filePath = directory.getPathForFilename(file)
         self.fileName = directory.getFolderForFilename(file)
-        
         self.append = append
         buffer = ""
         self.delegates = [];

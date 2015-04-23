@@ -35,7 +35,6 @@ class PhotoAlbum: ImageFileWriter {
         if (initAlbum) {
             library.addAssetsGroupAlbumWithName(albumName,
                 resultBlock: { (group: ALAssetsGroup!) -> Void in
-                    println("added album: \(group != nil)")
                 }, failureBlock: { (error: NSError!) -> Void in
                     println("error adding album")
                 }
@@ -56,12 +55,9 @@ class PhotoAlbum: ImageFileWriter {
     }
     
     func writeImage(image: UIImage) {
-        println("Attempting to save...")
         if (!albumCreated) {
-            println("Album does not yet exist!")
             library.addAssetsGroupAlbumWithName(albumName,
                 resultBlock: { (group: ALAssetsGroup!) -> Void in
-                    println("added album: \(group != nil)")
                     self.albumCreated = true
                     self.writeImage(image)
                 }, failureBlock: { (error: NSError!) -> Void in
@@ -79,7 +75,6 @@ class PhotoAlbum: ImageFileWriter {
                     self.writeImageToAlbum(image, albumGroup: albumGroup)
                 }
                 if group != nil && group.valueForProperty(ALAssetsGroupPropertyName).isEqualToString(self.albumName) {
-                    println("found album \(self.albumName)")
                     albumGroup = group
                 }
             }, failureBlock: { (error: NSError!) -> Void in
@@ -94,11 +89,10 @@ class PhotoAlbum: ImageFileWriter {
         library.writeImageDataToSavedPhotosAlbum(data, metadata: nil,
             completionBlock: { (assetURL: NSURL!, error: NSError!) -> Void in
                 if (error == nil || error.code == 0) {
-                    println("Saved image complete: \(assetURL)")
                     self.library.assetForURL(assetURL,
                         resultBlock: { (asset:ALAsset!) -> Void in
                             albumGroup?.addAsset(asset)
-                            println("Added to album: \(albumGroup != nil)")
+                            return
                         }, failureBlock: { (error:NSError!) -> Void in
                             println("Asset retrieve failed with error code \(error.code)\n\(error.localizedDescription)")
                         }

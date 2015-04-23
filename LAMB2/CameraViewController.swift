@@ -16,19 +16,13 @@ class CameraViewController: UIViewController, GDriveAdapterStatusDelegate {
     var session: CameraSession?
     var device: DeviceConnector = DeviceConnector()
     var sequence: ActionManager = ActionQueue()
-    var album: PhotoAlbum = PhotoAlbum(name: "LambTest")
     var startX: Float = 0
     var startY: Float = 0
     let threshold: Float = 30
     let stepsPerPixel: Float = 0.02
     let pan = UIPanGestureRecognizer()
     let drive: GDriveAdapter = GDriveAdapter()
-    let directory = DocumentDirectory("lambtest")
-    var photo1:IPImageCapture?
-    var photo2:IPImageCapture?
     let asyncIp = AsyncImageMultiProcessor()
-    var doc: TextDocument?
-    var doc2: TextDocument?
     var cycle: ActionCycler?
     
     var async:AsyncImageMultiProcessor?
@@ -52,29 +46,37 @@ class CameraViewController: UIViewController, GDriveAdapterStatusDelegate {
         drive.addStatusDelegate(gdriveButton)
         drive.addStatusDelegate(self)
         
-            
-        doc = TextDocument("foo.txt", directory: directory, append: true, prependTimestampToFileName: false)
-        doc2 = TextDocument("foo3.txt", directory: directory, append: false, prependTimestampToFileName: true)
+        let dateFormat = NSDateFormatter()
+        dateFormat.dateFormat = "yyyyMMddHHmm"
+        let datestring = dateFormat.stringFromDate(NSDate())
+        let directory = DocumentDirectory("lamb2_\(datestring)")
         
-        let gdoc = GDriveTextDocument(doc!, drive: drive)
-        let gdoc2 = GDriveTextDocument(doc2!, drive: drive)
+        let actionLog = TextDocument("actions.log", directory: directory)
+        let driveLog = TextDocument("drive.log", directory: directory)
+        let cycleLog = TextDocument("cycle.log", directory: directory)
+        let gActionLog = GDriveTextDocument(actionLog, drive: drive)
+        let gCycleLog = GDriveTextDocument(cycleLog, drive: drive)
+        
+        DebugUtil.setLog("action", doc: actionLog)
+        DebugUtil.setLog("drive", doc: driveLog)
+        DebugUtil.setLog("cycle", doc: cycleLog)
+        DebugUtil.log("action", "logging started")
+        DebugUtil.log("drive", "logging started")
+        DebugUtil.log("cycle", "logging started")
         
         let gdocPhoto = GDriveImageDocumentGenerator(drive)
-        
-        let photoSeries = ImageDocumentSeriesWriter(name: "test_image", directory: directory, delegator: gdocPhoto)
-        photo1 = IPImageCapture.initWithWriter(album)
-        photo1?.enabled = true
-        photo2 = IPImageCapture.initWithWriter(photoSeries)
-        photo2?.enabled = true
-        
-        asyncIp.addImageProcessor(photo1!)
-        asyncIp.addImageProcessor(photo2!)
+        let photoSeries = ImageDocumentSeriesWriter(name: "timelapse", directory: directory, delegator: gdocPhoto)
+        let photo = IPImageCapture.initWithWriter(photoSeries)
+        photo.enabled = true
+        asyncIp.addImageProcessor(photo)
         asyncIp.enabled = false
         
         session?.addAsyncImageProcessor(asyncIp)
         
+        let ipAction = ImageProcessorAction(asyncIp)
+        ipAction.logName = "[capture photo]"
         cycle = ActionCycler(queue: sequence)
-        cycle!.addAction(ImageProcessorAction(asyncIp), delay: 1)
+        cycle!.addAction(ipAction, delay: 1)
         
 //        preview.userInteractionEnabled = true
 //        pan.addTarget(self, action: Selector("handlePan:"))
@@ -90,18 +92,6 @@ class CameraViewController: UIViewController, GDriveAdapterStatusDelegate {
     }
     
     @IBAction func test(sender: AnyObject) {
-        println("Clickity clack")
-        doc?.writeLine("Hello world")
-        doc?.write("How's")
-        doc?.writeLine(" life?")
-        doc?.save()
-        doc?.write("Good")
-        doc?.writeLine("bye")
-        doc?.save()
-        doc2?.write("testing")
-        doc2?.save()
-        doc2?.write("testing some more")
-        doc2?.save()
         cycle!.startCycle(3)
 //        sequence!.addAction(AutofocuserAction(levels: 10, stepsPerLevel: 20, camera: session!, device: device!))
     }

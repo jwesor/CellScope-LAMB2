@@ -18,6 +18,7 @@ class AbstractAction: NSObject {
     var completionDelegates:[ActionCompletionDelegate]
     var runtimeCompletionDelegates:[ActionCompletionDelegate]
     var timeout: Double
+    var logName: String = ""
     
     override init() {
         state = ActionState.READY
@@ -28,6 +29,7 @@ class AbstractAction: NSObject {
     
     final func run(delegates: ActionCompletionDelegate...) {
         DebugUtil.log("\(self)\n")
+        DebugUtil.log("action", "\(self)\(logName) started")
         runtimeCompletionDelegates += delegates
         state = ActionState.RUNNING
         if timeout > 0 {
@@ -44,6 +46,7 @@ class AbstractAction: NSObject {
         if state != ActionState.RUNNING {
             return
         }
+        DebugUtil.log("action", "\(self) finished. completed: \(completed)")
         let lockQueue = dispatch_queue_create("action completion queue", nil)
         dispatch_sync(lockQueue) {
             if self.state == ActionState.RUNNING {

@@ -53,6 +53,7 @@ class ActionCycler {
         if (running || times.count == 0 || iterations <= 0) {
             return
         }
+        DebugUtil.log("cycle", "initiated cycle for \(iterations) iterations")
         running = true
         remainingIterations = iterations
         currentTimeIndex = -1
@@ -60,38 +61,38 @@ class ActionCycler {
     }
     
     func nextAction() {
-        println("remaining iterations: \(remainingIterations)")
         currentTimeIndex += 1
         if currentTimeIndex >= times.count {
             currentTimeIndex = 0
             remainingIterations -= 1
+            DebugUtil.log("cycle", "cycle iterations remaining: \(remainingIterations)")
         }
         if remainingIterations > 0 {
             let currentTime = times[currentTimeIndex]
             if (currentTime == 0) {
-                println("actions queued")
                 for action in actions[currentTime]! {
                     queue.addAction(action)
+                    DebugUtil.log("cycle", "adding \(action)\(action.logName)")
                 }
                 nextAction()
             } else {
                 let delayTime = dispatch_time(DISPATCH_TIME_NOW, Int64(currentTime * Double(NSEC_PER_SEC)))
-                println("delaying for \(currentTime)")
+                DebugUtil.log("cycle", "waiting to execute self.actions[currentTime] after \(currentTime) seconds")
                 dispatch_after(delayTime, dispatch_get_main_queue(), { () -> Void in
                     for action in self.actions[currentTime]! {
-                        println("actions queued")
                         self.queue.addAction(action)
+                        DebugUtil.log("cycle", "adding \(action)\(action.logName)")
                     }
                     self.nextAction()
                 })
             }
         } else {
-            println("completed cycles")
             cyclesComplete()
         }
     }
     
     func cyclesComplete() {
+        DebugUtil.log("cycle", "cycles completed")
         running = false
     }
     

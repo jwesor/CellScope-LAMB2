@@ -26,7 +26,6 @@ class ImageDocument {
     func writeImage(image: UIImage) {
         let data = UIImagePNGRepresentation(image)
         data.writeToFile(filePath, atomically: true)
-        println("Saved image to \(filePath)")
         for delegate in delegates {
             delegate.onImageDocumentSave(data)
         }
