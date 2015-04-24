@@ -18,7 +18,7 @@ class ScanFocusAction: SequenceAction, ActionCompletionDelegate {
     var bestFocusLevel: UInt;
     var bestFocusScore: Int32;
     
-    init(levels: UInt, stepsPerLevel: UInt, camera: CameraSession, device: DeviceConnector) {
+    init(levels: UInt, stepsPerLevel: UInt, camera: CameraSession, device: DeviceConnector, stage: StageState) {
         focusIp = IPFocusDetector()
         
         asyncIpWrapper = AsyncImageMultiProcessor.initWithProcessors([focusIp])
@@ -35,13 +35,12 @@ class ScanFocusAction: SequenceAction, ActionCompletionDelegate {
         ipAction.addCompletionDelegate(self)
         addSubAction(ipAction)
         for i in 1...levels {
-            addSubAction(StageEnableStepAction(device, motor: StageConstants.MOTOR_3, dir: StageConstants.DIR_HIGH, steps: stepsPerLevel))
+            addSubAction(StageEnableStepAction(device, motor: StageConstants.MOTOR_3, dir: StageConstants.DIR_HIGH, steps: stepsPerLevel, stage: stage))
             addSubAction(ipAction)
         }
     }
     
     func onActionCompleted(action: AbstractAction) {
-        println("action complete %@", action)
         if (action == ipAction) {
             let newFocus = focusIp.focus
             focuses.append(newFocus)

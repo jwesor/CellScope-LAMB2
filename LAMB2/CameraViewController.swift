@@ -24,6 +24,7 @@ class CameraViewController: UIViewController, GDriveAdapterStatusDelegate {
     let drive: GDriveAdapter = GDriveAdapter()
     let asyncIp = AsyncImageMultiProcessor()
     var cycle: ActionCycler?
+    let stage: StageState = StageState()
     
     var async:AsyncImageMultiProcessor?
     
@@ -89,8 +90,8 @@ class CameraViewController: UIViewController, GDriveAdapterStatusDelegate {
     }
     
     @IBAction func test(sender: AnyObject) {
-        cycle!.startCycle(3)
-//        sequence!.addAction(AutofocuserAction(levels: 10, stepsPerLevel: 20, camera: session!, device: device!))
+        //cycle!.startCycle(3)
+        sequence.addAction(AutofocuserAction(startLevel: -7, endLevel: 3, stepsPerLevel: 10, camera: session!, device: device, stage: stage))
     }
 
     @IBAction func moveXPlus(sender: AnyObject) {
@@ -113,7 +114,7 @@ class CameraViewController: UIViewController, GDriveAdapterStatusDelegate {
         } else {
             dir = StageConstants.DIR_LOW
         }
-        sequence.addAction(StageEnableStepAction(device, motor: motor, dir: dir, steps:steps))
+        sequence.addAction(StageEnableStepAction(device, motor: motor, dir: dir, steps:steps, stage: stage))
     }
     
     @IBAction func led2off(sender: AnyObject) {
@@ -162,14 +163,14 @@ class CameraViewController: UIViewController, GDriveAdapterStatusDelegate {
             if (diffX > threshold) {
                 let stepX = UInt(diffX * stepsPerPixel)
                 let dirX = startX > x ? StageConstants.DIR_HIGH : StageConstants.DIR_LOW
-                sequence.addAction(StageEnableStepAction(device, motor: StageConstants.MOTOR_2, dir: dirX, steps: stepX))
+                sequence.addAction(StageEnableStepAction(device, motor: StageConstants.MOTOR_2, dir: dirX, steps: stepX, stage: stage))
             }
             
             let diffY = abs(startY - y)
             if (diffY > threshold) {
                 let stepY = UInt(diffY * stepsPerPixel)
                 let dirY = startY < y ? StageConstants.DIR_HIGH : StageConstants.DIR_LOW
-                sequence.addAction(StageEnableStepAction(device, motor: StageConstants.MOTOR_1, dir: dirY, steps: stepY))
+                sequence.addAction(StageEnableStepAction(device, motor: StageConstants.MOTOR_1, dir: dirY, steps: stepY, stage: stage))
             }
         }
     }

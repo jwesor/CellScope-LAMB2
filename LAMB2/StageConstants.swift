@@ -8,12 +8,12 @@
 
 import Foundation
 
-class StageConstants {
+struct StageConstants {
     
-    class var MOTOR_1: Int { return 1 }
-    class var MOTOR_2: Int { return 2 }
-    class var MOTOR_3: Int { return 3 }
-    class var DIR_LOW: Bool { return true }
-    class var DIR_HIGH: Bool { return false }
+    static let MOTOR_1: Int = 1
+    static let MOTOR_2: Int = 2
+    static let MOTOR_3: Int = 3
+    static let DIR_LOW: Bool = true
+    static let DIR_HIGH: Bool = false
     
 }

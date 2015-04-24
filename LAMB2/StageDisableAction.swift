@@ -10,11 +10,12 @@ import Foundation
 
 class StageDisableAction : DeviceAction {
     
-    class var MOTOR_1: Int { return StageDisableAction.MOTOR_1 }
-    class var MOTOR_2: Int { return StageDisableAction.MOTOR_2 }
-    class var MOTOR_3: Int { return StageDisableAction.MOTOR_3 }
+    let stage: StageState
+    let motor: Int
     
-    init(_ device: DeviceConnector, motor: Int) {
+    init(_ device: DeviceConnector, motor: Int, stage: StageState) {
+        self.stage = stage
+        self.motor = motor
         var code = StageDisableAction.getDisableCode(motor)
         super.init(device, id: "stage_disable", data: [code, 0x0, 0x0])
     }
@@ -37,4 +38,19 @@ class StageDisableAction : DeviceAction {
         return code
     }
     
+    override func doExecution() {
+        if stage.isMatchingEnable(self.motor, state: false) {
+            finish()
+        } else {
+            super.doExecution()
+        }
+    }
+    
+    override func cleanup() {
+        if (state != ActionState.TIMED_OUT) {
+            stage.updateEnable(self.motor, en: false)
+        } else {
+            stage.resetEnable(self.motor)
+        }
+    }
 }

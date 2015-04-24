@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		180C3E851AE9E6F500A928FD /* StageState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 180C3E841AE9E6F500A928FD /* StageState.swift */; };
 		180F87171A7C67D90001CD3C /* IPColorInverter.mm in Sources */ = {isa = PBXBuildFile; fileRef = 180F87161A7C67D90001CD3C /* IPColorInverter.mm */; };
 		180F87191A7C6DD30001CD3C /* ImageProcessor.mm in Sources */ = {isa = PBXBuildFile; fileRef = 180F87181A7C6DD30001CD3C /* ImageProcessor.mm */; };
 		180F871F1A7FFEB50001CD3C /* IPPanTracker.mm in Sources */ = {isa = PBXBuildFile; fileRef = 180F871E1A7FFEB50001CD3C /* IPPanTracker.mm */; };
@@ -86,6 +87,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		180C3E841AE9E6F500A928FD /* StageState.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StageState.swift; sourceTree = "<group>"; };
 		180F87141A7C666E0001CD3C /* ImageProcessor.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ImageProcessor.h; sourceTree = "<group>"; };
 		180F87151A7C67D90001CD3C /* IPColorInverter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IPColorInverter.h; sourceTree = "<group>"; };
 		180F87161A7C67D90001CD3C /* IPColorInverter.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = IPColorInverter.mm; sourceTree = "<group>"; };
@@ -261,12 +263,13 @@
 			isa = PBXGroup;
 			children = (
 				180F87231A82F7700001CD3C /* DeviceAction.swift */,
-				18D6B8EB1ACCC630002B1A9E /* StageEnableAction.swift */,
 				18D6B8EF1ACCCA31002B1A9E /* StageDisableAction.swift */,
 				18D6B8ED1ACCC6DD002B1A9E /* StageDirectionAction.swift */,
+				18D6B8EB1ACCC630002B1A9E /* StageEnableAction.swift */,
 				18D6B8F31ACCCC78002B1A9E /* StageStepAction.swift */,
-				18D6B8F11ACCCB0B002B1A9E /* StageConstants.swift */,
 				180F87991A8593C20001CD3C /* StageEnableStepAction.swift */,
+				180C3E841AE9E6F500A928FD /* StageState.swift */,
+				18D6B8F11ACCCB0B002B1A9E /* StageConstants.swift */,
 			);
 			name = Device;
 			sourceTree = "<group>";
@@ -528,6 +531,7 @@
 				1810C2A81AB3C97900197C7E /* HangAction.swift in Sources */,
 				18E157A11A70290300DFEFFF /* DeviceStatusButton.swift in Sources */,
 				182CE8241A8F01B6002162DF /* CameraViewController.swift in Sources */,
+				180C3E851AE9E6F500A928FD /* StageState.swift in Sources */,
 				18E157971A68A52600DFEFFF /* DeviceTableViewController.swift in Sources */,
 				18D6B8F71ACF65F1002B1A9E /* TextDocument.swift in Sources */,
 				182CE82D1A96E5F7002162DF /* IPAsyncPanTracker.mm in Sources */,

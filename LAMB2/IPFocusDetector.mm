@@ -32,7 +32,6 @@ using namespace cv;
     cvtColor(image, gray, CV_BGR2GRAY);
     Canny(gray, gray, 64, 96);
     _focus = countNonZero(gray);
-    NSLog(@"PROC %d", _focus);
 }
 
 @end
