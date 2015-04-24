@@ -19,8 +19,8 @@ class StageDisableAction : DeviceAction {
         super.init(device, id: "stage_disable", data: [code, 0x0, 0x0])
     }
     
-    class func getDisableCode(motor: Int) -> Byte {
-        var code: Byte = 0x0
+    class func getDisableCode(motor: Int) -> UInt8 {
+        var code: UInt8 = 0x0
         switch motor {
         case StageConstants.MOTOR_1:
             code = 0x04

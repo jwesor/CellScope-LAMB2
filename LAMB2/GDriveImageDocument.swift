@@ -44,7 +44,7 @@ class GDriveImageDocument: ImageDocumentSaveDelegate, GDriveAdapterFileQueryResu
         }
     }
     
-    func onDriveFileQueryComplete(fileId: String!, success: Bool) {
+    @objc func onDriveFileQueryComplete(fileId: String!, success: Bool) {
         DebugUtil.log("drive", "upload \(self.title) complete. success: \(success)")
         if (success) {
             identifier = fileId

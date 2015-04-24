@@ -25,7 +25,7 @@ class DeviceTableViewController: UITableViewController, UITableViewDelegate {
         NSLog("Updating")
         updates? += 1
         var max:Double = Double(device!.SCAN_TIMEOUT) / UPDATE_INTERVAL
-        if (Double(updates!) > max && updateTimer? != nil) {
+        if (Double(updates!) > max && updateTimer != nil) {
             updateTimer?.invalidate()
             
         }
@@ -41,10 +41,10 @@ class DeviceTableViewController: UITableViewController, UITableViewDelegate {
     }
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        var cell = tableView.dequeueReusableCellWithIdentifier("DeviceListPrototypeCell", forIndexPath: indexPath) as UITableViewCell
-        var button = cell.contentView.viewWithTag(1) as UIButton
+        var cell = tableView.dequeueReusableCellWithIdentifier("DeviceListPrototypeCell", forIndexPath: indexPath) as! UITableViewCell
+        var button = cell.contentView.viewWithTag(1) as! UIButton
         var peripheral = device?.getPeripheralAtIndex(indexPath.row)
-        var label = NSString(format: "%@ : %@", peripheral!.name, peripheral!.identifier.UUIDString)
+        var label = "\(peripheral!.name) : \(peripheral!.identifier.UUIDString)"
         button.setTitle(label, forState: UIControlState.Normal)
         peripherals[label] = peripheral
         button.enabled = true
@@ -52,7 +52,7 @@ class DeviceTableViewController: UITableViewController, UITableViewDelegate {
     }
     
     @IBAction func onDeviceButtonPressed(sender: AnyObject) {
-        var button = sender as UIButton
+        var button = sender as! UIButton
         var label = button.titleLabel!.text!
         NSLog(peripherals[label]!.identifier.UUIDString)
         device?.connectToPeripheral(peripherals[label]!)

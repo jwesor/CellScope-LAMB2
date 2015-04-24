@@ -18,7 +18,7 @@ import AssetsLibrary
 class PhotoAlbum: ImageFileWriter {
     
     var library: ALAssetsLibrary
-    let albumName: NSString
+    let albumName: String
     var albumCreated: Bool
     var delegates: [String: PhotoAlbumSaveDelegate]
     
@@ -54,7 +54,7 @@ class PhotoAlbum: ImageFileWriter {
         writeImage(image)
     }
     
-    func writeImage(image: UIImage) {
+    @objc func writeImage(image: UIImage) {
         if (!albumCreated) {
             library.addAssetsGroupAlbumWithName(albumName,
                 resultBlock: { (group: ALAssetsGroup!) -> Void in

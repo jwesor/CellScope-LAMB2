@@ -42,7 +42,7 @@ class TextDocument {
         let output = NSOutputStream(toFileAtPath: filePath, append: append)
         if (output != nil) {
             output?.open()
-            output?.write(buffer, maxLength: countElements(buffer))
+            output?.write(buffer, maxLength: count(buffer))
             output?.close()
             for delegate in delegates {
                 delegate.onTextDocumentSave(buffer);

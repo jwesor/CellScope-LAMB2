@@ -22,7 +22,6 @@ class DeviceStatusButton: UIButton, DeviceStatusDelegate {
     }
     
     func updateDeviceStatusConnected(peripheral: CBPeripheral) {
-        var label = NSString(format: "Connected to %@ : %@", peripheral.name, peripheral.identifier.UUIDString)
-        self.setTitle(label, forState: UIControlState.Normal)
+        self.setTitle("Connected to \(peripheral.name) : \(peripheral.identifier.UUIDString)", forState: UIControlState.Normal)
     }
 }

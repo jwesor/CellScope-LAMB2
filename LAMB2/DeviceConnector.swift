@@ -10,7 +10,7 @@
 //
 
 
-class DeviceConnector: BLEDelegate {
+@objc class DeviceConnector: BLEDelegate {
     
     var connected: Bool
     var ble: BLE
@@ -117,7 +117,7 @@ class DeviceConnector: BLEDelegate {
         }
     }
     
-    func bleSendData(buf: [Byte]) {
+    func bleSendData(buf: [UInt8]) {
         var data = NSData(bytes: buf, length: buf.count)
         DebugUtil.log(String(format: "send: %@\n", data))
         ble.write(data)

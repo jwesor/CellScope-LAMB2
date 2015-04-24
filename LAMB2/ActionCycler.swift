@@ -53,6 +53,9 @@ class ActionCycler {
         if (running || times.count == 0 || iterations <= 0) {
             return
         }
+        DebugUtil.setLogEnabled("action", enabled: true)
+        DebugUtil.setLogEnabled("cycle", enabled: true)
+        DebugUtil.setLogEnabled("drive", enabled: true)
         DebugUtil.log("cycle", "initiated cycle for \(iterations) iterations")
         running = true
         remainingIterations = iterations
@@ -93,6 +96,9 @@ class ActionCycler {
     
     func cyclesComplete() {
         DebugUtil.log("cycle", "cycles completed")
+        DebugUtil.setLogEnabled("action", enabled: false)
+        DebugUtil.setLogEnabled("cycle", enabled: false)
+        DebugUtil.setLogEnabled("drive", enabled: false)
         running = false
     }
     

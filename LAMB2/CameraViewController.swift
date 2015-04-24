@@ -60,9 +60,6 @@ class CameraViewController: UIViewController, GDriveAdapterStatusDelegate {
         DebugUtil.setLog("action", doc: actionLog)
         DebugUtil.setLog("drive", doc: driveLog)
         DebugUtil.setLog("cycle", doc: cycleLog)
-        DebugUtil.log("action", "logging started")
-        DebugUtil.log("drive", "logging started")
-        DebugUtil.log("cycle", "logging started")
         
         let gdocPhoto = GDriveImageDocumentGenerator(drive)
         let photoSeries = ImageDocumentSeriesWriter(name: "timelapse", directory: directory, delegator: gdocPhoto)
@@ -86,7 +83,7 @@ class CameraViewController: UIViewController, GDriveAdapterStatusDelegate {
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if (segue.identifier == "listBLEDevices") {
             device.scanForPeripherals()
-            var table = segue.destinationViewController as DeviceTableViewController
+            var table = segue.destinationViewController as! DeviceTableViewController
             table.device = device
         }
     }

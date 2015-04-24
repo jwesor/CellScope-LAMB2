@@ -15,7 +15,7 @@ class StageEnableAction : DeviceAction {
         super.init(device, id: "stage_enable", data: [code, 0x0, 0x0])
     }
     
-    class func getEnableCode(motor: Int) -> Byte {
+    class func getEnableCode(motor: Int) -> UInt8 {
         let disCode = StageDisableAction.getDisableCode(motor)
         if (disCode != 0) {
             return disCode | 0x10

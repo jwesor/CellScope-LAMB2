@@ -50,7 +50,7 @@ class GDriveTextDocument: TextDocumentSaveDelegate, GDriveAdapterFileQueryResult
 
     }
     
-    func onDriveFileQueryComplete(fileId: String!, success: Bool) {
+    @objc func onDriveFileQueryComplete(fileId: String!, success: Bool) {
         if (success) {
             identifier = fileId
         }

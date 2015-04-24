@@ -16,8 +16,8 @@ class StageDirectionAction : DeviceAction {
         super.init(device, id: "stage_direction", data: [dirCode, 0x0, 0x0])
     }
     
-    class func getDirectionCode(motor: Int, dir: Bool) -> Byte {
-        var dirCode: Byte = 0
+    class func getDirectionCode(motor: Int, dir: Bool) -> UInt8 {
+        var dirCode: UInt8 = 0
         switch motor {
         case StageConstants.MOTOR_1:
             dirCode = (dir ? 0x13 : 0x03)

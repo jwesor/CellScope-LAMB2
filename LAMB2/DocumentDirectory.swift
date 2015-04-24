@@ -18,7 +18,7 @@ class DocumentDirectory {
     
     init(_ directory: String = ".") {
         let fileManager = NSFileManager.defaultManager()
-        let documentsPath = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)[0] as NSString
+        let documentsPath = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)[0] as! NSString
         let directoryPath = documentsPath.stringByAppendingPathComponent(directory)
         // Error handling here is primitive. Expand this eventually.
         if (!fileManager.fileExistsAtPath(directoryPath)) {

@@ -15,8 +15,8 @@ class StageStepAction : DeviceAction {
         super.init(device, id: "stage_step", data: [stepCode, steps, 0x0])
     }
     
-    class func getStepCode(motor: Int) -> Byte {
-        var stepCode:Byte = 0
+    class func getStepCode(motor: Int) -> UInt8 {
+        var stepCode:UInt8 = 0
         switch motor {
         case StageConstants.MOTOR_1:
             stepCode = 0x18

@@ -22,7 +22,7 @@ class CapturePhotoAction : AbstractAction, PhotoAlbumSaveDelegate {
     init(album: PhotoAlbum, camera: CameraSession) {
         self.album = album
         self.camera = camera
-        self.id = album.albumName + " save action " + NSNumber(double: NSDate().timeIntervalSince1970).stringValue
+        self.id = "\(album.albumName) save action \(NSNumber(double: NSDate().timeIntervalSince1970).stringValue)"
     }
     
     func onSavePhotoComplete(success: Bool) {
