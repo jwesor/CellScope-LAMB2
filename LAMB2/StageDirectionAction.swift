@@ -43,7 +43,6 @@ class StageDirectionAction : DeviceAction {
     
     override func doExecution() {
         if stage.isMatchingDirection(self.motor, state: dir) {
-            println("interrupted direction")
             finish()
         } else {
             super.doExecution()
@@ -51,9 +50,10 @@ class StageDirectionAction : DeviceAction {
     }
     
     override func cleanup() {
+        super.cleanup()
         if (state != ActionState.TIMED_OUT) {
             stage.updateDirection(self.motor, dir: dir)
-        } else {
+        } else if connected {
             stage.resetDirection(self.motor)
         }
     }

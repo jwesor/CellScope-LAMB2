@@ -36,8 +36,8 @@ class CameraViewController: UIViewController, GDriveAdapterStatusDelegate {
         
         session = CameraSession.initWithPreview(preview)
         session?.continuousAutoFocus = false
-        session?.continuousAutoWhiteBalance = true
-        session?.continuousAutoExposure = true
+        session?.continuousAutoWhiteBalance = false
+        session?.continuousAutoExposure = false
         session?.startCameraSession()
         
         device.addStatusDelegate(deviceButton)
@@ -63,7 +63,7 @@ class CameraViewController: UIViewController, GDriveAdapterStatusDelegate {
         DebugUtil.setLog("cycle", doc: cycleLog)
         
         let gdocPhoto = GDriveImageDocumentGenerator(drive)
-        let photoSeries = ImageDocumentSeriesWriter(name: "timelapse", directory: directory, delegator: gdocPhoto)
+        let photoSeries = ImageDocumentSeriesWriter(name: "dicty", directory: directory, delegator: gdocPhoto)
         let photo = IPImageCapture.initWithWriter(photoSeries)
         photo.enabled = true
         asyncIp.addImageProcessor(photo)
@@ -74,7 +74,11 @@ class CameraViewController: UIViewController, GDriveAdapterStatusDelegate {
         let ipAction = ImageProcessorAction(asyncIp)
         ipAction.logName = "[capture photo]"
         cycle = ActionCycler(queue: sequence)
-        cycle!.addAction(ipAction, delay: 1)
+        /*let ledOn = DeviceAction(device, id: "led toggle", data:
+            [0x25, 0, 0])
+        let ledOff = DeviceAction(device, id: "led toggle", data:
+            [0x26, 0, 0])*/
+        cycle!.addAction(ipAction, delay: 300)
         
 //        preview.userInteractionEnabled = true
 //        pan.addTarget(self, action: Selector("handlePan:"))
@@ -90,10 +94,16 @@ class CameraViewController: UIViewController, GDriveAdapterStatusDelegate {
     }
     
     @IBAction func test(sender: AnyObject) {
-        //cycle!.startCycle(3)
-        sequence.addAction(AutofocuserAction(startLevel: -7, endLevel: 3, stepsPerLevel: 10, camera: session!, device: device, stage: stage))
+        cycle!.startCycle(48)
+        //sequence.addAction(AutofocuserAction(startLevel: -7, endLevel: 3, stepsPerLevel: 10, camera: session!, device: device, stage: stage))
     }
 
+    @IBAction func balance(sender: AnyObject) {
+        sequence.addAction(CameraAutoWhiteBalanceAction(camera: session!))
+        sequence.addAction(CameraAutoExposureAction(camera: session!))
+        sequence.addAction(CameraAutoFocusAction(camera: session!))
+    }
+    
     @IBAction func moveXPlus(sender: AnyObject) {
         var steps = UInt(stepText.text.toInt()!)
         

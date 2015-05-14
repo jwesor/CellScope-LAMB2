@@ -38,9 +38,10 @@ class StageEnableAction : DeviceAction {
     }
     
     override func cleanup() {
+        super.cleanup()
         if (state != ActionState.TIMED_OUT) {
             stage.updateEnable(self.motor, en: true)
-        } else {
+        } else if connected {
             stage.resetEnable(self.motor)
         }
     }

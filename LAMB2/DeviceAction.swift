@@ -14,6 +14,7 @@ import Foundation
 class DeviceAction: AbstractAction, DeviceDataDelegate {
     
     var device:DeviceConnector
+    var connected: Bool
     var id:String
     var data:[UInt8]
     
@@ -21,11 +22,13 @@ class DeviceAction: AbstractAction, DeviceDataDelegate {
         self.device = dc
         self.id = id
         self.data = data
+        self.connected = false
         super.init()
     }
     
     override func doExecution() {
-        if !device.connected {
+        connected = device.connected
+        if !connected {
             finish()
         } else {
             device.addDataDelegate(self, id:id)

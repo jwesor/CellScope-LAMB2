@@ -15,6 +15,7 @@ class ActionCycler {
     var times: [Double]
     var actions: [Double: [AbstractAction]]
     var cycleDuration: Double
+    var postDelayDuration: Double
     var remainingIterations: Int
     var currentTimeIndex: Int
     
@@ -23,9 +24,14 @@ class ActionCycler {
         times = [Double]()
         actions = [Double: [AbstractAction]]()
         cycleDuration = 0
+        postDelayDuration = 0
         running = false
         remainingIterations = 0
         currentTimeIndex = 0
+    }
+    
+    func setPostDelayDuration(delay: Double) {
+        postDelayDuration = delay
     }
     
     func addAction(action: AbstractAction, delay: Double) {
@@ -46,7 +52,7 @@ class ActionCycler {
     }
     
     func startCycle(duration: Double) {
-        startCycle(ceil(duration / cycleDuration))
+        startCycle(ceil(duration / (cycleDuration + postDelayDuration)))
     }
     
     func startCycle(iterations: Int) {
@@ -58,20 +64,22 @@ class ActionCycler {
         DebugUtil.setLogEnabled("drive", enabled: true)
         DebugUtil.log("cycle", "initiated cycle for \(iterations) iterations")
         running = true
-        remainingIterations = iterations
-        currentTimeIndex = -1
+        remainingIterations = iterations + 1
+        currentTimeIndex = times.count
         nextAction()
     }
     
     func nextAction() {
         currentTimeIndex += 1
+        var additionalDelay = 0.0
         if currentTimeIndex >= times.count {
+            additionalDelay = postDelayDuration
             currentTimeIndex = 0
             remainingIterations -= 1
             DebugUtil.log("cycle", "cycle iterations remaining: \(remainingIterations)")
         }
         if remainingIterations > 0 {
-            let currentTime = times[currentTimeIndex]
+            let currentTime = times[currentTimeIndex] + additionalDelay
             if (currentTime == 0) {
                 for action in actions[currentTime]! {
                     queue.addAction(action)
@@ -80,7 +88,7 @@ class ActionCycler {
                 nextAction()
             } else {
                 let delayTime = dispatch_time(DISPATCH_TIME_NOW, Int64(currentTime * Double(NSEC_PER_SEC)))
-                DebugUtil.log("cycle", "waiting to execute self.actions[currentTime] after \(currentTime) seconds")
+                DebugUtil.log("cycle", "waiting to execute \(self.actions[currentTime]) after \(currentTime) seconds")
                 dispatch_after(delayTime, dispatch_get_main_queue(), { () -> Void in
                     for action in self.actions[currentTime]! {
                         self.queue.addAction(action)
