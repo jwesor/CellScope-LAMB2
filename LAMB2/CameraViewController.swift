@@ -26,8 +26,6 @@ class CameraViewController: UIViewController, GDriveAdapterStatusDelegate {
     var cycle: ActionCycler?
     let stage: StageState = StageState()
     
-    var async:AsyncImageMultiProcessor?
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -67,22 +65,29 @@ class CameraViewController: UIViewController, GDriveAdapterStatusDelegate {
         let photo = IPImageCapture.initWithWriter(photoSeries)
         photo.enabled = true
         asyncIp.addImageProcessor(photo)
-        asyncIp.enabled = false
         
         session?.addAsyncImageProcessor(asyncIp)
-        
         let ipAction = ImageProcessorAction(asyncIp)
         ipAction.logName = "[capture photo]"
+        asyncIp.enabled = false
+        
+        let idle = IPIdleFrames()
+        session?.addAsyncImageProcessor(idle)
+        idle.idleFrames = 3
+        idle.enabled = false
+        let idleAction = ImageProcessorAction(idle)
+        
         cycle = ActionCycler(queue: sequence)
-        /*let ledOn = DeviceAction(device, id: "led toggle", data:
+        let ledOn = DeviceAction(device, id: "led toggle", data:
             [0x25, 0, 0])
         let ledOff = DeviceAction(device, id: "led toggle", data:
-            [0x26, 0, 0])*/
-        cycle!.addAction(ipAction, delay: 300)
+            [0x26, 0, 0])
+        cycle!.addActionSequence([ledOn, idleAction, ipAction, ledOff], delay: 10)
         
 //        preview.userInteractionEnabled = true
 //        pan.addTarget(self, action: Selector("handlePan:"))
 //        preview.addGestureRecognizer(pan)
+        
     }
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
@@ -94,7 +99,7 @@ class CameraViewController: UIViewController, GDriveAdapterStatusDelegate {
     }
     
     @IBAction func test(sender: AnyObject) {
-        cycle!.startCycle(48)
+        cycle!.startCycle(3)
         //sequence.addAction(AutofocuserAction(startLevel: -7, endLevel: 3, stepsPerLevel: 10, camera: session!, device: device, stage: stage))
     }
 

@@ -15,7 +15,7 @@ class ActionCycler {
     var times: [Double]
     var actions: [Double: [AbstractAction]]
     var cycleDuration: Double
-    var postDelayDuration: Double
+    var postCycleDelay: Double
     var remainingIterations: Int
     var currentTimeIndex: Int
     
@@ -24,14 +24,14 @@ class ActionCycler {
         times = [Double]()
         actions = [Double: [AbstractAction]]()
         cycleDuration = 0
-        postDelayDuration = 0
+        postCycleDelay = 0
         running = false
         remainingIterations = 0
         currentTimeIndex = 0
     }
     
-    func setPostDelayDuration(delay: Double) {
-        postDelayDuration = delay
+    func setPostCycleDelayDuration(delay: Double) {
+        postCycleDelay = delay
     }
     
     func addAction(action: AbstractAction, delay: Double) {
@@ -52,7 +52,7 @@ class ActionCycler {
     }
     
     func startCycle(duration: Double) {
-        startCycle(ceil(duration / (cycleDuration + postDelayDuration)))
+        startCycle(ceil(duration / (cycleDuration + postCycleDelay)))
     }
     
     func startCycle(iterations: Int) {
@@ -73,7 +73,7 @@ class ActionCycler {
         currentTimeIndex += 1
         var additionalDelay = 0.0
         if currentTimeIndex >= times.count {
-            additionalDelay = postDelayDuration
+            additionalDelay = postCycleDelay
             currentTimeIndex = 0
             remainingIterations -= 1
             DebugUtil.log("cycle", "cycle iterations remaining: \(remainingIterations)")

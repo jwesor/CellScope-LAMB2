@@ -11,7 +11,7 @@ using namespace cv;
 
 @interface AsyncImageProcessor() {
     NSOperation *operation;
-    NSMutableArray *delegates;
+    NSMutableArray *_delegates;
     Mat currentImage;
     int currentFrame;
 }
@@ -23,21 +23,22 @@ using namespace cv;
 @synthesize defaultStandby;
 @synthesize standby;
 @synthesize framesToProcess;
+@synthesize delegates = _delegates;
 
 - (id) init {
     self = [super init];
-    delegates = [[NSMutableArray alloc] init];
+    _delegates = [[NSMutableArray alloc] init];
     framesToProcess = 1;
     currentFrame = 0;
     return self;
 }
 
 - (void) addDelegate:(id <AsyncImageProcessorDelegate>)delegate {
-    [delegates addObject:delegate];
+    [_delegates addObject:delegate];
 }
 
 - (void) removeDelegate:(id <AsyncImageProcessorDelegate>)delegate {
-    [delegates removeObject:delegate];
+    [_delegates removeObject:delegate];
 }
 
 - (void) processImage:(Mat &)image {
@@ -52,13 +53,13 @@ using namespace cv;
         currentFrame ++;
         operation = [NSBlockOperation blockOperationWithBlock: ^{
             if (currentFrame == 1) {
-                for (id <AsyncImageProcessorDelegate> delegate in delegates) {
+                for (id <AsyncImageProcessorDelegate> delegate in _delegates) {
                     [delegate onBeginImageProcess];
                 }
             }
             [self processImageAsync: currentImage];
             if (currentFrame >= framesToProcess) {
-                for (id <AsyncImageProcessorDelegate> delegate in delegates) {
+                for (id <AsyncImageProcessorDelegate> delegate in _delegates) {
                     [delegate onFinishImageProcess];
                 }
                 currentFrame = 0;

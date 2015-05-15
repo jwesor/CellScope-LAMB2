@@ -2,6 +2,10 @@
 //  AutofocuserAction.swift
 //  LAMB2
 //
+//  Try to reuse this instead of creating new instances.
+//  Each new instance attaches a new image processor
+//  to the camera.
+//
 //  Created by Fletcher Lab Mac Mini on 2/27/15.
 //  Copyright (c) 2015 Fletchlab. All rights reserved.
 //

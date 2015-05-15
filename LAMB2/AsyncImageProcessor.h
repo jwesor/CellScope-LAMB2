@@ -44,6 +44,8 @@
  * of completion. */
 @property int framesToProcess;
 
+@property (readonly) NSMutableArray *delegates;
+
 #ifdef __cplusplus
 - (void) processImageAsync: (cv::Mat&) currentImage;
 #endif

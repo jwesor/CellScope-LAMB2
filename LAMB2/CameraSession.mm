@@ -85,11 +85,13 @@ using namespace cv;
     [_processors addObject:imgproc];
 }
 
-- (void) addAsyncImageProcessor:(AsyncImageProcessor *) proc {
-    if (proc.queue == nil) {
-        proc.queue = opQueue;
-    }
-    [_processors addObject:proc];
+- (void) addAsyncImageProcessor:(AsyncImageProcessor *) imgproc {
+    imgproc.queue = opQueue;
+    [_processors addObject:imgproc];
+}
+
+- (void) removeImageProcessor:(ImageProcessor *)imgproc {
+    [_processors removeObject:imgproc];
 }
 
 - (UIImage *) captureImage {

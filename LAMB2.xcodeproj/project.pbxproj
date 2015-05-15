@@ -27,6 +27,7 @@
 		183AF31F1AB0CD1C006C9503 /* CameraAutoExposureAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 183AF31E1AB0CD1C006C9503 /* CameraAutoExposureAction.swift */; };
 		183AF3211AB0CD87006C9503 /* CameraManualExposureAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 183AF3201AB0CD87006C9503 /* CameraManualExposureAction.swift */; };
 		183AF3231AB12A4A006C9503 /* CameraExposureBiasAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 183AF3221AB12A4A006C9503 /* CameraExposureBiasAction.swift */; };
+		184C81C71B056D4F0083D926 /* IPIdleFrames.mm in Sources */ = {isa = PBXBuildFile; fileRef = 184C81C61B056D4F0083D926 /* IPIdleFrames.mm */; };
 		188074E31A38F43A0039725B /* opencv2.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 188074E21A38F43A0039725B /* opencv2.framework */; };
 		188074E61A38F4A60039725B /* CameraSession.mm in Sources */ = {isa = PBXBuildFile; fileRef = 188074E51A38F4A60039725B /* CameraSession.mm */; };
 		188074E81A38F7210039725B /* CoreVideo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 188074E71A38F7210039725B /* CoreVideo.framework */; };
@@ -113,6 +114,8 @@
 		183AF31E1AB0CD1C006C9503 /* CameraAutoExposureAction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CameraAutoExposureAction.swift; sourceTree = "<group>"; };
 		183AF3201AB0CD87006C9503 /* CameraManualExposureAction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CameraManualExposureAction.swift; sourceTree = "<group>"; };
 		183AF3221AB12A4A006C9503 /* CameraExposureBiasAction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CameraExposureBiasAction.swift; sourceTree = "<group>"; };
+		184C81C51B056D4F0083D926 /* IPIdleFrames.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IPIdleFrames.h; sourceTree = "<group>"; };
+		184C81C61B056D4F0083D926 /* IPIdleFrames.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = IPIdleFrames.mm; sourceTree = "<group>"; };
 		184D8DFE1A205AC600105FDA /* LAMB2-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "LAMB2-Bridging-Header.h"; sourceTree = "<group>"; };
 		188074E21A38F43A0039725B /* opencv2.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = opencv2.framework; sourceTree = "<group>"; };
 		188074E41A38F4A60039725B /* CameraSession.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CameraSession.h; sourceTree = "<group>"; };
@@ -218,6 +221,8 @@
 				180F871E1A7FFEB50001CD3C /* IPPanTracker.mm */,
 				18A072271AA004E100A93391 /* IPImageCapture.h */,
 				18A072281AA004E100A93391 /* IPImageCapture.mm */,
+				184C81C51B056D4F0083D926 /* IPIdleFrames.h */,
+				184C81C61B056D4F0083D926 /* IPIdleFrames.mm */,
 			);
 			name = ImageProcessing;
 			sourceTree = "<group>";
@@ -553,6 +558,7 @@
 				180F879C1A8C21D90001CD3C /* ImageProcessorAction.swift in Sources */,
 				18D6B8EC1ACCC630002B1A9E /* StageEnableAction.swift in Sources */,
 				18ED38111A200B8B005BA3CE /* LAMB2.xcdatamodeld in Sources */,
+				184C81C71B056D4F0083D926 /* IPIdleFrames.mm in Sources */,
 				180F87241A82F7700001CD3C /* DeviceAction.swift in Sources */,
 				18DB4C8F1AA4FA8700165F0F /* ScanFocusAction.swift in Sources */,
 				18A0721F1A981AEF00A93391 /* CapturePhotoAction.swift in Sources */,

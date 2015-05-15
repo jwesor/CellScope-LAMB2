@@ -42,6 +42,8 @@
 
 - (void) addAsyncImageProcessor: (AsyncImageProcessor *) imgproc;
 
+- (void) removeImageprocessor: (ImageProcessor *) imgproc;
+
 - (bool) doSingleAutoFocus;
 
 - (bool) doSingleAutoWhiteBalance;
