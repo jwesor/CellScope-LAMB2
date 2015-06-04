@@ -41,4 +41,8 @@ class SequenceAction: AbstractAction, SequenceCompletionDelegate {
         finish()
     }
     
+    override func cleanup() {
+        sequence.restartSequence()
+    }
+    
 }

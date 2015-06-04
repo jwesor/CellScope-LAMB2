@@ -17,12 +17,14 @@ import Foundation
 class ActionSequencer: ActionManager {
     
     var actions:[AbstractAction]
+    var completedActions:[AbstractAction]
     var running:Bool
     var completed:Bool
     var completionDelegates:[SequenceCompletionDelegate]
     
     init() {
         actions = []
+        completedActions = []
         completionDelegates = []
         running = false
         completed = false
@@ -43,6 +45,7 @@ class ActionSequencer: ActionManager {
         if (actions.count > 0) {
             let nextAction = actions.removeAtIndex(0)
             nextAction.run(self)
+            completedActions.append(nextAction)
         } else {
             running = false
             for delegate in completionDelegates {
@@ -58,6 +61,11 @@ class ActionSequencer: ActionManager {
     
     func addCompletionDelegate(delegate: SequenceCompletionDelegate) {
         completionDelegates.append(delegate)
+    }
+    
+    func restartSequence() {
+        actions = completedActions + actions
+        completedActions = []
     }
     
 }

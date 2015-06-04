@@ -53,12 +53,12 @@ class CameraViewController: UIViewController, GDriveAdapterStatusDelegate {
         let actionLog = TextDocument("actions.log", directory: directory)
         let driveLog = TextDocument("drive.log", directory: directory)
         let cycleLog = TextDocument("cycle.log", directory: directory)
-        /*let gActionLog = GDriveTextDocument(actionLog, drive: drive)
+        let gActionLog = GDriveTextDocument(actionLog, drive: drive)
         let gCycleLog = GDriveTextDocument(cycleLog, drive: drive)
         
         DebugUtil.setLog("action", doc: actionLog)
         DebugUtil.setLog("drive", doc: driveLog)
-        DebugUtil.setLog("cycle", doc: cycleLog)*/
+        DebugUtil.setLog("cycle", doc: cycleLog)
         
         let gdocPhoto = GDriveImageDocumentGenerator(drive)
         let photoSeries = ImageDocumentSeriesWriter(name: "dicty", directory: directory, delegator: gdocPhoto)
@@ -99,8 +99,8 @@ class CameraViewController: UIViewController, GDriveAdapterStatusDelegate {
     }
     
     @IBAction func test(sender: AnyObject) {
-        //cycle!.startCycle(3)
-        sequence.addAction(AutofocuserAction(startLevel: -5, endLevel: 5, stepsPerLevel: 10, camera: session!, device: device, stage: stage))
+        cycle!.startCycle(3)
+        //sequence.addAction(AutofocuserAction(startLevel: -5, endLevel: 5, stepsPerLevel: 10, camera: session!, device: device, stage: stage))
     }
 
     @IBAction func balance(sender: AnyObject) {
