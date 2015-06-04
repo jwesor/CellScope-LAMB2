@@ -15,6 +15,7 @@ import Foundation
 class AutofocuserAction : SequenceAction, ActionCompletionDelegate {
     
     let scanAction: ScanFocusAction
+    let antiBacklashAction: StageEnableStepAction
     let returnToStartAction: StageEnableStepAction
     let stepsPerLevel: UInt
     let totalLevels: UInt
@@ -29,7 +30,8 @@ class AutofocuserAction : SequenceAction, ActionCompletionDelegate {
         
         returnToStartAction = StageEnableStepAction(device, motor: StageConstants.MOTOR_3, dir: !ScanFocusAction.SCAN_DIR, steps:totalLevels * stepsPerLevel, stage: stage)
         scanAction = ScanFocusAction(levels: totalLevels, stepsPerLevel: stepsPerLevel, camera: camera, device: device, stage: stage)
-        
+        // Move against the direction of scan to match final move
+        antiBacklashAction = StageEnableStepAction(device, motor: StageConstants.MOTOR_3, dir: ScanFocusAction.SCAN_DIR, steps: stepsPerLevel, stage: stage)
         super.init()
         
         if (startLevel != 0) {
@@ -38,6 +40,7 @@ class AutofocuserAction : SequenceAction, ActionCompletionDelegate {
             let moveToStartAction = StageEnableStepAction(device, motor: StageConstants.MOTOR_3, dir: dir, steps: initialMove, stage: stage)
             addSubAction(moveToStartAction)
         }
+        addSubAction(antiBacklashAction)
         addSubAction(scanAction)
         
         addSubAction(returnToStartAction)
