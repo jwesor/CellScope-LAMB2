@@ -27,6 +27,16 @@ class ImageProcessorAction: AbstractAction, AsyncImageProcessorDelegate {
         super.init()
     }
     
+    init(_ processors: [ImageProcessor], standby: Int32 = 0, camera: CameraSession) {
+        proc = AsyncImageMultiProcessor.initWithProcessors(processors)
+        proc.defaultStandby = standby
+        proc.enabled = false
+        begun = false
+        disableWhenDone = false
+        camera.addAsyncImageProcessor(proc)
+        super.init()
+    }
+
     override func doExecution() {
         begun = false
         if (!proc.enabled) {

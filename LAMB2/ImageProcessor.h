@@ -23,6 +23,7 @@
 }
 
 @property bool enabled;
+@property bool displayEnabled;
 
 #ifdef __cplusplus
 - (void) processImage: (cv::Mat&)image;

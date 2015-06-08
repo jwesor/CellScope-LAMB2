@@ -11,10 +11,12 @@
 @implementation ImageProcessor
 
 @synthesize enabled = _enabled;
+@synthesize displayEnabled;
 
 - (id) init {
     self = [super init];
     _enabled = true;
+    self.displayEnabled = true;
     return self;
 }
 

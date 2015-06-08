@@ -272,7 +272,7 @@ using namespace cv;
     }
     
     for (ImageProcessor *imgproc in _processors) {
-        if (imgproc.enabled) {
+        if (imgproc.enabled && imgproc.displayEnabled) {
             [imgproc updateDisplayOverlay:image];
         }
     }

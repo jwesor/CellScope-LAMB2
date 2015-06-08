@@ -13,17 +13,18 @@ class CameraViewController: UIViewController, GDriveAdapterStatusDelegate {
     @IBOutlet weak var stepText: UITextField!
     @IBOutlet weak var preview: UIView!
     @IBOutlet weak var deviceButton: DeviceStatusButton!
-    var session: CameraSession?
-    var device: DeviceConnector = DeviceConnector()
-    var sequence: ActionManager = ActionQueue()
     var startX: Float = 0
     var startY: Float = 0
     let threshold: Float = 30
     let stepsPerPixel: Float = 0.02
     let pan = UIPanGestureRecognizer()
+    
+    
+    var session: CameraSession?
+    var device: DeviceConnector = DeviceConnector()
+    var sequence: ActionManager = ActionQueue()
     let drive: GDriveAdapter = GDriveAdapter()
     let asyncIp = AsyncImageMultiProcessor()
-    var cycle: ActionCycler?
     let stage: StageState = StageState()
     
     override func viewDidLoad() {
@@ -57,33 +58,9 @@ class CameraViewController: UIViewController, GDriveAdapterStatusDelegate {
         let gCycleLog = GDriveTextDocument(cycleLog, drive: drive)
         
         DebugUtil.setLog("action", doc: actionLog)
-        DebugUtil.setLog("drive", doc: driveLog)
-        DebugUtil.setLog("cycle", doc: cycleLog)
-        
-        let gdocPhoto = GDriveImageDocumentGenerator(drive)
-        let photoSeries = ImageDocumentSeriesWriter(name: "dicty", directory: directory, delegator: gdocPhoto)
-        let photo = IPImageCapture.initWithWriter(photoSeries)
-        photo.enabled = true
-        asyncIp.addImageProcessor(photo)
-        
-        session?.addAsyncImageProcessor(asyncIp)
-        let ipAction = ImageProcessorAction(asyncIp)
-        ipAction.logName = "[capture photo]"
-        asyncIp.enabled = false
-        
-        let idle = IPIdleFrames()
-        session?.addAsyncImageProcessor(idle)
-        idle.idleFrames = 3
-        idle.enabled = false
-        let idleAction = ImageProcessorAction(idle)
-        
-        cycle = ActionCycler(queue: sequence)
-        let ledOn = DeviceAction(device, id: "led toggle", data:
-            [0x25, 0, 0])
-        let ledOff = DeviceAction(device, id: "led toggle", data:
-            [0x26, 0, 0])
-        cycle!.addActionSequence([ledOn, idleAction, ipAction, ledOff], delay: 10)
-        
+//        DebugUtil.setLog("drive", doc: driveLog)
+//        DebugUtil.setLog("cycle", doc: cycleLog)
+
 //        preview.userInteractionEnabled = true
 //        pan.addTarget(self, action: Selector("handlePan:"))
 //        preview.addGestureRecognizer(pan)
@@ -99,13 +76,14 @@ class CameraViewController: UIViewController, GDriveAdapterStatusDelegate {
     }
     
     @IBAction func test(sender: AnyObject) {
-        cycle!.startCycle(3)
-        //sequence.addAction(AutofocuserAction(startLevel: -5, endLevel: 5, stepsPerLevel: 10, camera: session!, device: device, stage: stage))
+        sequence.addAction(MotorStepCalibratorAction(StageConstants.MOTOR_1, device: device, camera: session!, stage: stage))
     }
 
     @IBAction func balance(sender: AnyObject) {
         sequence.addAction(CameraAutoWhiteBalanceAction(camera: session!))
-        sequence.addAction(CameraAutoExposureAction(camera: session!))
+        let exp = CameraAutoExposureAction(camera: session!)
+        exp.timeout = 3
+        sequence.addAction(exp)
         sequence.addAction(CameraAutoFocusAction(camera: session!))
     }
     

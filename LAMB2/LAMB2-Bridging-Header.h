@@ -4,7 +4,6 @@
 #import "CameraSession.h"
 #import "BLE/BLE.h"
 #import "IPColorInverter.h"
-#import "IPPanTracker.h"
 #import "IPAsyncPanTracker.h"
 #import "AsyncImageProcessor.h"
 #import "AsyncImageMultiProcessor.h"
@@ -13,5 +12,8 @@
 
 
 #import "IPFocusDetector.h"
+
+
+#import "IPDisplacement.h"
 
 #import "GDriveAdapter.h"
