@@ -16,6 +16,7 @@ using namespace cv;
     Mat templateRegion;
     Mat newTemplateRegion;
     int _dX, _dY;
+    bool _firstFrame;
 }
 @end
 
@@ -37,6 +38,7 @@ using namespace cv;
     templateRegion = Mat(roi.height, roi.width, CV_8UC1);
     newTemplateRegion = Mat(roi.height, roi.width, CV_8UC1);
     self.croppingEnabled = false;
+    _firstFrame = true;
     return self;
 }
 
@@ -58,7 +60,8 @@ using namespace cv;
     
     Mat(channels[0], roi).copyTo(newTemplateRegion);
     
-    if (templateRegion.empty()) {
+    if (templateRegion.empty() || _firstFrame) {
+        _firstFrame = false;
         newTemplateRegion.copyTo(templateRegion);
     }
     
@@ -79,7 +82,6 @@ using namespace cv;
     
     _dX = -(maxLoc.x - (cropped.width - roi.width) / 2);
     _dY = -(maxLoc.y - (cropped.height - roi.height) / 2);
-    
     Mat tmp = templateRegion;
     templateRegion = newTemplateRegion;
     newTemplateRegion = tmp;
@@ -89,7 +91,7 @@ using namespace cv;
     Scalar color = Scalar(0, 255, 0, 255);
     rectangle(image, roi, color);
     rectangle(image, cropped, color);
-    rectangle(image, tracked, color);
+    rectangle(image, tracked, Scalar(255, 255, 0, 255));
 }
 
 - (void) setCropWidth:(int) width {
@@ -124,6 +126,9 @@ using namespace cv;
     return roi.height;
 }
 
+- (void) reset {
+    _firstFrame = true;
+}
 
 @end
 

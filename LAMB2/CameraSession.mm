@@ -82,16 +82,22 @@ using namespace cv;
 }
 
 - (void) addImageProcessor: (ImageProcessor*) imgproc {
-    [_processors addObject:imgproc];
+    @synchronized(_processors) {
+        [_processors addObject:imgproc];
+    }
 }
 
 - (void) addAsyncImageProcessor:(AsyncImageProcessor *) imgproc {
     imgproc.queue = opQueue;
-    [_processors addObject:imgproc];
+    @synchronized(_processors) {
+        [_processors addObject:imgproc];
+    }
 }
 
 - (void) removeImageProcessor:(ImageProcessor *)imgproc {
-    [_processors removeObject:imgproc];
+    @synchronized(_processors) {
+        [_processors removeObject:imgproc];
+    }
 }
 
 - (UIImage *) captureImage {
@@ -265,17 +271,20 @@ using namespace cv;
         }
     }
     
-    for (ImageProcessor *imgproc in _processors) {
-        if (imgproc.enabled) {
-            [imgproc processImage:image];
+    @synchronized (_processors) {
+        for (ImageProcessor *imgproc in _processors) {
+            if (imgproc.enabled) {
+                [imgproc processImage:image];
+            }
+        }
+    
+        for (ImageProcessor *imgproc in _processors) {
+            if (imgproc.enabled && imgproc.displayEnabled) {
+                [imgproc updateDisplayOverlay:image];
+            }
         }
     }
     
-    for (ImageProcessor *imgproc in _processors) {
-        if (imgproc.enabled && imgproc.displayEnabled) {
-            [imgproc updateDisplayOverlay:image];
-        }
-    }
 }
 
 @end

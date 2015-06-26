@@ -41,6 +41,7 @@
 		18A072301AA13E6400A93391 /* IPFocusDetector.mm in Sources */ = {isa = PBXBuildFile; fileRef = 18A0722F1AA13E6400A93391 /* IPFocusDetector.mm */; };
 		18A072331AA1404800A93391 /* AutofocuserAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18A072321AA1404800A93391 /* AutofocuserAction.swift */; };
 		18A5513A1AE878B9001AFC84 /* ActionCycler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18A551391AE878B9001AFC84 /* ActionCycler.swift */; };
+		18BF6C621B3CEACE00E9B8E3 /* MotorBacklashCounterAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18BF6C611B3CEACE00E9B8E3 /* MotorBacklashCounterAction.swift */; };
 		18D6B8E11ACCAFD4002B1A9E /* libGTLTouchStaticLib.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 18D6B8E01ACCAFD4002B1A9E /* libGTLTouchStaticLib.a */; };
 		18D6B8E31ACCAFDC002B1A9E /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 18D6B8E21ACCAFDC002B1A9E /* Security.framework */; };
 		18D6B8E51ACCAFE3002B1A9E /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 18D6B8E41ACCAFE3002B1A9E /* SystemConfiguration.framework */; };
@@ -136,6 +137,7 @@
 		18A0722F1AA13E6400A93391 /* IPFocusDetector.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = IPFocusDetector.mm; sourceTree = "<group>"; };
 		18A072321AA1404800A93391 /* AutofocuserAction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AutofocuserAction.swift; sourceTree = "<group>"; };
 		18A551391AE878B9001AFC84 /* ActionCycler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActionCycler.swift; sourceTree = "<group>"; };
+		18BF6C611B3CEACE00E9B8E3 /* MotorBacklashCounterAction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MotorBacklashCounterAction.swift; sourceTree = "<group>"; };
 		18D6B8E01ACCAFD4002B1A9E /* libGTLTouchStaticLib.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libGTLTouchStaticLib.a; path = "google-api-objectivec-client-read-only/Source/build/Debug-iphoneos/libGTLTouchStaticLib.a"; sourceTree = "<group>"; };
 		18D6B8E21ACCAFDC002B1A9E /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		18D6B8E41ACCAFE3002B1A9E /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
@@ -283,6 +285,7 @@
 			isa = PBXGroup;
 			children = (
 				181D49041B25091F00D08A93 /* MotorStepCalibratorAction.swift */,
+				18BF6C611B3CEACE00E9B8E3 /* MotorBacklashCounterAction.swift */,
 				181D49061B25098100D08A93 /* IPDisplacement.h */,
 				181D49071B25098100D08A93 /* IPDisplacement.mm */,
 			);
@@ -562,6 +565,7 @@
 				18A072291AA004E100A93391 /* IPImageCapture.mm in Sources */,
 				18D6B8F21ACCCB0B002B1A9E /* StageConstants.swift in Sources */,
 				18DB4C991AAFC24500165F0F /* CameraAutoWhiteBalanceAction.swift in Sources */,
+				18BF6C621B3CEACE00E9B8E3 /* MotorBacklashCounterAction.swift in Sources */,
 				18D6B8EE1ACCC6DD002B1A9E /* StageDirectionAction.swift in Sources */,
 				183AF3211AB0CD87006C9503 /* CameraManualExposureAction.swift in Sources */,
 				18DB4C931AAE670900165F0F /* CameraAutoFocusAction.swift in Sources */,

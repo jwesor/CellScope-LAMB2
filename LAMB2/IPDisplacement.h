@@ -20,4 +20,6 @@
 @property (nonatomic) int cropHeight;
 @property bool croppingEnabled;
 
+- (void) reset;
+
 @end

@@ -42,7 +42,7 @@
 
 - (void) addAsyncImageProcessor: (AsyncImageProcessor *) imgproc;
 
-- (void) removeImageprocessor: (ImageProcessor *) imgproc;
+- (void) removeImageProcessor: (ImageProcessor *) imgproc;
 
 - (bool) doSingleAutoFocus;
 

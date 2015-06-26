@@ -26,6 +26,8 @@ class CameraViewController: UIViewController, GDriveAdapterStatusDelegate {
     let drive: GDriveAdapter = GDriveAdapter()
     let asyncIp = AsyncImageMultiProcessor()
     let stage: StageState = StageState()
+    let displace: IPDisplacement = IPDisplacement()
+    var displaceAction: ImageProcessorAction?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -51,7 +53,7 @@ class CameraViewController: UIViewController, GDriveAdapterStatusDelegate {
         let datestring = dateFormat.stringFromDate(NSDate())
         let directory = DocumentDirectory("lamb2_\(datestring)")
         
-        let actionLog = TextDocument("actions.log", directory: directory)
+        let actionLog = TextDocument("action.log", directory: directory)
         let driveLog = TextDocument("drive.log", directory: directory)
         let cycleLog = TextDocument("cycle.log", directory: directory)
         let gActionLog = GDriveTextDocument(actionLog, drive: drive)
@@ -65,6 +67,8 @@ class CameraViewController: UIViewController, GDriveAdapterStatusDelegate {
 //        pan.addTarget(self, action: Selector("handlePan:"))
 //        preview.addGestureRecognizer(pan)
         
+        displaceAction = ImageProcessorAction([displace], standby: 2, camera: session!)
+        session?.addAsyncImageProcessor(displaceAction!.proc)
     }
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
@@ -76,7 +80,8 @@ class CameraViewController: UIViewController, GDriveAdapterStatusDelegate {
     }
     
     @IBAction func test(sender: AnyObject) {
-        sequence.addAction(MotorStepCalibratorAction(StageConstants.MOTOR_1, device: device, camera: session!, stage: stage))
+        sequence.addAction(MotorStepCalibratorAction(StageConstants.MOTOR_2, device: device, camera: session!, stage: stage))
+//        sequence.addAction(displaceAction!)
     }
 
     @IBAction func balance(sender: AnyObject) {

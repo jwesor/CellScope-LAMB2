@@ -25,7 +25,7 @@ struct DebugUtil {
     
     static func setLog(log: String, doc: TextDocument) {
         logfiles[log] = doc
-        logEnabled[log] = false
+        logEnabled[log] = true
     }
     
     static func setLogEnabled(log: String, enabled: Bool) {
@@ -35,7 +35,7 @@ struct DebugUtil {
     }
     
     static func log(log: String, _ str: String) {
-        if (logEnabled[log] != nil && logEnabled[log] == true) {
+        if (logfiles[log] != nil && logEnabled[log] == true) {
             let dateFormat = NSDateFormatter()
             dateFormat.dateFormat = "yyyy-MM-dd HH:mm:ss.SSSS"
             let doc = logfiles[log]
