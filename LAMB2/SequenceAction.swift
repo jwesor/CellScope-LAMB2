@@ -32,6 +32,12 @@ class SequenceAction: AbstractAction, SequenceCompletionDelegate {
         sequence.addAction(action)
     }
     
+    func addSubActions(actions: [AbstractAction]) {
+        for action in actions {
+            sequence.addAction(action)
+        }
+    }
+    
     override func doExecution() {
         sequence.addCompletionDelegate(self)
         sequence.beginActions()
@@ -43,6 +49,10 @@ class SequenceAction: AbstractAction, SequenceCompletionDelegate {
     
     override func cleanup() {
         sequence.restartSequence()
+    }
+    
+    func clearActions() {
+        sequence.clearSequence()
     }
     
 }

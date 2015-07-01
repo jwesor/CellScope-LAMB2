@@ -68,6 +68,11 @@ class ActionSequencer: ActionManager {
         completedActions = []
     }
     
+    func clearSequence() {
+        completedActions = []
+        actions = []
+    }
+    
 }
 
 

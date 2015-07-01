@@ -28,6 +28,7 @@ class CameraViewController: UIViewController, GDriveAdapterStatusDelegate {
     let stage: StageState = StageState()
     let displace: IPDisplacement = IPDisplacement()
     var displaceAction: ImageProcessorAction?
+    var calib: MotorStepCalibratorAction?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -69,6 +70,8 @@ class CameraViewController: UIViewController, GDriveAdapterStatusDelegate {
         
         displaceAction = ImageProcessorAction([displace], standby: 2, camera: session!)
         session?.addAsyncImageProcessor(displaceAction!.proc)
+        
+        calib = MotorStepCalibratorAction(StageConstants.MOTOR_2, device: device, camera: session!, stage: stage)
     }
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
@@ -80,7 +83,7 @@ class CameraViewController: UIViewController, GDriveAdapterStatusDelegate {
     }
     
     @IBAction func test(sender: AnyObject) {
-        sequence.addAction(MotorStepCalibratorAction(StageConstants.MOTOR_2, device: device, camera: session!, stage: stage))
+        sequence.addAction(calib!)
 //        sequence.addAction(displaceAction!)
     }
 

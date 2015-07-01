@@ -34,6 +34,7 @@
 		188074E81A38F7210039725B /* CoreVideo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 188074E71A38F7210039725B /* CoreVideo.framework */; };
 		188074EA1A38F72D0039725B /* AssetsLibrary.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 188074E91A38F72D0039725B /* AssetsLibrary.framework */; };
 		188074EC1A38F7350039725B /* CoreMedia.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 188074EB1A38F7350039725B /* CoreMedia.framework */; };
+		1892F5981B44953A0084E0F8 /* MotorStepDisplacementAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1892F5971B44953A0084E0F8 /* MotorStepDisplacementAction.swift */; };
 		18A0721D1A98040D00A93391 /* PhotoAlbum.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18A0721C1A98040D00A93391 /* PhotoAlbum.swift */; };
 		18A0721F1A981AEF00A93391 /* CapturePhotoAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18A0721E1A981AEF00A93391 /* CapturePhotoAction.swift */; };
 		18A072291AA004E100A93391 /* IPImageCapture.mm in Sources */ = {isa = PBXBuildFile; fileRef = 18A072281AA004E100A93391 /* IPImageCapture.mm */; };
@@ -126,6 +127,7 @@
 		188074E71A38F7210039725B /* CoreVideo.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreVideo.framework; path = System/Library/Frameworks/CoreVideo.framework; sourceTree = SDKROOT; };
 		188074E91A38F72D0039725B /* AssetsLibrary.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AssetsLibrary.framework; path = System/Library/Frameworks/AssetsLibrary.framework; sourceTree = SDKROOT; };
 		188074EB1A38F7350039725B /* CoreMedia.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMedia.framework; path = System/Library/Frameworks/CoreMedia.framework; sourceTree = SDKROOT; };
+		1892F5971B44953A0084E0F8 /* MotorStepDisplacementAction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MotorStepDisplacementAction.swift; sourceTree = "<group>"; };
 		18A0721C1A98040D00A93391 /* PhotoAlbum.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhotoAlbum.swift; sourceTree = "<group>"; };
 		18A0721E1A981AEF00A93391 /* CapturePhotoAction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CapturePhotoAction.swift; sourceTree = "<group>"; };
 		18A072271AA004E100A93391 /* IPImageCapture.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IPImageCapture.h; sourceTree = "<group>"; };
@@ -285,6 +287,7 @@
 			isa = PBXGroup;
 			children = (
 				181D49041B25091F00D08A93 /* MotorStepCalibratorAction.swift */,
+				1892F5971B44953A0084E0F8 /* MotorStepDisplacementAction.swift */,
 				18BF6C611B3CEACE00E9B8E3 /* MotorBacklashCounterAction.swift */,
 				181D49061B25098100D08A93 /* IPDisplacement.h */,
 				181D49071B25098100D08A93 /* IPDisplacement.mm */,
@@ -582,6 +585,7 @@
 				180F87951A858FF20001CD3C /* SequenceAction.swift in Sources */,
 				18ED380E1A200B8B005BA3CE /* AppDelegate.swift in Sources */,
 				18D6B8F01ACCCA31002B1A9E /* StageDisableAction.swift in Sources */,
+				1892F5981B44953A0084E0F8 /* MotorStepDisplacementAction.swift in Sources */,
 				180F872A1A82F7C80001CD3C /* AbstractAction.swift in Sources */,
 				18D6B9041ADF2FB0002B1A9E /* GDriveTextDocument.swift in Sources */,
 				180F87A51A8EECC70001CD3C /* ActionQueue.swift in Sources */,
