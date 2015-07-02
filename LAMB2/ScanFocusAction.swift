@@ -42,6 +42,14 @@ class ScanFocusAction: SequenceAction, ActionCompletionDelegate {
         }
     }
     
+    override func doExecution() {
+        focuses = []
+        currentFocusLevel = 0;
+        bestFocusLevel = 0;
+        bestFocusScore = 0;
+        super.doExecution()
+    }
+    
     func onActionCompleted(action: AbstractAction) {
         if (action == ipAction) {
             let newFocus = focusIp.focus

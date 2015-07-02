@@ -13,26 +13,39 @@ import Foundation
 
 class SequenceAction: AbstractAction, SequenceCompletionDelegate {
     
-    let sequence:ActionSequencer
+    let sequence: ActionSequencer = ActionSequencer()
+    var repeating: [AbstractAction] = []
     
     override init() {
-        sequence = ActionSequencer()
         super.init()
     }
     
     init(_ actions: [AbstractAction]) {
-        sequence = ActionSequencer()
         super.init()
         for action in actions {
+            repeating.append(action)
             sequence.addAction(action)
+            
         }
     }
     
     func addSubAction(action: AbstractAction) {
+        repeating.append(action)
         sequence.addAction(action)
     }
     
     func addSubActions(actions: [AbstractAction]) {
+        for action in actions {
+            repeating.append(action)
+            sequence.addAction(action)
+        }
+    }
+    
+    func addOneTimeAction(action: AbstractAction) {
+        sequence.addAction(action)
+    }
+    
+    func addOneTimeActions(actions: [AbstractAction]) {
         for action in actions {
             sequence.addAction(action)
         }
@@ -48,10 +61,14 @@ class SequenceAction: AbstractAction, SequenceCompletionDelegate {
     }
     
     override func cleanup() {
-        sequence.restartSequence()
+        sequence.clearSequence()
+        for action in repeating {
+            sequence.addAction(action)
+        }
     }
     
     func clearActions() {
+        repeating = []
         sequence.clearSequence()
     }
     

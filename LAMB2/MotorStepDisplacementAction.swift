@@ -18,7 +18,6 @@ class MotorStepDisplacementAction: SequenceAction, ActionCompletionDelegate {
     let stepAction: StageStepAction
     let camera: CameraSession
     var displaceCounter: Int
-    var stepCounter: Int
     let targetSteps: Int
     var dX: [Int]
     var dY: [Int]
@@ -33,11 +32,16 @@ class MotorStepDisplacementAction: SequenceAction, ActionCompletionDelegate {
         dX = []
         dY = []
         displaceCounter = 0
-        stepCounter = 0
         targetSteps = steps
         self.camera = camera
         super.init()
         displaceAction.addCompletionDelegate(self)
+        addSubActions([enableAction, dirAction, displaceAction])
+        for var i = 0; i < steps; i += 1 {
+            addSubAction(stepAction)
+            addSubAction(displaceAction)
+        }
+        addSubAction(disableAction)
     }
     
     override func doExecution() {
@@ -45,8 +49,6 @@ class MotorStepDisplacementAction: SequenceAction, ActionCompletionDelegate {
         dX = []
         dY = []
         displaceCounter = 0
-        stepCounter = 0
-        addSubActions([enableAction, dirAction, displaceAction, stepAction, displaceAction])
         super.doExecution()
     }
     
@@ -54,21 +56,14 @@ class MotorStepDisplacementAction: SequenceAction, ActionCompletionDelegate {
         if (displaceCounter >= 1) {
             dX.append(Int(displace.dX))
             dY.append(Int(displace.dY))
-            stepCounter += 1
-            if (stepCounter < targetSteps) {
-                addSubAction(stepAction)
-                addSubAction(displaceAction)
-            } else {
-                addSubAction(disableAction)
-                print("\(dX) \(dY) \n")
-            }
+            print("\(dX) \(dY) \n")
         }
         displaceCounter += 1
     }
     
     override func cleanup() {
         camera.removeImageProcessor(displaceAction.proc)
-        clearActions()
+        super.cleanup()
     }
     
     func getAveX() -> Float {

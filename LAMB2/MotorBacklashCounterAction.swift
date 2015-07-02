@@ -40,13 +40,13 @@ class MotorBacklashCounterAction: SequenceAction, ActionCompletionDelegate {
         self.camera = camera
         super.init()
         displaceAction.addCompletionDelegate(self)
+        addSubActions([enableAction, dirAction, displaceAction, stepAction, displaceAction])
     }
     
     override func doExecution() {
         camera.addAsyncImageProcessor(displaceAction.proc)
         backlashStepCounter = 0
         displaceCounter = 0
-        addSubActions([enableAction, dirAction, displaceAction, stepAction, displaceAction])
         super.doExecution()
     }
     
@@ -58,17 +58,17 @@ class MotorBacklashCounterAction: SequenceAction, ActionCompletionDelegate {
                 if (abs(dX) <= MOTION_THRESHOLD && abs(dY) <= MOTION_THRESHOLD) {
                     motionStepCounter = 0
                     backlashStepCounter += 1
-                    addSubAction(stepAction)
-                    addSubAction(displaceAction)
+                    addOneTimeAction(stepAction)
+                    addOneTimeAction(displaceAction)
                 } else {
                     motionStepCounter += 1
                     if (motionStepCounter <= 1) {
                         partialStepX = dX
                         partialStepY = dY
-                        addSubAction(stepAction)
-                        addSubAction(displaceAction)
+                        addOneTimeAction(stepAction)
+                        addOneTimeAction(displaceAction)
                     } else {
-                        addSubAction(disableAction)
+                        addOneTimeAction(disableAction)
                         print("Backlash \(partialStepX) \(partialStepY) \(backlashStepCounter)\n")
                     }
                 }
@@ -79,6 +79,6 @@ class MotorBacklashCounterAction: SequenceAction, ActionCompletionDelegate {
     
     override func cleanup() {
         camera.removeImageProcessor(displaceAction.proc)
-        clearActions()
+        super.cleanup()
     }
 }

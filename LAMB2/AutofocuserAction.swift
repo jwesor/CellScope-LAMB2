@@ -50,7 +50,7 @@ class AutofocuserAction : SequenceAction, ActionCompletionDelegate {
     func onActionCompleted(action: AbstractAction) {
         let stepsToMove = scanAction.bestFocusLevel * stepsPerLevel
         let moveAction = StageEnableStepAction(device, motor: StageConstants.MOTOR_3, dir: ScanFocusAction.SCAN_DIR, steps: stepsToMove, stage: stage)
-        addSubAction(moveAction)
+        addOneTimeAction(moveAction)
         println("autofocus complete!")
     }
 }
