@@ -19,7 +19,7 @@ class ScanFocusAction: SequenceAction, ActionCompletionDelegate {
     var bestFocusScore: Int32
     static let SCAN_DIR = StageConstants.DIR_HIGH
     
-    init(levels: UInt, stepsPerLevel: UInt, camera: CameraSession, device: DeviceConnector, stage: StageState) {
+    init(levels: UInt, stepsPerLevel: UInt8, dir: Bool = ScanFocusAction.SCAN_DIR, camera: CameraSession, device: DeviceConnector, stage: StageState) {
         focusIp = IPFocusDetector()
         
         asyncIpWrapper = AsyncImageMultiProcessor.initWithProcessors([focusIp])
@@ -35,11 +35,15 @@ class ScanFocusAction: SequenceAction, ActionCompletionDelegate {
         bestFocusScore = 0;
         super.init()
         ipAction.addCompletionDelegate(self)
+        let motor = StageConstants.MOTOR_3
+        addSubAction(StageDirectionAction(device, motor: motor, dir: dir, stage: stage))
+        addSubAction(StageEnableAction(device, motor: motor, stage: stage))
         addSubAction(ipAction)
         for i in 1...levels {
-            addSubAction(StageEnableStepAction(device, motor: StageConstants.MOTOR_3, dir: ScanFocusAction.SCAN_DIR, steps: stepsPerLevel, stage: stage))
+            addSubAction(StageStepAction(device, motor: motor, steps: stepsPerLevel, stage: stage))
             addSubAction(ipAction)
         }
+        addSubAction(StageDisableAction(device, motor: motor, stage: stage))
     }
     
     override func doExecution() {

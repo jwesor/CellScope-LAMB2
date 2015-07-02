@@ -73,7 +73,7 @@ class CameraViewController: UIViewController, GDriveAdapterStatusDelegate {
         session?.addAsyncImageProcessor(displaceAction!.proc)
         
         calib = MotorStepCalibratorAction(StageConstants.MOTOR_2, device: device, camera: session!, stage: stage)
-        autofocus = AutofocuserAction(startLevel: -10, endLevel: 10, stepsPerLevel: 5, camera: session!, device: device, stage: stage)
+        autofocus = AutofocuserAction(startLevel: -10, endLevel: 10, stepsPerLvl: 5, camera: session!, device: device, stage: stage)
     }
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
@@ -85,7 +85,7 @@ class CameraViewController: UIViewController, GDriveAdapterStatusDelegate {
     }
     
     @IBAction func test(sender: AnyObject) {
-        sequence.addAction(calib!)
+        sequence.addAction(autofocus!)
 //        sequence.addAction(displaceAction!)
     }
 

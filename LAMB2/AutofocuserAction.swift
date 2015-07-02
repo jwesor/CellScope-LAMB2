@@ -22,14 +22,14 @@ class AutofocuserAction : SequenceAction, ActionCompletionDelegate {
     let device: DeviceConnector
     let stage: StageState
 
-    init(startLevel: Int, endLevel: Int, stepsPerLevel: UInt, camera: CameraSession, device: DeviceConnector, stage: StageState) {
-        self.stepsPerLevel = stepsPerLevel
+    init(startLevel: Int, endLevel: Int, stepsPerLvl: UInt8, camera: CameraSession, device: DeviceConnector, stage: StageState) {
+        self.stepsPerLevel = UInt(stepsPerLvl)
         self.device = device
         self.stage = stage
         self.totalLevels = UInt(abs(endLevel - startLevel))
         
         returnToStartAction = StageEnableStepAction(device, motor: StageConstants.MOTOR_3, dir: !ScanFocusAction.SCAN_DIR, steps:totalLevels * stepsPerLevel, stage: stage)
-        scanAction = ScanFocusAction(levels: totalLevels, stepsPerLevel: stepsPerLevel, camera: camera, device: device, stage: stage)
+        scanAction = ScanFocusAction(levels: totalLevels, stepsPerLevel: stepsPerLvl, camera: camera, device: device, stage: stage)
         // Move against the direction of scan to match final move
         antiBacklashAction = StageEnableStepAction(device, motor: StageConstants.MOTOR_3, dir: ScanFocusAction.SCAN_DIR, steps: stepsPerLevel, stage: stage)
         super.init()
