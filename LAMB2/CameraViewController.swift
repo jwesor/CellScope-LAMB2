@@ -80,8 +80,8 @@ class CameraViewController: UIViewController, GDriveAdapterStatusDelegate {
     }
     
     @IBAction func test(sender: AnyObject) {
-        sequence.addAction(calib!)
-//        sequence.addAction(displaceAction!)
+                sequence.addAction(calib!)
+//        fov.enabled = !fov.enabled
     }
 
     @IBAction func balance(sender: AnyObject) {

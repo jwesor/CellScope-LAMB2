@@ -36,6 +36,7 @@
 		188074EC1A38F7350039725B /* CoreMedia.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 188074EB1A38F7350039725B /* CoreMedia.framework */; };
 		1892F5981B44953A0084E0F8 /* MotorStepDisplacementAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1892F5971B44953A0084E0F8 /* MotorStepDisplacementAction.swift */; };
 		1892F59A1B4605E50084E0F8 /* StepCalibratorAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1892F5991B4605E50084E0F8 /* StepCalibratorAction.swift */; };
+		1892F59D1B4620B60084E0F8 /* IPFovBounds.mm in Sources */ = {isa = PBXBuildFile; fileRef = 1892F59C1B4620B60084E0F8 /* IPFovBounds.mm */; };
 		18A0721D1A98040D00A93391 /* PhotoAlbum.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18A0721C1A98040D00A93391 /* PhotoAlbum.swift */; };
 		18A0721F1A981AEF00A93391 /* CapturePhotoAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18A0721E1A981AEF00A93391 /* CapturePhotoAction.swift */; };
 		18A072291AA004E100A93391 /* IPImageCapture.mm in Sources */ = {isa = PBXBuildFile; fileRef = 18A072281AA004E100A93391 /* IPImageCapture.mm */; };
@@ -130,6 +131,8 @@
 		188074EB1A38F7350039725B /* CoreMedia.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMedia.framework; path = System/Library/Frameworks/CoreMedia.framework; sourceTree = SDKROOT; };
 		1892F5971B44953A0084E0F8 /* MotorStepDisplacementAction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MotorStepDisplacementAction.swift; sourceTree = "<group>"; };
 		1892F5991B4605E50084E0F8 /* StepCalibratorAction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StepCalibratorAction.swift; sourceTree = "<group>"; };
+		1892F59B1B4620B60084E0F8 /* IPFovBounds.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IPFovBounds.h; sourceTree = "<group>"; };
+		1892F59C1B4620B60084E0F8 /* IPFovBounds.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = IPFovBounds.mm; sourceTree = "<group>"; };
 		18A0721C1A98040D00A93391 /* PhotoAlbum.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhotoAlbum.swift; sourceTree = "<group>"; };
 		18A0721E1A981AEF00A93391 /* CapturePhotoAction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CapturePhotoAction.swift; sourceTree = "<group>"; };
 		18A072271AA004E100A93391 /* IPImageCapture.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IPImageCapture.h; sourceTree = "<group>"; };
@@ -294,6 +297,8 @@
 				18BF6C611B3CEACE00E9B8E3 /* MotorBacklashCounterAction.swift */,
 				181D49061B25098100D08A93 /* IPDisplacement.h */,
 				181D49071B25098100D08A93 /* IPDisplacement.mm */,
+				1892F59B1B4620B60084E0F8 /* IPFovBounds.h */,
+				1892F59C1B4620B60084E0F8 /* IPFovBounds.mm */,
 			);
 			name = Calibration;
 			sourceTree = "<group>";
@@ -580,6 +585,7 @@
 				180F879C1A8C21D90001CD3C /* ImageProcessorAction.swift in Sources */,
 				18D6B8EC1ACCC630002B1A9E /* StageEnableAction.swift in Sources */,
 				18ED38111A200B8B005BA3CE /* LAMB2.xcdatamodeld in Sources */,
+				1892F59D1B4620B60084E0F8 /* IPFovBounds.mm in Sources */,
 				184C81C71B056D4F0083D926 /* IPIdleFrames.mm in Sources */,
 				180F87241A82F7700001CD3C /* DeviceAction.swift in Sources */,
 				18DB4C8F1AA4FA8700165F0F /* ScanFocusAction.swift in Sources */,

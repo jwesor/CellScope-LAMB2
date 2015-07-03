@@ -22,7 +22,7 @@ class MotorBacklashCounterAction: SequenceAction, ActionCompletionDelegate {
     var displaceCounter: Int
     var partialStepX: Int
     var partialStepY: Int
-    let MOTION_THRESHOLD: Int = 5
+    let MOTION_THRESHOLD: Int = 8
     let HARD_BACKLASH_CAP: Int = 25
 
     init(_ motor: Int, dir: Bool, device: DeviceConnector, camera: CameraSession, stage: StageState, ip: IPDisplacement? = nil) {

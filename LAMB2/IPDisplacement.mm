@@ -28,7 +28,10 @@ using namespace cv;
 @synthesize regionHeight;
 @synthesize cropWidth;
 @synthesize cropHeight;
+@synthesize cropX;
+@synthesize cropY;
 @synthesize croppingEnabled;
+@synthesize croppingCentered;
 
 - (id) init {
     self = [super init];
@@ -38,15 +41,16 @@ using namespace cv;
     templateRegion = Mat(roi.height, roi.width, CV_8UC1);
     newTemplateRegion = Mat(roi.height, roi.width, CV_8UC1);
     self.croppingEnabled = false;
+    self.croppingCentered = true;
     _firstFrame = true;
     return self;
 }
 
 - (void) processImage: (Mat&) image {
-    if (self.croppingEnabled) {
+    if (self.croppingEnabled && self.croppingCentered) {
         cropped.x = (image.cols - cropped.width) / 2;
         cropped.y = (image.rows - cropped.height) / 2;
-    } else {
+    } else if (!self.croppingEnabled) {
         cropped.x = 0;
         cropped.y = 0;
         cropped.width = image.cols;
@@ -108,6 +112,22 @@ using namespace cv;
 
 - (int) getCropHeight:(int) height {
     return cropped.height;
+}
+
+- (void) setCropX:(int) x {
+    cropped.x = x;
+}
+
+- (int) getCropX {
+    return cropped.x;
+}
+
+- (void) setCropY:(int) y {
+    cropped.y = y;
+}
+
+- (int) getCropY {
+    return cropped.y;
 }
 
 - (void) setRegionWidth:(int)width {

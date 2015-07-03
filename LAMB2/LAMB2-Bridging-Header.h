@@ -13,7 +13,7 @@
 
 #import "IPFocusDetector.h"
 
-
 #import "IPDisplacement.h"
+#import "IPFovBounds.h"
 
 #import "GDriveAdapter.h"
