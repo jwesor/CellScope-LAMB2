@@ -17,16 +17,16 @@ class AutofocuserAction : SequenceAction, ActionCompletionDelegate {
     let scanAction: ScanFocusAction
     let antiBacklashAction: StageEnableStepAction
     let returnToStartAction: StageEnableStepAction
-    let stepsPerLevel: UInt
-    let totalLevels: UInt
+    let stepsPerLevel: Int
+    let totalLevels: Int
     let device: DeviceConnector
     let stage: StageState
 
     init(startLevel: Int, endLevel: Int, stepsPerLvl: UInt8, camera: CameraSession, device: DeviceConnector, stage: StageState) {
-        self.stepsPerLevel = UInt(stepsPerLvl)
+        self.stepsPerLevel = Int(stepsPerLvl)
         self.device = device
         self.stage = stage
-        self.totalLevels = UInt(abs(endLevel - startLevel))
+        self.totalLevels = Int(abs(endLevel - startLevel))
         
         returnToStartAction = StageEnableStepAction(device, motor: StageConstants.MOTOR_3, dir: !ScanFocusAction.SCAN_DIR, steps:totalLevels * stepsPerLevel, stage: stage)
         scanAction = ScanFocusAction(levels: totalLevels, stepsPerLevel: stepsPerLvl, camera: camera, device: device, stage: stage)
@@ -35,7 +35,7 @@ class AutofocuserAction : SequenceAction, ActionCompletionDelegate {
         super.init()
         
         if (startLevel != 0) {
-            let initialMove = UInt(abs(startLevel)) * stepsPerLevel
+            let initialMove = Int(abs(startLevel)) * stepsPerLevel
             let dir = (startLevel < 0) ? StageConstants.DIR_LOW : StageConstants.DIR_HIGH
             let moveToStartAction = StageEnableStepAction(device, motor: StageConstants.MOTOR_3, dir: dir, steps: initialMove, stage: stage)
             addSubAction(moveToStartAction)

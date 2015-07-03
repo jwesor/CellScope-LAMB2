@@ -93,7 +93,7 @@ class CameraViewController: UIViewController, GDriveAdapterStatusDelegate {
     }
     
     @IBAction func moveXPlus(sender: AnyObject) {
-        var steps = UInt(stepText.text.toInt()!)
+        var steps = stepText.text.toInt()!
         
         var text = sender.currentTitle!!
         var motor: Int
@@ -159,14 +159,14 @@ class CameraViewController: UIViewController, GDriveAdapterStatusDelegate {
         } else if (sender.state == UIGestureRecognizerState.Ended) {
             let diffX = abs(startX - x)
             if (diffX > threshold) {
-                let stepX = UInt(diffX * stepsPerPixel)
+                let stepX = Int(diffX * stepsPerPixel)
                 let dirX = startX > x ? StageConstants.DIR_HIGH : StageConstants.DIR_LOW
                 sequence.addAction(StageEnableStepAction(device, motor: StageConstants.MOTOR_2, dir: dirX, steps: stepX, stage: stage))
             }
             
             let diffY = abs(startY - y)
             if (diffY > threshold) {
-                let stepY = UInt(diffY * stepsPerPixel)
+                let stepY = Int(diffY * stepsPerPixel)
                 let dirY = startY < y ? StageConstants.DIR_HIGH : StageConstants.DIR_LOW
                 sequence.addAction(StageEnableStepAction(device, motor: StageConstants.MOTOR_1, dir: dirY, steps: stepY, stage: stage))
             }

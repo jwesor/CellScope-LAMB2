@@ -28,6 +28,14 @@ class StageState {
         return motors[motor]?.en == StageMotorState.UNKNOWN
     }
     
+    func getBacklash(motor: Int, dir: Bool) -> Int {
+        return motors[motor]!.backlash[dir]!
+    }
+    
+    func getStep(motor: Int, dir: Bool) -> (x: Int, y: Int) {
+        return motors[motor]!.step[dir]!
+    }
+    
     func resetAll() {
         for (motor, state) in motors {
             state.reset()

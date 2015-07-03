@@ -15,19 +15,18 @@ class ScanFocusAction: SequenceAction, ActionCompletionDelegate {
     let ipAction: ImageProcessorAction
     let camera: CameraSession
     var focuses: [Int32]
-    var currentFocusLevel: UInt
-    var bestFocusLevel: UInt
+    var currentFocusLevel: Int
+    var bestFocusLevel: Int
     var bestFocusScore: Int32
     static let SCAN_DIR = StageConstants.DIR_HIGH
     
-    init(levels: UInt, stepsPerLevel: UInt8, dir: Bool = ScanFocusAction.SCAN_DIR, camera: CameraSession, device: DeviceConnector, stage: StageState) {
+    init(levels: Int, stepsPerLevel: UInt8, dir: Bool = ScanFocusAction.SCAN_DIR, camera: CameraSession, device: DeviceConnector, stage: StageState) {
         focusIp = IPFocusDetector()
         self.camera = camera
         
         asyncIpWrapper = AsyncImageMultiProcessor.initWithProcessors([focusIp])
         asyncIpWrapper.defaultStandby = 1
         asyncIpWrapper.enabled = false
-        
         
         ipAction = ImageProcessorAction(asyncIpWrapper)
         focuses = []

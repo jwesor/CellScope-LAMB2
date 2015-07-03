@@ -16,7 +16,7 @@ class StageEnableStepAction: SequenceAction {
     
     let stage: StageState
     
-    init(_ dc: DeviceConnector, motor: Int, dir: Bool, steps: UInt, stage: StageState, backlashCorrection: Bool = true) {
+    init(_ dc: DeviceConnector, motor: Int, dir: Bool, steps: Int, stage: StageState, backlashCorrection: Bool = true) {
         self.stage = stage
         
         super.init()
@@ -25,7 +25,10 @@ class StageEnableStepAction: SequenceAction {
         
         // Step at most 255 steps at a time
         var remainingSteps = steps
-        let max = UInt(UInt8.max)
+        if (backlashCorrection && !stage.isMatchingDirection(motor, state: dir)) {
+            remainingSteps += stage.getBacklash(motor, dir: dir)
+        }
+        let max = Int(UInt8.max)
         let fullStep = StageStepAction(dc, motor: motor, steps: UInt8.max, stage: stage)
         while remainingSteps > 0 {
             if remainingSteps >= max {
@@ -37,7 +40,6 @@ class StageEnableStepAction: SequenceAction {
             }
         }
         addSubAction(StageDisableAction(dc, motor: motor, stage: stage))
-        
     }
     
 }
