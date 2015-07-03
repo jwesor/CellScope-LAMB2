@@ -17,6 +17,7 @@ import Foundation
 class ImageProcessorAction: AbstractAction, AsyncImageProcessorDelegate {
     
     let proc:AsyncImageProcessor
+    var camera: CameraSession?
     var begun:Bool
     var disableWhenDone:Bool
     
@@ -27,13 +28,13 @@ class ImageProcessorAction: AbstractAction, AsyncImageProcessorDelegate {
         super.init()
     }
     
-    init(_ processors: [ImageProcessor], standby: Int32 = 0, camera: CameraSession) {
+    init(_ processors: [ImageProcessor], standby: Int32 = 0, camera: CameraSession? = nil) {
         proc = AsyncImageMultiProcessor.initWithProcessors(processors)
         proc.defaultStandby = standby
         proc.enabled = false
         begun = false
         disableWhenDone = false
-        camera.addAsyncImageProcessor(proc)
+        self.camera = camera
         super.init()
     }
 
@@ -42,6 +43,7 @@ class ImageProcessorAction: AbstractAction, AsyncImageProcessorDelegate {
         if (!proc.enabled) {
             disableWhenDone = true
             proc.enabled = true
+            camera?.addAsyncImageProcessor(proc)
         }
         proc.addDelegate(self)
     }
@@ -54,6 +56,7 @@ class ImageProcessorAction: AbstractAction, AsyncImageProcessorDelegate {
         if (begun) {
             if (disableWhenDone) {
                 proc.enabled = false
+                camera?.removeImageProcessor(proc)
             }
             proc.removeDelegate(self)
             finish()

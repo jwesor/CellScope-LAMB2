@@ -26,9 +26,7 @@ class CameraViewController: UIViewController, GDriveAdapterStatusDelegate {
     let drive: GDriveAdapter = GDriveAdapter()
     let asyncIp = AsyncImageMultiProcessor()
     let stage: StageState = StageState()
-    let displace: IPDisplacement = IPDisplacement()
-    var displaceAction: ImageProcessorAction?
-    var calib: MotorStepCalibratorAction?
+    var calib: StepCalibratorAction?
     var autofocus: AutofocuserAction?
     
     override func viewDidLoad() {
@@ -61,7 +59,7 @@ class CameraViewController: UIViewController, GDriveAdapterStatusDelegate {
         let gActionLog = GDriveTextDocument(actionLog, drive: drive)
         let gCycleLog = GDriveTextDocument(cycleLog, drive: drive)
         
-        DebugUtil.setLog("action", doc: actionLog)
+//        DebugUtil.setLog("action", doc: actionLog)
 //        DebugUtil.setLog("drive", doc: driveLog)
 //        DebugUtil.setLog("cycle", doc: cycleLog)
 
@@ -69,10 +67,7 @@ class CameraViewController: UIViewController, GDriveAdapterStatusDelegate {
 //        pan.addTarget(self, action: Selector("handlePan:"))
 //        preview.addGestureRecognizer(pan)
         
-        displaceAction = ImageProcessorAction([displace], standby: 2, camera: session!)
-        session?.addAsyncImageProcessor(displaceAction!.proc)
-        
-        calib = MotorStepCalibratorAction(StageConstants.MOTOR_2, device: device, camera: session!, stage: stage)
+        calib = StepCalibratorAction(device: device, camera: session!, stage: stage)
         autofocus = AutofocuserAction(startLevel: -10, endLevel: 10, stepsPerLvl: 5, camera: session!, device: device, stage: stage)
     }
     
@@ -85,7 +80,7 @@ class CameraViewController: UIViewController, GDriveAdapterStatusDelegate {
     }
     
     @IBAction func test(sender: AnyObject) {
-        sequence.addAction(autofocus!)
+        sequence.addAction(calib!)
 //        sequence.addAction(displaceAction!)
     }
 

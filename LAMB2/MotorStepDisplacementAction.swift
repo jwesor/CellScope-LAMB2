@@ -22,8 +22,12 @@ class MotorStepDisplacementAction: SequenceAction, ActionCompletionDelegate {
     var dX: [Int]
     var dY: [Int]
     
-    init(_ motor: Int, dir: Bool, steps: Int, device: DeviceConnector, camera: CameraSession, stage: StageState) {
-        displace = IPDisplacement()
+    init(_ motor: Int, dir: Bool, steps: Int, device: DeviceConnector, camera: CameraSession, stage: StageState, ip: IPDisplacement? = nil) {
+        if (ip != nil) {
+            displace = ip!
+        } else {
+            displace = IPDisplacement()
+        }
         displaceAction = ImageProcessorAction([displace], standby: 3, camera: camera)
         enableAction = StageEnableAction(device, motor: motor, stage: stage)
         disableAction = StageDisableAction(device, motor: motor, stage: stage)
@@ -45,7 +49,6 @@ class MotorStepDisplacementAction: SequenceAction, ActionCompletionDelegate {
     }
     
     override func doExecution() {
-        camera.addAsyncImageProcessor(displaceAction.proc)
         dX = []
         dY = []
         displaceCounter = 0
@@ -56,13 +59,12 @@ class MotorStepDisplacementAction: SequenceAction, ActionCompletionDelegate {
         if (displaceCounter >= 1) {
             dX.append(Int(displace.dX))
             dY.append(Int(displace.dY))
-            print("\(dX) \(dY) \n")
         }
         displaceCounter += 1
     }
     
     override func cleanup() {
-        camera.removeImageProcessor(displaceAction.proc)
+        print("\(dX) \(dY) \n")
         super.cleanup()
     }
     

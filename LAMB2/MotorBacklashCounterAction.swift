@@ -25,8 +25,12 @@ class MotorBacklashCounterAction: SequenceAction, ActionCompletionDelegate {
     let MOTION_THRESHOLD: Int = 5
     let HARD_BACKLASH_CAP: Int = 25
 
-    init(_ motor: Int, dir: Bool, device: DeviceConnector, camera: CameraSession, stage: StageState) {
-        displace = IPDisplacement()
+    init(_ motor: Int, dir: Bool, device: DeviceConnector, camera: CameraSession, stage: StageState, ip: IPDisplacement? = nil) {
+        if (ip != nil) {
+            displace = ip!
+        } else {
+            displace = IPDisplacement()
+        }
         displaceAction = ImageProcessorAction([displace], standby: 3, camera: camera)
         enableAction = StageEnableAction(device, motor: motor, stage: stage)
         disableAction = StageDisableAction(device, motor: motor, stage: stage)
@@ -44,7 +48,6 @@ class MotorBacklashCounterAction: SequenceAction, ActionCompletionDelegate {
     }
     
     override func doExecution() {
-        camera.addAsyncImageProcessor(displaceAction.proc)
         backlashStepCounter = 0
         displaceCounter = 0
         super.doExecution()
@@ -75,10 +78,5 @@ class MotorBacklashCounterAction: SequenceAction, ActionCompletionDelegate {
             }
             displaceCounter += 1
         }
-    }
-    
-    override func cleanup() {
-        camera.removeImageProcessor(displaceAction.proc)
-        super.cleanup()
     }
 }

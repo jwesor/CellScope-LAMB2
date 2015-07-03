@@ -16,7 +16,7 @@ class StageEnableStepAction: SequenceAction {
     
     let stage: StageState
     
-    init(_ dc: DeviceConnector, motor: Int, dir: Bool, steps: UInt, stage: StageState) {
+    init(_ dc: DeviceConnector, motor: Int, dir: Bool, steps: UInt, stage: StageState, backlashCorrection: Bool = true) {
         self.stage = stage
         
         super.init()

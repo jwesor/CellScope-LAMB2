@@ -13,6 +13,7 @@ class ScanFocusAction: SequenceAction, ActionCompletionDelegate {
     let focusIp: IPFocusDetector
     let asyncIpWrapper: AsyncImageMultiProcessor
     let ipAction: ImageProcessorAction
+    let camera: CameraSession
     var focuses: [Int32]
     var currentFocusLevel: UInt
     var bestFocusLevel: UInt
@@ -21,12 +22,12 @@ class ScanFocusAction: SequenceAction, ActionCompletionDelegate {
     
     init(levels: UInt, stepsPerLevel: UInt8, dir: Bool = ScanFocusAction.SCAN_DIR, camera: CameraSession, device: DeviceConnector, stage: StageState) {
         focusIp = IPFocusDetector()
+        self.camera = camera
         
         asyncIpWrapper = AsyncImageMultiProcessor.initWithProcessors([focusIp])
         asyncIpWrapper.defaultStandby = 1
         asyncIpWrapper.enabled = false
         
-        camera.addAsyncImageProcessor(asyncIpWrapper)
         
         ipAction = ImageProcessorAction(asyncIpWrapper)
         focuses = []
@@ -47,6 +48,7 @@ class ScanFocusAction: SequenceAction, ActionCompletionDelegate {
     }
     
     override func doExecution() {
+        camera.addAsyncImageProcessor(asyncIpWrapper)
         focuses = []
         currentFocusLevel = 0;
         bestFocusLevel = 0;
@@ -67,5 +69,10 @@ class ScanFocusAction: SequenceAction, ActionCompletionDelegate {
         println(focuses)
         println(bestFocusLevel)
         println(bestFocusScore)
+    }
+    
+    override func cleanup() {
+        camera.removeImageProcessor(asyncIpWrapper)
+        super.cleanup()
     }
 }

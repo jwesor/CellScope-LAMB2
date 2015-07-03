@@ -283,6 +283,7 @@ using namespace cv;
                 [imgproc updateDisplayOverlay:image];
             }
         }
+//        NSLog(@"%d", _processors.count);
     }
     
 }
