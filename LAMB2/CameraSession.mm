@@ -7,18 +7,45 @@
 //
 
 #import "CameraSession.h"
+#import "CameraIPProtocols.hpp"
+#import <opencv2/videoio/cap_ios.h>
 #import <AssetsLibrary/AssetsLibrary.h>
 #import "ImageUtils.h"
 using namespace cv;
 
-@interface CameraSession() {
-    Mat currentImg;
-    bool capturedDirty;
-    bool started;
-    UIImage *capturedImage;
+// As of OpenCV 3.0, CvVideoCameraDelegate implementation needs to be done internally
+// so that CameraSession itself does not need to implement the protocol.
+// This is to prevent CameraSession.h from having to import any opencv libraries,
+// which would otherwise cause issues when bridging CameraSession.h to Swift.
+
+@interface CameraVideoProcessor : NSObject <CvVideoCameraDelegate> {
+    UIImage *_capturedImage;
+    Mat _currentImg;
+    bool _capturedDirty;
+    NSMutableArray *_processors;
+    CameraSession *_parent;
 }
-- (void) addImageProcessor: (ImageProcessor *) imgproc;
+
+@property NSMutableArray *processors;
+@property CameraSession *parent;
+
+- (UIImage *) captureImage;
+
 @end
+
+
+@interface CameraSession() {    bool started;
+    CvVideoCamera *_videoCamera;
+    CameraVideoProcessor *_videoProcessor;
+    NSMutableArray *_processors;
+    UIImageView *_imageView;
+    AVCaptureDevice *_device;
+}
+
+- (void) bindVideoProcessor:(CameraVideoProcessor *) cvp;
+
+@end
+
 
 @implementation CameraSession
 
@@ -34,16 +61,17 @@ using namespace cv;
     
     UIImageView *preview = [[UIImageView alloc] initWithFrame:view.bounds];
     session->_imageView = preview;
-    
-    session.videoCamera = [[CvVideoCamera alloc] init];
-    session.videoCamera.parentView = preview;
-    session.videoCamera.defaultAVCaptureDevicePosition = AVCaptureDevicePositionBack;
-    session.videoCamera.defaultAVCaptureSessionPreset = AVCaptureSessionPreset1920x1080;
-    session.videoCamera.defaultAVCaptureVideoOrientation = AVCaptureVideoOrientationPortrait;
-    session.videoCamera.defaultFPS = 30;
-    session.videoCamera.grayscaleMode = NO;
-    session.videoCamera.delegate = session;
-    session.videoCamera.rotateVideo = false;
+    session->_videoProcessor = [[CameraVideoProcessor alloc] init];
+    [session bindVideoProcessor:session->_videoProcessor];
+    session->_videoCamera = [[CvVideoCamera alloc] init];
+    session->_videoCamera.parentView = preview;
+    session->_videoCamera.defaultAVCaptureDevicePosition = AVCaptureDevicePositionBack;
+    session->_videoCamera.defaultAVCaptureSessionPreset = AVCaptureSessionPreset1920x1080;
+    session->_videoCamera.defaultAVCaptureVideoOrientation = AVCaptureVideoOrientationPortrait;
+    session->_videoCamera.defaultFPS = 30;
+    session->_videoCamera.grayscaleMode = NO;
+    session->_videoCamera.delegate = session->_videoProcessor;
+    session->_videoCamera.rotateVideo = false;
     session->_device = [AVCaptureDevice defaultDeviceWithMediaType:AVMediaTypeVideo];
     
     [view addSubview:preview];
@@ -62,9 +90,13 @@ using namespace cv;
     return self;
 }
 
+- (void) bindVideoProcessor:(CameraVideoProcessor *)cvp {
+    cvp.processors = _processors;
+    cvp.parent = self;
+}
 
 - (void) startCameraSession {
-    [self.videoCamera start];
+    [_videoCamera start];
     started = true;
     self.continuousAutoFocus = _autofocus;
     self.continuousAutoWhiteBalance = _autowhite;
@@ -72,9 +104,9 @@ using namespace cv;
 }
 
 - (float) getAspectRatio {
-    if (self.videoCamera.defaultAVCaptureSessionPreset == AVCaptureSessionPreset1920x1080) {
+    if (_videoCamera.defaultAVCaptureSessionPreset == AVCaptureSessionPreset1920x1080) {
         return 1920.0 / 1080.0;
-    } else if (self.videoCamera.defaultAVCaptureSessionPreset == AVCaptureSessionPreset1280x720) {
+    } else if (_videoCamera.defaultAVCaptureSessionPreset == AVCaptureSessionPreset1280x720) {
         return 1280.0 / 720.0;
     } else {
         return 4.0 / 3.0;
@@ -104,11 +136,9 @@ using namespace cv;
     @synchronized (self) {
         if (!enableCapture) {
             return nil;
-        } else if (capturedDirty) {
-            capturedImage = [ImageUtils imageWithCVMat:currentImg];
-            capturedDirty = false;
+        } else {
+            return [_videoProcessor captureImage];
         }
-        return capturedImage;
     }
 }
 
@@ -258,34 +288,47 @@ using namespace cv;
     }
     return false;
 }
+@end
+
+@implementation CameraVideoProcessor
+
+@synthesize processors = _processors;
+@synthesize parent = _parent;
 
 #pragma mark - Protocol CvVideoCameraDelegate
 
 - (void) processImage:(Mat&)image {
     // Do some OpenCV stuff with the image
     
-    if (enableCapture) {
-        @synchronized (self) {
-            currentImg = image.clone();
-            capturedDirty = true;
+    if (_parent.enableCapture) {
+        @synchronized (_parent) {
+            _currentImg = image.clone();
+            _capturedDirty = true;
         }
     }
     
     @synchronized (_processors) {
-        for (ImageProcessor *imgproc in _processors) {
+        for (ImageProcessor<ImageProcessorProtocol> *imgproc in _processors) {
             if (imgproc.enabled) {
                 [imgproc processImage:image];
             }
         }
-    
-        for (ImageProcessor *imgproc in _processors) {
+        
+        for (ImageProcessor<ImageProcessorProtocol> *imgproc in _processors) {
             if (imgproc.enabled && imgproc.displayEnabled) {
                 [imgproc updateDisplayOverlay:image];
             }
         }
-//        NSLog(@"%d", _processors.count);
+        //        NSLog(@"%d", _processors.count);
     }
-    
+}
+
+- (UIImage *) captureImage {
+    if (_capturedDirty) {
+        _capturedImage = [ImageUtils imageWithCVMat:_currentImg];
+        _capturedDirty = false;
+    }
+    return _capturedImage;
 }
 
 @end

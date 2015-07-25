@@ -8,6 +8,9 @@
 
 #import "ImageProcessor.h"
 
+@interface ImageProcessor ()
+@end
+
 @implementation ImageProcessor
 
 @synthesize enabled = _enabled;

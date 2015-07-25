@@ -21,9 +21,6 @@
 //
 
 #import "AsyncImageProcessor.h"
-#ifdef __cplusplus
-#import <opencv2/opencv.hpp>
-#endif
 
 @interface AsyncImageMultiProcessor : AsyncImageProcessor
 

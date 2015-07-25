@@ -36,7 +36,7 @@ using namespace cv;
     roi.x = (image.cols - roi.width) / 2;
     roi.y = (image.rows - roi.height) / 2;
     
-    vector<Mat> channels(3);
+    std::vector<Mat> channels(3);
     split(image, channels);
     
     Mat(channels[0], roi).copyTo(newTemplateRegion);

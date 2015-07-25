@@ -12,22 +12,11 @@
 //  Copyright (c) 2015 Fletchlab. All rights reserved.
 //
 
-
-#import <Foundation/Foundation.h>
-#ifdef __cplusplus
-#import <opencv2/opencv.hpp>
-#endif
-
 @interface ImageProcessor: NSObject {
     bool _enabled;
 }
 
 @property bool enabled;
 @property bool displayEnabled;
-
-#ifdef __cplusplus
-- (void) processImage: (cv::Mat&)image;
-- (void) updateDisplayOverlay: (cv::Mat&)image;
-#endif
 
 @end

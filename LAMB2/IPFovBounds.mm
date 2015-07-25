@@ -37,7 +37,7 @@ using namespace cv;
     Mat binary;
     threshold(grayscale, binary, _threshold, 255, THRESH_BINARY);
     Mat hierarchy;
-    vector<Mat> contours;
+    std::vector<Mat> contours;
     findContours(binary, contours, hierarchy, RETR_EXTERNAL, CHAIN_APPROX_SIMPLE);
     double maxArea = 0;
     Mat largestContour;

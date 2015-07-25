@@ -10,22 +10,18 @@
 //
 
 #import <Foundation/Foundation.h>
-#import <opencv2/highgui/cap_ios.h>
+#import <UIKit/UIKit.h>
+#import <AVFoundation/AVFoundation.h>
+#import "ImageProcessor.h"
 #import "AsyncImageProcessor.h"
 
-@interface CameraSession : NSObject <CvVideoCameraDelegate> {
-    CvVideoCamera *_videoCamera;
-    NSMutableArray *_processors;
-    UIImageView *_imageView;
-    AVCaptureDevice *_device;
-}
+@interface CameraSession : NSObject
 
 /* enableCapture must be toggled true in order for captureImage to work.
  * Since this will add an extra Mat.clone() call with every frame, leave
  * it false unless the application needs image captures.
  */
 @property bool enableCapture;
-@property (nonatomic, retain) CvVideoCamera *videoCamera;
 @property NSOperationQueue *opQueue;
 @property (nonatomic, getter = getAutoFocus, setter = setAutoFocus:) bool continuousAutoFocus;
 @property (nonatomic, getter = getWhiteBalance, setter = setWhiteBalance:) bool continuousAutoWhiteBalance;

@@ -13,12 +13,7 @@
 //  Copyright (c) 2015 Fletchlab. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
 #import "ImageProcessor.h"
-#ifdef __cplusplus
-#import <opencv2/opencv.hpp>
-#endif
-
 
 @protocol AsyncImageProcessorDelegate
 
@@ -46,9 +41,6 @@
 
 @property (readonly) NSMutableArray *delegates;
 
-#ifdef __cplusplus
-- (void) processImageAsync: (cv::Mat&) currentImage;
-#endif
 - (void) addDelegate: (id <AsyncImageProcessorDelegate>) delegate;
 - (void) removeDelegate: (id <AsyncImageProcessorDelegate>) delegate;
 

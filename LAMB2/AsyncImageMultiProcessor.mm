@@ -7,6 +7,7 @@
 //
 
 #import "AsyncImageMultiProcessor.h"
+#import "CameraIPProtocols.hpp"
 using namespace cv;
 
 @interface AsyncImageMultiProcessor() {
@@ -36,7 +37,7 @@ using namespace cv;
 }
 
 - (void) processImageAsync: (Mat&)currentImage {
-    for (ImageProcessor *imgproc in processors) {
+    for (ImageProcessor<ImageProcessorProtocol> *imgproc in processors) {
         if (imgproc.enabled) {
             [imgproc processImage:currentImage];
         }
@@ -44,7 +45,7 @@ using namespace cv;
 }
 
 - (void) updateDisplayOverlay: (Mat&)image {
-    for (ImageProcessor *imgproc in processors) {
+    for (ImageProcessor<ImageProcessorProtocol> *imgproc in processors) {
         if (imgproc.enabled) {
             [imgproc updateDisplayOverlay:image];
         }

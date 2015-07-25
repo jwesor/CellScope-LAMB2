@@ -7,7 +7,7 @@
 //
 
 #import "IPImageCapture.h"
-#import "ImageUtils.h"
+#import "ImageUtils.hpp"
 
 using namespace cv;
 

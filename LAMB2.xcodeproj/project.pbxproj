@@ -123,8 +123,9 @@
 		184C81C51B056D4F0083D926 /* IPIdleFrames.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IPIdleFrames.h; sourceTree = "<group>"; };
 		184C81C61B056D4F0083D926 /* IPIdleFrames.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = IPIdleFrames.mm; sourceTree = "<group>"; };
 		184D8DFE1A205AC600105FDA /* LAMB2-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "LAMB2-Bridging-Header.h"; sourceTree = "<group>"; };
+		1861AD381B632D0700278A9D /* CameraIPProtocols.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = CameraIPProtocols.hpp; sourceTree = "<group>"; };
+		1861AD391B6330E600278A9D /* CameraSession.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CameraSession.h; sourceTree = "<group>"; };
 		188074E21A38F43A0039725B /* opencv2.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = opencv2.framework; sourceTree = "<group>"; };
-		188074E41A38F4A60039725B /* CameraSession.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CameraSession.h; sourceTree = "<group>"; };
 		188074E51A38F4A60039725B /* CameraSession.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = CameraSession.mm; sourceTree = "<group>"; };
 		188074E71A38F7210039725B /* CoreVideo.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreVideo.framework; path = System/Library/Frameworks/CoreVideo.framework; sourceTree = SDKROOT; };
 		188074E91A38F72D0039725B /* AssetsLibrary.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AssetsLibrary.framework; path = System/Library/Frameworks/AssetsLibrary.framework; sourceTree = SDKROOT; };
@@ -138,7 +139,7 @@
 		18A072271AA004E100A93391 /* IPImageCapture.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IPImageCapture.h; sourceTree = "<group>"; };
 		18A072281AA004E100A93391 /* IPImageCapture.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = IPImageCapture.mm; sourceTree = "<group>"; };
 		18A0722A1AA0086F00A93391 /* LAMB2-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "LAMB2-Prefix.pch"; sourceTree = "<group>"; };
-		18A0722B1AA0098D00A93391 /* ImageUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImageUtils.h; sourceTree = "<group>"; };
+		18A0722B1AA0098D00A93391 /* ImageUtils.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = ImageUtils.hpp; sourceTree = "<group>"; };
 		18A0722C1AA0098D00A93391 /* ImageUtils.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = ImageUtils.mm; sourceTree = "<group>"; };
 		18A0722E1AA13E6400A93391 /* IPFocusDetector.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IPFocusDetector.h; sourceTree = "<group>"; };
 		18A0722F1AA13E6400A93391 /* IPFocusDetector.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = IPFocusDetector.mm; sourceTree = "<group>"; };
@@ -239,9 +240,10 @@
 		180F871B1A7C730F0001CD3C /* Camera */ = {
 			isa = PBXGroup;
 			children = (
-				188074E41A38F4A60039725B /* CameraSession.h */,
+				1861AD391B6330E600278A9D /* CameraSession.h */,
+				1861AD381B632D0700278A9D /* CameraIPProtocols.hpp */,
 				188074E51A38F4A60039725B /* CameraSession.mm */,
-				18A0722B1AA0098D00A93391 /* ImageUtils.h */,
+				18A0722B1AA0098D00A93391 /* ImageUtils.hpp */,
 				18A0722C1AA0098D00A93391 /* ImageUtils.mm */,
 			);
 			name = Camera;
