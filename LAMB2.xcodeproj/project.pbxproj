@@ -45,6 +45,8 @@
 		18A072331AA1404800A93391 /* AutofocuserAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18A072321AA1404800A93391 /* AutofocuserAction.swift */; };
 		18A5513A1AE878B9001AFC84 /* ActionCycler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18A551391AE878B9001AFC84 /* ActionCycler.swift */; };
 		18BF6C621B3CEACE00E9B8E3 /* MotorBacklashCounterAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18BF6C611B3CEACE00E9B8E3 /* MotorBacklashCounterAction.swift */; };
+		18C3C43D1B6ECA0A000B6B0F /* MFCMoveAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18C3C43C1B6ECA0A000B6B0F /* MFCMoveAction.swift */; };
+		18C3C43F1B6ECDD7000B6B0F /* MFCSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18C3C43E1B6ECDD7000B6B0F /* MFCSystem.swift */; };
 		18D6B8E11ACCAFD4002B1A9E /* libGTLTouchStaticLib.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 18D6B8E01ACCAFD4002B1A9E /* libGTLTouchStaticLib.a */; };
 		18D6B8E31ACCAFDC002B1A9E /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 18D6B8E21ACCAFDC002B1A9E /* Security.framework */; };
 		18D6B8E51ACCAFE3002B1A9E /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 18D6B8E41ACCAFE3002B1A9E /* SystemConfiguration.framework */; };
@@ -146,6 +148,8 @@
 		18A072321AA1404800A93391 /* AutofocuserAction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AutofocuserAction.swift; sourceTree = "<group>"; };
 		18A551391AE878B9001AFC84 /* ActionCycler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActionCycler.swift; sourceTree = "<group>"; };
 		18BF6C611B3CEACE00E9B8E3 /* MotorBacklashCounterAction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MotorBacklashCounterAction.swift; sourceTree = "<group>"; };
+		18C3C43C1B6ECA0A000B6B0F /* MFCMoveAction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MFCMoveAction.swift; sourceTree = "<group>"; };
+		18C3C43E1B6ECDD7000B6B0F /* MFCSystem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MFCSystem.swift; sourceTree = "<group>"; };
 		18D6B8E01ACCAFD4002B1A9E /* libGTLTouchStaticLib.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libGTLTouchStaticLib.a; path = "google-api-objectivec-client-read-only/Source/build/Debug-iphoneos/libGTLTouchStaticLib.a"; sourceTree = "<group>"; };
 		18D6B8E21ACCAFDC002B1A9E /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		18D6B8E41ACCAFE3002B1A9E /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
@@ -316,6 +320,15 @@
 			name = Autofocus;
 			sourceTree = "<group>";
 		};
+		18C3C43B1B6EC9AE000B6B0F /* MultiFieldCoordinates */ = {
+			isa = PBXGroup;
+			children = (
+				18C3C43C1B6ECA0A000B6B0F /* MFCMoveAction.swift */,
+				18C3C43E1B6ECDD7000B6B0F /* MFCSystem.swift */,
+			);
+			name = MultiFieldCoordinates;
+			sourceTree = "<group>";
+		};
 		18D6B8F51ACF65A7002B1A9E /* IO */ = {
 			isa = PBXGroup;
 			children = (
@@ -416,6 +429,7 @@
 				18ED38121A200B8B005BA3CE /* ViewController.swift */,
 				181D49031B2508BF00D08A93 /* Calibration */,
 				18A072311AA13E6F00A93391 /* Autofocus */,
+				18C3C43B1B6EC9AE000B6B0F /* MultiFieldCoordinates */,
 			);
 			path = LAMB2;
 			sourceTree = "<group>";
@@ -557,6 +571,7 @@
 				181D49051B25091F00D08A93 /* MotorStepCalibratorAction.swift in Sources */,
 				18D6B9021AD36FB6002B1A9E /* GDriveStatusButton.swift in Sources */,
 				181D49081B25098100D08A93 /* IPDisplacement.mm in Sources */,
+				18C3C43F1B6ECDD7000B6B0F /* MFCSystem.swift in Sources */,
 				18DB4C971AAE7A7600165F0F /* CameraManualFocusAction.swift in Sources */,
 				183AF31F1AB0CD1C006C9503 /* CameraAutoExposureAction.swift in Sources */,
 				18DB4C9B1AAFC31400165F0F /* CameraManualWhiteBalanceAction.swift in Sources */,
@@ -603,6 +618,7 @@
 				180F879A1A8593C20001CD3C /* StageEnableStepAction.swift in Sources */,
 				18A072301AA13E6400A93391 /* IPFocusDetector.mm in Sources */,
 				18D6B9101AE094F0002B1A9E /* ImageDocumentSeriesWriter.swift in Sources */,
+				18C3C43D1B6ECA0A000B6B0F /* MFCMoveAction.swift in Sources */,
 				180F87211A82F7530001CD3C /* ActionSequencer.swift in Sources */,
 				1892F59A1B4605E50084E0F8 /* StepCalibratorAction.swift in Sources */,
 				18DB4C911AA7C67500165F0F /* DebugUtil.swift in Sources */,

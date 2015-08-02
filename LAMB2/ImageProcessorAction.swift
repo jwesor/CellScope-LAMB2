@@ -20,11 +20,13 @@ class ImageProcessorAction: AbstractAction, AsyncImageProcessorDelegate {
     var camera: CameraSession?
     var begun:Bool
     var disableWhenDone:Bool
+    var removeWhenDone: Bool
     
     init(_ processor: AsyncImageProcessor) {
         proc = processor
         begun = false
         disableWhenDone = false
+        removeWhenDone = false
         super.init()
     }
     
@@ -34,6 +36,7 @@ class ImageProcessorAction: AbstractAction, AsyncImageProcessorDelegate {
         proc.enabled = false
         begun = false
         disableWhenDone = false
+        removeWhenDone = true
         self.camera = camera
         super.init()
     }
@@ -43,6 +46,8 @@ class ImageProcessorAction: AbstractAction, AsyncImageProcessorDelegate {
         if (!proc.enabled) {
             disableWhenDone = true
             proc.enabled = true
+        }
+        if (removeWhenDone) {
             camera?.addAsyncImageProcessor(proc)
         }
         proc.addDelegate(self)
@@ -54,9 +59,11 @@ class ImageProcessorAction: AbstractAction, AsyncImageProcessorDelegate {
     
     func onFinishImageProcess() {
         if (begun) {
+            if (removeWhenDone) {
+                camera?.removeImageProcessor(proc)
+            }
             if (disableWhenDone) {
                 proc.enabled = false
-                camera?.removeImageProcessor(proc)
             }
             proc.removeDelegate(self)
             finish()
