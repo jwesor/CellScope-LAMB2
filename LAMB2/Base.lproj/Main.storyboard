@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7702" systemVersion="14A389" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7706" systemVersion="14A389" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="BYZ-38-t0r">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7701"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
@@ -52,15 +52,6 @@
                         <rect key="frame" x="0.0" y="0.0" width="800" height="800"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lXu-ti-R15">
-                                <rect key="frame" x="16" y="20" width="101" height="30"/>
-                                <state key="normal" title="Test Sequence">
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <connections>
-                                    <action selector="test:" destination="IVN-5g-NjA" eventType="touchDown" id="cxn-vx-4HO"/>
-                                </connections>
-                            </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="M3l-ar-q0H">
                                 <rect key="frame" x="16" y="562" width="30" height="30"/>
                                 <state key="normal" title="z-">
@@ -107,7 +98,7 @@
                                 </connections>
                             </button>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="100" borderStyle="roundedRect" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="3xr-Ui-qjt">
-                                <rect key="frame" x="16" y="334" width="101" height="30"/>
+                                <rect key="frame" x="16" y="334" width="56" height="30"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
                             </textField>
@@ -219,14 +210,34 @@
                                     <action selector="balance:" destination="IVN-5g-NjA" eventType="touchDown" id="ZKk-a2-pTi"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kix-wv-Be4">
+                                <rect key="frame" x="16" y="58" width="30" height="30"/>
+                                <state key="normal" title="Test">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="test2:" destination="IVN-5g-NjA" eventType="touchDown" id="qhQ-Gk-Pvw"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lXu-ti-R15">
+                                <rect key="frame" x="16" y="20" width="56" height="30"/>
+                                <state key="normal" title="Initialize">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="test:" destination="IVN-5g-NjA" eventType="touchDown" id="cxn-vx-4HO"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="b4n-Ce-Dn7" firstAttribute="top" secondItem="MCh-9S-kWx" secondAttribute="bottom" id="0yr-am-kGW"/>
+                            <constraint firstItem="kix-wv-Be4" firstAttribute="leading" secondItem="z5F-gW-cCO" secondAttribute="leadingMargin" id="11R-2I-Xw1"/>
                             <constraint firstItem="3xr-Ui-qjt" firstAttribute="top" secondItem="MCh-9S-kWx" secondAttribute="bottom" constant="314" id="1MA-vs-r3P"/>
                             <constraint firstAttribute="centerX" secondItem="b4n-Ce-Dn7" secondAttribute="centerX" id="22f-pL-t46"/>
                             <constraint firstAttribute="centerX" secondItem="QHK-hJ-vXj" secondAttribute="centerX" id="2vQ-Ri-60c"/>
                             <constraint firstItem="Agj-PH-npc" firstAttribute="trailing" secondItem="z5F-gW-cCO" secondAttribute="trailingMargin" id="5R3-9f-6Au"/>
+                            <constraint firstItem="kix-wv-Be4" firstAttribute="top" secondItem="lXu-ti-R15" secondAttribute="bottom" constant="8" id="8LB-1E-tho"/>
                             <constraint firstAttribute="centerX" secondItem="5hf-IU-McK" secondAttribute="centerX" id="HFH-Lv-gK8"/>
                             <constraint firstItem="WMJ-cl-oTO" firstAttribute="leading" secondItem="z5F-gW-cCO" secondAttribute="leadingMargin" id="I0i-Ie-UX7"/>
                             <constraint firstItem="ITr-SE-cev" firstAttribute="top" secondItem="sp4-Wq-EhF" secondAttribute="bottom" constant="8" id="Ivt-Yh-61J"/>

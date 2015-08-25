@@ -36,7 +36,7 @@ class ImageProcessorAction: AbstractAction, AsyncImageProcessorDelegate {
         proc.enabled = false
         begun = false
         disableWhenDone = false
-        removeWhenDone = true
+        removeWhenDone = camera != nil
         self.camera = camera
         super.init()
     }

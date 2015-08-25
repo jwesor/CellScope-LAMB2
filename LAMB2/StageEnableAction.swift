@@ -32,8 +32,7 @@ class StageEnableAction : DeviceAction {
     override func doExecution() {
         if stage.isMatchingEnable(self.motor, state: true) {
             finish()
-        } else {
-            super.doExecution()
+        } else {            super.doExecution()
         }
     }
     

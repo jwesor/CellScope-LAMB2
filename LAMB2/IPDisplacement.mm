@@ -2,6 +2,8 @@
 //  IPDisplacement.m
 //  LAMB2
 //
+//  Tracks how much the 
+//
 //  Created by Fletcher Lab Mac Mini on 6/7/15.
 //  Copyright (c) 2015 Fletchlab. All rights reserved.
 //
@@ -102,7 +104,7 @@ using namespace cv;
     cropped.width = width;
 }
 
-- (int) getCropWidth:(int) width {
+- (int) getCropWidth {
     return cropped.width;
 }
 
@@ -110,7 +112,7 @@ using namespace cv;
     cropped.height = height;
 }
 
-- (int) getCropHeight:(int) height {
+- (int) getCropHeight {
     return cropped.height;
 }
 

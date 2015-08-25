@@ -14,11 +14,13 @@ class StageDirectionAction : DeviceAction {
     let stage: StageState
     let motor: Int
     let dir: Bool
+    var changed: Bool
     
     init(_ device: DeviceConnector, motor: Int, dir: Bool, stage: StageState) {
         self.stage = stage
         self.motor = motor
         self.dir = dir
+        changed = false
         let dirCode = StageDirectionAction.getDirectionCode(motor, dir: dir)
         super.init(device, id: "stage_direction", data: [dirCode, 0x0, 0x0])
     }
@@ -43,8 +45,10 @@ class StageDirectionAction : DeviceAction {
     
     override func doExecution() {
         if stage.isMatchingDirection(self.motor, state: dir) {
+            changed = false
             finish()
         } else {
+            changed = true
             super.doExecution()
         }
     }

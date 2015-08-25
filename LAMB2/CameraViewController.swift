@@ -28,6 +28,7 @@ class CameraViewController: UIViewController, GDriveAdapterStatusDelegate {
     let stage: StageState = StageState()
     var calib: StepCalibratorAction?
     var autofocus: AutofocuserAction?
+    var mfc: MFCSystem?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -69,6 +70,7 @@ class CameraViewController: UIViewController, GDriveAdapterStatusDelegate {
         
         calib = StepCalibratorAction(device: device, camera: session!, stage: stage)
         autofocus = AutofocuserAction(startLevel: -10, endLevel: 10, stepsPerLvl: 5, camera: session!, device: device, stage: stage)
+        mfc = MFCSystem(camera: session!, device: device, stage: stage)
     }
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
@@ -80,8 +82,16 @@ class CameraViewController: UIViewController, GDriveAdapterStatusDelegate {
     }
     
     @IBAction func test(sender: AnyObject) {
-                sequence.addAction(calib!)
-//        fov.enabled = !fov.enabled
+        sequence.addAction(mfc!.initAction)
+//        sequence.addAction(mfc!.fovBounds)
+//        sequence.addAction(MFCDirectionAction(mfc!, motor: StageConstants.MOTOR_1, dir: StageConstants.DIR_HIGH))
+//        sequence.addAction(MFCDirectionAction(mfc!, motor: StageConstants.MOTOR_1, dir: StageConstants.DIR_LOW))
+//        sequence.addAction(MFCDirectionAction(mfc!, motor: StageConstants.MOTOR_2, dir: StageConstants.DIR_HIGH))
+//        sequence.addAction(MFCDirectionAction(mfc!, motor: StageConstants.MOTOR_2, dir: StageConstants.DIR_LOW))
+    }
+    
+    @IBAction func test2(send: AnyObject) {
+        sequence.addAction(mfc!.displacer)
     }
 
     @IBAction func balance(sender: AnyObject) {

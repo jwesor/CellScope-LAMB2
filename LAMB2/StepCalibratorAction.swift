@@ -39,14 +39,15 @@ class StepCalibratorAction: SequenceAction, ActionCompletionDelegate {
             displacement.cropWidth = fov.width
             displacement.cropHeight = fov.height
         } else {
-            var motor = (action == xCalibration) ? StageConstants.MOTOR_2 : StageConstants.MOTOR_1
-            stage.motors[motor]!.backlash[StageConstants.DIR_HIGH] = xCalibration.backlashHighAction.backlashStepCounter
-            stage.motors[motor]!.backlash[StageConstants.DIR_HIGH] = xCalibration.backlashLowAction.backlashStepCounter
-            let highX = Int(round(xCalibration.stepHighAction.getAveX()))
-            let highY = Int(round(xCalibration.stepHighAction.getAveY()))
-            stage.motors[motor]!.step[StageConstants.DIR_LOW] = (x: highX, y: highY)
-            let lowX = Int(round(xCalibration.stepLowAction.getAveX()))
-            let lowY = Int(round(xCalibration.stepLowAction.getAveY()))
+            let motor = (action == xCalibration) ? StageConstants.MOTOR_2 : StageConstants.MOTOR_1
+            let calib = (action == xCalibration) ? xCalibration : yCalibration
+            stage.motors[motor]!.backlash[StageConstants.DIR_HIGH] = calib.backlashHighAction.backlashStepCounter
+            stage.motors[motor]!.backlash[StageConstants.DIR_LOW] = calib.backlashLowAction.backlashStepCounter
+            let highX = Int(round(calib.stepHighAction.getAveX()))
+            let highY = Int(round(calib.stepHighAction.getAveY()))
+            stage.motors[motor]!.step[StageConstants.DIR_HIGH] = (x: highX, y: highY)
+            let lowX = Int(round(calib.stepLowAction.getAveX()))
+            let lowY = Int(round(calib.stepLowAction.getAveY()))
             stage.motors[motor]!.step[StageConstants.DIR_LOW] = (x: lowX, y: lowY)
         }
     }

@@ -10,7 +10,6 @@ import Foundation
 
 class MFCMoveAction : SequenceAction {
     
-    
     init(_ mfc: MFCSystem, x: Int, y: Int) {
         super.init()
         let stage = mfc.stage

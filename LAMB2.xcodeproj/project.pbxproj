@@ -47,6 +47,8 @@
 		18BF6C621B3CEACE00E9B8E3 /* MotorBacklashCounterAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18BF6C611B3CEACE00E9B8E3 /* MotorBacklashCounterAction.swift */; };
 		18C3C43D1B6ECA0A000B6B0F /* MFCMoveAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18C3C43C1B6ECA0A000B6B0F /* MFCMoveAction.swift */; };
 		18C3C43F1B6ECDD7000B6B0F /* MFCSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18C3C43E1B6ECDD7000B6B0F /* MFCSystem.swift */; };
+		18C3C44B1B8CEF6C000B6B0F /* MFCDirectionAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18C3C44A1B8CEF6C000B6B0F /* MFCDirectionAction.swift */; };
+		18C3C4511B8CFAA0000B6B0F /* StageMoveAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18C3C4501B8CFAA0000B6B0F /* StageMoveAction.swift */; };
 		18D6B8E11ACCAFD4002B1A9E /* libGTLTouchStaticLib.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 18D6B8E01ACCAFD4002B1A9E /* libGTLTouchStaticLib.a */; };
 		18D6B8E31ACCAFDC002B1A9E /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 18D6B8E21ACCAFDC002B1A9E /* Security.framework */; };
 		18D6B8E51ACCAFE3002B1A9E /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 18D6B8E41ACCAFE3002B1A9E /* SystemConfiguration.framework */; };
@@ -150,6 +152,8 @@
 		18BF6C611B3CEACE00E9B8E3 /* MotorBacklashCounterAction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MotorBacklashCounterAction.swift; sourceTree = "<group>"; };
 		18C3C43C1B6ECA0A000B6B0F /* MFCMoveAction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MFCMoveAction.swift; sourceTree = "<group>"; };
 		18C3C43E1B6ECDD7000B6B0F /* MFCSystem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MFCSystem.swift; sourceTree = "<group>"; };
+		18C3C44A1B8CEF6C000B6B0F /* MFCDirectionAction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MFCDirectionAction.swift; sourceTree = "<group>"; };
+		18C3C4501B8CFAA0000B6B0F /* StageMoveAction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StageMoveAction.swift; sourceTree = "<group>"; };
 		18D6B8E01ACCAFD4002B1A9E /* libGTLTouchStaticLib.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libGTLTouchStaticLib.a; path = "google-api-objectivec-client-read-only/Source/build/Debug-iphoneos/libGTLTouchStaticLib.a"; sourceTree = "<group>"; };
 		18D6B8E21ACCAFDC002B1A9E /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		18D6B8E41ACCAFE3002B1A9E /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
@@ -220,7 +224,7 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		180F871A1A7C72F50001CD3C /* ImageProcessing */ = {
+		180F871A1A7C72F50001CD3C /* Core */ = {
 			isa = PBXGroup;
 			children = (
 				180F87141A7C666E0001CD3C /* ImageProcessor.h */,
@@ -229,21 +233,14 @@
 				180F879E1A8C23740001CD3C /* AsyncImageProcessor.mm */,
 				182CE8281A96E0CF002162DF /* AsyncImageMultiProcessor.h */,
 				182CE8291A96E0CF002162DF /* AsyncImageMultiProcessor.mm */,
-				180F87151A7C67D90001CD3C /* IPColorInverter.h */,
-				180F87161A7C67D90001CD3C /* IPColorInverter.mm */,
-				182CE82B1A96E5F7002162DF /* IPAsyncPanTracker.h */,
-				182CE82C1A96E5F7002162DF /* IPAsyncPanTracker.mm */,
-				18A072271AA004E100A93391 /* IPImageCapture.h */,
-				18A072281AA004E100A93391 /* IPImageCapture.mm */,
-				184C81C51B056D4F0083D926 /* IPIdleFrames.h */,
-				184C81C61B056D4F0083D926 /* IPIdleFrames.mm */,
 			);
-			name = ImageProcessing;
+			name = Core;
 			sourceTree = "<group>";
 		};
 		180F871B1A7C730F0001CD3C /* Camera */ = {
 			isa = PBXGroup;
 			children = (
+				180F871A1A7C72F50001CD3C /* Core */,
 				1861AD391B6330E600278A9D /* CameraSession.h */,
 				1861AD381B632D0700278A9D /* CameraIPProtocols.hpp */,
 				188074E51A38F4A60039725B /* CameraSession.mm */,
@@ -287,6 +284,7 @@
 				18D6B8ED1ACCC6DD002B1A9E /* StageDirectionAction.swift */,
 				18D6B8EB1ACCC630002B1A9E /* StageEnableAction.swift */,
 				18D6B8F31ACCCC78002B1A9E /* StageStepAction.swift */,
+				18C3C4501B8CFAA0000B6B0F /* StageMoveAction.swift */,
 				180F87991A8593C20001CD3C /* StageEnableStepAction.swift */,
 				180C3E841AE9E6F500A928FD /* StageState.swift */,
 				18D6B8F11ACCCB0B002B1A9E /* StageConstants.swift */,
@@ -301,10 +299,6 @@
 				181D49041B25091F00D08A93 /* MotorStepCalibratorAction.swift */,
 				1892F5971B44953A0084E0F8 /* MotorStepDisplacementAction.swift */,
 				18BF6C611B3CEACE00E9B8E3 /* MotorBacklashCounterAction.swift */,
-				181D49061B25098100D08A93 /* IPDisplacement.h */,
-				181D49071B25098100D08A93 /* IPDisplacement.mm */,
-				1892F59B1B4620B60084E0F8 /* IPFovBounds.h */,
-				1892F59C1B4620B60084E0F8 /* IPFovBounds.mm */,
 			);
 			name = Calibration;
 			sourceTree = "<group>";
@@ -314,8 +308,6 @@
 			children = (
 				18A072321AA1404800A93391 /* AutofocuserAction.swift */,
 				18DB4C8E1AA4FA8700165F0F /* ScanFocusAction.swift */,
-				18A0722E1AA13E6400A93391 /* IPFocusDetector.h */,
-				18A0722F1AA13E6400A93391 /* IPFocusDetector.mm */,
 			);
 			name = Autofocus;
 			sourceTree = "<group>";
@@ -323,10 +315,32 @@
 		18C3C43B1B6EC9AE000B6B0F /* MultiFieldCoordinates */ = {
 			isa = PBXGroup;
 			children = (
+				18C3C44A1B8CEF6C000B6B0F /* MFCDirectionAction.swift */,
 				18C3C43C1B6ECA0A000B6B0F /* MFCMoveAction.swift */,
 				18C3C43E1B6ECDD7000B6B0F /* MFCSystem.swift */,
 			);
 			name = MultiFieldCoordinates;
+			sourceTree = "<group>";
+		};
+		18C3C4521B8D0B37000B6B0F /* ImageProcessors */ = {
+			isa = PBXGroup;
+			children = (
+				181D49061B25098100D08A93 /* IPDisplacement.h */,
+				181D49071B25098100D08A93 /* IPDisplacement.mm */,
+				1892F59B1B4620B60084E0F8 /* IPFovBounds.h */,
+				1892F59C1B4620B60084E0F8 /* IPFovBounds.mm */,
+				18A0722E1AA13E6400A93391 /* IPFocusDetector.h */,
+				18A0722F1AA13E6400A93391 /* IPFocusDetector.mm */,
+				180F87151A7C67D90001CD3C /* IPColorInverter.h */,
+				180F87161A7C67D90001CD3C /* IPColorInverter.mm */,
+				182CE82B1A96E5F7002162DF /* IPAsyncPanTracker.h */,
+				182CE82C1A96E5F7002162DF /* IPAsyncPanTracker.mm */,
+				18A072271AA004E100A93391 /* IPImageCapture.h */,
+				18A072281AA004E100A93391 /* IPImageCapture.mm */,
+				184C81C51B056D4F0083D926 /* IPIdleFrames.h */,
+				184C81C61B056D4F0083D926 /* IPIdleFrames.mm */,
+			);
+			name = ImageProcessors;
 			sourceTree = "<group>";
 		};
 		18D6B8F51ACF65A7002B1A9E /* IO */ = {
@@ -419,8 +433,8 @@
 				18ED380F1A200B8B005BA3CE /* LAMB2.xcdatamodeld */,
 				184D8DFE1A205AC600105FDA /* LAMB2-Bridging-Header.h */,
 				18ED380B1A200B8B005BA3CE /* Supporting Files */,
-				180F871A1A7C72F50001CD3C /* ImageProcessing */,
 				180F871B1A7C730F0001CD3C /* Camera */,
+				18C3C4521B8D0B37000B6B0F /* ImageProcessors */,
 				18D6B8F51ACF65A7002B1A9E /* IO */,
 				180F871C1A7C73340001CD3C /* Device */,
 				180F87221A82F75B0001CD3C /* Actions */,
@@ -564,6 +578,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				183AF3231AB12A4A006C9503 /* CameraExposureBiasAction.swift in Sources */,
+				18C3C44B1B8CEF6C000B6B0F /* MFCDirectionAction.swift in Sources */,
 				18D6B8F41ACCCC78002B1A9E /* StageStepAction.swift in Sources */,
 				18D6B90A1AE08D31002B1A9E /* DocumentDirectory.swift in Sources */,
 				180F87191A7C6DD30001CD3C /* ImageProcessor.mm in Sources */,
@@ -605,6 +620,7 @@
 				1892F59D1B4620B60084E0F8 /* IPFovBounds.mm in Sources */,
 				184C81C71B056D4F0083D926 /* IPIdleFrames.mm in Sources */,
 				180F87241A82F7700001CD3C /* DeviceAction.swift in Sources */,
+				18C3C4511B8CFAA0000B6B0F /* StageMoveAction.swift in Sources */,
 				18DB4C8F1AA4FA8700165F0F /* ScanFocusAction.swift in Sources */,
 				18A0721F1A981AEF00A93391 /* CapturePhotoAction.swift in Sources */,
 				18A072331AA1404800A93391 /* AutofocuserAction.swift in Sources */,

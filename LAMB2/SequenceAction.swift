@@ -25,7 +25,6 @@ class SequenceAction: AbstractAction, SequenceCompletionDelegate {
         for action in actions {
             repeating.append(action)
             sequence.addAction(action)
-            
         }
     }
     
