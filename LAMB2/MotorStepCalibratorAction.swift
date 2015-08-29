@@ -26,4 +26,24 @@ class MotorStepCalibratorAction : SequenceAction {
         stepLowAction = MotorStepDisplacementAction(motor, dir: StageConstants.DIR_LOW, steps: steps, device: device, camera: camera, stage: stage, ip: ip)
         super.init([backlashHighAction, backlashLowAction, stepLowAction, backlashHighAction, stepHighAction])
     }
+    
+    func getBacklash(dir: Bool) -> Int {
+        if dir == StageConstants.DIR_HIGH {
+            return backlashHighAction.backlashStepCounter
+        } else {
+            return backlashLowAction.backlashStepCounter
+        }
+    }
+    
+    func getAveStep(dir: Bool) -> (x: Int, y: Int) {
+        if dir == StageConstants.DIR_HIGH {
+            let x = Int(round(stepHighAction.getAveX()))
+            let y = Int(round(stepHighAction.getAveY()))
+            return (x: x, y: y)
+        } else {
+            let x = Int(round(stepLowAction.getAveX()))
+            let y = Int(round(stepLowAction.getAveY()))
+            return (x: x, y: y)
+        }
+    }
 }

@@ -83,15 +83,37 @@ class CameraViewController: UIViewController, GDriveAdapterStatusDelegate {
     
     @IBAction func test(sender: AnyObject) {
         sequence.addAction(mfc!.initAction)
-//        sequence.addAction(mfc!.fovBounds)
-//        sequence.addAction(MFCDirectionAction(mfc!, motor: StageConstants.MOTOR_1, dir: StageConstants.DIR_HIGH))
-//        sequence.addAction(MFCDirectionAction(mfc!, motor: StageConstants.MOTOR_1, dir: StageConstants.DIR_LOW))
-//        sequence.addAction(MFCDirectionAction(mfc!, motor: StageConstants.MOTOR_2, dir: StageConstants.DIR_HIGH))
-//        sequence.addAction(MFCDirectionAction(mfc!, motor: StageConstants.MOTOR_2, dir: StageConstants.DIR_LOW))
     }
     
     @IBAction func test2(send: AnyObject) {
-        sequence.addAction(mfc!.displacer)
+        sequence.addAction(mfc!.autofocuser)
+        
+        // TODO: Investigate reason for significant backlash observed on the return MFCMoveAction
+        
+        sequence.addAction(MFCMoveAction(mfc!, x: 500, y: 500))
+        sequence.addAction(MFCMoveAction(mfc!, x: -500, y: -500))
+    }
+    
+    @IBAction func mfcDir(sender: AnyObject) {
+        var steps = stepText.text.toInt()!
+        
+        var text = sender.currentTitle!!
+        var motor: Int
+        var dir: Bool
+        
+        if (text.rangeOfString("M1") != nil) {
+            motor = StageConstants.MOTOR_1
+        } else {
+            motor = StageConstants.MOTOR_2
+        }
+        
+        if (text.rangeOfString("HI") != nil) {
+            dir = StageConstants.DIR_HIGH
+        } else {
+            dir = StageConstants.DIR_LOW
+        }
+        
+        sequence.addAction(MFCDirectionAction(mfc!, motor: motor, dir: dir, toggleEnable: true))
     }
 
     @IBAction func balance(sender: AnyObject) {

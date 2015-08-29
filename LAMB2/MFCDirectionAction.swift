@@ -14,20 +14,28 @@ class MFCDirectionAction : SequenceAction, ActionCompletionDelegate {
     private let direction : StageDirectionAction
     private let backlash : StageMoveAction
     private let stage: StageState
+    let toggleEnable: Bool
+    let motor: Int
     
-    init(_ mfc : MFCSystem, motor: Int, dir: Bool) {
+    init(_ mfc : MFCSystem, motor: Int, dir: Bool, toggleEnable: Bool = false) {
         self.mfc = mfc
+        self.toggleEnable = toggleEnable
+        self.motor = motor
         stage = mfc.stage
         direction = StageDirectionAction(mfc.device, motor: motor, dir: dir, stage: stage)
         let backlashSteps = stage.getBacklash(motor, dir: dir)
-        backlash = StageMoveAction(mfc.device, motor: motor, steps: backlashSteps, stage: stage)
+        backlash = StageMoveAction(mfc.device, motor: motor, steps: backlashSteps)
         super.init([direction])
         direction.addCompletionDelegate(self)
     }
     
     func onActionCompleted(action: AbstractAction) {
         if direction.changed {
-            addOneTimeActions([backlash, mfc.displacer])
+            if toggleEnable {
+                addOneTimeActions([mfc.enable[motor]!, backlash, mfc.disable[motor]!, mfc.displacer])
+            } else {
+                addOneTimeActions([backlash, mfc.displacer])
+            }
         }
     }
 }

@@ -37,9 +37,9 @@ using namespace cv;
 
 - (id) init {
     self = [super init];
-    cropped = cv::Rect(0, 0, 400, 400);
-    roi = cv::Rect(0, 0, 200, 200);
-    tracked = cv::Rect(0, 0, 200, 200);
+    cropped = cv::Rect(0, 0, 800, 800);
+    roi = cv::Rect(0, 0, 300, 300);
+    tracked = cv::Rect(0, 0, 300, 300);
     templateRegion = Mat(roi.height, roi.width, CV_8UC1);
     newTemplateRegion = Mat(roi.height, roi.width, CV_8UC1);
     self.croppingEnabled = false;

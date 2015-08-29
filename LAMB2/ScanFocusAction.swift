@@ -40,7 +40,7 @@ class ScanFocusAction: SequenceAction, ActionCompletionDelegate {
         addSubAction(StageEnableAction(device, motor: motor, stage: stage))
         addSubAction(ipAction)
         for i in 1...levels {
-            addSubAction(StageStepAction(device, motor: motor, steps: stepsPerLevel, stage: stage))
+            addSubAction(StageStepAction(device, motor: motor, steps: stepsPerLevel))
             addSubAction(ipAction)
         }
         addSubAction(StageDisableAction(device, motor: motor, stage: stage))

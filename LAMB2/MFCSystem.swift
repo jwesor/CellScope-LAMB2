@@ -23,12 +23,27 @@ class MFCSystem: ActionCompletionDelegate {
     var x: Int
     var y: Int
     
+    // Reusable actions for convenience
+    let enable1: StageEnableAction
+    let disable1: StageDisableAction
+    let enable2: StageEnableAction
+    let disable2: StageDisableAction
+    let enable: [Int: StageEnableAction]
+    let disable: [Int: StageDisableAction]
+    
     init(camera: CameraSession, device: DeviceConnector, stage: StageState, autofocus: AutofocuserAction? = nil) {
         self.camera = camera
         self.stage = stage
         self.device = device
         x = 0
         y = 0
+        
+        enable1 = StageEnableAction(device, motor: StageConstants.MOTOR_1, stage: stage)
+        disable1 = StageDisableAction(device, motor: StageConstants.MOTOR_1, stage: stage)
+        enable2 = StageEnableAction(device, motor: StageConstants.MOTOR_2, stage: stage)
+        disable2 = StageDisableAction(device, motor: StageConstants.MOTOR_2, stage: stage)
+        enable = [StageConstants.MOTOR_1: enable1, StageConstants.MOTOR_2: enable2]
+        disable = [StageConstants.MOTOR_1: disable1, StageConstants.MOTOR_2: disable2]
         
         displacement = IPDisplacement()
         displacement.enabled = true
@@ -41,14 +56,15 @@ class MFCSystem: ActionCompletionDelegate {
             autofocuser = autofocus!
         }
         fovBounds = ImageProcessorAction([bounds], camera: camera)
-        calibrator = StepCalibratorAction(device: device, camera: camera, stage: stage)
+        calibrator = StepCalibratorAction(device: device, camera: camera, stage: stage, autofocus: autofocuser)
         displacer = ImageProcessorAction([displacement], standby: 1)
         camera.addAsyncImageProcessor(displacer.proc)
         
-        initAction = SequenceAction([autofocuser, calibrator, fovBounds, displacer])
+        initAction = SequenceAction([calibrator, fovBounds, displacer])
         initAction.addCompletionDelegate(self)
         fovBounds.addCompletionDelegate(self)
         displacer.addCompletionDelegate(self)
+        
     }
     
     func reset() {

@@ -18,7 +18,7 @@ class StageEnableStepAction: SequenceAction {
         super.init()
         addSubAction(StageDirectionAction(dc, motor: motor, dir: dir, stage: stage))
         addSubAction(StageEnableAction(dc, motor: motor, stage: stage))
-        addSubAction(StageMoveAction(dc, motor: motor, steps: steps, stage: stage))
+        addSubAction(StageMoveAction(dc, motor: motor, steps: steps))
         addSubAction(StageDisableAction(dc, motor: motor, stage: stage))
     }
     

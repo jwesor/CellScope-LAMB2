@@ -36,6 +36,14 @@ class StageState {
         return motors[motor]!.step[dir]!
     }
     
+    func setStep(val: (x: Int, y: Int), motor: Int, dir: Bool) {
+        motors[motor]?.step[dir] = val
+    }
+    
+    func setBacklash(val: Int, motor: Int, dir: Bool) {
+        motors[motor]?.backlash[dir] = val
+    }
+    
     func resetAll() {
         for (motor, state) in motors {
             state.reset()

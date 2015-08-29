@@ -31,11 +31,11 @@ class MotorBacklashCounterAction: SequenceAction, ActionCompletionDelegate {
         } else {
             displace = IPDisplacement()
         }
-        displaceAction = ImageProcessorAction([displace], standby: 3, camera: camera)
+        displaceAction = ImageProcessorAction([displace], standby: 1, camera: camera)
         enableAction = StageEnableAction(device, motor: motor, stage: stage)
         disableAction = StageDisableAction(device, motor: motor, stage: stage)
         dirAction = StageDirectionAction(device, motor: motor, dir: dir, stage: stage)
-        stepAction = StageStepAction(device, motor: motor, steps: 1, stage: stage)
+        stepAction = StageStepAction(device, motor: motor, steps: 1)
         backlashStepCounter = 0
         motionStepCounter = 0
         displaceCounter = 0

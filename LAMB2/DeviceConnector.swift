@@ -111,7 +111,7 @@
     
     func bleDidReceiveData(data: UnsafeMutablePointer<UInt8>, length: Int32) {
         let result:UInt8 = data.memory
-        DebugUtil.log(String(format: "received: %d\n", result))
+//        DebugUtil.log(String(format: "received: %d\n", result))
         for (id, delegate) in dataDelegates {
             delegate.deviceDidReceiveData(result)
         }
@@ -119,12 +119,12 @@
     
     func bleSendData(buf: [UInt8]) {
         var data = NSData(bytes: buf, length: buf.count)
-        DebugUtil.log(String(format: "send: %@\n", data))
+//        DebugUtil.log(String(format: "send: %@\n", data))
         ble.write(data)
     }
     
     func bleSendData(data: NSData) {
-        DebugUtil.log(String(format: "send: %@\n", data))
+//        DebugUtil.log(String(format: "send: %@\n", data))
         ble.write(data)
     }
     
