@@ -7,7 +7,9 @@
 //  to fall if done on the camera thread. Using AsyncImageProcessor
 //  instead of ImageProcessor will run operations concurrently,
 //  not on every frame.
-//  All but the lightest imgproc operations should be done with an AsyncImageProcessor.
+//
+//  AsyncImageProcessors are isolated, meaning their operations
+//  do not affect the images received by other image processors.
 //
 //  Created by Fletcher Lab Mac Mini on 2/11/15.
 //  Copyright (c) 2015 Fletchlab. All rights reserved.

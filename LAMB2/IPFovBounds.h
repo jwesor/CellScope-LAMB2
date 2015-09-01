@@ -16,4 +16,6 @@
 @property (readonly) int height;
 @property int threshold;
 
+- (void) setBoundsAsRoi: (ImageProcessor*)imgproc;
+
 @end

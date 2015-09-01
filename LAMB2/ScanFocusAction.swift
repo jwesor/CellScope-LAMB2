@@ -11,8 +11,10 @@ import Foundation
 class ScanFocusAction: SequenceAction, ActionCompletionDelegate {
     
     let focusIp: IPFocusDetector
+    let fovIp: IPFovBounds
     let asyncIpWrapper: AsyncImageMultiProcessor
     let ipAction: ImageProcessorAction
+    let fovAction: ImageProcessorAction
     let camera: CameraSession
     var focuses: [Int32]
     var currentFocusLevel: Int
@@ -21,20 +23,28 @@ class ScanFocusAction: SequenceAction, ActionCompletionDelegate {
     static let SCAN_DIR = StageConstants.DIR_HIGH
     
     init(levels: Int, stepsPerLevel: UInt8, dir: Bool = ScanFocusAction.SCAN_DIR, camera: CameraSession, device: DeviceConnector, stage: StageState) {
-        focusIp = IPFocusDetector()
         self.camera = camera
         
+        focusIp = IPFocusDetector()
         asyncIpWrapper = AsyncImageMultiProcessor.initWithProcessors([focusIp])
         asyncIpWrapper.defaultStandby = 1
         asyncIpWrapper.enabled = false
-        
         ipAction = ImageProcessorAction(asyncIpWrapper)
+        
+        fovIp = IPFovBounds()
+        fovAction = ImageProcessorAction([fovIp], camera: camera)
+        
         focuses = []
         currentFocusLevel = 0;
         bestFocusLevel = 0;
         bestFocusScore = 0;
+        
         super.init()
+        
         ipAction.addCompletionDelegate(self)
+        fovAction.addCompletionDelegate(self)
+        addSubAction(fovAction)
+        
         let motor = StageConstants.MOTOR_3
         addSubAction(StageDirectionAction(device, motor: motor, dir: dir, stage: stage))
         addSubAction(StageEnableAction(device, motor: motor, stage: stage))
@@ -64,6 +74,9 @@ class ScanFocusAction: SequenceAction, ActionCompletionDelegate {
                 bestFocusLevel = currentFocusLevel
             }
             currentFocusLevel += 1
+        } else if (action == fovAction) {
+            fovIp.setBoundsAsRoi(focusIp)
+            focusIp.roi = true
         }
     }
     

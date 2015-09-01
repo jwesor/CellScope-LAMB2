@@ -310,13 +310,13 @@ using namespace cv;
     @synchronized (_processors) {
         for (ImageProcessor<ImageProcessorProtocol> *imgproc in _processors) {
             if (imgproc.enabled) {
-                [imgproc processImage:image];
+                [imgproc process:image];
             }
         }
         
         for (ImageProcessor<ImageProcessorProtocol> *imgproc in _processors) {
             if (imgproc.enabled && imgproc.displayEnabled) {
-                [imgproc updateDisplayOverlay:image];
+                [imgproc display:image];
             }
         }
         //        NSLog(@"%d", _processors.count);

@@ -34,12 +34,8 @@ class StepCalibratorAction: SequenceAction, ActionCompletionDelegate {
     
     func onActionCompleted(action: AbstractAction) {
         if (action == fovAction) {
-            displacement.croppingEnabled = true
-            displacement.croppingCentered = false
-            displacement.cropX = fov.x
-            displacement.cropY = fov.y
-            displacement.cropWidth = fov.width
-            displacement.cropHeight = fov.height
+            displacement.roi = true
+            fov.setBoundsAsRoi(displacement)
         }
     }
     

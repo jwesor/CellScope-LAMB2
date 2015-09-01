@@ -18,5 +18,10 @@
 
 @property bool enabled;
 @property bool displayEnabled;
+@property (nonatomic) int roiWidth;
+@property (nonatomic) int roiHeight;
+@property (nonatomic) int roiX;
+@property (nonatomic) int roiY;
+@property bool roi;
 
 @end

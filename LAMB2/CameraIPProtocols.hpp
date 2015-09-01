@@ -17,13 +17,8 @@
 // used protocols to avoid this issue.
 
 @protocol ImageProcessorProtocol
-- (void) processImage: (cv::Mat&)image;
-- (void) updateDisplayOverlay: (cv::Mat&)image;
+- (void) process: (cv::Mat&)image;
+- (void) display: (cv::Mat&)image;
 @end
-
-@protocol AsyncImageProcessorProtocol
-- (void) processImageAsync: (cv::Mat&) currentImage;
-@end
-
 #endif
 

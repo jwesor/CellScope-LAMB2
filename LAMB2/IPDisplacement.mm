@@ -12,7 +12,7 @@
 using namespace cv;
 
 @interface IPDisplacement() {
-    cv::Rect cropped;
+    cv::Rect area;
     cv::Rect roi;
     cv::Rect tracked;
     Mat templateRegion;
@@ -26,38 +26,26 @@ using namespace cv;
 
 @synthesize dX = _dX;
 @synthesize dY = _dY;
-@synthesize regionWidth;
-@synthesize regionHeight;
-@synthesize cropWidth;
-@synthesize cropHeight;
-@synthesize cropX;
-@synthesize cropY;
-@synthesize croppingEnabled;
-@synthesize croppingCentered;
+@synthesize trackRegionWidth;
+@synthesize trackRegionHeight;
 
 - (id) init {
     self = [super init];
-    cropped = cv::Rect(0, 0, 800, 800);
+    area = cv::Rect(0, 0, 800, 800);
     roi = cv::Rect(0, 0, 300, 300);
     tracked = cv::Rect(0, 0, 300, 300);
     templateRegion = Mat(roi.height, roi.width, CV_8UC1);
     newTemplateRegion = Mat(roi.height, roi.width, CV_8UC1);
-    self.croppingEnabled = false;
-    self.croppingCentered = true;
     _firstFrame = true;
     return self;
 }
 
 - (void) processImage: (Mat&) image {
-    if (self.croppingEnabled && self.croppingCentered) {
-        cropped.x = (image.cols - cropped.width) / 2;
-        cropped.y = (image.rows - cropped.height) / 2;
-    } else if (!self.croppingEnabled) {
-        cropped.x = 0;
-        cropped.y = 0;
-        cropped.width = image.cols;
-        cropped.height = image.rows;
-    }
+    area.x = 0;
+    area.y = 0;
+    area.width = image.cols;
+    area.height = image.rows;
+    
     roi.x = (image.cols - roi.width) / 2;
     roi.y = (image.rows - roi.height) / 2;
     
@@ -71,11 +59,11 @@ using namespace cv;
         newTemplateRegion.copyTo(templateRegion);
     }
     
-    Mat croppedImage = Mat(channels[0], cropped);
+    Mat areaImage = Mat(channels[0], area);
     Mat corrResult;
-    corrResult.create(croppedImage.cols - templateRegion.cols + 1, croppedImage.rows - templateRegion.cols + 1, CV_32FC1);
+    corrResult.create(areaImage.cols - templateRegion.cols + 1, areaImage.rows - templateRegion.cols + 1, CV_32FC1);
     
-    matchTemplate(croppedImage, templateRegion, corrResult, TM_CCORR_NORMED);
+    matchTemplate(areaImage, templateRegion, corrResult, TM_CCORR_NORMED);
     normalize(corrResult, corrResult, 0, 1, NORM_MINMAX, -1, Mat());
     double minVal;
     double maxVal;
@@ -83,11 +71,11 @@ using namespace cv;
     cv::Point maxLoc;
     cv::Point matchLoc;
     minMaxLoc(corrResult, &minVal, &maxVal, &minLoc, &maxLoc, Mat());
-    tracked.x = maxLoc.x + cropped.x;
-    tracked.y = maxLoc.y + cropped.y;
+    tracked.x = maxLoc.x + area.x;
+    tracked.y = maxLoc.y + area.y;
     
-    _dX = -(maxLoc.x - (cropped.width - roi.width) / 2);
-    _dY = -(maxLoc.y - (cropped.height - roi.height) / 2);
+    _dX = -(maxLoc.x - (area.width - roi.width) / 2);
+    _dY = -(maxLoc.y - (area.height - roi.height) / 2);
     Mat tmp = templateRegion;
     templateRegion = newTemplateRegion;
     newTemplateRegion = tmp;
@@ -96,55 +84,23 @@ using namespace cv;
 - (void) updateDisplayOverlay:(Mat &)image {
     Scalar color = Scalar(0, 255, 0, 255);
     rectangle(image, roi, color);
-    rectangle(image, cropped, color);
+    rectangle(image, area, color);
     rectangle(image, tracked, Scalar(255, 255, 0, 255));
 }
 
-- (void) setCropWidth:(int) width {
-    cropped.width = width;
-}
-
-- (int) getCropWidth {
-    return cropped.width;
-}
-
-- (void) setCropHeight:(int) height {
-    cropped.height = height;
-}
-
-- (int) getCropHeight {
-    return cropped.height;
-}
-
-- (void) setCropX:(int) x {
-    cropped.x = x;
-}
-
-- (int) getCropX {
-    return cropped.x;
-}
-
-- (void) setCropY:(int) y {
-    cropped.y = y;
-}
-
-- (int) getCropY {
-    return cropped.y;
-}
-
-- (void) setRegionWidth:(int)width {
+- (void) setTrackRegionWidth:(int)width {
     roi.width = tracked.width = width;
 }
 
-- (int) getRegionWidth:(int)height {
+- (int) getTrackRegionWidth:(int)height {
     return roi.width;
 }
 
-- (void) setRegionHeight:(int)height {
+- (void) setTrackRegionHeight:(int)height {
     roi.height = tracked.height = height;
 }
 
-- (int) getRegionHeight:(int)height {
+- (int) getTrackRegionHeight:(int)height {
     return roi.height;
 }
 

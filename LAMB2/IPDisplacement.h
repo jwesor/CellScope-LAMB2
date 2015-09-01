@@ -13,14 +13,8 @@
 @property (readonly) int dY;
 @property (readonly) int dX;
 
-@property (nonatomic) int regionWidth;
-@property (nonatomic) int regionHeight;
-@property (nonatomic) int cropWidth;
-@property (nonatomic) int cropHeight;
-@property (nonatomic) int cropX;
-@property (nonatomic) int cropY;
-@property bool croppingEnabled;
-@property bool croppingCentered;
+@property (nonatomic) int trackRegionWidth;
+@property (nonatomic) int trackRegionHeight;
 
 - (void) reset;
 

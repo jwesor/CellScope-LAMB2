@@ -1,21 +1,23 @@
 //
-//  AsyncImageMultiProcessor.m
+//  ImageMultiProcessor.mm
 //  LAMB2
 //
-//  Created by Fletcher Lab Mac Mini on 2/19/15.
+//  Created by Fletcher Lab Mac Mini on 8/31/15.
 //  Copyright (c) 2015 Fletchlab. All rights reserved.
 //
 
-#import "AsyncImageMultiProcessor.h"
+#import "ImageMultiProcessor.h"
 #import "CameraIPProtocols.hpp"
 using namespace cv;
 
-@interface AsyncImageMultiProcessor() {
+@interface ImageMultiProcessor() {
     NSMutableArray *processors;
 }
 @end
 
-@implementation AsyncImageMultiProcessor
+@implementation ImageMultiProcessor
+
+@synthesize isolated;
 
 - (id) init {
     self = [super init];
@@ -23,20 +25,22 @@ using namespace cv;
     return self;
 }
 
-+ (AsyncImageMultiProcessor *) initWithProcessors: (NSArray *) procs {
-    AsyncImageMultiProcessor *aimp = [[AsyncImageMultiProcessor alloc] init];
++ (ImageMultiProcessor *) initWithProcessors: (NSArray *) procs {
+    ImageMultiProcessor *imp = [[ImageMultiProcessor alloc] init];
     for (ImageProcessor* proc in procs) {
-        [aimp addImageProcessor:proc];
+        [imp addImageProcessor:proc];
     }
-    
-    return aimp;
+    return imp;
 }
 
 - (void) addImageProcessor:(ImageProcessor *)proc {
     [processors addObject:proc];
 }
 
-- (void) processImageAsync: (Mat&)currentImage {
+- (void) processImage: (Mat&)currentImage {
+    if (self.isolated) {
+        currentImage = currentImage.clone();
+    }
     for (ImageProcessor<ImageProcessorProtocol> *imgproc in processors) {
         if (imgproc.enabled) {
             [imgproc process:currentImage];

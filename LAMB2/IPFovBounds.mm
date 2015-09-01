@@ -60,4 +60,10 @@ using namespace cv;
     rectangle(image, _bounds, color);
 }
 
+- (void) setBoundsAsRoi: (ImageProcessor*)imgproc {
+    imgproc.roiX = _x;
+    imgproc.roiY = _y;
+    imgproc.roiWidth = _width;
+    imgproc.roiHeight = _height;
+}
 @end

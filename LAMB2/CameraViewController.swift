@@ -19,7 +19,6 @@ class CameraViewController: UIViewController, GDriveAdapterStatusDelegate {
     let stepsPerPixel: Float = 0.02
     let pan = UIPanGestureRecognizer()
     
-    
     var session: CameraSession?
     var device: DeviceConnector = DeviceConnector()
     var sequence: ActionManager = ActionQueue()
@@ -28,6 +27,7 @@ class CameraViewController: UIViewController, GDriveAdapterStatusDelegate {
     let stage: StageState = StageState()
     var calib: StepCalibratorAction?
     var autofocus: AutofocuserAction?
+    let displacement: IPDisplacement = IPDisplacement()
     var mfc: MFCSystem?
     
     override func viewDidLoad() {
@@ -89,9 +89,13 @@ class CameraViewController: UIViewController, GDriveAdapterStatusDelegate {
         sequence.addAction(mfc!.autofocuser)
         
         // TODO: Investigate reason for significant backlash observed on the return MFCMoveAction
-        
+        mfc!.bounds.setBoundsAsRoi(displacement)
+        displacement.roi = true
+        sequence.addAction(ImageProcessorAction([displacement], camera: session!))
         sequence.addAction(MFCMoveAction(mfc!, x: -500, y: -500))
         sequence.addAction(MFCMoveAction(mfc!, x: 500, y: 500))
+        sequence.addAction(ImageProcessorAction([displacement], camera: session!))
+        println("\(displacement.dX) \(displacement.dY)")
     }
     
     @IBAction func mfcDir(sender: AnyObject) {

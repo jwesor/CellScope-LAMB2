@@ -74,11 +74,8 @@ class MFCSystem: ActionCompletionDelegate {
     
     func onActionCompleted(action: AbstractAction) {
         if action == fovBounds {
-            displacement.cropX = bounds.x
-            displacement.cropY = bounds.y
-            displacement.cropWidth = bounds.width
-            displacement.cropHeight = bounds.height
-            displacement.croppingEnabled = true
+            bounds.setBoundsAsRoi(displacement)
+            displacement.roi = true
         } else if action == displacer {
             x += Int(displacement.dX)
             y += Int(displacement.dY)
