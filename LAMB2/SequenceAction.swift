@@ -22,10 +22,7 @@ class SequenceAction: AbstractAction, SequenceCompletionDelegate {
     
     init(_ actions: [AbstractAction]) {
         super.init()
-        for action in actions {
-            repeating.append(action)
-            sequence.addAction(action)
-        }
+        addSubActions(actions)
     }
     
     func addSubAction(action: AbstractAction) {

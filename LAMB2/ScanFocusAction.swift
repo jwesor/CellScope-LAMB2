@@ -65,9 +65,6 @@ class ScanFocusAction: SequenceAction, ActionCompletionDelegate {
             }
             currentFocusLevel += 1
         }
-        println(focuses)
-        println(bestFocusLevel)
-        println(bestFocusScore)
     }
     
     override func cleanup() {

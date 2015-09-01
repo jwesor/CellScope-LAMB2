@@ -60,5 +60,6 @@ class StepCalibratorAction: SequenceAction, ActionCompletionDelegate {
         println("Backlash M1 LO \(stage.getBacklash(M1, dir: LO))")
         println("Backlash M2 HI \(stage.getBacklash(M2, dir: HI))")
         println("Backlash M2 LO \(stage.getBacklash(M2, dir: LO))")
+        super.cleanup()
     }
 }

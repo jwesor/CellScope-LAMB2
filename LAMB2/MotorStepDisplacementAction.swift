@@ -63,15 +63,13 @@ class MotorStepDisplacementAction: SequenceAction, ActionCompletionDelegate {
         displaceCounter += 1
     }
     
-    override func cleanup() {
-        print("\(dX) \(dY) \n")
-        super.cleanup()
-    }
-    
     func getAveX() -> Float {
         var sum: Float = 0
         for x in dX {
             sum += Float(x)
+        }
+        if dX.count == 0 {
+            return 0
         }
         return sum / Float(dX.count)
     }
@@ -80,6 +78,9 @@ class MotorStepDisplacementAction: SequenceAction, ActionCompletionDelegate {
         var sum: Float = 0
         for y in dY {
             sum += Float(y)
+        }
+        if dY.count == 0 {
+            return 0
         }
         return sum / Float(dY.count)
     }

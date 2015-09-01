@@ -90,8 +90,8 @@ class CameraViewController: UIViewController, GDriveAdapterStatusDelegate {
         
         // TODO: Investigate reason for significant backlash observed on the return MFCMoveAction
         
-        sequence.addAction(MFCMoveAction(mfc!, x: 500, y: 500))
         sequence.addAction(MFCMoveAction(mfc!, x: -500, y: -500))
+        sequence.addAction(MFCMoveAction(mfc!, x: 500, y: 500))
     }
     
     @IBAction func mfcDir(sender: AnyObject) {

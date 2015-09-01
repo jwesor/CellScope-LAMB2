@@ -100,8 +100,6 @@ class MFCMoveAction : SequenceAction {
             }
             addSubAction(mfc.disable2)
         }
-        println("MOTOR_1 \(dir1) \(steps1)")
-        println("MOTOR_2 \(dir2) \(steps2)")
     }
     
     private func calculateSteps(#p: (x: Int, y: Int), q: (x: Int, y: Int), X: Int, Y: Int) -> (Int, Int) {
