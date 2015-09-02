@@ -50,6 +50,7 @@
 		18C3C44B1B8CEF6C000B6B0F /* MFCDirectionAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18C3C44A1B8CEF6C000B6B0F /* MFCDirectionAction.swift */; };
 		18C3C4511B8CFAA0000B6B0F /* StageMoveAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18C3C4501B8CFAA0000B6B0F /* StageMoveAction.swift */; };
 		18C3C4551B9524EE000B6B0F /* ImageMultiProcessor.mm in Sources */ = {isa = PBXBuildFile; fileRef = 18C3C4541B9524EE000B6B0F /* ImageMultiProcessor.mm */; };
+		18C3C4601B9668DA000B6B0F /* IPBackgroundSubtract.mm in Sources */ = {isa = PBXBuildFile; fileRef = 18C3C45F1B9668DA000B6B0F /* IPBackgroundSubtract.mm */; };
 		18D6B8E11ACCAFD4002B1A9E /* libGTLTouchStaticLib.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 18D6B8E01ACCAFD4002B1A9E /* libGTLTouchStaticLib.a */; };
 		18D6B8E31ACCAFDC002B1A9E /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 18D6B8E21ACCAFDC002B1A9E /* Security.framework */; };
 		18D6B8E51ACCAFE3002B1A9E /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 18D6B8E41ACCAFE3002B1A9E /* SystemConfiguration.framework */; };
@@ -157,6 +158,8 @@
 		18C3C4501B8CFAA0000B6B0F /* StageMoveAction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StageMoveAction.swift; sourceTree = "<group>"; };
 		18C3C4531B9524EE000B6B0F /* ImageMultiProcessor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImageMultiProcessor.h; sourceTree = "<group>"; };
 		18C3C4541B9524EE000B6B0F /* ImageMultiProcessor.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = ImageMultiProcessor.mm; sourceTree = "<group>"; };
+		18C3C45E1B9668DA000B6B0F /* IPBackgroundSubtract.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IPBackgroundSubtract.h; sourceTree = "<group>"; };
+		18C3C45F1B9668DA000B6B0F /* IPBackgroundSubtract.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = IPBackgroundSubtract.mm; sourceTree = "<group>"; };
 		18D6B8E01ACCAFD4002B1A9E /* libGTLTouchStaticLib.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libGTLTouchStaticLib.a; path = "google-api-objectivec-client-read-only/Source/build/Debug-iphoneos/libGTLTouchStaticLib.a"; sourceTree = "<group>"; };
 		18D6B8E21ACCAFDC002B1A9E /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		18D6B8E41ACCAFE3002B1A9E /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
@@ -330,14 +333,16 @@
 		18C3C4521B8D0B37000B6B0F /* ImageProcessors */ = {
 			isa = PBXGroup;
 			children = (
-				181D49061B25098100D08A93 /* IPDisplacement.h */,
-				181D49071B25098100D08A93 /* IPDisplacement.mm */,
-				1892F59B1B4620B60084E0F8 /* IPFovBounds.h */,
-				1892F59C1B4620B60084E0F8 /* IPFovBounds.mm */,
-				18A0722E1AA13E6400A93391 /* IPFocusDetector.h */,
-				18A0722F1AA13E6400A93391 /* IPFocusDetector.mm */,
+				18C3C45E1B9668DA000B6B0F /* IPBackgroundSubtract.h */,
+				18C3C45F1B9668DA000B6B0F /* IPBackgroundSubtract.mm */,
 				180F87151A7C67D90001CD3C /* IPColorInverter.h */,
 				180F87161A7C67D90001CD3C /* IPColorInverter.mm */,
+				181D49061B25098100D08A93 /* IPDisplacement.h */,
+				181D49071B25098100D08A93 /* IPDisplacement.mm */,
+				18A0722E1AA13E6400A93391 /* IPFocusDetector.h */,
+				18A0722F1AA13E6400A93391 /* IPFocusDetector.mm */,
+				1892F59B1B4620B60084E0F8 /* IPFovBounds.h */,
+				1892F59C1B4620B60084E0F8 /* IPFovBounds.mm */,
 				18A072271AA004E100A93391 /* IPImageCapture.h */,
 				18A072281AA004E100A93391 /* IPImageCapture.mm */,
 				184C81C51B056D4F0083D926 /* IPIdleFrames.h */,
@@ -619,6 +624,7 @@
 				18DB4C931AAE670900165F0F /* CameraAutoFocusAction.swift in Sources */,
 				18E1578B1A67507E00DFEFFF /* BLE.m in Sources */,
 				180F879F1A8C23740001CD3C /* AsyncImageProcessor.mm in Sources */,
+				18C3C4601B9668DA000B6B0F /* IPBackgroundSubtract.mm in Sources */,
 				180F879C1A8C21D90001CD3C /* ImageProcessorAction.swift in Sources */,
 				18D6B8EC1ACCC630002B1A9E /* StageEnableAction.swift in Sources */,
 				18ED38111A200B8B005BA3CE /* LAMB2.xcdatamodeld in Sources */,

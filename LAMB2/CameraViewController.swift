@@ -27,7 +27,7 @@ class CameraViewController: UIViewController, GDriveAdapterStatusDelegate {
     let stage: StageState = StageState()
     var calib: StepCalibratorAction?
     var autofocus: AutofocuserAction?
-    let displacement: IPDisplacement = IPDisplacement()
+    let subtract: IPBackgroundSubtract = IPBackgroundSubtract()
     var mfc: MFCSystem?
     
     override func viewDidLoad() {
@@ -68,6 +68,9 @@ class CameraViewController: UIViewController, GDriveAdapterStatusDelegate {
 //        pan.addTarget(self, action: Selector("handlePan:"))
 //        preview.addGestureRecognizer(pan)
         
+        subtract.enabled = false
+        session?.addImageProcessor(subtract)
+        
         calib = StepCalibratorAction(device: device, camera: session!, stage: stage)
         autofocus = AutofocuserAction(startLevel: -10, endLevel: 10, stepsPerLvl: 5, camera: session!, device: device, stage: stage)
         mfc = MFCSystem(camera: session!, device: device, stage: stage)
@@ -82,20 +85,22 @@ class CameraViewController: UIViewController, GDriveAdapterStatusDelegate {
     }
     
     @IBAction func test(sender: AnyObject) {
-        sequence.addAction(mfc!.initAction)
+//        sequence.addAction(mfc!.autofocuser)
+        subtract.reset()
     }
     
     @IBAction func test2(send: AnyObject) {
-        sequence.addAction(mfc!.autofocuser)
-        
-        // TODO: Investigate reason for significant backlash observed on the return MFCMoveAction
-        mfc!.bounds.setBoundsAsRoi(displacement)
-        displacement.roi = true
-        sequence.addAction(ImageProcessorAction([displacement], camera: session!))
-        sequence.addAction(MFCMoveAction(mfc!, x: -500, y: -500))
-        sequence.addAction(MFCMoveAction(mfc!, x: 500, y: 500))
-        sequence.addAction(ImageProcessorAction([displacement], camera: session!))
-        println("\(displacement.dX) \(displacement.dY)")
+        subtract.enabled = !subtract.enabled
+//        sequence.addAction(mfc!.autofocuser)
+//        
+//        // TODO: Investigate reason for significant backlash observed on the return MFCMoveAction
+//        mfc!.bounds.setBoundsAsRoi(displacement)
+//        displacement.roi = true
+//        sequence.addAction(ImageProcessorAction([displacement], camera: session!))
+//        sequence.addAction(MFCMoveAction(mfc!, x: -500, y: -500))
+//        sequence.addAction(MFCMoveAction(mfc!, x: 500, y: 500))
+//        sequence.addAction(ImageProcessorAction([displacement], camera: session!))
+//        println("\(displacement.dX) \(displacement.dY)")
     }
     
     @IBAction func mfcDir(sender: AnyObject) {

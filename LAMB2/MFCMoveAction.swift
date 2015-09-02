@@ -100,6 +100,8 @@ class MFCMoveAction : SequenceAction {
             }
             addSubAction(mfc.disable2)
         }
+        
+        //TODO: Increase cross correlation accuracy. Background subtraction?
     }
     
     private func calculateSteps(#p: (x: Int, y: Int), q: (x: Int, y: Int), X: Int, Y: Int) -> (Int, Int) {

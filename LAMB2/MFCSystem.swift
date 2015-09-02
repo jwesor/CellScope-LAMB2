@@ -81,6 +81,7 @@ class MFCSystem: ActionCompletionDelegate {
             y += Int(displacement.dY)
             print("MFC \(x) \(y) \n")
         } else if action == initAction {
+            println("MFC reset")
             reset()
         }
     }
