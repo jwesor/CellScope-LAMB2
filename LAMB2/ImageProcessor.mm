@@ -62,7 +62,7 @@
     _region.width = width;
 }
 
-- (int) getRoiWidth {
+- (int) roiWidth {
     return _region.width;
 }
 
@@ -70,7 +70,7 @@
     _region.height = height;
 }
 
-- (int) getRoiHeight {
+- (int) roiHeight {
     return _region.height;
 }
 
@@ -78,7 +78,7 @@
     _region.x = x;
 }
 
-- (int) getRoiX {
+- (int) roiX {
     return _region.x;
 }
 
@@ -86,7 +86,7 @@
     _region.y = y;
 }
 
-- (int) getRoiY {
+- (int) roiY {
     return _region.y;
 }
 

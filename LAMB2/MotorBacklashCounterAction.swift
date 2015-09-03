@@ -25,13 +25,17 @@ class MotorBacklashCounterAction: SequenceAction, ActionCompletionDelegate {
     var MOTION_THRESHOLD: Int = 30
     var HARD_BACKLASH_CAP: Int = 25
 
-    init(_ motor: Int, dir: Bool, device: DeviceConnector, camera: CameraSession, stage: StageState, ip: IPDisplacement? = nil) {
+    init(_ motor: Int, dir: Bool, device: DeviceConnector, camera: CameraSession, stage: StageState, ip: IPDisplacement? = nil, background: IPBackgroundSubtract? = nil) {
         if (ip != nil) {
             displace = ip!
         } else {
             displace = IPDisplacement()
         }
-        displaceAction = ImageProcessorAction([displace], standby: 1, camera: camera)
+        if (background == nil) {
+            displaceAction = ImageProcessorAction([displace], standby: 1, camera: camera)
+        } else {
+            displaceAction = ImageProcessorAction([background!, displace], standby: 1, camera: camera)
+        }
         enableAction = StageEnableAction(device, motor: motor, stage: stage)
         disableAction = StageDisableAction(device, motor: motor, stage: stage)
         dirAction = StageDirectionAction(device, motor: motor, dir: dir, stage: stage)

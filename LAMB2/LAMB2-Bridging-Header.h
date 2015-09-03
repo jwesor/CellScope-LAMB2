@@ -10,6 +10,7 @@
 #import "IPDisplacement.h"
 #import "IPFovBounds.h"
 #import "IPFocusDetector.h"
+#import "IPEdgeDetect.h"
 #import "IPColorInverter.h"
 #import "IPImageCapture.h"
 #import "IPIdleFrames.h"

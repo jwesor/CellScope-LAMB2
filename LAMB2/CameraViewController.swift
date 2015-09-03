@@ -27,7 +27,9 @@ class CameraViewController: UIViewController, GDriveAdapterStatusDelegate {
     let stage: StageState = StageState()
     var calib: StepCalibratorAction?
     var autofocus: AutofocuserAction?
+    let edge: IPEdgeDetect = IPEdgeDetect()
     let subtract: IPBackgroundSubtract = IPBackgroundSubtract()
+    let displacement: IPDisplacement = IPDisplacement()
     var mfc: MFCSystem?
     
     override func viewDidLoad() {
@@ -68,6 +70,8 @@ class CameraViewController: UIViewController, GDriveAdapterStatusDelegate {
 //        pan.addTarget(self, action: Selector("handlePan:"))
 //        preview.addGestureRecognizer(pan)
         
+        edge.enabled = false
+        session?.addImageProcessor(edge)
         subtract.enabled = false
         session?.addImageProcessor(subtract)
         
@@ -85,22 +89,27 @@ class CameraViewController: UIViewController, GDriveAdapterStatusDelegate {
     }
     
     @IBAction func test(sender: AnyObject) {
-//        sequence.addAction(mfc!.autofocuser)
-        subtract.reset()
+//        subtract.reset()
+        sequence.addAction(mfc!.initAction)
     }
     
     @IBAction func test2(send: AnyObject) {
-        subtract.enabled = !subtract.enabled
+//        edge.enabled = !edge.enabled
+//        subtract.enabled = !subtract.enabled
 //        sequence.addAction(mfc!.autofocuser)
 //        
-//        // TODO: Investigate reason for significant backlash observed on the return MFCMoveAction
+        // TODO: Investigate reason for significant backlash observed on the return MFCMoveAction
 //        mfc!.bounds.setBoundsAsRoi(displacement)
 //        displacement.roi = true
-//        sequence.addAction(ImageProcessorAction([displacement], camera: session!))
-//        sequence.addAction(MFCMoveAction(mfc!, x: -500, y: -500))
-//        sequence.addAction(MFCMoveAction(mfc!, x: 500, y: 500))
-//        sequence.addAction(ImageProcessorAction([displacement], camera: session!))
-//        println("\(displacement.dX) \(displacement.dY)")
+        sequence.addAction(ImageProcessorAction([displacement], camera: session!))
+        sequence.addAction(MFCMoveAction(mfc!, x: -500, y: -500))
+        sequence.addAction(MFCMoveAction(mfc!, x: 500, y: 500))
+        sequence.addAction(ImageProcessorAction([displacement], camera: session!))
+        println("\(displacement.dX) \(displacement.dY)")
+    }
+    
+    @IBAction func test3(sender: AnyObject) {
+        sequence.addAction(mfc!.subtractor)
     }
     
     @IBAction func mfcDir(sender: AnyObject) {

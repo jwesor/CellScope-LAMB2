@@ -15,10 +15,12 @@ class MFCSystem: ActionCompletionDelegate {
     let device: DeviceConnector
     let displacement: IPDisplacement
     let bounds: IPFovBounds
+    let background: IPBackgroundSubtract
     let fovBounds: ImageProcessorAction
     let calibrator: StepCalibratorAction
     let autofocuser: AutofocuserAction
     let displacer: ImageProcessorAction
+    let subtractor: ImageProcessorAction
     let initAction: AbstractAction
     var x: Int
     var y: Int
@@ -49,6 +51,8 @@ class MFCSystem: ActionCompletionDelegate {
         displacement.enabled = true
         bounds = IPFovBounds()
         bounds.enabled = true
+        background = IPBackgroundSubtract()
+        background.enabled = true
         
         if (autofocus == nil) {
             autofocuser = AutofocuserAction(startLevel: -10, endLevel: 10, stepsPerLvl: 5, camera:camera, device: device, stage: stage)
@@ -56,8 +60,9 @@ class MFCSystem: ActionCompletionDelegate {
             autofocuser = autofocus!
         }
         fovBounds = ImageProcessorAction([bounds], camera: camera)
-        calibrator = StepCalibratorAction(device: device, camera: camera, stage: stage, autofocus: autofocuser)
-        displacer = ImageProcessorAction([displacement], standby: 1)
+        subtractor = ImageProcessorAction([background], camera: camera)
+        calibrator = StepCalibratorAction(device: device, camera: camera, stage: stage, autofocus: autofocuser, background: background)
+        displacer = ImageProcessorAction([background, displacement], standby: 1)
         camera.addAsyncImageProcessor(displacer.proc)
         
         initAction = SequenceAction([calibrator, fovBounds, displacer])
@@ -75,7 +80,9 @@ class MFCSystem: ActionCompletionDelegate {
     func onActionCompleted(action: AbstractAction) {
         if action == fovBounds {
             bounds.setBoundsAsRoi(displacement)
+//            bounds.setBoundsAsRoi(background)
             displacement.roi = true
+//            background.roi = true
         } else if action == displacer {
             x += Int(displacement.dX)
             y += Int(displacement.dY)

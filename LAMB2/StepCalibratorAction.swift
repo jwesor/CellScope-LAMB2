@@ -17,12 +17,12 @@ class StepCalibratorAction: SequenceAction, ActionCompletionDelegate {
     let yCalibration: MotorStepCalibratorAction
     let stage: StageState
     
-    init(device: DeviceConnector, camera: CameraSession, stage: StageState, autofocus: AutofocuserAction? = nil) {
+    init(device: DeviceConnector, camera: CameraSession, stage: StageState, autofocus: AutofocuserAction? = nil, background: IPBackgroundSubtract? = nil) {
         displacement = IPDisplacement()
         fov = IPFovBounds()
         fovAction = ImageProcessorAction([fov], camera: camera);
-        xCalibration = MotorStepCalibratorAction(StageConstants.MOTOR_2, device: device, camera: camera, stage: stage, ip: displacement)
-        yCalibration = MotorStepCalibratorAction(StageConstants.MOTOR_1, device: device, camera: camera, stage: stage, ip: displacement)
+        xCalibration = MotorStepCalibratorAction(StageConstants.MOTOR_2, device: device, camera: camera, stage: stage, ip: displacement, background: background)
+        yCalibration = MotorStepCalibratorAction(StageConstants.MOTOR_1, device: device, camera: camera, stage: stage, ip: displacement, background: background)
         self.stage = stage
         if autofocus != nil {
             super.init([fovAction, autofocus!, xCalibration, autofocus!, yCalibration, autofocus!])

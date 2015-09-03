@@ -92,7 +92,7 @@ using namespace cv;
     roi.width = tracked.width = width;
 }
 
-- (int) getTrackRegionWidth:(int)height {
+- (int) trackRegionWidth:(int)height {
     return roi.width;
 }
 
@@ -100,7 +100,7 @@ using namespace cv;
     roi.height = tracked.height = height;
 }
 
-- (int) getTrackRegionHeight:(int)height {
+- (int) trackRegionHeight:(int)height {
     return roi.height;
 }
 

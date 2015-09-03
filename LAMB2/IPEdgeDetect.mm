@@ -1,22 +1,16 @@
 //
-//  IPFocusDetector.m
+//  IPEdgeDetect.m
 //  LAMB2
 //
-//  Created by Fletcher Lab Mac Mini on 2/27/15.
+//  Created by Fletcher Lab Mac Mini on 9/1/15.
 //  Copyright (c) 2015 Fletchlab. All rights reserved.
 //
 
-#import "IPFocusDetector.h"
+#import "IPEdgeDetect.h"
 using namespace cv;
 
-@interface IPFocusDetector() {
-    int _focus;
-}
-@end
+@implementation IPEdgeDetect
 
-@implementation IPFocusDetector
-
-@synthesize focus = _focus;
 @synthesize lowerThreshold = _lower;
 @synthesize upperThreshold = _upper;
 
@@ -31,7 +25,7 @@ using namespace cv;
     Mat gray;
     cvtColor(image, gray, CV_BGRA2GRAY);
     Canny(gray, gray, _lower, _upper);
-    _focus = countNonZero(gray);
+    cvtColor(gray, image, CV_GRAY2BGRA);
 }
 
 @end
