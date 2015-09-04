@@ -78,6 +78,30 @@ class CameraViewController: UIViewController, GDriveAdapterStatusDelegate {
         calib = StepCalibratorAction(device: device, camera: session!, stage: stage)
         autofocus = AutofocuserAction(startLevel: -10, endLevel: 10, stepsPerLvl: 5, camera: session!, device: device, stage: stage)
         mfc = MFCSystem(camera: session!, device: device, stage: stage)
+        loadInitialStageState()
+    }
+    
+    func loadInitialStageState() {
+        let M1 = StageConstants.MOTOR_1
+        let M2 = StageConstants.MOTOR_2
+        let HI = StageConstants.DIR_HIGH
+        let LO = StageConstants.DIR_LOW
+//        Backlash M1 HI 28
+//        Backlash M1 LO 27
+//        Backlash M2 HI 45
+//        Backlash M2 LO 41
+//        Step M1 HI (6, 8)
+//        Step M1 LO (-6, -2)
+//        Step M2 HI (-5, -2)
+//        Step M2 LO (6, 2)
+        stage.setBacklash(28, motor: M1, dir: HI)
+        stage.setBacklash(27, motor: M1, dir: LO)
+        stage.setBacklash(45, motor: M2, dir: HI)
+        stage.setBacklash(41, motor: M2, dir: LO)
+        stage.setStep((x: 6, y: 8), motor: M1, dir: HI)
+        stage.setStep((x: -6, y: -2), motor: M1, dir: LO)
+        stage.setStep((x: -5, y: -2), motor: M2, dir: HI)
+        stage.setStep((x: 6, y: 2), motor: M2, dir: LO)
     }
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
@@ -90,7 +114,7 @@ class CameraViewController: UIViewController, GDriveAdapterStatusDelegate {
     
     @IBAction func test(sender: AnyObject) {
 //        subtract.reset()
-        sequence.addAction(mfc!.initAction)
+        sequence.addAction(mfc!.initNoCalibAction)
     }
     
     @IBAction func test2(send: AnyObject) {
@@ -132,6 +156,13 @@ class CameraViewController: UIViewController, GDriveAdapterStatusDelegate {
         }
         
         sequence.addAction(MFCDirectionAction(mfc!, motor: motor, dir: dir, toggleEnable: true))
+    }
+    
+    @IBAction func microstep(sender: AnyObject) {
+        let text = sender.currentTitle!!
+        let toggle = text.rangeOfString("True") != nil
+        
+        sequence.addAction(StageMicrostepAction(device, enabled: toggle, stage: stage))
     }
 
     @IBAction func balance(sender: AnyObject) {

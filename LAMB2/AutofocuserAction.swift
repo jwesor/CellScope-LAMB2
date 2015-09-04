@@ -34,16 +34,15 @@ class AutofocuserAction : SequenceAction, ActionCompletionDelegate {
         antiBacklashAction = StageEnableStepAction(device, motor: StageConstants.MOTOR_3, dir: ScanFocusAction.SCAN_DIR, steps: stepsPerLevel, stage: stage)
         super.init()
         
+        let microstepOff = StageMicrostepAction(device, enabled: false, stage: stage)
+        addSubAction(microstepOff)
         if (startLevel != 0) {
             let initialMove = Int(abs(startLevel)) * stepsPerLevel
             let dir = (startLevel < 0) ? StageConstants.DIR_LOW : StageConstants.DIR_HIGH
             let moveToStartAction = StageEnableStepAction(device, motor: StageConstants.MOTOR_3, dir: dir, steps: initialMove, stage: stage)
             addSubAction(moveToStartAction)
         }
-        addSubAction(antiBacklashAction)
-        addSubAction(scanAction)
-        
-        addSubAction(returnToStartAction)
+        addSubActions([antiBacklashAction, scanAction, returnToStartAction])
         returnToStartAction.addCompletionDelegate(self)
     }
     

@@ -15,7 +15,8 @@ class StageState {
                                          StageConstants.MOTOR_3: StageMotorState()]
     
     let states: [Bool:Int] = [true: 1, false: 0]
-    
+    var microstep: Bool = false
+
     func isMatchingEnable(motor: Int, state: Bool) -> Bool {
         return motors[motor]?.en == states[state]
     }

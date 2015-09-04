@@ -32,9 +32,9 @@ class MFCDirectionAction : SequenceAction, ActionCompletionDelegate {
     func onActionCompleted(action: AbstractAction) {
         if direction.changed {
             if toggleEnable {
-                addOneTimeActions([mfc.enable[motor]!, backlash, mfc.disable[motor]!, mfc.displacer])
+                addOneTimeActions([mfc.enable[motor]!, mfc.microstep, backlash, mfc.disable[motor]!, mfc.displacer])
             } else {
-                addOneTimeActions([backlash, mfc.displacer])
+                addOneTimeActions([mfc.microstep, backlash, mfc.displacer])
             }
         }
     }

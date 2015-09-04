@@ -17,14 +17,20 @@ class MotorStepCalibratorAction : SequenceAction {
     let steps: Int
     let camera: CameraSession
     
-    init(_ motor: Int, device: DeviceConnector, camera: CameraSession, stage: StageState, range: UInt = 5, ip: IPDisplacement? = nil, background: IPBackgroundSubtract? = nil) {
+    init(_ motor: Int, device: DeviceConnector, camera: CameraSession, stage: StageState, range: UInt = 10, microstep: Bool = true, ip: IPDisplacement? = nil, background: IPBackgroundSubtract? = nil) {
         steps = Int(range)
         self.camera = camera
         backlashHighAction = MotorBacklashCounterAction(motor, dir: StageConstants.DIR_HIGH, device: device, camera: camera, stage: stage, ip: ip, background: background)
         backlashLowAction = MotorBacklashCounterAction(motor, dir: StageConstants.DIR_LOW, device: device, camera: camera, stage: stage, ip: ip, background: background)
         stepHighAction = MotorStepDisplacementAction(motor, dir: StageConstants.DIR_HIGH, steps: steps, device: device, camera: camera, stage: stage, ip: ip, background: background)
         stepLowAction = MotorStepDisplacementAction(motor, dir: StageConstants.DIR_LOW, steps: steps, device: device, camera: camera, stage: stage, ip: ip, background: background)
-        super.init([backlashHighAction, backlashLowAction, stepLowAction, backlashHighAction, stepHighAction])
+        if microstep {
+            let microEnable = StageMicrostepAction(device, enabled: true, stage: stage)
+            let microDisable = StageMicrostepAction(device, enabled: false, stage: stage)
+            super.init([microDisable, backlashHighAction, microEnable, backlashLowAction, stepLowAction, backlashHighAction, stepHighAction])
+        } else {
+            super.init([backlashHighAction, backlashLowAction, stepLowAction, backlashHighAction, stepHighAction])
+        }
     }
     
     func getBacklash(dir: Bool) -> Int {

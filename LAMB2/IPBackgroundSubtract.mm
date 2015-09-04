@@ -34,30 +34,24 @@ using namespace cv;
     absdiff(image_copy, _background, image_copy);
     cvtColor(image_copy, image, CV_BGR2BGRA);
 }
-
-- (void) updateDisplayOverlay: (Mat&) image {
-    Mat image_copy;
-    cvtColor(image, image_copy, CV_BGRA2BGR);
-    absdiff(image_copy, _background, image_copy);
-    cvtColor(image_copy, image, CV_BGR2BGRA);
-}
+//
+//- (void) updateDisplayOverlay: (Mat&) image {
+//    Mat image_copy;
+//    cvtColor(image, image_copy, CV_BGRA2BGR);
+//    absdiff(image_copy, _background, image_copy);
+//    cvtColor(image_copy, image, CV_BGR2BGRA);
+//}
 
 
 - (void) reset {
     _capture = true;
 }
 
-- (void) setRoi: (bool)roi {
-    [super setRoi:roi];
-    if (roi) {
-        cv::Rect region = cv::Rect(self.roiX, self.roiY, self.roiWidth, self.roiHeight);
-        if (region.x + region.width <= _background.cols && region.y + region.height <= _background.rows) {
-            Mat cropped = Mat(_background, region);
-            _background = cropped;
-        } else {
-            [self reset];
-        }
+- (void) cropBackgroundToRoi {
+    cv::Rect region = cv::Rect(self.roiX, self.roiY, self.roiWidth, self.roiHeight);
+    if (region.x + region.width <= _background.cols && region.y + region.height <= _background.rows) {
+        Mat cropped = Mat(_background, region);
+        _background = cropped;
     }
 }
-
 @end

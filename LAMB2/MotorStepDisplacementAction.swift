@@ -64,6 +64,7 @@ class MotorStepDisplacementAction: SequenceAction, ActionCompletionDelegate {
             dX.append(Int(displace.dX))
             dY.append(Int(displace.dY))
         }
+        println("\(dX) \(dY)")
         displaceCounter += 1
     }
     

@@ -22,6 +22,7 @@ class MFCSystem: ActionCompletionDelegate {
     let displacer: ImageProcessorAction
     let subtractor: ImageProcessorAction
     let initAction: AbstractAction
+    let initNoCalibAction: AbstractAction
     var x: Int
     var y: Int
     
@@ -32,6 +33,7 @@ class MFCSystem: ActionCompletionDelegate {
     let disable2: StageDisableAction
     let enable: [Int: StageEnableAction]
     let disable: [Int: StageDisableAction]
+    let microstep: StageMicrostepAction
     
     init(camera: CameraSession, device: DeviceConnector, stage: StageState, autofocus: AutofocuserAction? = nil) {
         self.camera = camera
@@ -65,8 +67,12 @@ class MFCSystem: ActionCompletionDelegate {
         displacer = ImageProcessorAction([background, displacement], standby: 1)
         camera.addAsyncImageProcessor(displacer.proc)
         
+        microstep = StageMicrostepAction(device, enabled: true, stage: stage)
+        
         initAction = SequenceAction([calibrator, fovBounds, displacer])
+        initNoCalibAction = SequenceAction([autofocuser, fovBounds, displacer])
         initAction.addCompletionDelegate(self)
+        initNoCalibAction.addCompletionDelegate(self)
         fovBounds.addCompletionDelegate(self)
         displacer.addCompletionDelegate(self)
         
@@ -80,14 +86,17 @@ class MFCSystem: ActionCompletionDelegate {
     func onActionCompleted(action: AbstractAction) {
         if action == fovBounds {
             bounds.setBoundsAsRoi(displacement)
-//            bounds.setBoundsAsRoi(background)
             displacement.roi = true
-//            background.roi = true
+            if !background.roi {
+                bounds.setBoundsAsRoi(background)
+                background.roi = true
+                background.cropBackgroundToRoi()
+            }
         } else if action == displacer {
             x += Int(displacement.dX)
             y += Int(displacement.dY)
             print("MFC \(x) \(y) \n")
-        } else if action == initAction {
+        } else if action == initAction || action == initNoCalibAction {
             println("MFC reset")
             reset()
         }

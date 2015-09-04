@@ -10,14 +10,28 @@ import Foundation
 
 class MFCMoveAction : SequenceAction {
     
-    init(_ mfc: MFCSystem, x: Int, y: Int, stride: UInt8 = 1) {
+    init(_ mfc: MFCSystem, x: Int, y: Int, steps: UInt8 = 0) {
         super.init()
-        let stage = mfc.stage
         
+        let stage = mfc.stage
         let a = stage.getStep(StageConstants.MOTOR_1, dir: StageConstants.DIR_HIGH)
         let b = stage.getStep(StageConstants.MOTOR_1, dir: StageConstants.DIR_LOW)
         let c = stage.getStep(StageConstants.MOTOR_2, dir: StageConstants.DIR_HIGH)
         let d = stage.getStep(StageConstants.MOTOR_2, dir: StageConstants.DIR_LOW)
+        
+        var stride = steps
+        if (steps == 0) {
+            let diameter = Int(min(mfc.bounds.width, mfc.bounds.height)) / 4
+            let stepDist = max( a.x * a.x + a.y * a.y,
+                                b.x * b.x + b.y * b.y,
+                                c.x * c.x + c.y * c.y,
+                                d.x * d.x + d.y * d.y )
+            stride = UInt8(max(1, min(Int(UInt8.max), diameter/stepDist)))
+            println("\(diameter) \(stepDist)")
+        }
+        println("Stride \(stride)")
+        
+        // TODO: implement cap on possible moves. Investigate poor calibration results, esp.   M1
         
         // Figure out which combination of motors/directions to step that will
         // minimize required number of steps and bring us to the target location
@@ -27,6 +41,7 @@ class MFCMoveAction : SequenceAction {
         let (B1, D1) = calculateSteps(p: b, q: d, X: x, Y: y)
         let (A2, D2) = calculateSteps(p: a, q: d, X: x, Y: y)
         let (B2, C2) = calculateSteps(p: b, q: c, X: x, Y: y)
+        println("(\(A1), \(C1))  (\(B1), \(D1))  (\(A2), \(D2))  (\(B2), \(C2))  ")
         let A1C1 = (A1 < 0 || C1 < 0) ? Int.max : A1 + C1
         let B1D1 = (B1 < 0 || D1 < 0) ? Int.max : B1 + D1
         let A2D2 = (A2 < 0 || D2 < 0) ? Int.max : A2 + D2
@@ -60,7 +75,14 @@ class MFCMoveAction : SequenceAction {
                 dir2 = StageConstants.DIR_HIGH
             }
         }
+        println("Step 1 \(steps1) \(dir1)")
+        println("Step 2 \(steps2) \(dir2)")
+        let one = stage.getStep(StageConstants.MOTOR_1, dir: dir1)
+        let two = stage.getStep(StageConstants.MOTOR_2, dir: dir2)
+        println("target \(x) \(y)")
+        println("expected \(one.x * steps1 + two.x * steps2) \(one.y * steps1 + two.y * steps2)")
         
+        addSubAction(mfc.microstep)
         // For each motor: enable motor, set direction, move in small strides not exceeding
         // half a field of vision. Use the displacer to update the MFC position with every
         // stride until the desired number of steps is reached. Finally, disable the motor.
@@ -108,6 +130,9 @@ class MFCMoveAction : SequenceAction {
         let s = p.x, t = p.y, u = q.x, v = q.y;
         let P = Float(v * X - u * Y) / Float(s * v - t * u)
         let Q = Float(t * X - s * Y) / Float(t * u - s * v)
+        if (s * v - t * u) == 0 || (t * u - s * v) == 0 {
+            return (-1, -1)
+        }
         return (Int(round(P)), Int(round(Q)))
     }
     

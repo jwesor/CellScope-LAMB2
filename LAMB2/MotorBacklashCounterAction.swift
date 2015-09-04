@@ -22,8 +22,8 @@ class MotorBacklashCounterAction: SequenceAction, ActionCompletionDelegate {
     var displaceCounter: Int
     var partialStepX: Int
     var partialStepY: Int
-    var MOTION_THRESHOLD: Int = 30
-    var HARD_BACKLASH_CAP: Int = 25
+    var MOTION_THRESHOLD: Int = 5
+    var HARD_BACKLASH_CAP: Int = 50
 
     init(_ motor: Int, dir: Bool, device: DeviceConnector, camera: CameraSession, stage: StageState, ip: IPDisplacement? = nil, background: IPBackgroundSubtract? = nil) {
         if (ip != nil) {

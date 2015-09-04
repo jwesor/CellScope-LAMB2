@@ -273,6 +273,24 @@
                                     <action selector="test3:" destination="IVN-5g-NjA" eventType="touchDown" id="t8p-y5-Ind"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="k96-ta-Rcw">
+                                <rect key="frame" x="700" y="760" width="84" height="30"/>
+                                <state key="normal" title="MICRO True">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="microstep:" destination="IVN-5g-NjA" eventType="touchDown" id="BiE-sA-NxF"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Qdc-Wc-FEF">
+                                <rect key="frame" x="693" y="722" width="91" height="30"/>
+                                <state key="normal" title="MICRO False">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="microstep:" destination="IVN-5g-NjA" eventType="touchDown" id="kxM-NG-lGj"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
@@ -283,12 +301,15 @@
                             <constraint firstAttribute="centerX" secondItem="QHK-hJ-vXj" secondAttribute="centerX" id="2vQ-Ri-60c"/>
                             <constraint firstItem="Agj-PH-npc" firstAttribute="trailing" secondItem="z5F-gW-cCO" secondAttribute="trailingMargin" id="5R3-9f-6Au"/>
                             <constraint firstItem="kix-wv-Be4" firstAttribute="top" secondItem="lXu-ti-R15" secondAttribute="bottom" constant="8" id="8LB-1E-tho"/>
+                            <constraint firstItem="k96-ta-Rcw" firstAttribute="top" secondItem="Qdc-Wc-FEF" secondAttribute="bottom" constant="8" id="AtU-gZ-vT2"/>
                             <constraint firstItem="ego-f6-8KF" firstAttribute="top" secondItem="y3H-gt-apU" secondAttribute="bottom" constant="8" id="BXS-Z7-ygh"/>
                             <constraint firstAttribute="centerX" secondItem="5hf-IU-McK" secondAttribute="centerX" id="HFH-Lv-gK8"/>
                             <constraint firstItem="djZ-ep-8Dd" firstAttribute="top" secondItem="M3l-ar-q0H" secondAttribute="bottom" constant="72" id="HX9-HC-f4s"/>
                             <constraint firstItem="WMJ-cl-oTO" firstAttribute="leading" secondItem="z5F-gW-cCO" secondAttribute="leadingMargin" id="I0i-Ie-UX7"/>
+                            <constraint firstItem="0ah-ec-OzF" firstAttribute="top" secondItem="k96-ta-Rcw" secondAttribute="bottom" constant="10" id="Iiy-H4-TTZ"/>
                             <constraint firstItem="ITr-SE-cev" firstAttribute="top" secondItem="sp4-Wq-EhF" secondAttribute="bottom" constant="8" id="Ivt-Yh-61J"/>
                             <constraint firstItem="Swh-24-mPd" firstAttribute="top" secondItem="ITr-SE-cev" secondAttribute="bottom" constant="8" id="K50-6n-vSP"/>
+                            <constraint firstItem="Qdc-Wc-FEF" firstAttribute="trailing" secondItem="z5F-gW-cCO" secondAttribute="trailingMargin" id="LP8-Kq-TEC"/>
                             <constraint firstItem="lXu-ti-R15" firstAttribute="leading" secondItem="z5F-gW-cCO" secondAttribute="leadingMargin" id="PTc-uE-jaW"/>
                             <constraint firstItem="djZ-ep-8Dd" firstAttribute="leading" secondItem="z5F-gW-cCO" secondAttribute="leadingMargin" id="PxA-dB-V8I"/>
                             <constraint firstItem="0Hk-ax-zKZ" firstAttribute="leading" secondItem="z5F-gW-cCO" secondAttribute="leadingMargin" id="QoQ-dD-hix"/>
@@ -317,6 +338,7 @@
                             <constraint firstItem="ego-f6-8KF" firstAttribute="leading" secondItem="z5F-gW-cCO" secondAttribute="leadingMargin" id="jEx-Pu-JIr"/>
                             <constraint firstItem="4Cq-Ka-AMX" firstAttribute="top" secondItem="0Hk-ax-zKZ" secondAttribute="bottom" constant="8" id="kBk-Po-yKB"/>
                             <constraint firstItem="rMe-wq-ekb" firstAttribute="top" secondItem="djZ-ep-8Dd" secondAttribute="bottom" constant="8" id="kj6-HZ-GtQ"/>
+                            <constraint firstItem="k96-ta-Rcw" firstAttribute="trailing" secondItem="z5F-gW-cCO" secondAttribute="trailingMargin" id="pEg-gc-w72"/>
                             <constraint firstItem="QHK-hJ-vXj" firstAttribute="width" secondItem="b4n-Ce-Dn7" secondAttribute="width" id="rjg-oj-yeY"/>
                             <constraint firstItem="0Hk-ax-zKZ" firstAttribute="top" secondItem="P2A-jE-pGb" secondAttribute="bottom" constant="8" id="roO-O4-GvF"/>
                             <constraint firstItem="QHK-hJ-vXj" firstAttribute="top" secondItem="b4n-Ce-Dn7" secondAttribute="bottom" constant="6" id="rtP-M8-Cif"/>

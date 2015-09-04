@@ -52,6 +52,7 @@
 		18C3C4551B9524EE000B6B0F /* ImageMultiProcessor.mm in Sources */ = {isa = PBXBuildFile; fileRef = 18C3C4541B9524EE000B6B0F /* ImageMultiProcessor.mm */; };
 		18C3C4601B9668DA000B6B0F /* IPBackgroundSubtract.mm in Sources */ = {isa = PBXBuildFile; fileRef = 18C3C45F1B9668DA000B6B0F /* IPBackgroundSubtract.mm */; };
 		18C3C4631B967AA6000B6B0F /* IPEdgeDetect.mm in Sources */ = {isa = PBXBuildFile; fileRef = 18C3C4621B967AA6000B6B0F /* IPEdgeDetect.mm */; };
+		18C3C4651B9A2894000B6B0F /* StageMicrostepAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18C3C4641B9A2894000B6B0F /* StageMicrostepAction.swift */; };
 		18D6B8E11ACCAFD4002B1A9E /* libGTLTouchStaticLib.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 18D6B8E01ACCAFD4002B1A9E /* libGTLTouchStaticLib.a */; };
 		18D6B8E31ACCAFDC002B1A9E /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 18D6B8E21ACCAFDC002B1A9E /* Security.framework */; };
 		18D6B8E51ACCAFE3002B1A9E /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 18D6B8E41ACCAFE3002B1A9E /* SystemConfiguration.framework */; };
@@ -163,6 +164,7 @@
 		18C3C45F1B9668DA000B6B0F /* IPBackgroundSubtract.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = IPBackgroundSubtract.mm; sourceTree = "<group>"; };
 		18C3C4611B967AA6000B6B0F /* IPEdgeDetect.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IPEdgeDetect.h; sourceTree = "<group>"; };
 		18C3C4621B967AA6000B6B0F /* IPEdgeDetect.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = IPEdgeDetect.mm; sourceTree = "<group>"; };
+		18C3C4641B9A2894000B6B0F /* StageMicrostepAction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StageMicrostepAction.swift; sourceTree = "<group>"; };
 		18D6B8E01ACCAFD4002B1A9E /* libGTLTouchStaticLib.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libGTLTouchStaticLib.a; path = "google-api-objectivec-client-read-only/Source/build/Debug-iphoneos/libGTLTouchStaticLib.a"; sourceTree = "<group>"; };
 		18D6B8E21ACCAFDC002B1A9E /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		18D6B8E41ACCAFE3002B1A9E /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
@@ -291,6 +293,7 @@
 			isa = PBXGroup;
 			children = (
 				180F87231A82F7700001CD3C /* DeviceAction.swift */,
+				18C3C4641B9A2894000B6B0F /* StageMicrostepAction.swift */,
 				18D6B8EF1ACCCA31002B1A9E /* StageDisableAction.swift */,
 				18D6B8ED1ACCC6DD002B1A9E /* StageDirectionAction.swift */,
 				18D6B8EB1ACCC630002B1A9E /* StageEnableAction.swift */,
@@ -644,6 +647,7 @@
 				180F87951A858FF20001CD3C /* SequenceAction.swift in Sources */,
 				18ED380E1A200B8B005BA3CE /* AppDelegate.swift in Sources */,
 				18D6B8F01ACCCA31002B1A9E /* StageDisableAction.swift in Sources */,
+				18C3C4651B9A2894000B6B0F /* StageMicrostepAction.swift in Sources */,
 				1892F5981B44953A0084E0F8 /* MotorStepDisplacementAction.swift in Sources */,
 				180F872A1A82F7C80001CD3C /* AbstractAction.swift in Sources */,
 				18D6B9041ADF2FB0002B1A9E /* GDriveTextDocument.swift in Sources */,
