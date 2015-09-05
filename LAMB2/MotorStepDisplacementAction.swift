@@ -22,17 +22,13 @@ class MotorStepDisplacementAction: SequenceAction, ActionCompletionDelegate {
     var dX: [Int]
     var dY: [Int]
     
-    init(_ motor: Int, dir: Bool, steps: Int, device: DeviceConnector, camera: CameraSession, stage: StageState, ip: IPDisplacement? = nil, background: IPBackgroundSubtract? = nil) {
+    init(_ motor: Int, dir: Bool, steps: Int, device: DeviceConnector, camera: CameraSession, stage: StageState, ip: IPDisplacement? = nil, enhancers: [ImageProcessor] = []) {
         if (ip != nil) {
             displace = ip!
         } else {
             displace = IPDisplacement()
         }
-        if (background == nil) {
-            displaceAction = ImageProcessorAction([displace], standby: 1, camera: camera)
-        } else {
-            displaceAction = ImageProcessorAction([background!, displace], standby: 1, camera: camera)
-        }
+        displaceAction = ImageProcessorAction(enhancers + [displace], standby: 1, camera: camera)
         enableAction = StageEnableAction(device, motor: motor, stage: stage)
         disableAction = StageDisableAction(device, motor: motor, stage: stage)
         dirAction = StageDirectionAction(device, motor: motor, dir: dir, stage: stage)

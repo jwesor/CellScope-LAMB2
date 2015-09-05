@@ -13,9 +13,12 @@ class MFCSystem: ActionCompletionDelegate {
     let stage: StageState
     let camera: CameraSession
     let device: DeviceConnector
+
     let displacement: IPDisplacement
     let bounds: IPFovBounds
     let background: IPBackgroundSubtract
+    let edges: IPEdgeDetect
+
     let fovBounds: ImageProcessorAction
     let calibrator: StepCalibratorAction
     let autofocuser: AutofocuserAction
@@ -23,9 +26,10 @@ class MFCSystem: ActionCompletionDelegate {
     let subtractor: ImageProcessorAction
     let initAction: AbstractAction
     let initNoCalibAction: AbstractAction
+
     var x: Int
     var y: Int
-    
+
     // Reusable actions for convenience
     let enable1: StageEnableAction
     let disable1: StageDisableAction
@@ -35,7 +39,11 @@ class MFCSystem: ActionCompletionDelegate {
     let disable: [Int: StageDisableAction]
     let microstep: StageMicrostepAction
     
-    init(camera: CameraSession, device: DeviceConnector, stage: StageState, autofocus: AutofocuserAction? = nil) {
+    static let DISPLACE_NONE: Int = 0
+    static let DISPLACE_BACKGROUND: Int = 1
+    static let DISPLACE_EDGES: Int = 2
+
+    init(camera: CameraSession, device: DeviceConnector, stage: StageState, displaceType: Int = MFCSystem.DISPLACE_NONE) {
         self.camera = camera
         self.stage = stage
         self.device = device
@@ -55,16 +63,23 @@ class MFCSystem: ActionCompletionDelegate {
         bounds.enabled = true
         background = IPBackgroundSubtract()
         background.enabled = true
+        edges = IPEdgeDetect()
+        edges.enabled = true
         
-        if (autofocus == nil) {
-            autofocuser = AutofocuserAction(startLevel: -10, endLevel: 10, stepsPerLvl: 5, camera:camera, device: device, stage: stage)
+        var enhancers:[ImageProcessor]
+        if (displaceType == MFCSystem.DISPLACE_BACKGROUND) {
+            enhancers = [background]
+        } else if (displaceType == MFCSystem.DISPLACE_EDGES) {
+            enhancers = [edges]
         } else {
-            autofocuser = autofocus!
+            enhancers = []
         }
+
+        autofocuser = AutofocuserAction(startLevel: -10, endLevel: 10, stepsPerLvl: 5, camera:camera, device: device, stage: stage)
         fovBounds = ImageProcessorAction([bounds], camera: camera)
         subtractor = ImageProcessorAction([background], camera: camera)
-        calibrator = StepCalibratorAction(device: device, camera: camera, stage: stage, autofocus: autofocuser, background: background)
-        displacer = ImageProcessorAction([background, displacement], standby: 1)
+        calibrator = StepCalibratorAction(device: device, camera: camera, stage: stage, autofocus: autofocuser, enhancers: enhancers)
+        displacer = ImageProcessorAction(enhancers + [displacement], standby: 1)
         camera.addAsyncImageProcessor(displacer.proc)
         
         microstep = StageMicrostepAction(device, enabled: true, stage: stage)
@@ -77,16 +92,18 @@ class MFCSystem: ActionCompletionDelegate {
         displacer.addCompletionDelegate(self)
         
     }
-    
+
     func reset() {
         x = 0
         y = 0
     }
-    
+
     func onActionCompleted(action: AbstractAction) {
         if action == fovBounds {
             bounds.setBoundsAsRoi(displacement)
             displacement.roi = true
+            bounds.setBoundsAsRoi(edges)
+            edges.roi = true
             if !background.roi {
                 bounds.setBoundsAsRoi(background)
                 background.roi = true

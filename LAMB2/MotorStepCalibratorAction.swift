@@ -17,13 +17,13 @@ class MotorStepCalibratorAction : SequenceAction {
     let steps: Int
     let camera: CameraSession
     
-    init(_ motor: Int, device: DeviceConnector, camera: CameraSession, stage: StageState, range: UInt = 10, microstep: Bool = true, ip: IPDisplacement? = nil, background: IPBackgroundSubtract? = nil) {
+    init(_ motor: Int, device: DeviceConnector, camera: CameraSession, stage: StageState, range: UInt = 10, microstep: Bool = true, ip: IPDisplacement? = nil, enhancers: [ImageProcessor] = []) {
         steps = Int(range)
         self.camera = camera
-        backlashHighAction = MotorBacklashCounterAction(motor, dir: StageConstants.DIR_HIGH, device: device, camera: camera, stage: stage, ip: ip, background: background)
-        backlashLowAction = MotorBacklashCounterAction(motor, dir: StageConstants.DIR_LOW, device: device, camera: camera, stage: stage, ip: ip, background: background)
-        stepHighAction = MotorStepDisplacementAction(motor, dir: StageConstants.DIR_HIGH, steps: steps, device: device, camera: camera, stage: stage, ip: ip, background: background)
-        stepLowAction = MotorStepDisplacementAction(motor, dir: StageConstants.DIR_LOW, steps: steps, device: device, camera: camera, stage: stage, ip: ip, background: background)
+        backlashHighAction = MotorBacklashCounterAction(motor, dir: StageConstants.DIR_HIGH, device: device, camera: camera, stage: stage, ip: ip, enhancers: enhancers)
+        backlashLowAction = MotorBacklashCounterAction(motor, dir: StageConstants.DIR_LOW, device: device, camera: camera, stage: stage, ip: ip, enhancers: enhancers)
+        stepHighAction = MotorStepDisplacementAction(motor, dir: StageConstants.DIR_HIGH, steps: steps, device: device, camera: camera, stage: stage, ip: ip, enhancers: enhancers)
+        stepLowAction = MotorStepDisplacementAction(motor, dir: StageConstants.DIR_LOW, steps: steps, device: device, camera: camera, stage: stage, ip: ip, enhancers: enhancers)
         if microstep {
             let microEnable = StageMicrostepAction(device, enabled: true, stage: stage)
             let microDisable = StageMicrostepAction(device, enabled: false, stage: stage)
