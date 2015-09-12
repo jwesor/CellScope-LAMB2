@@ -13,8 +13,12 @@
 @property (readonly) int dY;
 @property (readonly) int dX;
 
-@property (nonatomic) int trackRegionWidth;
-@property (nonatomic) int trackRegionHeight;
+@property int templateWidth;
+@property int templateHeight;
+
+@property int searchWidth;
+@property int searchHeight;
+@property int searchLevels;
 
 - (void) reset;
 

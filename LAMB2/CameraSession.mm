@@ -299,7 +299,6 @@ using namespace cv;
 
 - (void) processImage:(Mat&)image {
     // Do some OpenCV stuff with the image
-    
     if (_parent.enableCapture) {
         @synchronized (_parent) {
             _currentImg = image.clone();

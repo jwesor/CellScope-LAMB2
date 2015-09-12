@@ -16,8 +16,8 @@ using namespace cv;
 
 - (id) init {
     self = [super init];
-    _lower = 64;
-    _upper = 96;
+    _lower = 16;
+    _upper = 32;
     return self;
 }
 

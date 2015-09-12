@@ -10,15 +10,18 @@
 
 #import "IPDisplacement.h"
 using namespace cv;
+using namespace std;
 
 @interface IPDisplacement() {
-    cv::Rect area;
-    cv::Rect roi;
-    cv::Rect tracked;
-    Mat templateRegion;
-    Mat newTemplateRegion;
     int _dX, _dY;
     bool _firstFrame;
+    
+    vector<Mat> _referencePyramid;
+    vector<Mat> _templatePyramid;
+    cv::Rect _search;
+    cv::Rect _template;
+    cv::Rect _matched;
+    int _searchLevels;
 }
 @end
 
@@ -26,82 +29,103 @@ using namespace cv;
 
 @synthesize dX = _dX;
 @synthesize dY = _dY;
-@synthesize trackRegionWidth;
-@synthesize trackRegionHeight;
+@synthesize searchLevels = _searchLevels;
+@synthesize searchWidth;
+@synthesize searchHeight;
+@synthesize templateWidth;
+@synthesize templateHeight;
 
 - (id) init {
     self = [super init];
-    area = cv::Rect(0, 0, 800, 800);
-    roi = cv::Rect(0, 0, 300, 300);
-    tracked = cv::Rect(0, 0, 300, 300);
-    templateRegion = Mat(roi.height, roi.width, CV_8UC1);
-    newTemplateRegion = Mat(roi.height, roi.width, CV_8UC1);
+
     _firstFrame = true;
+    _searchLevels = 1;
+    
+    self.templateWidth = 200;
+    self.templateHeight = 200;
+    
+    self.searchWidth = 96;
+    self.searchHeight = 96;
+    
     return self;
 }
 
 - (void) processImage: (Mat&) image {
-    area.x = 0;
-    area.y = 0;
-    area.width = image.cols;
-    area.height = image.rows;
-    
-    roi.x = (image.cols - roi.width) / 2;
-    roi.y = (image.rows - roi.height) / 2;
-    
-    std::vector<Mat> channels(3);
-    split(image, channels);
-    
-    Mat(channels[0], roi).copyTo(newTemplateRegion);
-    
-    if (templateRegion.empty() || _firstFrame) {
+    if (_firstFrame) {
+        float ratio = MIN(image.cols / float(self.searchWidth+self.templateWidth),
+                          image.rows / float(self.searchHeight+self.templateHeight));
+        _searchLevels = MAX(1, MIN(int(log2(ratio))+1, _searchLevels));
+    }
+    Mat img_gray;
+    cvtColor(image, img_gray, CV_BGRA2GRAY);
+    buildPyramid(img_gray, _templatePyramid, _searchLevels);
+    if (_firstFrame) {
+        buildPyramid(img_gray, _referencePyramid, _searchLevels);
         _firstFrame = false;
-        newTemplateRegion.copyTo(templateRegion);
     }
     
-    Mat areaImage = Mat(channels[0], area);
-    Mat corrResult;
-    corrResult.create(areaImage.cols - templateRegion.cols + 1, areaImage.rows - templateRegion.cols + 1, CV_32FC1);
-    
-    matchTemplate(areaImage, templateRegion, corrResult, TM_CCORR_NORMED);
-    normalize(corrResult, corrResult, 0, 1, NORM_MINMAX, -1, Mat());
+    Mat imgTemplate;
+    Mat imgReference;
+    Mat tmpl;
+    Mat refr;
+    int originX = 0;
+    int originY = 0;
+    int deltaX = 0;
+    int deltaY = 0;
     double minVal;
     double maxVal;
     cv::Point minLoc;
     cv::Point maxLoc;
     cv::Point matchLoc;
-    minMaxLoc(corrResult, &minVal, &maxVal, &minLoc, &maxLoc, Mat());
-    tracked.x = maxLoc.x + area.x;
-    tracked.y = maxLoc.y + area.y;
-    
-    _dX = -(maxLoc.x - (area.width - roi.width) / 2);
-    _dY = -(maxLoc.y - (area.height - roi.height) / 2);
-    Mat tmp = templateRegion;
-    templateRegion = newTemplateRegion;
-    newTemplateRegion = tmp;
+    Mat corrResults;
+    for (int i = _searchLevels - 1; i >= 0; i--) {
+        imgTemplate = _templatePyramid[i];
+        imgReference = _referencePyramid[i];
+        
+        if (i == _searchLevels - 1) {
+            originX = imgTemplate.cols / 2;
+            originY = imgTemplate.rows / 2;
+        } else {
+            originX *= 2;
+            originY *= 2;
+        }
+        
+        int searchRegionWidth = self.templateWidth + self.searchWidth;
+        int searchRegionHeight = self.templateHeight + self.searchHeight;
+        int searchW = searchRegionWidth;
+        int searchH = searchRegionHeight;
+        originX = MIN(imgTemplate.cols - searchW / 2, MAX(originX, searchW / 2));
+        originY = MIN(imgTemplate.rows - searchH / 2, MAX(originY, searchH / 2));
+        int searchX = originX - searchRegionWidth / 2;
+        int searchY = originY - searchRegionHeight / 2;
+        _search = cv::Rect(searchX, searchY, searchW, searchH);
+        _template = cv::Rect(searchX + self.searchWidth / 2, searchY + self.searchHeight / 2,
+                        self.templateWidth, self.templateHeight);
+        tmpl = Mat(imgTemplate, _template);
+        refr = Mat(imgReference, _search);
+        
+        corrResults.create(_search.width - _template.width + 1, _search.height - _template.height + 1, CV_32FC1);
+        matchTemplate(refr, tmpl, corrResults, TM_CCORR_NORMED);
+        minMaxLoc(corrResults, &minVal, &maxVal, &minLoc, &maxLoc, Mat());
+        deltaX = self.searchWidth / 2 - maxLoc.x;
+        deltaY = self.searchHeight / 2 - maxLoc.y;
+        originX += deltaX;
+        originY += deltaY;
+        imgTemplate.copyTo(imgReference);
+        imgTemplate.deallocate();
+    }
+    _matched = cv::Rect(deltaX + _template.x, deltaY + _template.y,
+                        _template.width, _template.height);
+
+    _dX = deltaX;
+    _dY = deltaY;
 }
 
 - (void) updateDisplayOverlay:(Mat &)image {
     Scalar color = Scalar(0, 255, 0, 255);
-    rectangle(image, roi, color);
-    rectangle(image, area, color);
-    rectangle(image, tracked, Scalar(255, 255, 0, 255));
-}
-
-- (void) setTrackRegionWidth:(int)width {
-    roi.width = tracked.width = width;
-}
-
-- (int) trackRegionWidth:(int)height {
-    return roi.width;
-}
-
-- (void) setTrackRegionHeight:(int)height {
-    roi.height = tracked.height = height;
-}
-
-- (int) trackRegionHeight:(int)height {
-    return roi.height;
+    rectangle(image, _search, Scalar(0, 255, 255, 255));
+    rectangle(image, _template, color);
+    rectangle(image, _matched, Scalar(255, 255, 0, 255));
 }
 
 - (void) reset {

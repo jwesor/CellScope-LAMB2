@@ -72,6 +72,8 @@ class CameraViewController: UIViewController, GDriveAdapterStatusDelegate {
         
         edge.enabled = false
         session?.addImageProcessor(edge)
+        session?.addImageProcessor(displacement)
+        displacement.enabled = true
         subtract.enabled = false
         session?.addImageProcessor(subtract)
         
@@ -113,8 +115,8 @@ class CameraViewController: UIViewController, GDriveAdapterStatusDelegate {
     }
     
     @IBAction func test(sender: AnyObject) {
-//        subtract.reset()
-        sequence.addAction(mfc!.initNoCalibAction)
+        displacement.reset()
+//        sequence.addAction(mfc!.initNoCalibAction)
     }
     
     @IBAction func test2(send: AnyObject) {
