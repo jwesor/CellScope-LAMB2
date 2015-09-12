@@ -53,6 +53,7 @@
 		18C3C4601B9668DA000B6B0F /* IPBackgroundSubtract.mm in Sources */ = {isa = PBXBuildFile; fileRef = 18C3C45F1B9668DA000B6B0F /* IPBackgroundSubtract.mm */; };
 		18C3C4631B967AA6000B6B0F /* IPEdgeDetect.mm in Sources */ = {isa = PBXBuildFile; fileRef = 18C3C4621B967AA6000B6B0F /* IPEdgeDetect.mm */; };
 		18C3C4651B9A2894000B6B0F /* StageMicrostepAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18C3C4641B9A2894000B6B0F /* StageMicrostepAction.swift */; };
+		18C3C4681BA3B693000B6B0F /* IPPyramidDisplacement.mm in Sources */ = {isa = PBXBuildFile; fileRef = 18C3C4671BA3B693000B6B0F /* IPPyramidDisplacement.mm */; };
 		18D6B8E11ACCAFD4002B1A9E /* libGTLTouchStaticLib.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 18D6B8E01ACCAFD4002B1A9E /* libGTLTouchStaticLib.a */; };
 		18D6B8E31ACCAFDC002B1A9E /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 18D6B8E21ACCAFDC002B1A9E /* Security.framework */; };
 		18D6B8E51ACCAFE3002B1A9E /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 18D6B8E41ACCAFE3002B1A9E /* SystemConfiguration.framework */; };
@@ -165,6 +166,8 @@
 		18C3C4611B967AA6000B6B0F /* IPEdgeDetect.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IPEdgeDetect.h; sourceTree = "<group>"; };
 		18C3C4621B967AA6000B6B0F /* IPEdgeDetect.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = IPEdgeDetect.mm; sourceTree = "<group>"; };
 		18C3C4641B9A2894000B6B0F /* StageMicrostepAction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StageMicrostepAction.swift; sourceTree = "<group>"; };
+		18C3C4661BA3B693000B6B0F /* IPPyramidDisplacement.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IPPyramidDisplacement.h; sourceTree = "<group>"; };
+		18C3C4671BA3B693000B6B0F /* IPPyramidDisplacement.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = IPPyramidDisplacement.mm; sourceTree = "<group>"; };
 		18D6B8E01ACCAFD4002B1A9E /* libGTLTouchStaticLib.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libGTLTouchStaticLib.a; path = "google-api-objectivec-client-read-only/Source/build/Debug-iphoneos/libGTLTouchStaticLib.a"; sourceTree = "<group>"; };
 		18D6B8E21ACCAFDC002B1A9E /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		18D6B8E41ACCAFE3002B1A9E /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
@@ -345,6 +348,8 @@
 				180F87161A7C67D90001CD3C /* IPColorInverter.mm */,
 				181D49061B25098100D08A93 /* IPDisplacement.h */,
 				181D49071B25098100D08A93 /* IPDisplacement.mm */,
+				18C3C4661BA3B693000B6B0F /* IPPyramidDisplacement.h */,
+				18C3C4671BA3B693000B6B0F /* IPPyramidDisplacement.mm */,
 				18A0722E1AA13E6400A93391 /* IPFocusDetector.h */,
 				18A0722F1AA13E6400A93391 /* IPFocusDetector.mm */,
 				18C3C4611B967AA6000B6B0F /* IPEdgeDetect.h */,
@@ -631,6 +636,7 @@
 				183AF3211AB0CD87006C9503 /* CameraManualExposureAction.swift in Sources */,
 				18DB4C931AAE670900165F0F /* CameraAutoFocusAction.swift in Sources */,
 				18E1578B1A67507E00DFEFFF /* BLE.m in Sources */,
+				18C3C4681BA3B693000B6B0F /* IPPyramidDisplacement.mm in Sources */,
 				180F879F1A8C23740001CD3C /* AsyncImageProcessor.mm in Sources */,
 				18C3C4601B9668DA000B6B0F /* IPBackgroundSubtract.mm in Sources */,
 				180F879C1A8C21D90001CD3C /* ImageProcessorAction.swift in Sources */,

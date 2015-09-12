@@ -13,12 +13,8 @@
 @property (readonly) int dY;
 @property (readonly) int dX;
 
-@property int templateWidth;
-@property int templateHeight;
-
-@property int searchWidth;
-@property int searchHeight;
-@property int searchLevels;
+@property (nonatomic) int templateWidth;
+@property (nonatomic) int templateHeight;
 
 - (void) reset;
 

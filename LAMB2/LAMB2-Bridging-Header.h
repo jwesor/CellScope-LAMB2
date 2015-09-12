@@ -8,6 +8,7 @@
 
 #import "IPBackgroundSubtract.h"
 #import "IPDisplacement.h"
+#import "IPPyramidDisplacement.h"
 #import "IPFovBounds.h"
 #import "IPFocusDetector.h"
 #import "IPEdgeDetect.h"
