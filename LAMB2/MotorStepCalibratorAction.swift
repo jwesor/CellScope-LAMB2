@@ -17,7 +17,7 @@ class MotorStepCalibratorAction : SequenceAction {
     let steps: Int
     let camera: CameraSession
     
-    init(_ motor: Int, device: DeviceConnector, camera: CameraSession, stage: StageState, range: UInt = 10, microstep: Bool = true, ip: IPDisplacement? = nil, enhancers: [ImageProcessor] = []) {
+    init(_ motor: Int, device: DeviceConnector, camera: CameraSession, stage: StageState, range: UInt = 10, microstep: Bool = false, ip: IPDisplacement? = nil, enhancers: [ImageProcessor] = []) {
         steps = Int(range)
         self.camera = camera
         backlashHighAction = MotorBacklashCounterAction(motor, dir: StageConstants.DIR_HIGH, device: device, camera: camera, stage: stage, ip: ip, enhancers: enhancers)

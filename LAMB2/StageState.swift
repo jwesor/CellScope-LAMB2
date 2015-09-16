@@ -15,7 +15,7 @@ class StageState {
                                          StageConstants.MOTOR_3: StageMotorState()]
     
     let states: [Bool:Int] = [true: 1, false: 0]
-    var microstep: Bool = false
+    var microstepping: Bool = false
 
     func isMatchingEnable(motor: Int, state: Bool) -> Bool {
         return motors[motor]?.en == states[state]
@@ -29,20 +29,36 @@ class StageState {
         return motors[motor]?.en == StageMotorState.UNKNOWN
     }
     
-    func getBacklash(motor: Int, dir: Bool) -> Int {
-        return motors[motor]!.backlash[dir]!
+    func getBacklash(motor: Int, dir: Bool, microstep: Bool = false) -> Int {
+        if !microstep {
+            return motors[motor]!.backlash[dir]!
+        } else {
+            return motors[motor]!.microbacklash[dir]!
+        }
     }
     
-    func getStep(motor: Int, dir: Bool) -> (x: Int, y: Int) {
-        return motors[motor]!.step[dir]!
+    func setBacklash(val: Int, motor: Int, dir: Bool, microstep: Bool = false) {
+        if !microstep {
+            motors[motor]?.backlash[dir] = val
+        } else {
+            motors[motor]?.microbacklash[dir] = val
+        }
     }
     
-    func setStep(val: (x: Int, y: Int), motor: Int, dir: Bool) {
-        motors[motor]?.step[dir] = val
+    func getStep(motor: Int, dir: Bool, microstep: Bool = false) -> (x: Int, y: Int) {
+        if !microstep {
+            return motors[motor]!.step[dir]!
+        } else {
+            return motors[motor]!.microstep[dir]!
+        }
     }
     
-    func setBacklash(val: Int, motor: Int, dir: Bool) {
-        motors[motor]?.backlash[dir] = val
+    func setStep(val: (x: Int, y: Int), motor: Int, dir: Bool, microstep: Bool = false) {
+        if !microstep {
+            motors[motor]?.step[dir] = val
+        } else {
+            motors[motor]?.microstep[dir] = val
+        }
     }
     
     func resetAll() {
@@ -86,11 +102,15 @@ class StageMotorState {
     var dir: Int = UNKNOWN
     var backlash: [Bool:Int] = [StageConstants.DIR_HIGH: 0, StageConstants.DIR_LOW: 0]
     var step: [Bool:(x: Int, y: Int)] = [StageConstants.DIR_HIGH: (x: 0, y: 0), StageConstants.DIR_LOW: (x: 0, y: 0)]
+    var microbacklash: [Bool:Int] = [StageConstants.DIR_HIGH: 0, StageConstants.DIR_LOW: 0]
+    var microstep: [Bool:(x: Int, y: Int)] = [StageConstants.DIR_HIGH: (x: 0, y: 0), StageConstants.DIR_LOW: (x: 0, y: 0)]
     
     func reset() {
         en = StageMotorState.UNKNOWN
         dir = StageMotorState.UNKNOWN
         backlash = [StageConstants.DIR_HIGH: 0, StageConstants.DIR_LOW: 0]
         step = [StageConstants.DIR_HIGH: (x: 0, y: 0), StageConstants.DIR_LOW: (x: 0, y: 0)]
+        microbacklash = [StageConstants.DIR_HIGH: 0, StageConstants.DIR_LOW: 0]
+        microstep = [StageConstants.DIR_HIGH: (x: 0, y: 0), StageConstants.DIR_LOW: (x: 0, y: 0)]
     }
 }

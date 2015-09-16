@@ -26,7 +26,7 @@ class StageMicrostepAction : DeviceAction {
     }
     
     override func doExecution() {
-        if stage.microstep == micro {
+        if stage.microstepping == micro {
             finish()
         } else {
             super.doExecution()
@@ -36,7 +36,7 @@ class StageMicrostepAction : DeviceAction {
     override func cleanup() {
         super.cleanup()
         if (state != ActionState.TIMED_OUT) {
-            stage.microstep = micro
+            stage.microstepping = micro
         }
     }
 }
