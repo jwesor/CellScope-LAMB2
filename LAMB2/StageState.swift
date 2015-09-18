@@ -16,6 +16,7 @@ class StageState {
     
     let states: [Bool:Int] = [true: 1, false: 0]
     var microstepping: Bool = false
+    var fov: (x: Int32, y: Int32, width: Int32, height: Int32) = (0, 0, 0, 0)
 
     func isMatchingEnable(motor: Int, state: Bool) -> Bool {
         return motors[motor]?.en == states[state]
@@ -93,6 +94,24 @@ class StageState {
         if (m != nil) {
             m!.dir = StageMotorState.UNKNOWN
         }
+    }
+    
+    func setFovBounds(x: Int32, y: Int32, width: Int32, height: Int32) {
+        fov.x = x
+        fov.y = y
+        fov.width = width
+        fov.height = height
+    }
+    
+    func isFovBounded() -> Bool {
+        return fov.width != 0 && fov.height != 0
+    }
+    
+    func setImageProcessorRoiToFov(ip: ImageProcessor) {
+        ip.roiX = fov.x
+        ip.roiY = fov.y
+        ip.roiWidth = fov.width
+        ip.roiHeight = fov.height
     }
 }
 

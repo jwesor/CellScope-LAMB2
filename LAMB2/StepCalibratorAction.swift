@@ -8,49 +8,43 @@
 
 import Foundation
 
-class StepCalibratorAction: SequenceAction, ActionCompletionDelegate {
+class StepCalibratorAction: SequenceAction {
     
-    let displacement: IPDisplacement
-    let fov: IPFovBounds
-    let fovAction: ImageProcessorAction
-    let xCalibration: MotorStepCalibratorAction
-    let yCalibration: MotorStepCalibratorAction
     let stage: StageState
+    let calib1: MotorCalibStepAction
+    let calib2: MotorCalibStepAction
+
+    convenience init(device: DeviceConnector, camera: CameraSession, stage: StageState, autofocus: AutofocuserAction? = nil) {
+        let displacer = ImgDisplacementAction(camera: camera)
+        if stage.isFovBounded() {
+            stage.setImageProcessorRoiToFov(displacer.proc)
+        }
+        self.init(device: device, stage: stage, autofocus: autofocus, displacer: displacer)
+    }
     
-    init(device: DeviceConnector, camera: CameraSession, stage: StageState, autofocus: AutofocuserAction? = nil, enhancers: [ImageProcessor] = []) {
-        displacement = IPDisplacement()
-        fov = IPFovBounds()
-        fovAction = ImageProcessorAction([fov], camera: camera);
-        xCalibration = MotorStepCalibratorAction(StageConstants.MOTOR_2, device: device, camera: camera, stage: stage, ip: displacement, enhancers: enhancers)
-        yCalibration = MotorStepCalibratorAction(StageConstants.MOTOR_1, device: device, camera: camera, stage: stage, ip: displacement, enhancers: enhancers)
+    init(device: DeviceConnector, stage: StageState, autofocus: AutofocuserAction? = nil, displacer: ImgDisplacementAction) {
         self.stage = stage
+        let microOff = StageMicrostepAction(device, enabled: false, stage: stage)
+        calib1 = MotorCalibStepAction(motor: StageConstants.MOTOR_1, device: device, stage: stage, displacer: displacer)
+        calib2 = MotorCalibStepAction(motor: StageConstants.MOTOR_1, device: device, stage: stage, displacer: displacer)
         if autofocus != nil {
-            super.init([fovAction, autofocus!, xCalibration, autofocus!, yCalibration, autofocus!])
+            super.init([microOff, autofocus!, calib1, autofocus!, calib2, autofocus!])
         } else {
-            super.init([fovAction, xCalibration, yCalibration])
-        }
-        fovAction.addCompletionDelegate(self)
-    }
-    
-    func onActionCompleted(action: AbstractAction) {
-        if (action == fovAction) {
-            displacement.roi = true
-            fov.setBoundsAsRoi(displacement)
+            super.init([microOff, calib1, calib2])
         }
     }
-    
+
     override func cleanup() {
         let M1 = StageConstants.MOTOR_1, M2 = StageConstants.MOTOR_2
         let HI = StageConstants.DIR_HIGH, LO = StageConstants.DIR_LOW
-        let cal2 = xCalibration, cal1 = yCalibration
-        stage.setBacklash(cal1.getBacklash(HI), motor: M1, dir: HI)
-        stage.setBacklash(cal1.getBacklash(LO), motor: M1, dir: LO)
-        stage.setBacklash(cal2.getBacklash(HI), motor: M2, dir: HI)
-        stage.setBacklash(cal2.getBacklash(LO), motor: M2, dir: LO)
-        stage.setStep(cal1.getAveStep(HI), motor: M1, dir: HI)
-        stage.setStep(cal1.getAveStep(LO), motor: M1, dir: LO)
-        stage.setStep(cal2.getAveStep(HI), motor: M2, dir: HI)
-        stage.setStep(cal2.getAveStep(LO), motor: M2, dir: LO)
+        stage.setBacklash(calib1.getBacklash(HI), motor: M1, dir: HI)
+        stage.setBacklash(calib1.getBacklash(LO), motor: M1, dir: LO)
+        stage.setBacklash(calib2.getBacklash(HI), motor: M2, dir: HI)
+        stage.setBacklash(calib2.getBacklash(LO), motor: M2, dir: LO)
+        stage.setStep(calib1.getAveStep(HI), motor: M1, dir: HI)
+        stage.setStep(calib1.getAveStep(LO), motor: M1, dir: LO)
+        stage.setStep(calib2.getAveStep(HI), motor: M2, dir: HI)
+        stage.setStep(calib2.getAveStep(LO), motor: M2, dir: LO)
         
         println("Backlash M1 HI \(stage.getBacklash(M1, dir: HI))")
         println("Backlash M1 LO \(stage.getBacklash(M1, dir: LO))")

@@ -13,23 +13,16 @@ class CameraViewController: UIViewController, GDriveAdapterStatusDelegate {
     @IBOutlet weak var stepText: UITextField!
     @IBOutlet weak var preview: UIView!
     @IBOutlet weak var deviceButton: DeviceStatusButton!
-    var startX: Float = 0
-    var startY: Float = 0
-    let threshold: Float = 30
-    let stepsPerPixel: Float = 0.02
-    let pan = UIPanGestureRecognizer()
     
-    var session: CameraSession?
-    var device: DeviceConnector = DeviceConnector()
-    var sequence: ActionManager = ActionQueue()
+    var camera: CameraSession?
+    let device: DeviceConnector = DeviceConnector()
+    let queue: ActionManager = ActionQueue()
     let drive: GDriveAdapter = GDriveAdapter()
-    let asyncIp = AsyncImageMultiProcessor()
     let stage: StageState = StageState()
-    var calib: StepCalibratorAction?
     var autofocus: AutofocuserAction?
-    let edge: IPEdgeDetect = IPEdgeDetect()
-    let subtract: IPBackgroundSubtract = IPBackgroundSubtract()
-    let displacement: IPDisplacement = IPDisplacement()
+    var bounder: ImgFovBoundsAction?
+    var displacer: ImgDisplacementAction?
+    var calib: StepCalibratorAction?
     var mfc: MFCSystem?
     
     override func viewDidLoad() {
@@ -38,16 +31,16 @@ class CameraViewController: UIViewController, GDriveAdapterStatusDelegate {
         DebugUtil.debugView = debugText
         DebugUtil.log("initializing...")
         
-        session = CameraSession.initWithPreview(preview)
-        session?.continuousAutoFocus = false
-        session?.continuousAutoWhiteBalance = false
-        session?.continuousAutoExposure = false
-        session?.startCameraSession()
+        camera = CameraSession.initWithPreview(preview)
+        camera?.continuousAutoFocus = false
+        camera?.continuousAutoWhiteBalance = false
+        camera?.continuousAutoExposure = false
+        camera?.startCameraSession()
         
         device.addStatusDelegate(deviceButton)
         deviceButton.updateDeviceStatusDisconnected()
         
-        sequence.beginActions()
+        queue.beginActions()
         drive.addStatusDelegate(gdriveButton)
         drive.addStatusDelegate(self)
         
@@ -65,21 +58,14 @@ class CameraViewController: UIViewController, GDriveAdapterStatusDelegate {
 //        DebugUtil.setLog("action", doc: actionLog)
 //        DebugUtil.setLog("drive", doc: driveLog)
 //        DebugUtil.setLog("cycle", doc: cycleLog)
-
-//        preview.userInteractionEnabled = true
-//        pan.addTarget(self, action: Selector("handlePan:"))
-//        preview.addGestureRecognizer(pan)
         
-        edge.enabled = false
-        session?.addImageProcessor(edge)
-        session?.addImageProcessor(displacement)
-        displacement.enabled = true
-        subtract.enabled = false
-        session?.addImageProcessor(subtract)
         
-        calib = StepCalibratorAction(device: device, camera: session!, stage: stage)
-        autofocus = AutofocuserAction(startLevel: -10, endLevel: 10, stepsPerLvl: 5, camera: session!, device: device, stage: stage)
-        mfc = MFCSystem(camera: session!, device: device, stage: stage)
+        autofocus = AutofocuserAction(startLevel: -10, endLevel: 10, stepsPerLvl: 5, camera: camera!, device: device, stage: stage)
+        bounder = ImgFovBoundsAction(camera: camera!, stage: stage)
+        displacer = ImgDisplacementAction(camera: camera!)
+        bounder?.bindImageProcessorRoi(displacer!)
+        calib = StepCalibratorAction(device: device, stage: stage, displacer: displacer!)
+        mfc = MFCSystem(camera: camera!, device: device, stage: stage)
         loadInitialStageState()
     }
     
@@ -106,36 +92,17 @@ class CameraViewController: UIViewController, GDriveAdapterStatusDelegate {
         stage.setStep((x: 6, y: 2), motor: M2, dir: LO)
     }
     
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        if (segue.identifier == "listBLEDevices") {
-            device.scanForPeripherals()
-            var table = segue.destinationViewController as! DeviceTableViewController
-            table.device = device
-        }
-    }
-    
     @IBAction func test(sender: AnyObject) {
-        displacement.reset()
-//        sequence.addAction(mfc!.initNoCalibAction)
+        queue.addAction(bounder!)
+        queue.addAction(autofocus!)
     }
     
     @IBAction func test2(send: AnyObject) {
-//        edge.enabled = !edge.enabled
-//        subtract.enabled = !subtract.enabled
-//        sequence.addAction(mfc!.autofocuser)
-//
-        // TODO: Investigate reason for significant backlash observed on the return MFCMoveAction
-//        mfc!.bounds.setBoundsAsRoi(displacement)
-//        displacement.roi = true
-        sequence.addAction(ImageProcessorAction([displacement], camera: session!))
-        sequence.addAction(MFCMoveAction(mfc!, x: -500, y: -500))
-        sequence.addAction(MFCMoveAction(mfc!, x: 500, y: 500))
-        sequence.addAction(ImageProcessorAction([displacement], camera: session!))
-        println("\(displacement.dX) \(displacement.dY)")
+        queue.addAction(calib!)
     }
     
     @IBAction func test3(sender: AnyObject) {
-        sequence.addAction(mfc!.subtractor)
+        queue.addAction(mfc!.subtractor)
     }
     
     @IBAction func mfcDir(sender: AnyObject) {
@@ -157,22 +124,22 @@ class CameraViewController: UIViewController, GDriveAdapterStatusDelegate {
             dir = StageConstants.DIR_LOW
         }
         
-        sequence.addAction(MFCDirectionAction(mfc!, motor: motor, dir: dir, toggleEnable: true))
+        queue.addAction(MFCDirectionAction(mfc!, motor: motor, dir: dir, toggleEnable: true))
     }
     
     @IBAction func microstep(sender: AnyObject) {
         let text = sender.currentTitle!!
         let toggle = text.rangeOfString("True") != nil
         
-        sequence.addAction(StageMicrostepAction(device, enabled: toggle, stage: stage))
+        queue.addAction(StageMicrostepAction(device, enabled: toggle, stage: stage))
     }
 
     @IBAction func balance(sender: AnyObject) {
-        sequence.addAction(CameraAutoWhiteBalanceAction(camera: session!))
-        let exp = CameraAutoExposureAction(camera: session!)
+        queue.addAction(CameraAutoWhiteBalanceAction(camera: camera!))
+        let exp = CameraAutoExposureAction(camera: camera!)
         exp.timeout = 3
-        sequence.addAction(exp)
-        sequence.addAction(CameraAutoFocusAction(camera: session!))
+        queue.addAction(exp)
+        queue.addAction(CameraAutoFocusAction(camera: camera!))
     }
     
     @IBAction func moveXPlus(sender: AnyObject) {
@@ -195,7 +162,7 @@ class CameraViewController: UIViewController, GDriveAdapterStatusDelegate {
         } else {
             dir = StageConstants.DIR_LOW
         }
-        sequence.addAction(StageEnableStepAction(device, motor: motor, dir: dir, steps:steps, stage: stage))
+        queue.addAction(StageEnableStepAction(device, motor: motor, dir: dir, steps:steps, stage: stage))
     }
     
     @IBAction func led2off(sender: AnyObject) {
@@ -232,27 +199,11 @@ class CameraViewController: UIViewController, GDriveAdapterStatusDelegate {
     
     func onDriveSignOut() {}
     
-    @objc func handlePan(sender: UIPanGestureRecognizer!) {
-        let translation = sender.locationInView(view)
-        let x = Float(translation.x)
-        let y = Float(translation.y)
-        if (sender.state == UIGestureRecognizerState.Began) {
-            startX = x
-            startY = y
-        } else if (sender.state == UIGestureRecognizerState.Ended) {
-            let diffX = abs(startX - x)
-            if (diffX > threshold) {
-                let stepX = Int(diffX * stepsPerPixel)
-                let dirX = startX > x ? StageConstants.DIR_HIGH : StageConstants.DIR_LOW
-                sequence.addAction(StageEnableStepAction(device, motor: StageConstants.MOTOR_2, dir: dirX, steps: stepX, stage: stage))
-            }
-            
-            let diffY = abs(startY - y)
-            if (diffY > threshold) {
-                let stepY = Int(diffY * stepsPerPixel)
-                let dirY = startY < y ? StageConstants.DIR_HIGH : StageConstants.DIR_LOW
-                sequence.addAction(StageEnableStepAction(device, motor: StageConstants.MOTOR_1, dir: dirY, steps: stepY, stage: stage))
-            }
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        if (segue.identifier == "listBLEDevices") {
+            device.scanForPeripherals()
+            var table = segue.destinationViewController as! DeviceTableViewController
+            table.device = device
         }
     }
 }

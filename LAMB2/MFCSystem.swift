@@ -78,7 +78,7 @@ class MFCSystem: ActionCompletionDelegate {
         autofocuser = AutofocuserAction(startLevel: -10, endLevel: 10, stepsPerLvl: 5, camera:camera, device: device, stage: stage)
         fovBounds = ImageProcessorAction([bounds], camera: camera)
         subtractor = ImageProcessorAction([background], camera: camera)
-        calibrator = StepCalibratorAction(device: device, camera: camera, stage: stage, autofocus: autofocuser, enhancers: enhancers)
+        calibrator = StepCalibratorAction(device: device, camera: camera, stage: stage, autofocus: autofocuser)
         displacer = ImageProcessorAction(enhancers + [displacement], standby: 1)
         camera.addAsyncImageProcessor(displacer.proc)
         

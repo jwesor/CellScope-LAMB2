@@ -18,11 +18,13 @@ class SequenceAction: AbstractAction, SequenceCompletionDelegate {
     
     override init() {
         super.init()
+        sequence.addCompletionDelegate(self)
     }
     
     init(_ actions: [AbstractAction]) {
         super.init()
         addSubActions(actions)
+        sequence.addCompletionDelegate(self)
     }
     
     func addSubAction(action: AbstractAction) {
@@ -48,7 +50,6 @@ class SequenceAction: AbstractAction, SequenceCompletionDelegate {
     }
     
     override func doExecution() {
-        sequence.addCompletionDelegate(self)
         sequence.beginActions()
     }
     

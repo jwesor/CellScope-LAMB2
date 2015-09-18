@@ -15,15 +15,14 @@ import Foundation
 class AbstractAction: NSObject {
     
     var state:ActionState
-    var completionDelegates:[ActionCompletionDelegate]
-    var runtimeCompletionDelegates:[ActionCompletionDelegate]
+    var completionDelegates:[ActionCompletionDelegate] = []
+    var temporaryCompletionDelegates:[ActionCompletionDelegate] = []
+    var runtimeCompletionDelegates:[ActionCompletionDelegate] = []
     var timeout: Double
     var logName: String = ""
     
     override init() {
         state = ActionState.READY
-        completionDelegates = []
-        runtimeCompletionDelegates = []
         timeout = 0
     }
     
@@ -77,6 +76,10 @@ class AbstractAction: NSObject {
     
     func addCompletionDelegate(delegate: ActionCompletionDelegate) {
         completionDelegates.append(delegate)
+    }
+    
+    func addOneTimeCompletionDelegate(delegate: ActionCompletionDelegate) {
+        runtimeCompletionDelegates.append(delegate)
     }
 }
 
