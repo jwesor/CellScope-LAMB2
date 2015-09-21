@@ -43,14 +43,14 @@ class GDriveTextDocument: TextDocumentSaveDelegate, GDriveAdapterFileQueryResult
         let data = contents.dataUsingEncoding(NSUTF8StringEncoding)
         pending = true
         if (identifier == nil) {
-            drive.createNewFileWithTitle(title, data: data, mimeType: "text/plain", delegate: self)
+            drive.createNewFileWithTitle(title, data: data!, mimeType: "text/plain", delegate: self)
         } else {
-            drive.updateFileWithIdentifier(identifier, data: data, mimeType: "text/plain", delegate: self)
+            drive.updateFileWithIdentifier(identifier!, data: data!, mimeType: "text/plain", delegate: self)
         }
 
     }
     
-    @objc func onDriveFileQueryComplete(fileId: String!, success: Bool) {
+    func onDriveFileQueryComplete(fileId: String, success: Bool) {
         if (success) {
             identifier = fileId
         }

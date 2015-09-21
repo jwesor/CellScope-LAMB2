@@ -10,7 +10,7 @@
 //
 
 
-@objc class DeviceConnector: BLEDelegate {
+class DeviceConnector: BLEDelegate {
     
     var connected: Bool
     var ble: BLE
@@ -83,7 +83,7 @@
 
     }
     
-    func bleDidConnect() {
+    @objc func bleDidConnect() {
         connected = true
         if scanTimer != nil {
             scanTimer?.invalidate()
@@ -93,7 +93,7 @@
         }
     }
     
-    func bleDidDisconnect() {
+    @objc func bleDidDisconnect() {
         connected = false
         if scanTimer != nil {
             scanTimer?.invalidate()
@@ -109,16 +109,16 @@
         }
     }
     
-    func bleDidReceiveData(data: UnsafeMutablePointer<UInt8>, length: Int32) {
+    @objc func bleDidReceiveData(data: UnsafeMutablePointer<UInt8>, length: Int32) {
         let result:UInt8 = data.memory
 //        DebugUtil.log(String(format: "received: %d\n", result))
-        for (id, delegate) in dataDelegates {
+        for (_, delegate) in dataDelegates {
             delegate.deviceDidReceiveData(result)
         }
     }
     
     func bleSendData(buf: [UInt8]) {
-        var data = NSData(bytes: buf, length: buf.count)
+        let data = NSData(bytes: buf, length: buf.count)
 //        DebugUtil.log(String(format: "send: %@\n", data))
         ble.write(data)
     }

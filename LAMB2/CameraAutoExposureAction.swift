@@ -30,10 +30,15 @@ class CameraAutoExposureAction : AbstractAction {
         }
     }
     
-    override func observeValueForKeyPath(keyPath: String, ofObject object: AnyObject, change: [NSObject : AnyObject], context: UnsafeMutablePointer<Void>) {
+    override func observeValueForKeyPath(keyPath: String?, ofObject object: AnyObject?, change: [String : AnyObject]? = nil, context: UnsafeMutablePointer<Void>) {
         if (keyPath == "adjustingExposure") {
-            var exposing = change[NSKeyValueChangeNewKey]?.integerValue == 1;
-            if (!exposing) {
+            if (change != nil) {
+                let changedVal = change!
+                let exposing = changedVal[NSKeyValueChangeNewKey]!.integerValue == 1;
+                if (!exposing) {
+                    finish()
+                }
+            } else {
                 finish()
             }
         } else {

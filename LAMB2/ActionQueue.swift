@@ -25,7 +25,7 @@ class ActionQueue : ActionManager {
     }
     
     func addAction(action: AbstractAction) {
-        var operation = ActionOperation(action: action, manager: self)
+        let operation = ActionOperation(action: action, manager: self)
         queue.addOperation(operation)
     }
     

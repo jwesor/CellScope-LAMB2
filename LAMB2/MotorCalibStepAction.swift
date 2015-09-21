@@ -36,7 +36,7 @@ class MotorCalibStepAction : SequenceAction {
     }
     
     func getAveStep(dir: Bool) -> (x: Int, y: Int) {
-        var stepAction = (dir == StageConstants.DIR_HIGH) ? stepHigh : stepLow
+        let stepAction = (dir == StageConstants.DIR_HIGH) ? stepHigh : stepLow
         let x = Int(round(stepAction.aveX))
         let y = Int(round(stepAction.aveY))
         return (x: x, y: y)

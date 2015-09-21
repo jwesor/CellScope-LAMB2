@@ -46,14 +46,14 @@ class StepCalibratorAction: SequenceAction {
         stage.setStep(calib2.getAveStep(HI), motor: M2, dir: HI)
         stage.setStep(calib2.getAveStep(LO), motor: M2, dir: LO)
         
-        println("Backlash M1 HI \(stage.getBacklash(M1, dir: HI))")
-        println("Backlash M1 LO \(stage.getBacklash(M1, dir: LO))")
-        println("Backlash M2 HI \(stage.getBacklash(M2, dir: HI))")
-        println("Backlash M2 LO \(stage.getBacklash(M2, dir: LO))")
-        println("Step M1 HI \(stage.getStep(M1, dir: HI))")
-        println("Step M1 LO \(stage.getStep(M1, dir: LO))")
-        println("Step M2 HI \(stage.getStep(M2, dir: HI))")
-        println("Step M2 LO \(stage.getStep(M2, dir: LO))")
+        print("Backlash M1 HI \(stage.getBacklash(M1, dir: HI))")
+        print("Backlash M1 LO \(stage.getBacklash(M1, dir: LO))")
+        print("Backlash M2 HI \(stage.getBacklash(M2, dir: HI))")
+        print("Backlash M2 LO \(stage.getBacklash(M2, dir: LO))")
+        print("Step M1 HI \(stage.getStep(M1, dir: HI))")
+        print("Step M1 LO \(stage.getStep(M1, dir: LO))")
+        print("Step M2 HI \(stage.getStep(M2, dir: HI))")
+        print("Step M2 LO \(stage.getStep(M2, dir: LO))")
         super.cleanup()
     }
 }

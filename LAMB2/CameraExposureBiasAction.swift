@@ -23,14 +23,14 @@ class CameraExposureBiasAction : AbstractAction {
     }
     
     override func doExecution() {
-        var error:NSErrorPointer = nil
-        if (camera.captureDevice.lockForConfiguration(error)) {
+        do {
+            try camera.captureDevice.lockForConfiguration()
             camera.captureDevice.setExposureTargetBias(bias, completionHandler: {
                 (CMTime) -> Void in
                     self.finish()
             })
-        } else {
-            NSLog("unable to lock device for exposure configuration %@", error.debugDescription)
+        } catch {
+            print("unable to lock device for exposure configuration")
             finish()
         }
     }

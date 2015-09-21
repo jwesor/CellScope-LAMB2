@@ -40,11 +40,11 @@ class GDriveImageDocument: ImageDocumentSaveDelegate, GDriveAdapterFileQueryResu
         if (identifier == nil) {
             drive.createNewFileWithTitle(title, data: data, mimeType: "image/png", delegate: self)
         } else {
-            drive.updateFileWithIdentifier(identifier, data: data, mimeType: "image/png", delegate: self)
+            drive.updateFileWithIdentifier(identifier!, data: data, mimeType: "image/png", delegate: self)
         }
     }
     
-    @objc func onDriveFileQueryComplete(fileId: String!, success: Bool) {
+    func onDriveFileQueryComplete(fileId: String, success: Bool) {
         DebugUtil.log("drive", "upload \(self.title) complete. success: \(success)")
         if (success) {
             identifier = fileId
@@ -60,12 +60,13 @@ class GDriveImageDocument: ImageDocumentSaveDelegate, GDriveAdapterFileQueryResu
 class GDriveImageDocumentGenerator: ImageDocumentDelegator {
     
     let drive: GDriveAdapter
+    var documents: [GDriveImageDocument] = []
     
     init (_ drive: GDriveAdapter) {
         self.drive = drive
     }
     
     func addDelegateTo(imgDoc: ImageDocument) {
-        GDriveImageDocument(imgDoc, drive: drive)
+        documents.append(GDriveImageDocument(imgDoc, drive: drive))
     }
 }

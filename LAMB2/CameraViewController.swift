@@ -44,16 +44,16 @@ class CameraViewController: UIViewController, GDriveAdapterStatusDelegate {
         drive.addStatusDelegate(gdriveButton)
         drive.addStatusDelegate(self)
         
-        let dateFormat = NSDateFormatter()
-        dateFormat.dateFormat = "yyyyMMddHHmm"
-        let datestring = dateFormat.stringFromDate(NSDate())
-        let directory = DocumentDirectory("lamb2_\(datestring)")
+//        let dateFormat = NSDateFormatter()
+//        dateFormat.dateFormat = "yyyyMMddHHmm"
+//        let datestring = dateFormat.stringFromDate(NSDate())
+//        let directory = DocumentDirectory("lamb2_\(datestring)")
         
-        let actionLog = TextDocument("action.log", directory: directory)
-        let driveLog = TextDocument("drive.log", directory: directory)
-        let cycleLog = TextDocument("cycle.log", directory: directory)
-        let gActionLog = GDriveTextDocument(actionLog, drive: drive)
-        let gCycleLog = GDriveTextDocument(cycleLog, drive: drive)
+//        let actionLog = TextDocument("action.log", directory: directory)
+//        let driveLog = TextDocument("drive.log", directory: directory)
+//        let cycleLog = TextDocument("cycle.log", directory: directory)
+//        let gActionLog = GDriveTextDocument(actionLog, drive: drive)
+//        let gCycleLog = GDriveTextDocument(cycleLog, drive: drive)
         
 //        DebugUtil.setLog("action", doc: actionLog)
 //        DebugUtil.setLog("drive", doc: driveLog)
@@ -106,9 +106,7 @@ class CameraViewController: UIViewController, GDriveAdapterStatusDelegate {
     }
     
     @IBAction func mfcDir(sender: AnyObject) {
-        var steps = stepText.text.toInt()!
-        
-        var text = sender.currentTitle!!
+        let text = sender.currentTitle!!
         var motor: Int
         var dir: Bool
         
@@ -143,9 +141,9 @@ class CameraViewController: UIViewController, GDriveAdapterStatusDelegate {
     }
     
     @IBAction func moveXPlus(sender: AnyObject) {
-        var steps = stepText.text.toInt()!
+        let steps = Int(stepText.text!)!
         
-        var text = sender.currentTitle!!
+        let text = sender.currentTitle!!
         var motor: Int
         var dir: Bool
         
@@ -183,17 +181,17 @@ class CameraViewController: UIViewController, GDriveAdapterStatusDelegate {
     
     @IBAction func connectGDrive(sender: AnyObject) {
         if (!drive.isAuthorized) {
-            println("sign in ")
+            print("sign in ")
             let authView = drive.getAuthSignInViewController()
             presentViewController(authView, animated: true, completion: nil)
         } else {
-            println("sign out")
+            print("sign out")
             drive.authSignOut()
         }
     }
     
     func onDriveSignIn(success: Bool) {
-        println("dismiss")
+        print("dismiss")
         dismissViewControllerAnimated(true, completion: nil)
     }
     
@@ -202,7 +200,7 @@ class CameraViewController: UIViewController, GDriveAdapterStatusDelegate {
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if (segue.identifier == "listBLEDevices") {
             device.scanForPeripherals()
-            var table = segue.destinationViewController as! DeviceTableViewController
+            let table = segue.destinationViewController as! DeviceTableViewController
             table.device = device
         }
     }

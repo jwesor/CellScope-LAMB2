@@ -17,7 +17,6 @@ class ImageDocument {
     var delegates: [ImageDocumentSaveDelegate];
     
     init(_ file: String, directory: DocumentDirectory) {
-        var fileName = file
         self.filePath = directory.getPathForFilename(file)
         self.fileName = directory.getFolderForFilename(file)
         self.delegates = [];
@@ -25,9 +24,9 @@ class ImageDocument {
     
     func writeImage(image: UIImage) {
         let data = UIImagePNGRepresentation(image)
-        data.writeToFile(filePath, atomically: true)
+        data!.writeToFile(filePath, atomically: true)
         for delegate in delegates {
-            delegate.onImageDocumentSave(data)
+            delegate.onImageDocumentSave(data!)
         }
     }
     

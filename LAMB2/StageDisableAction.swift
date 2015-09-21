@@ -16,7 +16,7 @@ class StageDisableAction : DeviceAction {
     init(_ device: DeviceConnector, motor: Int, stage: StageState) {
         self.stage = stage
         self.motor = motor
-        var code = StageDisableAction.getDisableCode(motor)
+        let code = StageDisableAction.getDisableCode(motor)
         super.init(device, id: "stage_disable", data: [code, 0x0, 0x0])
     }
     

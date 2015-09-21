@@ -28,14 +28,14 @@ class CameraManualWhiteBalanceAction : AbstractAction {
     }
     
     override func doExecution() {
-        var error:NSErrorPointer = nil
-        if (camera.captureDevice.lockForConfiguration(error)) {
+        do {
+            try camera.captureDevice.lockForConfiguration()
             camera.captureDevice.setWhiteBalanceModeLockedWithDeviceWhiteBalanceGains(gains, completionHandler: {
                 (CMTime) -> Void in
                     self.finish()
             })
-        } else {
-            NSLog("unable to lock device for white balance configuration %@", error.debugDescription)
+        } catch {
+            print("unable to lock device for white balance configuration")
             finish()
         }
     }

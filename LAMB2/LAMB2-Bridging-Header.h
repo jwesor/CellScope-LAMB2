@@ -19,4 +19,3 @@
 #import "IPAsyncPanTracker.h"
 
 #import "BLE/BLE.h"
-#import "GDriveAdapter.h"

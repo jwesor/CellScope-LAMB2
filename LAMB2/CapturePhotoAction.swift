@@ -31,7 +31,7 @@ class CapturePhotoAction : AbstractAction, PhotoAlbumSaveDelegate {
     }
     
     override func doExecution() {
-        var img = camera.captureImage()
+        let img = camera.captureImage()
         if (img != nil) {
             album.addSaveDelegate(self, id: id)
             NSOperationQueue.mainQueue().addOperationWithBlock { () -> Void in

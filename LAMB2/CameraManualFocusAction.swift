@@ -23,14 +23,14 @@ class CameraManualFocusAction : AbstractAction {
     }
     
     override func doExecution() {
-        var error:NSErrorPointer = nil
-        if (camera.captureDevice.lockForConfiguration(error)) {
+        do {
+            try camera.captureDevice.lockForConfiguration()
             camera.captureDevice.setFocusModeLockedWithLensPosition(lensPos) {
                 (CMTime) -> Void in
-                    self.finish()
+                self.finish()
             }
-        } else {
-            NSLog("unable to lock device for focus configuration %@", error.debugDescription)
+        } catch {
+            print("unable to lock device for focus configuration")
             finish()
         }
     }

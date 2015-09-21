@@ -27,6 +27,7 @@
 		183AF31F1AB0CD1C006C9503 /* CameraAutoExposureAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 183AF31E1AB0CD1C006C9503 /* CameraAutoExposureAction.swift */; };
 		183AF3211AB0CD87006C9503 /* CameraManualExposureAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 183AF3201AB0CD87006C9503 /* CameraManualExposureAction.swift */; };
 		183AF3231AB12A4A006C9503 /* CameraExposureBiasAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 183AF3221AB12A4A006C9503 /* CameraExposureBiasAction.swift */; };
+		183FD1141BB0CBA800452A1E /* GDriveAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 183FD1131BB0CBA800452A1E /* GDriveAdapter.swift */; settings = {ASSET_TAGS = (); }; };
 		184C81C71B056D4F0083D926 /* IPIdleFrames.mm in Sources */ = {isa = PBXBuildFile; fileRef = 184C81C61B056D4F0083D926 /* IPIdleFrames.mm */; };
 		188074E31A38F43A0039725B /* opencv2.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 188074E21A38F43A0039725B /* opencv2.framework */; };
 		188074E61A38F4A60039725B /* CameraSession.mm in Sources */ = {isa = PBXBuildFile; fileRef = 188074E51A38F4A60039725B /* CameraSession.mm */; };
@@ -56,18 +57,15 @@
 		18C3C4721BAA4301000B6B0F /* ImgDisplacementAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18C3C4711BAA4301000B6B0F /* ImgDisplacementAction.swift */; };
 		18C3C4751BAC9A7A000B6B0F /* ImgFovBoundsAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18C3C4741BAC9A7A000B6B0F /* ImgFovBoundsAction.swift */; };
 		18C3C4791BACB449000B6B0F /* MotorCalibStepAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18C3C4781BACB449000B6B0F /* MotorCalibStepAction.swift */; };
-		18D6B8E11ACCAFD4002B1A9E /* libGTLTouchStaticLib.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 18D6B8E01ACCAFD4002B1A9E /* libGTLTouchStaticLib.a */; };
-		18D6B8E31ACCAFDC002B1A9E /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 18D6B8E21ACCAFDC002B1A9E /* Security.framework */; };
-		18D6B8E51ACCAFE3002B1A9E /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 18D6B8E41ACCAFE3002B1A9E /* SystemConfiguration.framework */; };
+		18D6B8E31ACCAFDC002B1A9E /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 18D6B8E21ACCAFDC002B1A9E /* Security.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
+		18D6B8E51ACCAFE3002B1A9E /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 18D6B8E41ACCAFE3002B1A9E /* SystemConfiguration.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		18D6B8E71ACCB07C002B1A9E /* GTMOAuth2ViewTouch.xib in Resources */ = {isa = PBXBuildFile; fileRef = 18D6B8E61ACCB07C002B1A9E /* GTMOAuth2ViewTouch.xib */; };
-		18D6B8EA1ACCB0BC002B1A9E /* GTLDrive_Sources.m in Sources */ = {isa = PBXBuildFile; fileRef = 18D6B8E81ACCB0BC002B1A9E /* GTLDrive_Sources.m */; };
 		18D6B8EC1ACCC630002B1A9E /* StageEnableAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18D6B8EB1ACCC630002B1A9E /* StageEnableAction.swift */; };
 		18D6B8EE1ACCC6DD002B1A9E /* StageDirectionAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18D6B8ED1ACCC6DD002B1A9E /* StageDirectionAction.swift */; };
 		18D6B8F01ACCCA31002B1A9E /* StageDisableAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18D6B8EF1ACCCA31002B1A9E /* StageDisableAction.swift */; };
 		18D6B8F21ACCCB0B002B1A9E /* StageConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18D6B8F11ACCCB0B002B1A9E /* StageConstants.swift */; };
 		18D6B8F41ACCCC78002B1A9E /* StageStepAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18D6B8F31ACCCC78002B1A9E /* StageStepAction.swift */; };
 		18D6B8F71ACF65F1002B1A9E /* TextDocument.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18D6B8F61ACF65F1002B1A9E /* TextDocument.swift */; };
-		18D6B8FC1AD3537E002B1A9E /* GDriveAdapter.m in Sources */ = {isa = PBXBuildFile; fileRef = 18D6B8FB1AD3537E002B1A9E /* GDriveAdapter.m */; };
 		18D6B9021AD36FB6002B1A9E /* GDriveStatusButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18D6B9011AD36FB6002B1A9E /* GDriveStatusButton.swift */; };
 		18D6B9041ADF2FB0002B1A9E /* GDriveTextDocument.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18D6B9031ADF2FB0002B1A9E /* GDriveTextDocument.swift */; };
 		18D6B9061AE08BF1002B1A9E /* ImageDocument.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18D6B9051AE08BF1002B1A9E /* ImageDocument.swift */; };
@@ -130,6 +128,7 @@
 		183AF31E1AB0CD1C006C9503 /* CameraAutoExposureAction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CameraAutoExposureAction.swift; sourceTree = "<group>"; };
 		183AF3201AB0CD87006C9503 /* CameraManualExposureAction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CameraManualExposureAction.swift; sourceTree = "<group>"; };
 		183AF3221AB12A4A006C9503 /* CameraExposureBiasAction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CameraExposureBiasAction.swift; sourceTree = "<group>"; };
+		183FD1131BB0CBA800452A1E /* GDriveAdapter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GDriveAdapter.swift; sourceTree = "<group>"; };
 		184C81C51B056D4F0083D926 /* IPIdleFrames.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IPIdleFrames.h; sourceTree = "<group>"; };
 		184C81C61B056D4F0083D926 /* IPIdleFrames.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = IPIdleFrames.mm; sourceTree = "<group>"; };
 		184D8DFE1A205AC600105FDA /* LAMB2-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "LAMB2-Bridging-Header.h"; sourceTree = "<group>"; };
@@ -172,20 +171,15 @@
 		18C3C4711BAA4301000B6B0F /* ImgDisplacementAction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImgDisplacementAction.swift; sourceTree = "<group>"; };
 		18C3C4741BAC9A7A000B6B0F /* ImgFovBoundsAction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImgFovBoundsAction.swift; sourceTree = "<group>"; };
 		18C3C4781BACB449000B6B0F /* MotorCalibStepAction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MotorCalibStepAction.swift; sourceTree = "<group>"; };
-		18D6B8E01ACCAFD4002B1A9E /* libGTLTouchStaticLib.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libGTLTouchStaticLib.a; path = "google-api-objectivec-client-read-only/Source/build/Debug-iphoneos/libGTLTouchStaticLib.a"; sourceTree = "<group>"; };
 		18D6B8E21ACCAFDC002B1A9E /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		18D6B8E41ACCAFE3002B1A9E /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		18D6B8E61ACCB07C002B1A9E /* GTMOAuth2ViewTouch.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = GTMOAuth2ViewTouch.xib; path = "google-api-objectivec-client-read-only/Source/OAuth2/Touch/GTMOAuth2ViewTouch.xib"; sourceTree = SOURCE_ROOT; };
-		18D6B8E81ACCB0BC002B1A9E /* GTLDrive_Sources.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GTLDrive_Sources.m; path = "google-api-objectivec-client-read-only/Source/Services/Drive/Generated/GTLDrive_Sources.m"; sourceTree = "<group>"; };
-		18D6B8E91ACCB0BC002B1A9E /* GTLDrive.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GTLDrive.h; path = "google-api-objectivec-client-read-only/Source/Services/Drive/Generated/GTLDrive.h"; sourceTree = "<group>"; };
 		18D6B8EB1ACCC630002B1A9E /* StageEnableAction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StageEnableAction.swift; sourceTree = "<group>"; };
 		18D6B8ED1ACCC6DD002B1A9E /* StageDirectionAction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StageDirectionAction.swift; sourceTree = "<group>"; };
 		18D6B8EF1ACCCA31002B1A9E /* StageDisableAction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StageDisableAction.swift; sourceTree = "<group>"; };
 		18D6B8F11ACCCB0B002B1A9E /* StageConstants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StageConstants.swift; sourceTree = "<group>"; };
 		18D6B8F31ACCCC78002B1A9E /* StageStepAction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StageStepAction.swift; sourceTree = "<group>"; };
 		18D6B8F61ACF65F1002B1A9E /* TextDocument.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextDocument.swift; sourceTree = "<group>"; };
-		18D6B8FA1AD3537E002B1A9E /* GDriveAdapter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GDriveAdapter.h; sourceTree = "<group>"; };
-		18D6B8FB1AD3537E002B1A9E /* GDriveAdapter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GDriveAdapter.m; sourceTree = "<group>"; };
 		18D6B9011AD36FB6002B1A9E /* GDriveStatusButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GDriveStatusButton.swift; sourceTree = "<group>"; };
 		18D6B9031ADF2FB0002B1A9E /* GDriveTextDocument.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GDriveTextDocument.swift; sourceTree = "<group>"; };
 		18D6B9051AE08BF1002B1A9E /* ImageDocument.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageDocument.swift; sourceTree = "<group>"; };
@@ -228,7 +222,6 @@
 				188074E31A38F43A0039725B /* opencv2.framework in Frameworks */,
 				18D6B8E51ACCAFE3002B1A9E /* SystemConfiguration.framework in Frameworks */,
 				18D6B8E31ACCAFDC002B1A9E /* Security.framework in Frameworks */,
-				18D6B8E11ACCAFD4002B1A9E /* libGTLTouchStaticLib.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -397,8 +390,7 @@
 		18D6B8FD1AD36869002B1A9E /* Google Drive */ = {
 			isa = PBXGroup;
 			children = (
-				18D6B8FA1AD3537E002B1A9E /* GDriveAdapter.h */,
-				18D6B8FB1AD3537E002B1A9E /* GDriveAdapter.m */,
+				183FD1131BB0CBA800452A1E /* GDriveAdapter.swift */,
 				18D6B9011AD36FB6002B1A9E /* GDriveStatusButton.swift */,
 				18D6B90D1AE093CB002B1A9E /* GDriveImageDocument.swift */,
 				18D6B9031ADF2FB0002B1A9E /* GDriveTextDocument.swift */,
@@ -437,9 +429,6 @@
 			children = (
 				18D6B8E41ACCAFE3002B1A9E /* SystemConfiguration.framework */,
 				18D6B8E21ACCAFDC002B1A9E /* Security.framework */,
-				18D6B8E01ACCAFD4002B1A9E /* libGTLTouchStaticLib.a */,
-				18D6B8E81ACCB0BC002B1A9E /* GTLDrive_Sources.m */,
-				18D6B8E91ACCB0BC002B1A9E /* GTLDrive.h */,
 				18ED380A1A200B8B005BA3CE /* LAMB2 */,
 				18ED38231A200B8C005BA3CE /* LAMB2Tests */,
 				18ED38091A200B8B005BA3CE /* Products */,
@@ -556,7 +545,9 @@
 		18ED38001A200B8B005BA3CE /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0610;
+				LastSwiftMigration = 0700;
+				LastSwiftUpdateCheck = 0700;
+				LastUpgradeCheck = 0700;
 				ORGANIZATIONNAME = Fletchlab;
 				TargetAttributes = {
 					18ED38071A200B8B005BA3CE = {
@@ -622,6 +613,7 @@
 				182CE82A1A96E0CF002162DF /* AsyncImageMultiProcessor.mm in Sources */,
 				18D6B9021AD36FB6002B1A9E /* GDriveStatusButton.swift in Sources */,
 				181D49081B25098100D08A93 /* IPDisplacement.mm in Sources */,
+				183FD1141BB0CBA800452A1E /* GDriveAdapter.swift in Sources */,
 				18C3C43F1B6ECDD7000B6B0F /* MFCSystem.swift in Sources */,
 				18DB4C971AAE7A7600165F0F /* CameraManualFocusAction.swift in Sources */,
 				183AF31F1AB0CD1C006C9503 /* CameraAutoExposureAction.swift in Sources */,
@@ -638,8 +630,6 @@
 				182CE82D1A96E5F7002162DF /* IPAsyncPanTracker.mm in Sources */,
 				18A0722D1AA0098D00A93391 /* ImageUtils.mm in Sources */,
 				188074E61A38F4A60039725B /* CameraSession.mm in Sources */,
-				18D6B8FC1AD3537E002B1A9E /* GDriveAdapter.m in Sources */,
-				18D6B8EA1ACCB0BC002B1A9E /* GTLDrive_Sources.m in Sources */,
 				180F87A31A8EE48E0001CD3C /* ActionManager.swift in Sources */,
 				18D6B90E1AE093CB002B1A9E /* GDriveImageDocument.swift in Sources */,
 				18A072291AA004E100A93391 /* IPImageCapture.mm in Sources */,
@@ -749,6 +739,7 @@
 				DEFINES_MODULE = YES;
 				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_OPTIMIZATION_LEVEL = 0;
@@ -819,13 +810,14 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					/Users/fletcherlabmacmini/Downloads,
 					"$(PROJECT_DIR)",
 				);
 				INFOPLIST_FILE = LAMB2/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
@@ -835,6 +827,7 @@
 					"-ObjC",
 					"-all_load",
 				);
+				PRODUCT_BUNDLE_IDENTIFIER = "edu.berkeley.fletchlab.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "LAMB2/LAMB2-Bridging-Header.h";
@@ -851,13 +844,14 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					/Users/fletcherlabmacmini/Downloads,
 					"$(PROJECT_DIR)",
 				);
 				INFOPLIST_FILE = LAMB2/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
@@ -867,6 +861,7 @@
 					"-ObjC",
 					"-all_load",
 				);
+				PRODUCT_BUNDLE_IDENTIFIER = "edu.berkeley.fletchlab.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "LAMB2/LAMB2-Bridging-Header.h";
@@ -889,6 +884,7 @@
 				);
 				INFOPLIST_FILE = LAMB2Tests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.fletchlab.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/LAMB2.app/LAMB2";
 			};
@@ -904,6 +900,7 @@
 				);
 				INFOPLIST_FILE = LAMB2Tests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.fletchlab.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/LAMB2.app/LAMB2";
 			};

@@ -36,14 +36,19 @@ class CameraAutoWhiteBalanceAction : AbstractAction {
         }
     }
     
-    override func observeValueForKeyPath(keyPath: String, ofObject object: AnyObject, change: [NSObject : AnyObject], context: UnsafeMutablePointer<Void>) {
+    override func observeValueForKeyPath(keyPath: String?, ofObject object: AnyObject?, change: [String : AnyObject]?, context: UnsafeMutablePointer<Void>) {
         if (keyPath == "adjustingWhiteBalance") {
-            var balancing = change[NSKeyValueChangeNewKey]?.integerValue == 1;
-            if (!balancing) {
-                //white balancing is done
-                if (self.autoOnOff) {
-                    camera.continuousAutoWhiteBalance = false
+            if (change != nil) {
+                let changedVal = change!
+                let balancing = changedVal[NSKeyValueChangeNewKey]!.integerValue == 1;
+                if (!balancing) {
+                    //white balancing is done
+                    if (self.autoOnOff) {
+                        camera.continuousAutoWhiteBalance = false
+                    }
+                    finish()
                 }
+            } else {
                 finish()
             }
         } else {

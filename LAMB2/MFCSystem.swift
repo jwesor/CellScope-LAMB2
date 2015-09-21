@@ -112,9 +112,9 @@ class MFCSystem: ActionCompletionDelegate {
         } else if action == displacer {
             x += Int(displacement.dX)
             y += Int(displacement.dY)
-            print("MFC \(x) \(y) \n")
+            print("MFC \(x) \(y) \n", terminator: "")
         } else if action == initAction || action == initNoCalibAction {
-            println("MFC reset")
+            print("MFC reset")
             reset()
         }
     }

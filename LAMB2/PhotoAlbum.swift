@@ -36,7 +36,7 @@ class PhotoAlbum: ImageFileWriter {
             library.addAssetsGroupAlbumWithName(albumName,
                 resultBlock: { (group: ALAssetsGroup!) -> Void in
                 }, failureBlock: { (error: NSError!) -> Void in
-                    println("error adding album")
+                    print("error adding album")
                 }
             )
         }
@@ -61,7 +61,7 @@ class PhotoAlbum: ImageFileWriter {
                     self.albumCreated = true
                     self.writeImage(image)
                 }, failureBlock: { (error: NSError!) -> Void in
-                    println("error adding album")
+                    print("error adding album")
                     self.albumCreated = true
                     self.writeImage(image)
                 }
@@ -78,7 +78,7 @@ class PhotoAlbum: ImageFileWriter {
                     albumGroup = group
                 }
             }, failureBlock: { (error: NSError!) -> Void in
-                println("Failed to enumerate albums.\nError: \(error.localizedDescription)")
+                print("Failed to enumerate albums.\nError: \(error.localizedDescription)")
                 self.notifyCompletion(false)
             }
         )
@@ -94,12 +94,12 @@ class PhotoAlbum: ImageFileWriter {
                             albumGroup?.addAsset(asset)
                             return
                         }, failureBlock: { (error:NSError!) -> Void in
-                            println("Asset retrieve failed with error code \(error.code)\n\(error.localizedDescription)")
+                            print("Asset retrieve failed with error code \(error.code)\n\(error.localizedDescription)")
                         }
                     )
                     self.notifyCompletion(true)
                 } else {
-                    println("Saved image failed with error code \(error.code)\n\(error.localizedDescription)")
+                    print("Saved image failed with error code \(error.code)\n\(error.localizedDescription)")
                     self.notifyCompletion(false)
                 }
             }
@@ -107,7 +107,7 @@ class PhotoAlbum: ImageFileWriter {
     }
     
     func notifyCompletion(success: Bool) {
-        for (id, delegate) in delegates {
+        for (_, delegate) in delegates {
             delegate.onSavePhotoComplete(success)
         }
     }

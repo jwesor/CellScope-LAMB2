@@ -19,7 +19,7 @@ class CameraManualExposureAction : AbstractAction {
     
     init(camera: CameraSession, milliseconds: Int64, iso: Float) {
         self.camera = camera
-        self.dur = CMTime(value: milliseconds, timescale: 1000, flags: nil, epoch: 0)
+        self.dur = CMTime(value: milliseconds, timescale: 1000, flags: [], epoch: 0)
         self.iso = iso
         super.init()
     }
@@ -32,14 +32,14 @@ class CameraManualExposureAction : AbstractAction {
     }
     
     override func doExecution() {
-        var error:NSErrorPointer = nil
-        if (camera.captureDevice.lockForConfiguration(error)) {
+        do {
+            try camera.captureDevice.lockForConfiguration()
             camera.captureDevice.setExposureModeCustomWithDuration(dur, ISO: iso, completionHandler: {
                 (CMTime) -> Void in
-                    self.finish()
+                self.finish()
             })
-        } else {
-            NSLog("unable to lock device for exposure configuration %@", error.debugDescription)
+        } catch {
+            print("unable to lock device for exposure configuration")
             finish()
         }
     }

@@ -52,7 +52,7 @@ class StepDisplacementAction: SequenceAction, ActionCompletionDelegate {
             dX.append(Int(displacer.dX))
             dY.append(Int(displacer.dY))
         }
-        println("\(dX) \(dY)")
+        print("\(dX) \(dY)")
         stepCounter += stride
         if (stepCounter < targetSteps) {
             displacer.addOneTimeCompletionDelegate(self)

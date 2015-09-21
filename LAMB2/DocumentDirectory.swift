@@ -18,13 +18,14 @@ class DocumentDirectory {
     
     init(_ directory: String = ".") {
         let fileManager = NSFileManager.defaultManager()
-        let documentsPath = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)[0] as! NSString
+        let documentsPath = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)[0] as NSString
         let directoryPath = documentsPath.stringByAppendingPathComponent(directory)
         // Error handling here is primitive. Expand this eventually.
         if (!fileManager.fileExistsAtPath(directoryPath)) {
-            var error: NSError?
-            if (!fileManager.createDirectoryAtPath(directoryPath, withIntermediateDirectories: true, attributes: nil, error: &error)) {
-                println("Failed to create directory \(directoryPath)")
+            do {
+                try fileManager.createDirectoryAtPath(directoryPath, withIntermediateDirectories: true, attributes: nil)
+            } catch {
+                print("Failed to create directory \(directoryPath)")
             }
         }
         self.path = directoryPath
@@ -40,7 +41,7 @@ class DocumentDirectory {
     }
     
     func getPathForFilename(filename: String) -> String {
-        return path.stringByAppendingPathComponent(filename)
+        return NSURL(fileURLWithPath: path).URLByAppendingPathComponent(filename).path!
     }
     
 }

@@ -30,11 +30,16 @@ class CameraAutoFocusAction : AbstractAction {
         }
     }
     
-    override func observeValueForKeyPath(keyPath: String, ofObject object: AnyObject, change: [NSObject : AnyObject], context: UnsafeMutablePointer<Void>) {
+    override func observeValueForKeyPath(keyPath: String?, ofObject object: AnyObject?, change: [String : AnyObject]?, context: UnsafeMutablePointer<Void>) {
         if (keyPath == "adjustingFocus") {
-            var focusing = change[NSKeyValueChangeNewKey]?.integerValue == 1;
-            if (!focusing) {
-                //Focusing is done
+            if (change != nil) {
+                let changedVal = change!
+                let focusing = changedVal[NSKeyValueChangeNewKey]!.integerValue == 1;
+                if (!focusing) {
+                    //Focusing is done
+                    finish()
+                }
+            } else {
                 finish()
             }
         } else {

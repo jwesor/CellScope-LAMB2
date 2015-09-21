@@ -34,7 +34,7 @@ class AbstractAction: NSObject {
         if timeout > 0 {
             let delayTime = dispatch_time(DISPATCH_TIME_NOW, Int64(timeout * Double(NSEC_PER_SEC)))
             dispatch_after(delayTime, dispatch_get_main_queue(), { () -> Void in
-                self.finish(completed: false)
+                self.finish(false)
             })
         }
         

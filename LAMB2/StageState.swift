@@ -63,7 +63,7 @@ class StageState {
     }
     
     func resetAll() {
-        for (motor, state) in motors {
+        for (_, state) in motors {
             state.reset()
         }
     }
