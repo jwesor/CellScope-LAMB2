@@ -6,7 +6,7 @@
 //  Copyright (c) 2014 Fletchlab. All rights reserved.
 //
 
-class CameraViewController: UIViewController, GDriveAdapterStatusDelegate {
+class CameraViewController: UIViewController {
     
     @IBOutlet weak var gdriveButton: GDriveStatusButton!
     @IBOutlet weak var debugText: UITextView!
@@ -19,9 +19,9 @@ class CameraViewController: UIViewController, GDriveAdapterStatusDelegate {
     let queue: ActionManager = ActionQueue()
     let drive: GDriveAdapter = GDriveAdapter()
     let stage: StageState = StageState()
-    var autofocus: AutofocuserAction?
-    var bounder: ImgFovBoundsAction?
+    
     var displacer: ImgDisplacementAction?
+    var autofocus: AutofocuserAction?
     var calib: StepCalibratorAction?
     var mfc: MFCSystem?
     
@@ -41,9 +41,9 @@ class CameraViewController: UIViewController, GDriveAdapterStatusDelegate {
         deviceButton.updateDeviceStatusDisconnected()
         
         queue.beginActions()
-        drive.addStatusDelegate(gdriveButton)
-        drive.addStatusDelegate(self)
         
+        // Logging stuff; uncomment if you actually want to save all these logs
+        // TODO: Make sure logging still works after the upgrade to Xcode 7.0
 //        let dateFormat = NSDateFormatter()
 //        dateFormat.dateFormat = "yyyyMMddHHmm"
 //        let datestring = dateFormat.stringFromDate(NSDate())
@@ -52,8 +52,6 @@ class CameraViewController: UIViewController, GDriveAdapterStatusDelegate {
 //        let actionLog = TextDocument("action.log", directory: directory)
 //        let driveLog = TextDocument("drive.log", directory: directory)
 //        let cycleLog = TextDocument("cycle.log", directory: directory)
-//        let gActionLog = GDriveTextDocument(actionLog, drive: drive)
-//        let gCycleLog = GDriveTextDocument(cycleLog, drive: drive)
         
 //        DebugUtil.setLog("action", doc: actionLog)
 //        DebugUtil.setLog("drive", doc: driveLog)
@@ -61,51 +59,27 @@ class CameraViewController: UIViewController, GDriveAdapterStatusDelegate {
         
         
         autofocus = AutofocuserAction(startLevel: -10, endLevel: 10, stepsPerLvl: 5, camera: camera!, device: device, stage: stage)
-        bounder = ImgFovBoundsAction(camera: camera!, stage: stage)
         displacer = ImgDisplacementAction(camera: camera!)
-        bounder?.bindImageProcessorRoi(displacer!)
         calib = StepCalibratorAction(device: device, stage: stage, displacer: displacer!)
         mfc = MFCSystem(camera: camera!, device: device, stage: stage)
-        loadInitialStageState()
-    }
-    
-    func loadInitialStageState() {
-        let M1 = StageConstants.MOTOR_1
-        let M2 = StageConstants.MOTOR_2
-        let HI = StageConstants.DIR_HIGH
-        let LO = StageConstants.DIR_LOW
-//        Backlash M1 HI 28
-//        Backlash M1 LO 27
-//        Backlash M2 HI 45
-//        Backlash M2 LO 41
-//        Step M1 HI (6, 8)
-//        Step M1 LO (-6, -2)
-//        Step M2 HI (-5, -2)
-//        Step M2 LO (6, 2)
-        stage.setBacklash(28, motor: M1, dir: HI)
-        stage.setBacklash(27, motor: M1, dir: LO)
-        stage.setBacklash(45, motor: M2, dir: HI)
-        stage.setBacklash(41, motor: M2, dir: LO)
-        stage.setStep((x: 6, y: 8), motor: M1, dir: HI)
-        stage.setStep((x: -6, y: -2), motor: M1, dir: LO)
-        stage.setStep((x: -5, y: -2), motor: M2, dir: HI)
-        stage.setStep((x: 6, y: 2), motor: M2, dir: LO)
     }
     
     @IBAction func test(sender: AnyObject) {
-        queue.addAction(bounder!)
+        // Initialize
         queue.addAction(autofocus!)
     }
     
     @IBAction func test2(send: AnyObject) {
+        // Test
         queue.addAction(calib!)
     }
     
     @IBAction func test3(sender: AnyObject) {
-        queue.addAction(mfc!.subtractor)
+        // Background
     }
     
     @IBAction func mfcDir(sender: AnyObject) {
+        // MFC-related stuff is not working at the moment. Don't expect the MFC buttons to do anything useful!
         let text = sender.currentTitle!!
         var motor: Int
         var dir: Bool
@@ -133,6 +107,7 @@ class CameraViewController: UIViewController, GDriveAdapterStatusDelegate {
     }
 
     @IBAction func balance(sender: AnyObject) {
+        // Use the iPad's built in white balance, exposure correction, and autofocus
         queue.addAction(CameraAutoWhiteBalanceAction(camera: camera!))
         let exp = CameraAutoExposureAction(camera: camera!)
         exp.timeout = 3
@@ -180,22 +155,8 @@ class CameraViewController: UIViewController, GDriveAdapterStatusDelegate {
     }
     
     @IBAction func connectGDrive(sender: AnyObject) {
-        if (!drive.isAuthorized) {
-            print("sign in ")
-            let authView = drive.getAuthSignInViewController()
-            presentViewController(authView, animated: true, completion: nil)
-        } else {
-            print("sign out")
-            drive.authSignOut()
-        }
+        // Google Drive stuff is broken right now.
     }
-    
-    func onDriveSignIn(success: Bool) {
-        print("dismiss")
-        dismissViewControllerAnimated(true, completion: nil)
-    }
-    
-    func onDriveSignOut() {}
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if (segue.identifier == "listBLEDevices") {
