@@ -58,9 +58,8 @@
 		18C3C4721BAA4301000B6B0F /* ImgDisplacementAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18C3C4711BAA4301000B6B0F /* ImgDisplacementAction.swift */; };
 		18C3C4751BAC9A7A000B6B0F /* ImgFovBoundsAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18C3C4741BAC9A7A000B6B0F /* ImgFovBoundsAction.swift */; };
 		18C3C4791BACB449000B6B0F /* MotorCalibStepAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18C3C4781BACB449000B6B0F /* MotorCalibStepAction.swift */; };
-		18D6B8E31ACCAFDC002B1A9E /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 18D6B8E21ACCAFDC002B1A9E /* Security.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
-		18D6B8E51ACCAFE3002B1A9E /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 18D6B8E41ACCAFE3002B1A9E /* SystemConfiguration.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
-		18D6B8E71ACCB07C002B1A9E /* GTMOAuth2ViewTouch.xib in Resources */ = {isa = PBXBuildFile; fileRef = 18D6B8E61ACCB07C002B1A9E /* GTMOAuth2ViewTouch.xib */; };
+		18C8F9AB1BB0FF4C00E572A7 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 18D6B8E41ACCAFE3002B1A9E /* SystemConfiguration.framework */; };
+		18C8F9AC1BB0FF5100E572A7 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 18D6B8E21ACCAFDC002B1A9E /* Security.framework */; };
 		18D6B8EC1ACCC630002B1A9E /* StageEnableAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18D6B8EB1ACCC630002B1A9E /* StageEnableAction.swift */; };
 		18D6B8EE1ACCC6DD002B1A9E /* StageDirectionAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18D6B8ED1ACCC6DD002B1A9E /* StageDirectionAction.swift */; };
 		18D6B8F01ACCCA31002B1A9E /* StageDisableAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18D6B8EF1ACCCA31002B1A9E /* StageDisableAction.swift */; };
@@ -174,7 +173,6 @@
 		18C3C4781BACB449000B6B0F /* MotorCalibStepAction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MotorCalibStepAction.swift; sourceTree = "<group>"; };
 		18D6B8E21ACCAFDC002B1A9E /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		18D6B8E41ACCAFE3002B1A9E /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
-		18D6B8E61ACCB07C002B1A9E /* GTMOAuth2ViewTouch.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = GTMOAuth2ViewTouch.xib; path = "google-api-objectivec-client-read-only/Source/OAuth2/Touch/GTMOAuth2ViewTouch.xib"; sourceTree = SOURCE_ROOT; };
 		18D6B8EB1ACCC630002B1A9E /* StageEnableAction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StageEnableAction.swift; sourceTree = "<group>"; };
 		18D6B8ED1ACCC6DD002B1A9E /* StageDirectionAction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StageDirectionAction.swift; sourceTree = "<group>"; };
 		18D6B8EF1ACCCA31002B1A9E /* StageDisableAction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StageDisableAction.swift; sourceTree = "<group>"; };
@@ -214,12 +212,12 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				18C8F9AC1BB0FF5100E572A7 /* Security.framework in Frameworks */,
+				18C8F9AB1BB0FF4C00E572A7 /* SystemConfiguration.framework in Frameworks */,
 				188074EC1A38F7350039725B /* CoreMedia.framework in Frameworks */,
 				188074EA1A38F72D0039725B /* AssetsLibrary.framework in Frameworks */,
 				188074E81A38F7210039725B /* CoreVideo.framework in Frameworks */,
 				188074E31A38F43A0039725B /* opencv2.framework in Frameworks */,
-				18D6B8E51ACCAFE3002B1A9E /* SystemConfiguration.framework in Frameworks */,
-				18D6B8E31ACCAFDC002B1A9E /* Security.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -423,12 +421,12 @@
 		18ED37FF1A200B8B005BA3CE = {
 			isa = PBXGroup;
 			children = (
-				18D6B8E41ACCAFE3002B1A9E /* SystemConfiguration.framework */,
-				18D6B8E21ACCAFDC002B1A9E /* Security.framework */,
 				18ED380A1A200B8B005BA3CE /* LAMB2 */,
 				18ED38231A200B8C005BA3CE /* LAMB2Tests */,
 				18ED38091A200B8B005BA3CE /* Products */,
 				18E157871A67507E00DFEFFF /* BLE */,
+				18D6B8E41ACCAFE3002B1A9E /* SystemConfiguration.framework */,
+				18D6B8E21ACCAFDC002B1A9E /* Security.framework */,
 				188074EB1A38F7350039725B /* CoreMedia.framework */,
 				188074E91A38F72D0039725B /* AssetsLibrary.framework */,
 				188074E71A38F7210039725B /* CoreVideo.framework */,
@@ -473,7 +471,6 @@
 		18ED380B1A200B8B005BA3CE /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				18D6B8E61ACCB07C002B1A9E /* GTMOAuth2ViewTouch.xib */,
 				18ED380C1A200B8B005BA3CE /* Info.plist */,
 				18A0722A1AA0086F00A93391 /* LAMB2-Prefix.pch */,
 			);
@@ -580,7 +577,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				18D6B8E71ACCB07C002B1A9E /* GTMOAuth2ViewTouch.xib in Resources */,
 				18ED38161A200B8B005BA3CE /* Main.storyboard in Resources */,
 				18ED381B1A200B8B005BA3CE /* LaunchScreen.xib in Resources */,
 				18ED38181A200B8B005BA3CE /* Images.xcassets in Resources */,
@@ -815,10 +811,7 @@
 				INFOPLIST_FILE = LAMB2/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				LIBRARY_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PROJECT_DIR)/google-api-objectivec-client-read-only/Source/build/Debug-iphoneos",
-				);
+				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				OTHER_LDFLAGS = (
 					"-ObjC",
 					"-all_load",
@@ -829,7 +822,7 @@
 				SWIFT_OBJC_BRIDGING_HEADER = "LAMB2/LAMB2-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				TARGETED_DEVICE_FAMILY = "1,2";
-				USER_HEADER_SEARCH_PATHS = "./google-api-objectivec-client-read-only/Source/**";
+				USER_HEADER_SEARCH_PATHS = "";
 			};
 			name = Debug;
 		};
@@ -849,10 +842,7 @@
 				INFOPLIST_FILE = LAMB2/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				LIBRARY_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PROJECT_DIR)/google-api-objectivec-client-read-only/Source/build/Debug-iphoneos",
-				);
+				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				OTHER_LDFLAGS = (
 					"-ObjC",
 					"-all_load",
@@ -862,7 +852,7 @@
 				PROVISIONING_PROFILE = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "LAMB2/LAMB2-Bridging-Header.h";
 				TARGETED_DEVICE_FAMILY = "1,2";
-				USER_HEADER_SEARCH_PATHS = "./google-api-objectivec-client-read-only/Source/**";
+				USER_HEADER_SEARCH_PATHS = "";
 			};
 			name = Release;
 		};
