@@ -7,6 +7,9 @@
 //
 
 
+import Foundation
+import CoreBluetooth
+
 class DeviceTableViewController: UITableViewController {
 
     var device: DeviceConnector?
@@ -37,14 +40,14 @@ class DeviceTableViewController: UITableViewController {
     }
     
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return device!.countScannedPeripherals()
+        return device!.getPeripherals().count
     }
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("DeviceListPrototypeCell", forIndexPath: indexPath) 
         let button = cell.contentView.viewWithTag(1) as! UIButton
-        let peripheral = device?.getPeripheralAtIndex(indexPath.row)
-        let label = "\(peripheral!.name!) : \(peripheral!.identifier.UUIDString)"
+        let peripheral = device!.getPeripherals()[indexPath.row]
+        let label = "\(peripheral.name!) : \(peripheral.identifier.UUIDString)"
         button.setTitle(label, forState: UIControlState.Normal)
         peripherals[label] = peripheral
         button.enabled = true
@@ -55,6 +58,6 @@ class DeviceTableViewController: UITableViewController {
         let button = sender as! UIButton
         let label = button.titleLabel!.text!
         NSLog(peripherals[label]!.identifier.UUIDString)
-        device?.connectToPeripheral(peripherals[label]!)
+        device?.connect(peripherals[label]!)
     }
 }

@@ -28,6 +28,7 @@
 		183AF3211AB0CD87006C9503 /* CameraManualExposureAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 183AF3201AB0CD87006C9503 /* CameraManualExposureAction.swift */; };
 		183AF3231AB12A4A006C9503 /* CameraExposureBiasAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 183AF3221AB12A4A006C9503 /* CameraExposureBiasAction.swift */; };
 		183FD1141BB0CBA800452A1E /* GDriveAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 183FD1131BB0CBA800452A1E /* GDriveAdapter.swift */; settings = {ASSET_TAGS = (); }; };
+		183FD1181BB0D61700452A1E /* BLE.swift in Sources */ = {isa = PBXBuildFile; fileRef = 183FD1171BB0D61700452A1E /* BLE.swift */; settings = {ASSET_TAGS = (); }; };
 		184C81C71B056D4F0083D926 /* IPIdleFrames.mm in Sources */ = {isa = PBXBuildFile; fileRef = 184C81C61B056D4F0083D926 /* IPIdleFrames.mm */; };
 		188074E31A38F43A0039725B /* opencv2.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 188074E21A38F43A0039725B /* opencv2.framework */; };
 		188074E61A38F4A60039725B /* CameraSession.mm in Sources */ = {isa = PBXBuildFile; fileRef = 188074E51A38F4A60039725B /* CameraSession.mm */; };
@@ -78,7 +79,6 @@
 		18DB4C971AAE7A7600165F0F /* CameraManualFocusAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18DB4C961AAE7A7600165F0F /* CameraManualFocusAction.swift */; };
 		18DB4C991AAFC24500165F0F /* CameraAutoWhiteBalanceAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18DB4C981AAFC24500165F0F /* CameraAutoWhiteBalanceAction.swift */; };
 		18DB4C9B1AAFC31400165F0F /* CameraManualWhiteBalanceAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18DB4C9A1AAFC31400165F0F /* CameraManualWhiteBalanceAction.swift */; };
-		18E1578B1A67507E00DFEFFF /* BLE.m in Sources */ = {isa = PBXBuildFile; fileRef = 18E157891A67507E00DFEFFF /* BLE.m */; };
 		18E1578D1A67510900DFEFFF /* DeviceConnector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18E1578C1A67510900DFEFFF /* DeviceConnector.swift */; };
 		18E157971A68A52600DFEFFF /* DeviceTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18E157961A68A52600DFEFFF /* DeviceTableViewController.swift */; };
 		18E157A11A70290300DFEFFF /* DeviceStatusButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18E157A01A70290300DFEFFF /* DeviceStatusButton.swift */; };
@@ -129,6 +129,7 @@
 		183AF3201AB0CD87006C9503 /* CameraManualExposureAction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CameraManualExposureAction.swift; sourceTree = "<group>"; };
 		183AF3221AB12A4A006C9503 /* CameraExposureBiasAction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CameraExposureBiasAction.swift; sourceTree = "<group>"; };
 		183FD1131BB0CBA800452A1E /* GDriveAdapter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GDriveAdapter.swift; sourceTree = "<group>"; };
+		183FD1171BB0D61700452A1E /* BLE.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BLE.swift; sourceTree = "<group>"; };
 		184C81C51B056D4F0083D926 /* IPIdleFrames.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IPIdleFrames.h; sourceTree = "<group>"; };
 		184C81C61B056D4F0083D926 /* IPIdleFrames.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = IPIdleFrames.mm; sourceTree = "<group>"; };
 		184D8DFE1A205AC600105FDA /* LAMB2-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "LAMB2-Bridging-Header.h"; sourceTree = "<group>"; };
@@ -192,9 +193,6 @@
 		18DB4C961AAE7A7600165F0F /* CameraManualFocusAction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CameraManualFocusAction.swift; sourceTree = "<group>"; };
 		18DB4C981AAFC24500165F0F /* CameraAutoWhiteBalanceAction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CameraAutoWhiteBalanceAction.swift; sourceTree = "<group>"; };
 		18DB4C9A1AAFC31400165F0F /* CameraManualWhiteBalanceAction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CameraManualWhiteBalanceAction.swift; sourceTree = "<group>"; };
-		18E157881A67507E00DFEFFF /* BLE.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BLE.h; sourceTree = "<group>"; };
-		18E157891A67507E00DFEFFF /* BLE.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BLE.m; sourceTree = "<group>"; };
-		18E1578A1A67507E00DFEFFF /* BLEDefines.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BLEDefines.h; sourceTree = "<group>"; };
 		18E1578C1A67510900DFEFFF /* DeviceConnector.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeviceConnector.swift; sourceTree = "<group>"; };
 		18E157961A68A52600DFEFFF /* DeviceTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeviceTableViewController.swift; sourceTree = "<group>"; };
 		18E157A01A70290300DFEFFF /* DeviceStatusButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeviceStatusButton.swift; sourceTree = "<group>"; };
@@ -416,9 +414,7 @@
 		18E157871A67507E00DFEFFF /* BLE */ = {
 			isa = PBXGroup;
 			children = (
-				18E157881A67507E00DFEFFF /* BLE.h */,
-				18E157891A67507E00DFEFFF /* BLE.m */,
-				18E1578A1A67507E00DFEFFF /* BLEDefines.h */,
+				183FD1171BB0D61700452A1E /* BLE.swift */,
 			);
 			name = BLE;
 			path = LAMB2/BLE;
@@ -612,6 +608,7 @@
 				180F87191A7C6DD30001CD3C /* ImageProcessor.mm in Sources */,
 				182CE82A1A96E0CF002162DF /* AsyncImageMultiProcessor.mm in Sources */,
 				18D6B9021AD36FB6002B1A9E /* GDriveStatusButton.swift in Sources */,
+				183FD1181BB0D61700452A1E /* BLE.swift in Sources */,
 				181D49081B25098100D08A93 /* IPDisplacement.mm in Sources */,
 				183FD1141BB0CBA800452A1E /* GDriveAdapter.swift in Sources */,
 				18C3C43F1B6ECDD7000B6B0F /* MFCSystem.swift in Sources */,
@@ -638,7 +635,6 @@
 				18D6B8EE1ACCC6DD002B1A9E /* StageDirectionAction.swift in Sources */,
 				183AF3211AB0CD87006C9503 /* CameraManualExposureAction.swift in Sources */,
 				18DB4C931AAE670900165F0F /* CameraAutoFocusAction.swift in Sources */,
-				18E1578B1A67507E00DFEFFF /* BLE.m in Sources */,
 				18C3C4681BA3B693000B6B0F /* IPPyramidDisplacement.mm in Sources */,
 				180F879F1A8C23740001CD3C /* AsyncImageProcessor.mm in Sources */,
 				18C3C4601B9668DA000B6B0F /* IPBackgroundSubtract.mm in Sources */,

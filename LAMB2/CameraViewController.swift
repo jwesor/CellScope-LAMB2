@@ -164,19 +164,19 @@ class CameraViewController: UIViewController, GDriveAdapterStatusDelegate {
     }
     
     @IBAction func led2off(sender: AnyObject) {
-        device.bleSendData([0x27, 0, 0])
+        device.send([0x27, 0, 0])
     }
     
     @IBAction func led2on(sender: AnyObject) {
-        device.bleSendData([0x28, 0, 0])
+        device.send([0x28, 0, 0])
     }
     
     @IBAction func led1off(sender: AnyObject) {
-        device.bleSendData([0x25, 0, 0])
+        device.send([0x25, 0, 0])
     }
     
     @IBAction func led1on(sender: AnyObject) {
-        device.bleSendData([0x26, 0, 0])
+        device.send([0x26, 0, 0])
     }
     
     @IBAction func connectGDrive(sender: AnyObject) {

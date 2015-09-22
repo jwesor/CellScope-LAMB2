@@ -7,6 +7,9 @@
 //
 
 
+import Foundation
+import CoreBluetooth
+
 class DeviceStatusButton: UIButton, DeviceStatusDelegate {
     
     func updateDeviceStatusScanning() {

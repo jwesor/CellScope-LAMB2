@@ -17,5 +17,3 @@
 #import "IPIdleFrames.h"
 
 #import "IPAsyncPanTracker.h"
-
-#import "BLE/BLE.h"

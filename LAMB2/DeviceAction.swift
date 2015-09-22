@@ -32,11 +32,11 @@ class DeviceAction: AbstractAction, DeviceDataDelegate {
             finish()
         } else {
             device.addDataDelegate(self, id:id)
-            device.bleSendData(data)
+            device.send(data)
         }
     }
     
-    func deviceDidReceiveData(data:UInt8) {
+    func deviceDidReceiveData(data:NSData) {
         finish()
     }
     
