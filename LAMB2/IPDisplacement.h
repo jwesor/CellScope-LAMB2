@@ -16,6 +16,8 @@
 @property (nonatomic) int templateWidth;
 @property (nonatomic) int templateHeight;
 
+@property bool grayscale;
+
 - (void) reset;
 
 @end

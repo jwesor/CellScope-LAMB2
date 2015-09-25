@@ -56,8 +56,7 @@ class CameraViewController: UIViewController {
         
 //        DebugUtil.setLog("action", doc: actionLog)
 //        DebugUtil.setLog("drive", doc: driveLog)
-//        DebugUtil.setLog("cycle", doc: cycleLog)
-        
+//        DebugUtil.setLog("cycle", doc: cycleLog) 
         
         autofocus = AutofocuserAction(startLevel: -10, endLevel: 10, stepsPerLvl: 5, camera: camera!, device: device, stage: stage)
         displacer = ImgDisplacementAction(camera: camera!, preprocessors: [IPEdgeDetect()])

@@ -15,8 +15,7 @@ using namespace cv;
     cv::Rect area;
     cv::Rect roi;
     cv::Rect tracked;
-    Mat templateRegion;
-    Mat newTemplateRegion;
+    Mat imgTemplate;
     int _dX, _dY;
     bool _firstFrame;
 }
@@ -28,15 +27,15 @@ using namespace cv;
 @synthesize dY = _dY;
 @synthesize templateWidth;
 @synthesize templateHeight;
+@synthesize grayscale;
 
 - (id) init {
     self = [super init];
     area = cv::Rect(0, 0, 800, 800);
     roi = cv::Rect(0, 0, 300, 300);
     tracked = cv::Rect(0, 0, 300, 300);
-    templateRegion = Mat(roi.height, roi.width, CV_8UC1);
-    newTemplateRegion = Mat(roi.height, roi.width, CV_8UC1);
     _firstFrame = true;
+    self.grayscale = true;
     return self;
 }
 
@@ -49,21 +48,25 @@ using namespace cv;
     roi.x = (image.cols - roi.width) / 2;
     roi.y = (image.rows - roi.height) / 2;
     
-    std::vector<Mat> channels(3);
-    split(image, channels);
-    
-    Mat(channels[0], roi).copyTo(newTemplateRegion);
-    
-    if (templateRegion.empty() || _firstFrame) {
-        _firstFrame = false;
-        newTemplateRegion.copyTo(templateRegion);
+    Mat imgReference;
+    if (self.grayscale) {
+        cvtColor(image, imgReference, CV_BGRA2GRAY);
+    } else {
+        imgReference = image;
     }
     
-    Mat areaImage = Mat(channels[0], area);
-    Mat corrResult;
-    corrResult.create(areaImage.cols - templateRegion.cols + 1, areaImage.rows - templateRegion.cols + 1, CV_32FC1);
+    Mat newTemplate;
+    newTemplate = Mat(imgReference, roi);
     
-    matchTemplate(areaImage, templateRegion, corrResult, TM_CCORR_NORMED);
+    if (imgTemplate.empty() || _firstFrame) {
+        _firstFrame = false;
+        newTemplate.copyTo(imgTemplate);
+    }
+    
+    Mat corrResult;
+    corrResult.create(imgReference.cols - imgTemplate.cols + 1, imgReference.rows - imgTemplate.rows + 1, CV_32FC1);
+    
+    matchTemplate(imgReference, imgTemplate, corrResult, TM_CCORR_NORMED);
     normalize(corrResult, corrResult, 0, 1, NORM_MINMAX, -1, Mat());
     double minVal;
     double maxVal;
@@ -76,9 +79,7 @@ using namespace cv;
     
     _dX = -(maxLoc.x - (area.width - roi.width) / 2);
     _dY = -(maxLoc.y - (area.height - roi.height) / 2);
-    Mat tmp = templateRegion;
-    templateRegion = newTemplateRegion;
-    newTemplateRegion = tmp;
+    newTemplate.copyTo(imgTemplate);
 }
 
 - (void) updateDisplayOverlay:(Mat &)image {
