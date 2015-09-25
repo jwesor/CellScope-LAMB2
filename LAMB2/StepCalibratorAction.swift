@@ -26,7 +26,7 @@ class StepCalibratorAction: SequenceAction {
         self.stage = stage
         let microOff = StageMicrostepAction(device, enabled: false, stage: stage)
         calib1 = MotorCalibStepAction(motor: StageConstants.MOTOR_1, device: device, stage: stage, displacer: displacer)
-        calib2 = MotorCalibStepAction(motor: StageConstants.MOTOR_1, device: device, stage: stage, displacer: displacer)
+        calib2 = MotorCalibStepAction(motor: StageConstants.MOTOR_2, device: device, stage: stage, displacer: displacer)
         if autofocus != nil {
             super.init([microOff, autofocus!, calib1, autofocus!, calib2, autofocus!])
         } else {

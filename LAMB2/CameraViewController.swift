@@ -21,6 +21,7 @@ class CameraViewController: UIViewController {
     let stage: StageState = StageState()
     
     var displacer: ImgDisplacementAction?
+    var bounds: ImgFovBoundsAction?
     var autofocus: AutofocuserAction?
     var calib: StepCalibratorAction?
     var mfc: MFCSystem?
@@ -59,13 +60,15 @@ class CameraViewController: UIViewController {
         
         
         autofocus = AutofocuserAction(startLevel: -10, endLevel: 10, stepsPerLvl: 5, camera: camera!, device: device, stage: stage)
-        displacer = ImgDisplacementAction(camera: camera!)
+        displacer = ImgDisplacementAction(camera: camera!, preprocessors: [IPEdgeDetect()])
+        bounds = ImgFovBoundsAction(camera: camera!, stage: stage, bindRois: [displacer!.proc])
         calib = StepCalibratorAction(device: device, stage: stage, displacer: displacer!)
         mfc = MFCSystem(camera: camera!, device: device, stage: stage)
     }
     
     @IBAction func test(sender: AnyObject) {
         // Initialize
+        queue.addAction(bounds!)
         queue.addAction(autofocus!)
     }
     
