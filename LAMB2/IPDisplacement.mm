@@ -80,6 +80,7 @@ using namespace cv;
     _dX = -(maxLoc.x - (area.width - roi.width) / 2);
     _dY = -(maxLoc.y - (area.height - roi.height) / 2);
     newTemplate.copyTo(imgTemplate);
+    
 }
 
 - (void) updateDisplayOverlay:(Mat &)image {
@@ -87,6 +88,37 @@ using namespace cv;
     rectangle(image, roi, color);
     rectangle(image, area, color);
     rectangle(image, tracked, Scalar(255, 255, 0, 255));
+}
+
+- (void) updateTemplate:(Mat &)image {
+    area.x = 0;
+    area.y = 0;
+    area.width = image.cols;
+    area.height = image.rows;
+    
+    roi.x = (image.cols - roi.width) / 2;
+    roi.y = (image.rows - roi.height) / 2;
+    
+    Mat imgReference;
+    if (self.grayscale) {
+        cvtColor(image, imgReference, CV_BGRA2GRAY);
+    } else {
+        imgReference = image;
+    }
+    
+    Mat newTemplate;
+    newTemplate = Mat(imgReference, roi);
+    newTemplate.copyTo(imgTemplate);
+    tracked.x = roi.x;
+    tracked.y = roi.y;
+    _dX = 0;
+    _dY = 0;
+}
+
+- (void) setTemplateImage:(Mat&) image {
+    image.copyTo(imgTemplate);
+    roi.width = image.cols;
+    roi.height = image.rows;
 }
 
 - (void) setTemplateWidth:(int)width {

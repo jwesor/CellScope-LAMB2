@@ -7,10 +7,10 @@
 //
 
 #import "CameraSession.h"
-#import "CameraIPProtocols.hpp"
+#import "ImageProcessor+CvInterface.hpp"
 #import <opencv2/videoio/cap_ios.h>
 #import <AssetsLibrary/AssetsLibrary.h>
-#import "ImageUtils.h"
+#import "ImageUtils.hpp"
 using namespace cv;
 
 // As of OpenCV 3.0, CvVideoCameraDelegate implementation needs to be done internally
@@ -307,13 +307,13 @@ using namespace cv;
     }
     
     @synchronized (_processors) {
-        for (ImageProcessor<ImageProcessorProtocol> *imgproc in _processors) {
+        for (ImageProcessor *imgproc in _processors) {
             if (imgproc.enabled) {
                 [imgproc process:image];
             }
         }
         
-        for (ImageProcessor<ImageProcessorProtocol> *imgproc in _processors) {
+        for (ImageProcessor *imgproc in _processors) {
             if (imgproc.enabled && imgproc.displayEnabled) {
                 [imgproc display:image];
             }

@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		18042C091BB5CBC70076FA24 /* IPMotionDetectDisplacement.mm in Sources */ = {isa = PBXBuildFile; fileRef = 18042C081BB5CBC70076FA24 /* IPMotionDetectDisplacement.mm */; settings = {ASSET_TAGS = (); }; };
 		180C3E851AE9E6F500A928FD /* StageState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 180C3E841AE9E6F500A928FD /* StageState.swift */; };
 		180F87171A7C67D90001CD3C /* IPColorInverter.mm in Sources */ = {isa = PBXBuildFile; fileRef = 180F87161A7C67D90001CD3C /* IPColorInverter.mm */; };
 		180F87191A7C6DD30001CD3C /* ImageProcessor.mm in Sources */ = {isa = PBXBuildFile; fileRef = 180F87181A7C6DD30001CD3C /* ImageProcessor.mm */; };
@@ -101,6 +102,11 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		18042C071BB5CBC70076FA24 /* IPMotionDetectDisplacement.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IPMotionDetectDisplacement.h; sourceTree = "<group>"; };
+		18042C081BB5CBC70076FA24 /* IPMotionDetectDisplacement.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = IPMotionDetectDisplacement.mm; sourceTree = "<group>"; };
+		18042C0B1BB5EF930076FA24 /* ImageProcessor+CvInterface.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = "ImageProcessor+CvInterface.hpp"; sourceTree = "<group>"; };
+		18042C0C1BB5F30D0076FA24 /* ImageProcessor+CvExtension.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = "ImageProcessor+CvExtension.hpp"; sourceTree = "<group>"; };
+		18042C0D1BB5F8770076FA24 /* IPDisplacement+UpdateTemplate.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = "IPDisplacement+UpdateTemplate.hpp"; sourceTree = "<group>"; };
 		180C3E841AE9E6F500A928FD /* StageState.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StageState.swift; sourceTree = "<group>"; };
 		180F87141A7C666E0001CD3C /* ImageProcessor.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ImageProcessor.h; sourceTree = "<group>"; };
 		180F87151A7C67D90001CD3C /* IPColorInverter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IPColorInverter.h; sourceTree = "<group>"; };
@@ -132,7 +138,6 @@
 		184C81C51B056D4F0083D926 /* IPIdleFrames.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IPIdleFrames.h; sourceTree = "<group>"; };
 		184C81C61B056D4F0083D926 /* IPIdleFrames.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = IPIdleFrames.mm; sourceTree = "<group>"; };
 		184D8DFE1A205AC600105FDA /* LAMB2-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "LAMB2-Bridging-Header.h"; sourceTree = "<group>"; };
-		1861AD381B632D0700278A9D /* CameraIPProtocols.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = CameraIPProtocols.hpp; sourceTree = "<group>"; };
 		1861AD391B6330E600278A9D /* CameraSession.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CameraSession.h; sourceTree = "<group>"; };
 		188074E21A38F43A0039725B /* opencv2.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = opencv2.framework; sourceTree = "<group>"; };
 		188074E51A38F4A60039725B /* CameraSession.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = CameraSession.mm; sourceTree = "<group>"; };
@@ -235,6 +240,8 @@
 			isa = PBXGroup;
 			children = (
 				180F87141A7C666E0001CD3C /* ImageProcessor.h */,
+				18042C0B1BB5EF930076FA24 /* ImageProcessor+CvInterface.hpp */,
+				18042C0C1BB5F30D0076FA24 /* ImageProcessor+CvExtension.hpp */,
 				180F87181A7C6DD30001CD3C /* ImageProcessor.mm */,
 				18C3C4531B9524EE000B6B0F /* ImageMultiProcessor.h */,
 				18C3C4541B9524EE000B6B0F /* ImageMultiProcessor.mm */,
@@ -251,7 +258,6 @@
 			children = (
 				180F871A1A7C72F50001CD3C /* ImgProc */,
 				1861AD391B6330E600278A9D /* CameraSession.h */,
-				1861AD381B632D0700278A9D /* CameraIPProtocols.hpp */,
 				188074E51A38F4A60039725B /* CameraSession.mm */,
 				18A0722B1AA0098D00A93391 /* ImageUtils.hpp */,
 				18A0722C1AA0098D00A93391 /* ImageUtils.mm */,
@@ -342,6 +348,9 @@
 				180F87161A7C67D90001CD3C /* IPColorInverter.mm */,
 				181D49061B25098100D08A93 /* IPDisplacement.h */,
 				181D49071B25098100D08A93 /* IPDisplacement.mm */,
+				18042C0D1BB5F8770076FA24 /* IPDisplacement+UpdateTemplate.hpp */,
+				18042C071BB5CBC70076FA24 /* IPMotionDetectDisplacement.h */,
+				18042C081BB5CBC70076FA24 /* IPMotionDetectDisplacement.mm */,
 				18C3C4661BA3B693000B6B0F /* IPPyramidDisplacement.h */,
 				18C3C4671BA3B693000B6B0F /* IPPyramidDisplacement.mm */,
 				18A0722E1AA13E6400A93391 /* IPFocusDetector.h */,
@@ -605,6 +614,7 @@
 				182CE82A1A96E0CF002162DF /* AsyncImageMultiProcessor.mm in Sources */,
 				18D6B9021AD36FB6002B1A9E /* GDriveStatusButton.swift in Sources */,
 				183FD1181BB0D61700452A1E /* BLE.swift in Sources */,
+				18042C091BB5CBC70076FA24 /* IPMotionDetectDisplacement.mm in Sources */,
 				181D49081B25098100D08A93 /* IPDisplacement.mm in Sources */,
 				183FD1141BB0CBA800452A1E /* GDriveAdapter.swift in Sources */,
 				18C3C43F1B6ECDD7000B6B0F /* MFCSystem.swift in Sources */,

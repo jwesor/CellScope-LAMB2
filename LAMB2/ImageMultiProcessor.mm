@@ -7,7 +7,7 @@
 //
 
 #import "ImageMultiProcessor.h"
-#import "CameraIPProtocols.hpp"
+#import "ImageProcessor+CvInterface.hpp"
 using namespace cv;
 
 @interface ImageMultiProcessor() {
@@ -41,7 +41,7 @@ using namespace cv;
     if (self.isolated) {
         currentImage = currentImage.clone();
     }
-    for (ImageProcessor<ImageProcessorProtocol> *imgproc in processors) {
+    for (ImageProcessor* imgproc in processors) {
         if (imgproc.enabled) {
             [imgproc process:currentImage];
         }
@@ -49,7 +49,7 @@ using namespace cv;
 }
 
 - (void) updateDisplayOverlay: (Mat&)image {
-    for (ImageProcessor<ImageProcessorProtocol> *imgproc in processors) {
+    for (ImageProcessor *imgproc in processors) {
         if (imgproc.enabled) {
             [imgproc display:image];
         }

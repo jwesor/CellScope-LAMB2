@@ -56,10 +56,11 @@ class CameraViewController: UIViewController {
         
 //        DebugUtil.setLog("action", doc: actionLog)
 //        DebugUtil.setLog("drive", doc: driveLog)
-//        DebugUtil.setLog("cycle", doc: cycleLog) 
+//        DebugUtil.setLog("cycle", doc: cycleLog)
+        
         
         autofocus = AutofocuserAction(startLevel: -10, endLevel: 10, stepsPerLvl: 5, camera: camera!, device: device, stage: stage)
-        displacer = ImgDisplacementAction(camera: camera!, preprocessors: [IPEdgeDetect()])
+        displacer = ImgDisplacementAction(camera: camera!, displace: IPMotionDetectDisplacement(), preprocessors: [IPEdgeDetect()])
         bounds = ImgFovBoundsAction(camera: camera!, stage: stage, bindRois: [displacer!.proc])
         calib = StepCalibratorAction(device: device, stage: stage, displacer: displacer!)
         mfc = MFCSystem(camera: camera!, device: device, stage: stage)
