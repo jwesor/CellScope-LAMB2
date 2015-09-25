@@ -15,12 +15,10 @@ class DeviceAction: AbstractAction, DeviceDataDelegate {
     
     var device:DeviceConnector
     var connected: Bool
-    var id:String
     var data:[UInt8]
     
-    init(_ dc:DeviceConnector, id:String, data:[UInt8]) {
+    init(_ dc:DeviceConnector, data:[UInt8]) {
         self.device = dc
-        self.id = id
         self.data = data
         self.connected = false
         super.init()
@@ -31,7 +29,7 @@ class DeviceAction: AbstractAction, DeviceDataDelegate {
         if !connected {
             finish()
         } else {
-            device.addDataDelegate(self, id:id)
+            device.addDataDelegate(self)
             device.send(data)
         }
     }
@@ -42,7 +40,7 @@ class DeviceAction: AbstractAction, DeviceDataDelegate {
     
     override func cleanup() {
         if device.connected {
-            device.removeDataDelegate(id)
+            device.removeDataDelegate(self)
         }
     }
     

@@ -22,7 +22,7 @@ class StageMicrostepAction : DeviceAction {
         } else {
             code = 0x22
         }
-        super.init(device, id: "stage_microstep", data: [code, 0x0, 0x0])
+        super.init(device, data: [code, 0x0, 0x0])
     }
     
     override func doExecution() {

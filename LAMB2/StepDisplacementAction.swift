@@ -43,7 +43,7 @@ class StepDisplacementAction: SequenceAction, ActionCompletionDelegate {
         dX = []
         dY = []
         stepCounter = 0
-        displacer.addOneTimeCompletionDelegate(self)
+        displacer.addCompletionDelegate(self)
         super.doExecution()
     }
     
@@ -54,14 +54,12 @@ class StepDisplacementAction: SequenceAction, ActionCompletionDelegate {
         }
         print("\(dX) \(dY)")
         stepCounter += stride
-        if (stepCounter < targetSteps) {
-            displacer.addOneTimeCompletionDelegate(self)
-        }
     }
     
     override func cleanup() {
         aveX = getAveX()
         aveY = getAveY()
+        displacer.removeCompletionDelegate(self)
         super.cleanup()
     }
     

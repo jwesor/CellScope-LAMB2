@@ -41,7 +41,7 @@ class DeadbandStepCounterAction: SequenceAction, ActionCompletionDelegate {
     
     override func doExecution() {
         stepCount = -1
-        displacer.addOneTimeCompletionDelegate(self)
+        displacer.addCompletionDelegate(self)
         super.doExecution()
     }
     
@@ -51,15 +51,18 @@ class DeadbandStepCounterAction: SequenceAction, ActionCompletionDelegate {
             stepCount = 0
             addOneTimeAction(stepAction)
             addOneTimeAction(displacer)
-            displacer.addOneTimeCompletionDelegate(self)
         } else if motion < Float(threshold) && stepCount / stride < limit {
             stepCount += stride
             addOneTimeAction(stepAction)
             addOneTimeAction(displacer)
-            displacer.addOneTimeCompletionDelegate(self)
         } else {
             dX = displacer.dX
             dY = displacer.dY
         }
+    }
+    
+    override func cleanup() {
+        displacer.removeCompletionDelegate(self)
+        super.cleanup()
     }
 }

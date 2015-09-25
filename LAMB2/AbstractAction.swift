@@ -14,10 +14,13 @@ import Foundation
 
 class AbstractAction: NSObject {
     
-    var state:ActionState
-    var completionDelegates:[ActionCompletionDelegate] = []
-    var temporaryCompletionDelegates:[ActionCompletionDelegate] = []
-    var runtimeCompletionDelegates:[ActionCompletionDelegate] = []
+    private(set) var state:ActionState
+    private var completionDelegates:[ActionCompletionDelegate] = []
+    // We can't check equality on protocol instances, so we'll have to make do with
+    // maintaining an identical list but with objects
+    private var completionDelegateObjs:[AnyObject] = []
+    private var temporaryCompletionDelegates:[ActionCompletionDelegate] = []
+    private var runtimeCompletionDelegates:[ActionCompletionDelegate] = []
     var timeout: Double
     var logName: String = ""
     
@@ -74,12 +77,20 @@ class AbstractAction: NSObject {
     func cleanup() {
     }
     
-    func addCompletionDelegate(delegate: ActionCompletionDelegate) {
+    func addCompletionDelegate<T: AnyObject where T: ActionCompletionDelegate>(delegate: T) {
         completionDelegates.append(delegate)
+        completionDelegateObjs.append(delegate)
     }
     
-    func addOneTimeCompletionDelegate(delegate: ActionCompletionDelegate) {
-        runtimeCompletionDelegates.append(delegate)
+    
+    func removeCompletionDelegate<T: AnyObject where T: ActionCompletionDelegate>(delegate: T) {
+        for (var i = 0; i < completionDelegates.count; i += 1) {
+            if completionDelegateObjs[i] === delegate {
+                completionDelegateObjs.removeAtIndex(i)
+                completionDelegates.removeAtIndex(i)
+                i -= 1
+            }
+        }
     }
 }
 
