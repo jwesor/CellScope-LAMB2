@@ -52,5 +52,9 @@ using namespace cv;
     }
 }
 
+- (void) reset {
+    [super reset];
+    [_subDisplace reset];
+}
 
 @end

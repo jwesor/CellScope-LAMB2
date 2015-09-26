@@ -11,12 +11,12 @@
 
 import Foundation
 
-class DeadbandStepCounterAction: SequenceAction, ActionCompletionDelegate {
+class DeadbandStepCounterAction: SequenceAction {
     
     let dirAction: StageDirectionAction
     let enableAction: StageEnableAction
     let displacer: ImgDisplacementAction
-    let stepAction: StageStepAction
+    let stepAction: DeadbandStepAction
     let disableAction: StageDisableAction
     private let stride: Int
     private let limit: Int
@@ -30,39 +30,19 @@ class DeadbandStepCounterAction: SequenceAction, ActionCompletionDelegate {
         dirAction = StageDirectionAction(device, motor: motor, dir: dir, stage: stage)
         enableAction = StageEnableAction(device, motor: motor, stage: stage)
         disableAction = StageDisableAction(device, motor: motor, stage: stage)
-        stepAction = StageStepAction(device, motor: motor, steps: stride)
+        stepAction = DeadbandStepAction(motor: motor, device: device, displacer: displacer, stride: stride, motionThreshold: motionThreshold, strideLimit: strideLimit)
         self.displacer = displacer
         self.threshold = motionThreshold
         self.limit = strideLimit
         self.stride = Int(stride)
         
-        super.init([dirAction, enableAction, displacer])
-    }
-    
-    override func doExecution() {
-        stepCount = -1
-        displacer.addCompletionDelegate(self)
-        super.doExecution()
-    }
-    
-    func onActionCompleted(action: AbstractAction) {
-        let motion = sqrt(Float(displacer.dX * displacer.dX + displacer.dY * displacer.dY))
-        if (stepCount == -1) {
-            stepCount = 0
-            addOneTimeAction(stepAction)
-            addOneTimeAction(displacer)
-        } else if motion < Float(threshold) && stepCount / stride < limit {
-            stepCount += stride
-            addOneTimeAction(stepAction)
-            addOneTimeAction(displacer)
-        } else {
-            dX = displacer.dX
-            dY = displacer.dY
-        }
+        super.init([dirAction, enableAction, stepAction, disableAction])
     }
     
     override func cleanup() {
-        displacer.removeCompletionDelegate(self)
+        dX = stepAction.dX
+        dY = stepAction.dY
+        stepCount = stepAction.stepCount
         super.cleanup()
     }
 }

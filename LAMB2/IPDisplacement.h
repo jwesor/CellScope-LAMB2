@@ -10,11 +10,19 @@
 
 @interface IPDisplacement : ImageProcessor
 
+@property (nonatomic) int areaWidth;
+@property (nonatomic) int areaHeight;
+@property (nonatomic) int areaX;
+@property (nonatomic) int areaY;
+@property bool area;
+
 @property (readonly) int dY;
 @property (readonly) int dX;
 
 @property (nonatomic) int templateWidth;
 @property (nonatomic) int templateHeight;
+@property (readonly) int templateX;
+@property (readonly) int templateY;
 
 @property bool grayscale;
 

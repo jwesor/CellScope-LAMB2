@@ -58,6 +58,9 @@ class CameraViewController: UIViewController {
 //        DebugUtil.setLog("drive", doc: driveLog)
 //        DebugUtil.setLog("cycle", doc: cycleLog)
         
+        let d = IPPyramidDisplacement()
+        camera?.addImageProcessor(d)
+        
         
         autofocus = AutofocuserAction(startLevel: -10, endLevel: 10, stepsPerLvl: 5, camera: camera!, device: device, stage: stage)
         displacer = ImgDisplacementAction(camera: camera!, displace: IPMotionDetectDisplacement(), preprocessors: [IPEdgeDetect()])
