@@ -27,7 +27,7 @@ using namespace cv;
 - (id) init {
     self = [super init];
     self.scale = 0.5;
-    self.motionThreshold = 2;
+    self.motionThreshold = 30;
     self.responsiveScaling = true;
     _subDisplace = [[IPDisplacement alloc] init];
     _scalingEnabled = true;
@@ -42,7 +42,7 @@ using namespace cv;
         [_subDisplace processImage:scaled];
     }
     
-    if (!_scalingEnabled || abs(_subDisplace.dX) + abs(_subDisplace.dY) > self.motionThreshold) {
+    if (!_scalingEnabled || abs(_subDisplace.dX) + abs(_subDisplace.dY) > self.motionThreshold * self.scale) {
         [super processImage:image];
     } else {
         [super updateTemplate:image];

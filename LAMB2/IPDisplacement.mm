@@ -15,6 +15,7 @@ using namespace cv;
     cv::Rect _area;
     cv::Rect _roi;
     cv::Rect _tracked;
+    cv::Rect _bounds;
     Mat _imgTemplate;
     int _dX, _dY;
     bool _firstFrame;
@@ -39,37 +40,38 @@ using namespace cv;
 
 - (id) init {
     self = [super init];
-    _area = cv::Rect(0, 0, 800, 800);
-    _roi = cv::Rect(0, 0, 300, 300);
-    _tracked = cv::Rect(0, 0, 300, 300);
+    _roi = cv::Rect(0, 0, 400, 400);
+    _tracked = cv::Rect(0, 0, 400, 400);
     _firstFrame = true;
     self.grayscale = true;
     return self;
 }
 
 - (void) processImage: (Mat&) image {
+    _bounds.x = 0;
+    _bounds.y = 0;
+    _bounds.width = image.cols;
+    _bounds.height = image.rows;
+    
     if (!self.area) {
         _area.x = 0;
         _area.y = 0;
-        _area.width = image.cols;
-        _area.height = image.rows;
+        _area.width = _bounds.width;
+        _area.height = _bounds.height;
     }
     
-    _roi.x = (_area.width - _roi.width) / 2 + _area.x;
-    _roi.y = (_area.height - _roi.height) / 2 + _area.y;
+    _roi.x = (_bounds.width - _roi.width) / 2;
+    _roi.y = (_bounds.height - _roi.height) / 2;
     
-    Mat imgCrop;
-    imgCrop = Mat(image, _area);
-    Mat imgReference;
+    Mat imageColor;
     if (self.grayscale) {
-        cvtColor(imgCrop, imgReference, CV_BGRA2GRAY);
+        cvtColor(image, imageColor, CV_BGRA2GRAY);
     } else {
-        imgReference = imgCrop;
+        imageColor = image;
     }
+    Mat imgReference(imageColor, _area);
     
-    Mat newTemplate;
-    cv::Rect tmplRect(_roi.x - _area.x, _roi.y - _area.y, _roi.width, _roi.height);
-    newTemplate = Mat(imgReference, tmplRect);
+    Mat newTemplate(imageColor, _roi);
     
     if (_imgTemplate.empty() || _firstFrame) {
         _firstFrame = false;
@@ -90,16 +92,16 @@ using namespace cv;
     _tracked.x = maxLoc.x + _area.x;
     _tracked.y = maxLoc.y + _area.y;
     
-    _dX = -(maxLoc.x - _roi.x);
-    _dY = -(maxLoc.y - _roi.y);
+    _dX = _roi.x - maxLoc.x - _area.x;
+    _dY = _roi.y - maxLoc.y - _area.y;
     newTemplate.copyTo(_imgTemplate);
     
 }
 
 - (void) updateDisplayOverlay:(Mat &)image {
-    Scalar color = Scalar(0, 255, 0, 255);
-    rectangle(image, _roi, color);
-    rectangle(image, _area, color);
+    rectangle(image, _bounds, Scalar(0, 0, 255, 255));
+    rectangle(image, _area, Scalar(0, 255, 255, 255));
+    rectangle(image, _roi, Scalar(0, 255, 0, 255));
     rectangle(image, _tracked, Scalar(255, 255, 0, 255));
 }
 
@@ -163,19 +165,19 @@ using namespace cv;
 }
 
 - (void) setAreaWidth:(int) width {
-    _area.width = width;
+    _area.width = width + _roi.width;
 }
 
 - (int) areaWidth {
-    return _area.width;
+    return _area.width - _roi.width;
 }
 
 - (void) setAreaHeight:(int) height {
-    _area.height = height;
+    _area.height = height + _roi.height;
 }
 
 - (int) areaHeight {
-    return _area.height;
+    return _area.height - _roi.height;
 }
 
 - (void) setAreaX:(int) x {

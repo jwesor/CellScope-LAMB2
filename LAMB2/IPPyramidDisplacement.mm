@@ -28,7 +28,7 @@ using namespace std;
     self = [super init];
     _subDisplace = [[IPDisplacement alloc] init];
     
-    self.searchPadding = 64;
+    self.searchPadding = 4;
     self.scale = 0.5;
     self.area = true;
     
@@ -51,23 +51,17 @@ using namespace std;
     _upperTemplate.width = subX2 - subX1;
     _upperTemplate.height = subY2 - subY1;
     
-    int originX = (subX1 + subX2) / 2 - self.templateWidth / 2;
-    int originY = (subY1 + subY2) / 2 - self.templateHeight / 2;
+    self.areaX = (subX2 + subX1) / 2 - self.searchPadding - self.templateWidth / 2;
+    self.areaY = (subY2 + subY1) / 2 - self.searchPadding - self.templateHeight / 2;
+
+    self.areaWidth = self.searchPadding * 2;
+    self.areaHeight = self.searchPadding * 2;
     
-    int x1 = max(originX - searchPadding, 0);
-    int y1 = max(originY - searchPadding, 0);
-    int x2 = min(x1 + self.templateWidth + searchPadding * 2, image.cols - 1);
-    int y2 = min(y1 + self.templateHeight + searchPadding * 2, image.rows - 1);
-    
-    self.areaX = x1;
-    self.areaY = y1;
-    self.areaWidth = x2 - x1;
-    self.areaHeight = y2 - y1;
     [super processImage:image];
 }
 
 - (void) updateDisplayOverlay:(Mat &)image {
-    rectangle(image, _upperTemplate, Scalar(0, 255, 255, 0));
+    rectangle(image, _upperTemplate, Scalar(255, 0, 0, 255));
     [super updateDisplayOverlay:image];
 }
 
