@@ -13,6 +13,7 @@ using namespace cv;
 
 @interface IPDisplacement() {
     cv::Rect _area;
+    cv::Rect _searchRegion;
     cv::Rect _roi;
     cv::Rect _tracked;
     cv::Rect _bounds;
@@ -54,10 +55,17 @@ using namespace cv;
     _bounds.height = image.rows;
     
     if (!self.area) {
-        _area.x = 0;
-        _area.y = 0;
-        _area.width = _bounds.width;
-        _area.height = _bounds.height;
+        _searchRegion.x = 0;
+        _searchRegion.y = 0;
+        _searchRegion.width = _bounds.width;
+        _searchRegion.height = _bounds.height;
+    } else {
+        _searchRegion.x = _area.x;
+        _searchRegion.y = _area.y;
+        _searchRegion.width = MIN(_area.width + _roi.width,
+                                  _bounds.width - _area.x);
+        _searchRegion.height = MIN(_area.height + _roi.height,
+                                   _bounds.height - _area.y);
     }
     
     _roi.x = (_bounds.width - _roi.width) / 2;
@@ -69,7 +77,7 @@ using namespace cv;
     } else {
         imageColor = image;
     }
-    Mat imgReference(imageColor, _area);
+    Mat imgReference(imageColor, _searchRegion);
     
     Mat newTemplate(imageColor, _roi);
     
@@ -89,27 +97,27 @@ using namespace cv;
     cv::Point maxLoc;
     cv::Point matchLoc;
     minMaxLoc(corrResult, &minVal, &maxVal, &minLoc, &maxLoc, Mat());
-    _tracked.x = maxLoc.x + _area.x;
-    _tracked.y = maxLoc.y + _area.y;
+    _tracked.x = maxLoc.x + _searchRegion.x;
+    _tracked.y = maxLoc.y + _searchRegion.y;
     
-    _dX = _roi.x - maxLoc.x - _area.x;
-    _dY = _roi.y - maxLoc.y - _area.y;
+    _dX = _roi.x - maxLoc.x - _searchRegion.x;
+    _dY = _roi.y - maxLoc.y - _searchRegion.y;
     newTemplate.copyTo(_imgTemplate);
     
 }
 
 - (void) updateDisplayOverlay:(Mat &)image {
     rectangle(image, _bounds, Scalar(0, 0, 255, 255));
-    rectangle(image, _area, Scalar(0, 255, 255, 255));
+    rectangle(image, _searchRegion, Scalar(0, 255, 255, 255));
     rectangle(image, _roi, Scalar(0, 255, 0, 255));
     rectangle(image, _tracked, Scalar(255, 255, 0, 255));
 }
 
 - (void) updateTemplate:(Mat &)image {
-    _area.x = 0;
-    _area.y = 0;
-    _area.width = image.cols;
-    _area.height = image.rows;
+    _bounds.x = 0;
+    _bounds.y = 0;
+    _bounds.width = image.cols;
+    _bounds.height = image.rows;
     
     _roi.x = (image.cols - _roi.width) / 2;
     _roi.y = (image.rows - _roi.height) / 2;
@@ -165,19 +173,19 @@ using namespace cv;
 }
 
 - (void) setAreaWidth:(int) width {
-    _area.width = width + _roi.width;
+    _area.width = width;
 }
 
 - (int) areaWidth {
-    return _area.width - _roi.width;
+    return _area.width;
 }
 
 - (void) setAreaHeight:(int) height {
-    _area.height = height + _roi.height;
+    _area.height = height;
 }
 
 - (int) areaHeight {
-    return _area.height - _roi.height;
+    return _area.height;
 }
 
 - (void) setAreaX:(int) x {
