@@ -108,7 +108,7 @@ using namespace cv;
 
 - (void) updateDisplayOverlay:(Mat &)image {
     rectangle(image, _bounds, Scalar(0, 0, 255, 255));
-    rectangle(image, _searchRegion, Scalar(0, 255, 255, 255));
+    rectangle(image, _searchRegion, Scalar(255, 0, 0, 255));
     rectangle(image, _roi, Scalar(0, 255, 0, 255));
     rectangle(image, _tracked, Scalar(255, 255, 0, 255));
 }

@@ -64,7 +64,7 @@ class CameraViewController: UIViewController {
         autofocus = AutofocuserAction(startLevel: -10, endLevel: 10, stepsPerLvl: 5, camera: camera!, device: device, stage: stage)
         displacer = ImgDisplacementAction(camera: camera!, displace: IPPyramidDisplacement(), preprocessors: [IPEdgeDetect()])
         bounds = ImgFovBoundsAction(camera: camera!, stage: stage, bindRois: [displacer!.proc])
-        calib = StepCalibratorAction(device: device, stage: stage, displacer: displacer!)
+        calib = StepCalibratorAction(device: device, stage: stage, displacer: displacer!, microstep: true)
         mfc = MFCSystem(camera: camera!, device: device, stage: stage)
     }
     

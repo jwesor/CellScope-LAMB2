@@ -14,9 +14,8 @@ class MotorCalibStepAction : SequenceAction {
     let stepLow: StepDisplacementAction
     let backlashHigh: DeadbandStepCounterAction
     let backlashLow: DeadbandStepCounterAction
-    let range = 5
     
-    init(motor: Int, device: DeviceConnector, stage: StageState, displacer: ImgDisplacementAction) {
+    init(motor: Int, device: DeviceConnector, stage: StageState, displacer: ImgDisplacementAction, range: Int) {
         
         stepHigh = StepDisplacementAction(motor: motor, dir: StageConstants.DIR_HIGH, steps: range, device: device, stage: stage, displacer: displacer)
         stepLow = StepDisplacementAction(motor: motor, dir: StageConstants.DIR_LOW, steps: range, device: device, stage: stage, displacer: displacer)

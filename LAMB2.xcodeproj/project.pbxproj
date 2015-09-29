@@ -9,7 +9,6 @@
 /* Begin PBXBuildFile section */
 		18042C091BB5CBC70076FA24 /* IPMotionDetectDisplacement.mm in Sources */ = {isa = PBXBuildFile; fileRef = 18042C081BB5CBC70076FA24 /* IPMotionDetectDisplacement.mm */; settings = {ASSET_TAGS = (); }; };
 		18042C111BB61C9B0076FA24 /* DeadbandStepAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18042C101BB61C9B0076FA24 /* DeadbandStepAction.swift */; settings = {ASSET_TAGS = (); }; };
-		18042C131BB61E340076FA24 /* MicrostepCalibratorAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18042C121BB61E340076FA24 /* MicrostepCalibratorAction.swift */; settings = {ASSET_TAGS = (); }; };
 		180C3E851AE9E6F500A928FD /* StageState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 180C3E841AE9E6F500A928FD /* StageState.swift */; };
 		180F87171A7C67D90001CD3C /* IPColorInverter.mm in Sources */ = {isa = PBXBuildFile; fileRef = 180F87161A7C67D90001CD3C /* IPColorInverter.mm */; };
 		180F87191A7C6DD30001CD3C /* ImageProcessor.mm in Sources */ = {isa = PBXBuildFile; fileRef = 180F87181A7C6DD30001CD3C /* ImageProcessor.mm */; };
@@ -110,7 +109,6 @@
 		18042C0C1BB5F30D0076FA24 /* ImageProcessor+CvExtension.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = "ImageProcessor+CvExtension.hpp"; sourceTree = "<group>"; };
 		18042C0D1BB5F8770076FA24 /* IPDisplacement+UpdateTemplate.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = "IPDisplacement+UpdateTemplate.hpp"; sourceTree = "<group>"; };
 		18042C101BB61C9B0076FA24 /* DeadbandStepAction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeadbandStepAction.swift; sourceTree = "<group>"; };
-		18042C121BB61E340076FA24 /* MicrostepCalibratorAction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MicrostepCalibratorAction.swift; sourceTree = "<group>"; };
 		180C3E841AE9E6F500A928FD /* StageState.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StageState.swift; sourceTree = "<group>"; };
 		180F87141A7C666E0001CD3C /* ImageProcessor.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ImageProcessor.h; sourceTree = "<group>"; };
 		180F87151A7C67D90001CD3C /* IPColorInverter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IPColorInverter.h; sourceTree = "<group>"; };
@@ -317,7 +315,6 @@
 			isa = PBXGroup;
 			children = (
 				1892F5991B4605E50084E0F8 /* StepCalibratorAction.swift */,
-				18042C121BB61E340076FA24 /* MicrostepCalibratorAction.swift */,
 				18C3C4781BACB449000B6B0F /* MotorCalibStepAction.swift */,
 				1892F5971B44953A0084E0F8 /* StepDisplacementAction.swift */,
 				18C3C46F1BAA3DB7000B6B0F /* DeadbandStepCounterAction.swift */,
@@ -619,7 +616,6 @@
 				180F87191A7C6DD30001CD3C /* ImageProcessor.mm in Sources */,
 				182CE82A1A96E0CF002162DF /* AsyncImageMultiProcessor.mm in Sources */,
 				18D6B9021AD36FB6002B1A9E /* GDriveStatusButton.swift in Sources */,
-				18042C131BB61E340076FA24 /* MicrostepCalibratorAction.swift in Sources */,
 				183FD1181BB0D61700452A1E /* BLE.swift in Sources */,
 				18042C091BB5CBC70076FA24 /* IPMotionDetectDisplacement.mm in Sources */,
 				181D49081B25098100D08A93 /* IPDisplacement.mm in Sources */,
