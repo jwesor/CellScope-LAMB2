@@ -14,8 +14,8 @@ class StageState {
                                          StageConstants.MOTOR_2: StageMotorState(),
                                          StageConstants.MOTOR_3: StageMotorState()]
     
-    let states: [Bool:Int] = [true: 1, false: 0]
-    var microstepping: Bool = false
+    private let states: [Bool:Int] = [true: 1, false: 0]
+    private var microstepping: Int = StageMotorState.UNKNOWN
     var fov: (x: Int32, y: Int32, width: Int32, height: Int32) = (0, 0, 0, 0)
 
     func isMatchingEnable(motor: Int, state: Bool) -> Bool {
@@ -28,6 +28,14 @@ class StageState {
     
     func isUnknownEnable(motor: Int) -> Bool {
         return motors[motor]?.en == StageMotorState.UNKNOWN
+    }
+    
+    func isUnknownMicrostepping() -> Bool {
+        return microstepping == StageMotorState.UNKNOWN
+    }
+    
+    func isMatchingMicrostepping(state: Bool) -> Bool {
+        return states[state] == microstepping
     }
     
     func getBacklash(motor: Int, dir: Bool, microstep: Bool = false) -> Int {
@@ -66,6 +74,7 @@ class StageState {
         for (_, state) in motors {
             state.reset()
         }
+        microstepping = StageMotorState.UNKNOWN
     }
     
     func updateEnable(motor: Int, en: Bool) {
@@ -80,6 +89,10 @@ class StageState {
         if (m != nil) {
             m!.dir = states[dir]!
         }
+    }
+    
+    func updateMicrostepping(micro: Bool) {
+        microstepping = states[micro]!
     }
     
     func resetEnable(motor: Int) {
