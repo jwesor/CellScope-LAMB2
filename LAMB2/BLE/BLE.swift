@@ -16,6 +16,7 @@ import CoreBluetooth
 protocol BLEDelegate {
     func bleDidUpdateState()
     func bleDidConnectToPeripheral()
+    func bleDidPreparedForData()
     func bleDidDisconnectFromPeripheral()
     func bleDidReceiveData(data: NSData?)
 }
@@ -103,8 +104,8 @@ class BLE: NSObject, CBCentralManagerDelegate, CBPeripheralDelegate {
     }
     
     func write(data data: NSData) {
-        
-        self.activePeripheral?.writeValue(data, forCharacteristic: self.characteristics[RBL_CHAR_RX_UUID]!, type: .WithoutResponse)
+        let characteristic = self.characteristics[RBL_CHAR_RX_UUID]
+        self.activePeripheral?.writeValue(data, forCharacteristic: characteristic!, type: .WithoutResponse)
     }
     
     func enableNotifications(enable: Bool) {
@@ -237,6 +238,7 @@ class BLE: NSObject, CBCentralManagerDelegate, CBPeripheralDelegate {
         }
         
         enableNotifications(true)
+        self.delegate?.bleDidPreparedForData()
     }
     
     func peripheral(peripheral: CBPeripheral, didUpdateValueForCharacteristic characteristic: CBCharacteristic, error: NSError?) {

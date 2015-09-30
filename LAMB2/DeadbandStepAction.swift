@@ -21,7 +21,7 @@ class DeadbandStepAction: SequenceAction, ActionCompletionDelegate {
     private(set) var dX: Int = 0
     private(set) var dY: Int = 0
     
-    init(motor: Int, device: DeviceConnector, displacer: ImgDisplacementAction, stride: UInt8 = 1, motionThreshold: Int = 5, strideLimit: Int = 50) {
+    init(motor: Int, device: DeviceConnector, displacer: ImgDisplacementAction, stride: UInt8 = 1, motionThreshold: Int = 15, strideLimit: Int = 100) {
         stepAction = StageStepAction(device, motor: motor, steps: stride)
         self.displacer = displacer
         self.threshold = motionThreshold
@@ -33,6 +33,8 @@ class DeadbandStepAction: SequenceAction, ActionCompletionDelegate {
     
     override func doExecution() {
         stepCount = -1
+        dX = 0
+        dY = 0
         displacer.addCompletionDelegate(self)
         super.doExecution()
     }
@@ -47,10 +49,9 @@ class DeadbandStepAction: SequenceAction, ActionCompletionDelegate {
             stepCount += stride
             addOneTimeAction(stepAction)
             addOneTimeAction(displacer)
-        } else {
-            dX = displacer.dX
-            dY = displacer.dY
         }
+        dX += displacer.dX
+        dY += displacer.dY
     }
     
     override func cleanup() {

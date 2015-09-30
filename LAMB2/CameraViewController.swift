@@ -15,10 +15,9 @@ class CameraViewController: UIViewController {
     @IBOutlet weak var deviceButton: DeviceStatusButton!
     
     var camera: CameraSession?
-    let device: DeviceConnector = DeviceConnector()
-    let queue: ActionManager = ActionQueue()
-    let drive: GDriveAdapter = GDriveAdapter()
-    let stage: StageState = StageState()
+    let device = DeviceConnector()
+    let queue = ActionQueue()
+    let stage = AutoEnableStageState()
     
     var displacer: ImgDisplacementAction?
     var bounds: ImgFovBoundsAction?
@@ -40,6 +39,7 @@ class CameraViewController: UIViewController {
         
         device.addStatusDelegate(deviceButton)
         deviceButton.updateDeviceStatusDisconnected()
+        stage.autoEnableOnConnection(device, actions: queue)
         
         queue.beginActions()
         
@@ -81,6 +81,15 @@ class CameraViewController: UIViewController {
     
     @IBAction func test3(sender: AnyObject) {
         // Background
+        let motor = StageConstants.MOTOR_2
+        let dir = StageConstants.DIR_HIGH
+        let setdir = StageDirectionAction(device, motor: motor, dir: dir, stage: stage)
+        let deadband = DeadbandStepAction(motor: motor, device: device, displacer: displacer!)
+        let stepdis = StepDisplacementAction(motor: motor, dir: dir, steps: 25, device: device, stage: stage, displacer: displacer!)
+        queue.addAction(setdir)
+        queue.addAction(deadband)
+        queue.addAction(stepdis)
+        queue.addAction(stepdis)
     }
     
     @IBAction func mfcDir(sender: AnyObject) {
@@ -140,7 +149,8 @@ class CameraViewController: UIViewController {
         } else {
             dir = StageConstants.DIR_LOW
         }
-        queue.addAction(StageEnableStepAction(device, motor: motor, dir: dir, steps:steps, stage: stage))
+        queue.addAction(StageDirectionAction(device, motor: motor, dir: dir, stage: stage))
+        queue.addAction(StageMoveAction(device, motor: motor, steps: steps))
     }
     
     @IBAction func led2off(sender: AnyObject) {
@@ -165,6 +175,10 @@ class CameraViewController: UIViewController {
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if (segue.identifier == "listBLEDevices") {
+            if device.connected {
+                device.send([StageDisableAction.getDisableCode(StageConstants.MOTOR_1), 0x0, 0x0])
+                device.send([StageDisableAction.getDisableCode(StageConstants.MOTOR_2), 0x0, 0x0])
+            }
             device.scanForPeripherals()
             let table = segue.destinationViewController as! DeviceTableViewController
             table.device = device

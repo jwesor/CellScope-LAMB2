@@ -81,6 +81,12 @@ class DeviceConnector: BLEDelegate {
         }
     }
     
+    func bleDidPreparedForData() {
+        for delegate in statusDelegates {
+            delegate.updateDeviceStatusReady()
+        }
+    }
+    
     func getPeripherals() -> [CBPeripheral] {
         return ble.peripherals
     }
@@ -114,13 +120,6 @@ class DeviceConnector: BLEDelegate {
             }
         }
     }
-}
-
-protocol DeviceStatusDelegate {
-    func updateDeviceStatusScanning()
-    func updateDeviceStatusDisconnected()
-    func updateDeviceStatusConnecting(peripheral: CBPeripheral)
-    func updateDeviceStatusConnected(peripheral: CBPeripheral)
 }
 
 protocol DeviceDataDelegate {

@@ -14,10 +14,8 @@ import Foundation
 class DeadbandStepCounterAction: SequenceAction {
     
     let dirAction: StageDirectionAction
-    let enableAction: StageEnableAction
     let displacer: ImgDisplacementAction
     let stepAction: DeadbandStepAction
-    let disableAction: StageDisableAction
     private let stride: Int
     private let limit: Int
     private let threshold: Int
@@ -28,15 +26,13 @@ class DeadbandStepCounterAction: SequenceAction {
     init(motor: Int, dir: Bool, device: DeviceConnector, stage: StageState, displacer: ImgDisplacementAction, stride: UInt8 = 1, motionThreshold: Int = 5, strideLimit: Int = 50) {
         
         dirAction = StageDirectionAction(device, motor: motor, dir: dir, stage: stage)
-        enableAction = StageEnableAction(device, motor: motor, stage: stage)
-        disableAction = StageDisableAction(device, motor: motor, stage: stage)
         stepAction = DeadbandStepAction(motor: motor, device: device, displacer: displacer, stride: stride, motionThreshold: motionThreshold, strideLimit: strideLimit)
         self.displacer = displacer
         self.threshold = motionThreshold
         self.limit = strideLimit
         self.stride = Int(stride)
         
-        super.init([dirAction, enableAction, stepAction, disableAction])
+        super.init([dirAction, stepAction])
     }
     
     override func cleanup() {
