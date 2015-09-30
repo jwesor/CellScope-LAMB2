@@ -11,6 +11,7 @@ import Foundation
 class StepCalibratorAction: SequenceAction {
     
     let stage: StageState
+    let microstep: Bool
     let calib1: MotorCalibStepAction
     let calib2: MotorCalibStepAction
 
@@ -19,41 +20,43 @@ class StepCalibratorAction: SequenceAction {
         if stage.isFovBounded() {
             stage.setImageProcessorRoiToFov(displacer.proc)
         }
-        self.init(device: device, stage: stage, autofocus: autofocus, displacer: displacer)
+        self.init(device: device, stage: stage, displacer: displacer, autofocus: autofocus)
     }
     
-    init(device: DeviceConnector, stage: StageState, autofocus: AutofocuserAction? = nil, displacer: ImgDisplacementAction) {
+    init(device: DeviceConnector, stage: StageState, displacer: ImgDisplacementAction, microstep: Bool = false, autofocus: AutofocuserAction? = nil) {
         self.stage = stage
-        let microOff = StageMicrostepAction(device, enabled: false, stage: stage)
-        calib1 = MotorCalibStepAction(motor: StageConstants.MOTOR_1, device: device, stage: stage, displacer: displacer)
-        calib2 = MotorCalibStepAction(motor: StageConstants.MOTOR_1, device: device, stage: stage, displacer: displacer)
+        self.microstep = microstep
+        let range = microstep ? 15 : 5
+        let micro = StageMicrostepAction(device, enabled: microstep, stage: stage)
+        calib1 = MotorCalibStepAction(motor: StageConstants.MOTOR_1, device: device, stage: stage, displacer: displacer, range: range)
+        calib2 = MotorCalibStepAction(motor: StageConstants.MOTOR_2, device: device, stage: stage, displacer: displacer, range: range)
         if autofocus != nil {
-            super.init([microOff, autofocus!, calib1, autofocus!, calib2, autofocus!])
+            super.init([micro, autofocus!, micro, calib1, autofocus!, micro, calib2, autofocus!])
         } else {
-            super.init([microOff, calib1, calib2])
+            super.init([micro, calib1, calib2])
         }
     }
 
     override func cleanup() {
         let M1 = StageConstants.MOTOR_1, M2 = StageConstants.MOTOR_2
         let HI = StageConstants.DIR_HIGH, LO = StageConstants.DIR_LOW
-        stage.setBacklash(calib1.getBacklash(HI), motor: M1, dir: HI)
-        stage.setBacklash(calib1.getBacklash(LO), motor: M1, dir: LO)
-        stage.setBacklash(calib2.getBacklash(HI), motor: M2, dir: HI)
-        stage.setBacklash(calib2.getBacklash(LO), motor: M2, dir: LO)
-        stage.setStep(calib1.getAveStep(HI), motor: M1, dir: HI)
-        stage.setStep(calib1.getAveStep(LO), motor: M1, dir: LO)
-        stage.setStep(calib2.getAveStep(HI), motor: M2, dir: HI)
-        stage.setStep(calib2.getAveStep(LO), motor: M2, dir: LO)
+        stage.setBacklash(calib1.getBacklash(HI), motor: M1, dir: HI, microstep: microstep)
+        stage.setBacklash(calib1.getBacklash(LO), motor: M1, dir: LO, microstep: microstep)
+        stage.setBacklash(calib2.getBacklash(HI), motor: M2, dir: HI, microstep: microstep)
+        stage.setBacklash(calib2.getBacklash(LO), motor: M2, dir: LO, microstep: microstep)
+        stage.setStep(calib1.getAveStep(HI), motor: M1, dir: HI, microstep: microstep)
+        stage.setStep(calib1.getAveStep(LO), motor: M1, dir: LO, microstep: microstep)
+        stage.setStep(calib2.getAveStep(HI), motor: M2, dir: HI, microstep: microstep)
+        stage.setStep(calib2.getAveStep(LO), motor: M2, dir: LO, microstep: microstep)
         
-        print("Backlash M1 HI \(stage.getBacklash(M1, dir: HI))")
-        print("Backlash M1 LO \(stage.getBacklash(M1, dir: LO))")
-        print("Backlash M2 HI \(stage.getBacklash(M2, dir: HI))")
-        print("Backlash M2 LO \(stage.getBacklash(M2, dir: LO))")
-        print("Step M1 HI \(stage.getStep(M1, dir: HI))")
-        print("Step M1 LO \(stage.getStep(M1, dir: LO))")
-        print("Step M2 HI \(stage.getStep(M2, dir: HI))")
-        print("Step M2 LO \(stage.getStep(M2, dir: LO))")
+        print("Backlash M1 HI \(stage.getBacklash(M1, dir: HI, microstep: microstep))")
+        print("Backlash M1 LO \(stage.getBacklash(M1, dir: LO, microstep: microstep))")
+        print("Backlash M2 HI \(stage.getBacklash(M2, dir: HI, microstep: microstep))")
+        print("Backlash M2 LO \(stage.getBacklash(M2, dir: LO, microstep: microstep))")
+        print("Step M1 HI \(stage.getStep(M1, dir: HI, microstep: microstep))")
+        print("Step M1 LO \(stage.getStep(M1, dir: LO, microstep: microstep))")
+        print("Step M2 HI \(stage.getStep(M2, dir: HI, microstep: microstep))")
+        print("Step M2 LO \(stage.getStep(M2, dir: LO, microstep: microstep))")
         super.cleanup()
     }
 }

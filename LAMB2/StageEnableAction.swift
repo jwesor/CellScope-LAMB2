@@ -17,7 +17,7 @@ class StageEnableAction : DeviceAction {
         self.stage = stage
         self.motor = motor
         let code = StageEnableAction.getEnableCode(motor)
-        super.init(device, id: "stage_enable", data: [code, 0x0, 0x0])
+        super.init(device, data: [code, 0x0, 0x0])
     }
     
     class func getEnableCode(motor: Int) -> UInt8 {

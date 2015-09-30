@@ -22,7 +22,7 @@ class StageDirectionAction : DeviceAction {
         self.dir = dir
         changed = false
         let dirCode = StageDirectionAction.getDirectionCode(motor, dir: dir)
-        super.init(device, id: "stage_direction", data: [dirCode, 0x0, 0x0])
+        super.init(device, data: [dirCode, 0x0, 0x0])
     }
     
     class func getDirectionCode(motor: Int, dir: Bool) -> UInt8 {

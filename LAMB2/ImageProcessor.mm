@@ -57,7 +57,6 @@
     // Implement in subclasses
 }
 
-
 - (void) setRoiWidth:(int) width {
     _region.width = width;
 }

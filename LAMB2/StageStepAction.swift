@@ -12,7 +12,7 @@ class StageStepAction : DeviceAction {
     
     init(_ device: DeviceConnector, motor: Int, steps: UInt8) {
         let stepCode = StageStepAction.getStepCode(motor)
-        super.init(device, id: "stage_step", data: [stepCode, steps, 0x0])
+        super.init(device, data: [stepCode, steps, 0x0])
     }
     
     class func getStepCode(motor: Int) -> UInt8 {

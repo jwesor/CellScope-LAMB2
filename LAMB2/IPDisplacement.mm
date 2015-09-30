@@ -12,11 +12,12 @@
 using namespace cv;
 
 @interface IPDisplacement() {
-    cv::Rect area;
-    cv::Rect roi;
-    cv::Rect tracked;
-    Mat templateRegion;
-    Mat newTemplateRegion;
+    cv::Rect _area;
+    cv::Rect _searchRegion;
+    cv::Rect _roi;
+    cv::Rect _tracked;
+    cv::Rect _bounds;
+    Mat _imgTemplate;
     int _dX, _dY;
     bool _firstFrame;
 }
@@ -24,46 +25,71 @@ using namespace cv;
 
 @implementation IPDisplacement
 
+@synthesize area;
+@synthesize areaX;
+@synthesize areaY;
+@synthesize areaWidth;
+@synthesize areaHeight;
+
 @synthesize dX = _dX;
 @synthesize dY = _dY;
+@synthesize templateX;
+@synthesize templateY;
 @synthesize templateWidth;
 @synthesize templateHeight;
+@synthesize grayscale;
 
 - (id) init {
     self = [super init];
-    area = cv::Rect(0, 0, 800, 800);
-    roi = cv::Rect(0, 0, 300, 300);
-    tracked = cv::Rect(0, 0, 300, 300);
-    templateRegion = Mat(roi.height, roi.width, CV_8UC1);
-    newTemplateRegion = Mat(roi.height, roi.width, CV_8UC1);
+    _roi = cv::Rect(0, 0, 400, 400);
+    _tracked = cv::Rect(0, 0, 400, 400);
     _firstFrame = true;
+    self.grayscale = true;
     return self;
 }
 
 - (void) processImage: (Mat&) image {
-    area.x = 0;
-    area.y = 0;
-    area.width = image.cols;
-    area.height = image.rows;
+    _bounds.x = 0;
+    _bounds.y = 0;
+    _bounds.width = image.cols;
+    _bounds.height = image.rows;
     
-    roi.x = (image.cols - roi.width) / 2;
-    roi.y = (image.rows - roi.height) / 2;
-    
-    std::vector<Mat> channels(3);
-    split(image, channels);
-    
-    Mat(channels[0], roi).copyTo(newTemplateRegion);
-    
-    if (templateRegion.empty() || _firstFrame) {
-        _firstFrame = false;
-        newTemplateRegion.copyTo(templateRegion);
+    if (!self.area) {
+        _searchRegion.x = 0;
+        _searchRegion.y = 0;
+        _searchRegion.width = _bounds.width;
+        _searchRegion.height = _bounds.height;
+    } else {
+        _searchRegion.x = _area.x;
+        _searchRegion.y = _area.y;
+        _searchRegion.width = MIN(_area.width + _roi.width,
+                                  _bounds.width - _area.x);
+        _searchRegion.height = MIN(_area.height + _roi.height,
+                                   _bounds.height - _area.y);
     }
     
-    Mat areaImage = Mat(channels[0], area);
-    Mat corrResult;
-    corrResult.create(areaImage.cols - templateRegion.cols + 1, areaImage.rows - templateRegion.cols + 1, CV_32FC1);
+    _roi.x = (_bounds.width - _roi.width) / 2;
+    _roi.y = (_bounds.height - _roi.height) / 2;
     
-    matchTemplate(areaImage, templateRegion, corrResult, TM_CCORR_NORMED);
+    Mat imageColor;
+    if (self.grayscale) {
+        cvtColor(image, imageColor, CV_BGRA2GRAY);
+    } else {
+        imageColor = image;
+    }
+    Mat imgReference(imageColor, _searchRegion);
+    
+    Mat newTemplate(imageColor, _roi);
+    
+    if (_imgTemplate.empty() || _firstFrame) {
+        _firstFrame = false;
+        newTemplate.copyTo(_imgTemplate);
+    }
+    
+    Mat corrResult;
+    corrResult.create(imgReference.cols - _imgTemplate.cols + 1, imgReference.rows - _imgTemplate.rows + 1, CV_32FC1);
+    
+    matchTemplate(imgReference, _imgTemplate, corrResult, TM_CCORR_NORMED);
     normalize(corrResult, corrResult, 0, 1, NORM_MINMAX, -1, Mat());
     double minVal;
     double maxVal;
@@ -71,41 +97,111 @@ using namespace cv;
     cv::Point maxLoc;
     cv::Point matchLoc;
     minMaxLoc(corrResult, &minVal, &maxVal, &minLoc, &maxLoc, Mat());
-    tracked.x = maxLoc.x + area.x;
-    tracked.y = maxLoc.y + area.y;
+    _tracked.x = maxLoc.x + _searchRegion.x;
+    _tracked.y = maxLoc.y + _searchRegion.y;
     
-    _dX = -(maxLoc.x - (area.width - roi.width) / 2);
-    _dY = -(maxLoc.y - (area.height - roi.height) / 2);
-    Mat tmp = templateRegion;
-    templateRegion = newTemplateRegion;
-    newTemplateRegion = tmp;
+    _dX = _roi.x - maxLoc.x - _searchRegion.x;
+    _dY = _roi.y - maxLoc.y - _searchRegion.y;
+    newTemplate.copyTo(_imgTemplate);
+    
 }
 
 - (void) updateDisplayOverlay:(Mat &)image {
-    Scalar color = Scalar(0, 255, 0, 255);
-    rectangle(image, roi, color);
-    rectangle(image, area, color);
-    rectangle(image, tracked, Scalar(255, 255, 0, 255));
+    rectangle(image, _bounds, Scalar(0, 0, 255, 255));
+    rectangle(image, _searchRegion, Scalar(255, 0, 0, 255));
+    rectangle(image, _roi, Scalar(0, 255, 0, 255));
+    rectangle(image, _tracked, Scalar(255, 255, 0, 255));
+}
+
+- (void) updateTemplate:(Mat &)image {
+    _bounds.x = 0;
+    _bounds.y = 0;
+    _bounds.width = image.cols;
+    _bounds.height = image.rows;
+    
+    _roi.x = (image.cols - _roi.width) / 2;
+    _roi.y = (image.rows - _roi.height) / 2;
+    
+    Mat imgReference;
+    if (self.grayscale) {
+        cvtColor(image, imgReference, CV_BGRA2GRAY);
+    } else {
+        imgReference = image;
+    }
+    
+    Mat newTemplate;
+    newTemplate = Mat(imgReference, _roi);
+    newTemplate.copyTo(_imgTemplate);
+    _tracked.x = _roi.x;
+    _tracked.y = _roi.y;
+    _dX = 0;
+    _dY = 0;
+}
+
+- (void) setTemplateImage:(Mat&) image {
+    image.copyTo(_imgTemplate);
+    _roi.width = image.cols;
+    _roi.height = image.rows;
 }
 
 - (void) setTemplateWidth:(int)width {
-    roi.width = tracked.width = width;
+    _roi.width = _tracked.width = width;
 }
 
-- (int) templateWidth:(int)height {
-    return roi.width;
+- (int) templateWidth {
+    return _roi.width;
 }
 
 - (void) setTemplateHeight:(int)height {
-    roi.height = tracked.height = height;
+    _roi.height = _tracked.height = height;
 }
 
-- (int) templateHeight:(int)height {
-    return roi.height;
+- (int) templateHeight {
+    return _roi.height;
+}
+
+- (int) templateX {
+    return _tracked.x;
+}
+
+- (int) templateY {
+    return _tracked.y;
 }
 
 - (void) reset {
     _firstFrame = true;
+}
+
+- (void) setAreaWidth:(int) width {
+    _area.width = width;
+}
+
+- (int) areaWidth {
+    return _area.width;
+}
+
+- (void) setAreaHeight:(int) height {
+    _area.height = height;
+}
+
+- (int) areaHeight {
+    return _area.height;
+}
+
+- (void) setAreaX:(int) x {
+    _area.x = x;
+}
+
+- (int) areaX {
+    return _area.x;
+}
+
+- (void) setAreaY:(int) y {
+    _area.y = y;
+}
+
+- (int) areaY {
+    return _area.y;
 }
 
 @end

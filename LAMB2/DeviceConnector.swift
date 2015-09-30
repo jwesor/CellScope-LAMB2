@@ -15,19 +15,16 @@ import CoreBluetooth
 
 class DeviceConnector: BLEDelegate {
     
-    private(set) var connected: Bool
-    var ble: BLE
-    let SCAN_TIMEOUT: Double = 3
+    private(set) var connected: Bool = false
+    private let ble: BLE = BLE()
     private var tentativePeripheral: CBPeripheral? = nil
     private var activePeripheral: CBPeripheral? = nil
-    var statusDelegates: [DeviceStatusDelegate]
-    var dataDelegates: [String: DeviceDataDelegate]
+    private var statusDelegates: [DeviceStatusDelegate] = []
+    private var dataDelegates: [DeviceDataDelegate] = []
+    private var dataDelegateObjs: [AnyObject] = []
+    let SCAN_TIMEOUT: Double = 3
     
     init() {
-        connected = false
-        ble = BLE()
-        statusDelegates = []
-        dataDelegates = Dictionary<String, DeviceDataDelegate>()
         ble.delegate = self
     }
     
@@ -78,9 +75,15 @@ class DeviceConnector: BLEDelegate {
     func bleDidReceiveData(data: NSData?) {
 //        DebugUtil.log(String(format: "received: %d\n", result))
         if data != nil {
-            for (_, delegate) in dataDelegates {
+            for delegate in dataDelegates {
                 delegate.deviceDidReceiveData(data!)
             }
+        }
+    }
+    
+    func bleDidPreparedForData() {
+        for delegate in statusDelegates {
+            delegate.updateDeviceStatusReady()
         }
     }
     
@@ -103,20 +106,20 @@ class DeviceConnector: BLEDelegate {
         statusDelegates.append(delegate)
     }
     
-    func addDataDelegate(delegate: DeviceDataDelegate, id: String) {
-        dataDelegates[id] = delegate
+    func addDataDelegate<T: AnyObject where T: DeviceDataDelegate>(delegate: T) {
+        dataDelegates.append(delegate)
+        dataDelegateObjs.append(delegate)
     }
     
-    func removeDataDelegate(id: String) {
-        dataDelegates[id] = nil
+    func removeDataDelegate<T: AnyObject where T: DeviceDataDelegate>(delegate: T) {
+        for (var i = 0; i < dataDelegates.count; i += 1) {
+            if dataDelegateObjs[i] === (delegate as AnyObject) {
+                dataDelegateObjs.removeAtIndex(i)
+                dataDelegates.removeAtIndex(i)
+                i -= 1
+            }
+        }
     }
-}
-
-protocol DeviceStatusDelegate {
-    func updateDeviceStatusScanning()
-    func updateDeviceStatusDisconnected()
-    func updateDeviceStatusConnecting(peripheral: CBPeripheral)
-    func updateDeviceStatusConnected(peripheral: CBPeripheral)
 }
 
 protocol DeviceDataDelegate {

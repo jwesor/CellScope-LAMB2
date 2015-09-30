@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		18042C091BB5CBC70076FA24 /* IPMotionDetectDisplacement.mm in Sources */ = {isa = PBXBuildFile; fileRef = 18042C081BB5CBC70076FA24 /* IPMotionDetectDisplacement.mm */; settings = {ASSET_TAGS = (); }; };
+		18042C111BB61C9B0076FA24 /* DeadbandStepAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18042C101BB61C9B0076FA24 /* DeadbandStepAction.swift */; settings = {ASSET_TAGS = (); }; };
+		18042C151BBC7E020076FA24 /* AutoEnableStageState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18042C141BBC7E010076FA24 /* AutoEnableStageState.swift */; settings = {ASSET_TAGS = (); }; };
+		18042C171BBC7FB40076FA24 /* DeviceStatusDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18042C161BBC7FB40076FA24 /* DeviceStatusDelegate.swift */; settings = {ASSET_TAGS = (); }; };
 		180C3E851AE9E6F500A928FD /* StageState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 180C3E841AE9E6F500A928FD /* StageState.swift */; };
 		180F87171A7C67D90001CD3C /* IPColorInverter.mm in Sources */ = {isa = PBXBuildFile; fileRef = 180F87161A7C67D90001CD3C /* IPColorInverter.mm */; };
 		180F87191A7C6DD30001CD3C /* ImageProcessor.mm in Sources */ = {isa = PBXBuildFile; fileRef = 180F87181A7C6DD30001CD3C /* ImageProcessor.mm */; };
@@ -101,6 +105,14 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		18042C071BB5CBC70076FA24 /* IPMotionDetectDisplacement.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IPMotionDetectDisplacement.h; sourceTree = "<group>"; };
+		18042C081BB5CBC70076FA24 /* IPMotionDetectDisplacement.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = IPMotionDetectDisplacement.mm; sourceTree = "<group>"; };
+		18042C0B1BB5EF930076FA24 /* ImageProcessor+CvInterface.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = "ImageProcessor+CvInterface.hpp"; sourceTree = "<group>"; };
+		18042C0C1BB5F30D0076FA24 /* ImageProcessor+CvExtension.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = "ImageProcessor+CvExtension.hpp"; sourceTree = "<group>"; };
+		18042C0D1BB5F8770076FA24 /* IPDisplacement+UpdateTemplate.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = "IPDisplacement+UpdateTemplate.hpp"; sourceTree = "<group>"; };
+		18042C101BB61C9B0076FA24 /* DeadbandStepAction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeadbandStepAction.swift; sourceTree = "<group>"; };
+		18042C141BBC7E010076FA24 /* AutoEnableStageState.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AutoEnableStageState.swift; sourceTree = "<group>"; };
+		18042C161BBC7FB40076FA24 /* DeviceStatusDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeviceStatusDelegate.swift; sourceTree = "<group>"; };
 		180C3E841AE9E6F500A928FD /* StageState.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StageState.swift; sourceTree = "<group>"; };
 		180F87141A7C666E0001CD3C /* ImageProcessor.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ImageProcessor.h; sourceTree = "<group>"; };
 		180F87151A7C67D90001CD3C /* IPColorInverter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IPColorInverter.h; sourceTree = "<group>"; };
@@ -132,7 +144,6 @@
 		184C81C51B056D4F0083D926 /* IPIdleFrames.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IPIdleFrames.h; sourceTree = "<group>"; };
 		184C81C61B056D4F0083D926 /* IPIdleFrames.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = IPIdleFrames.mm; sourceTree = "<group>"; };
 		184D8DFE1A205AC600105FDA /* LAMB2-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "LAMB2-Bridging-Header.h"; sourceTree = "<group>"; };
-		1861AD381B632D0700278A9D /* CameraIPProtocols.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = CameraIPProtocols.hpp; sourceTree = "<group>"; };
 		1861AD391B6330E600278A9D /* CameraSession.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CameraSession.h; sourceTree = "<group>"; };
 		188074E21A38F43A0039725B /* opencv2.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = opencv2.framework; sourceTree = "<group>"; };
 		188074E51A38F4A60039725B /* CameraSession.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = CameraSession.mm; sourceTree = "<group>"; };
@@ -235,6 +246,8 @@
 			isa = PBXGroup;
 			children = (
 				180F87141A7C666E0001CD3C /* ImageProcessor.h */,
+				18042C0B1BB5EF930076FA24 /* ImageProcessor+CvInterface.hpp */,
+				18042C0C1BB5F30D0076FA24 /* ImageProcessor+CvExtension.hpp */,
 				180F87181A7C6DD30001CD3C /* ImageProcessor.mm */,
 				18C3C4531B9524EE000B6B0F /* ImageMultiProcessor.h */,
 				18C3C4541B9524EE000B6B0F /* ImageMultiProcessor.mm */,
@@ -251,7 +264,6 @@
 			children = (
 				180F871A1A7C72F50001CD3C /* ImgProc */,
 				1861AD391B6330E600278A9D /* CameraSession.h */,
-				1861AD381B632D0700278A9D /* CameraIPProtocols.hpp */,
 				188074E51A38F4A60039725B /* CameraSession.mm */,
 				18A0722B1AA0098D00A93391 /* ImageUtils.hpp */,
 				18A0722C1AA0098D00A93391 /* ImageUtils.mm */,
@@ -263,6 +275,7 @@
 			isa = PBXGroup;
 			children = (
 				18E1578C1A67510900DFEFFF /* DeviceConnector.swift */,
+				18042C161BBC7FB40076FA24 /* DeviceStatusDelegate.swift */,
 				18E157A01A70290300DFEFFF /* DeviceStatusButton.swift */,
 				18E157961A68A52600DFEFFF /* DeviceTableViewController.swift */,
 			);
@@ -298,6 +311,7 @@
 				18C3C4501B8CFAA0000B6B0F /* StageMoveAction.swift */,
 				180F87991A8593C20001CD3C /* StageEnableStepAction.swift */,
 				180C3E841AE9E6F500A928FD /* StageState.swift */,
+				18042C141BBC7E010076FA24 /* AutoEnableStageState.swift */,
 				18D6B8F11ACCCB0B002B1A9E /* StageConstants.swift */,
 			);
 			name = Device;
@@ -310,6 +324,7 @@
 				18C3C4781BACB449000B6B0F /* MotorCalibStepAction.swift */,
 				1892F5971B44953A0084E0F8 /* StepDisplacementAction.swift */,
 				18C3C46F1BAA3DB7000B6B0F /* DeadbandStepCounterAction.swift */,
+				18042C101BB61C9B0076FA24 /* DeadbandStepAction.swift */,
 			);
 			name = Calibration;
 			sourceTree = "<group>";
@@ -342,8 +357,11 @@
 				180F87161A7C67D90001CD3C /* IPColorInverter.mm */,
 				181D49061B25098100D08A93 /* IPDisplacement.h */,
 				181D49071B25098100D08A93 /* IPDisplacement.mm */,
+				18042C0D1BB5F8770076FA24 /* IPDisplacement+UpdateTemplate.hpp */,
 				18C3C4661BA3B693000B6B0F /* IPPyramidDisplacement.h */,
 				18C3C4671BA3B693000B6B0F /* IPPyramidDisplacement.mm */,
+				18042C071BB5CBC70076FA24 /* IPMotionDetectDisplacement.h */,
+				18042C081BB5CBC70076FA24 /* IPMotionDetectDisplacement.mm */,
 				18A0722E1AA13E6400A93391 /* IPFocusDetector.h */,
 				18A0722F1AA13E6400A93391 /* IPFocusDetector.mm */,
 				18C3C4611B967AA6000B6B0F /* IPEdgeDetect.h */,
@@ -605,6 +623,7 @@
 				182CE82A1A96E0CF002162DF /* AsyncImageMultiProcessor.mm in Sources */,
 				18D6B9021AD36FB6002B1A9E /* GDriveStatusButton.swift in Sources */,
 				183FD1181BB0D61700452A1E /* BLE.swift in Sources */,
+				18042C091BB5CBC70076FA24 /* IPMotionDetectDisplacement.mm in Sources */,
 				181D49081B25098100D08A93 /* IPDisplacement.mm in Sources */,
 				183FD1141BB0CBA800452A1E /* GDriveAdapter.swift in Sources */,
 				18C3C43F1B6ECDD7000B6B0F /* MFCSystem.swift in Sources */,
@@ -630,12 +649,14 @@
 				18DB4C991AAFC24500165F0F /* CameraAutoWhiteBalanceAction.swift in Sources */,
 				18D6B8EE1ACCC6DD002B1A9E /* StageDirectionAction.swift in Sources */,
 				183AF3211AB0CD87006C9503 /* CameraManualExposureAction.swift in Sources */,
+				18042C151BBC7E020076FA24 /* AutoEnableStageState.swift in Sources */,
 				18DB4C931AAE670900165F0F /* CameraAutoFocusAction.swift in Sources */,
 				18C3C4681BA3B693000B6B0F /* IPPyramidDisplacement.mm in Sources */,
 				180F879F1A8C23740001CD3C /* AsyncImageProcessor.mm in Sources */,
 				18C3C4601B9668DA000B6B0F /* IPBackgroundSubtract.mm in Sources */,
 				180F879C1A8C21D90001CD3C /* ImageProcessorAction.swift in Sources */,
 				18D6B8EC1ACCC630002B1A9E /* StageEnableAction.swift in Sources */,
+				18042C171BBC7FB40076FA24 /* DeviceStatusDelegate.swift in Sources */,
 				18C3C4631B967AA6000B6B0F /* IPEdgeDetect.mm in Sources */,
 				18ED38111A200B8B005BA3CE /* LAMB2.xcdatamodeld in Sources */,
 				1892F59D1B4620B60084E0F8 /* IPFovBounds.mm in Sources */,
@@ -646,6 +667,7 @@
 				18A0721F1A981AEF00A93391 /* CapturePhotoAction.swift in Sources */,
 				18A072331AA1404800A93391 /* AutofocuserAction.swift in Sources */,
 				18C3C4751BAC9A7A000B6B0F /* ImgFovBoundsAction.swift in Sources */,
+				18042C111BB61C9B0076FA24 /* DeadbandStepAction.swift in Sources */,
 				180F87951A858FF20001CD3C /* SequenceAction.swift in Sources */,
 				18ED380E1A200B8B005BA3CE /* AppDelegate.swift in Sources */,
 				18D6B8F01ACCCA31002B1A9E /* StageDisableAction.swift in Sources */,

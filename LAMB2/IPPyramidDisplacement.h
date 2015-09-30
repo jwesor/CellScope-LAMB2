@@ -10,8 +10,7 @@
 
 @interface IPPyramidDisplacement : IPDisplacement
 
-@property int searchWidth;
-@property int searchHeight;
-@property int searchLevels;
+@property int searchPadding;
+@property float scale;
 
 @end

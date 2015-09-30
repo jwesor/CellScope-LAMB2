@@ -11,8 +11,6 @@ import Foundation
 class StepDisplacementAction: SequenceAction, ActionCompletionDelegate {
     
     let displacer: ImgDisplacementAction
-    let enableAction: StageEnableAction
-    let disableAction: StageDisableAction
     let dirAction: StageDirectionAction
     let stepAction: StageStepAction
     let stride: Int
@@ -24,26 +22,23 @@ class StepDisplacementAction: SequenceAction, ActionCompletionDelegate {
     private(set) var aveY: Float = 0
     
     init(motor: Int, dir: Bool, steps: Int, stride: UInt8 = 1, device: DeviceConnector, stage: StageState, displacer: ImgDisplacementAction) {
-        enableAction = StageEnableAction(device, motor: motor, stage: stage)
-        disableAction = StageDisableAction(device, motor: motor, stage: stage)
         dirAction = StageDirectionAction(device, motor: motor, dir: dir, stage: stage)
         stepAction = StageStepAction(device, motor: motor, steps: stride)
         self.displacer = displacer
         targetSteps = steps
         self.stride = Int(stride)
-        super.init([enableAction, dirAction, displacer])
+        super.init([dirAction, displacer])
         for var i = 0; i < steps; i += self.stride {
             addSubAction(stepAction)
             addSubAction(displacer)
         }
-        addSubAction(disableAction)
     }
     
     override func doExecution() {
         dX = []
         dY = []
         stepCounter = 0
-        displacer.addOneTimeCompletionDelegate(self)
+        displacer.addCompletionDelegate(self)
         super.doExecution()
     }
     
@@ -54,14 +49,12 @@ class StepDisplacementAction: SequenceAction, ActionCompletionDelegate {
         }
         print("\(dX) \(dY)")
         stepCounter += stride
-        if (stepCounter < targetSteps) {
-            displacer.addOneTimeCompletionDelegate(self)
-        }
     }
     
     override func cleanup() {
         aveX = getAveX()
         aveY = getAveY()
+        displacer.removeCompletionDelegate(self)
         super.cleanup()
     }
     
