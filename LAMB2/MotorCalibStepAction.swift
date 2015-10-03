@@ -12,18 +12,23 @@ class MotorCalibStepAction : SequenceAction {
     
     let stepHigh: StepDisplacementAction
     let stepLow: StepDisplacementAction
-    let backlashHigh: DeadbandStepCounterAction
-    let backlashLow: DeadbandStepCounterAction
+    let backlashHigh: DeadbandStepAction
+    let backlashLow: DeadbandStepAction
     
     init(motor: Int, device: DeviceConnector, stage: StageState, displacer: ImgDisplacementAction, range: Int) {
         
-        stepHigh = StepDisplacementAction(motor: motor, dir: StageConstants.DIR_HIGH, steps: range, device: device, stage: stage, displacer: displacer)
-        stepLow = StepDisplacementAction(motor: motor, dir: StageConstants.DIR_LOW, steps: range, device: device, stage: stage, displacer: displacer)
+        let enable = StageEnableAction(device, motor: motor, stage: stage)
+        let disable = StageDisableAction(device, motor: motor, stage: stage)
+        let dirLow = StageDirectionAction(device, motor: motor, dir: StageConstants.DIR_LOW, stage: stage)
+        let dirHigh = StageDirectionAction(device, motor: motor, dir: StageConstants.DIR_HIGH, stage: stage)
         
-        backlashHigh = DeadbandStepCounterAction(motor: motor, dir: StageConstants.DIR_HIGH, device: device, stage: stage, displacer: displacer)
-        backlashLow = DeadbandStepCounterAction(motor: motor, dir: StageConstants.DIR_LOW, device: device, stage: stage, displacer: displacer)
+        stepHigh = StepDisplacementAction(motor: motor, steps: range, device: device, stage: stage, displacer: displacer)
+        stepLow = StepDisplacementAction(motor: motor, steps: range, device: device, stage: stage, displacer: displacer)
         
-        super.init([backlashHigh, backlashLow, stepLow, backlashHigh, stepHigh])
+        backlashHigh = DeadbandStepAction(motor: motor, device: device, displacer: displacer)
+        backlashLow = DeadbandStepAction(motor: motor, device: device, displacer: displacer)
+        
+        super.init([enable, dirHigh, backlashHigh, dirLow, backlashLow, stepLow, dirHigh, backlashHigh, stepHigh, disable])
     }
     
     func getBacklash(dir: Bool) -> Int {

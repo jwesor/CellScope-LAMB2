@@ -11,7 +11,6 @@ import Foundation
 class StepDisplacementAction: SequenceAction, ActionCompletionDelegate {
     
     let displacer: ImgDisplacementAction
-    let dirAction: StageDirectionAction
     let stepAction: StageStepAction
     let stride: Int
     let targetSteps: Int
@@ -21,13 +20,13 @@ class StepDisplacementAction: SequenceAction, ActionCompletionDelegate {
     private(set) var aveX: Float = 0
     private(set) var aveY: Float = 0
     
-    init(motor: Int, dir: Bool, steps: Int, stride: UInt8 = 1, device: DeviceConnector, stage: StageState, displacer: ImgDisplacementAction) {
-        dirAction = StageDirectionAction(device, motor: motor, dir: dir, stage: stage)
+    init(motor: Int, steps: Int, stride: UInt8 = 1, device: DeviceConnector, stage: StageState, displacer: ImgDisplacementAction) {
         stepAction = StageStepAction(device, motor: motor, steps: stride)
         self.displacer = displacer
         targetSteps = steps
         self.stride = Int(stride)
-        super.init([dirAction, displacer])
+        super.init()
+        addSubAction(displacer)
         for var i = 0; i < steps; i += self.stride {
             addSubAction(stepAction)
             addSubAction(displacer)

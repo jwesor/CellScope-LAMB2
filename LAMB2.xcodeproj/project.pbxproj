@@ -58,7 +58,6 @@
 		18C3C4631B967AA6000B6B0F /* IPEdgeDetect.mm in Sources */ = {isa = PBXBuildFile; fileRef = 18C3C4621B967AA6000B6B0F /* IPEdgeDetect.mm */; };
 		18C3C4651B9A2894000B6B0F /* StageMicrostepAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18C3C4641B9A2894000B6B0F /* StageMicrostepAction.swift */; };
 		18C3C4681BA3B693000B6B0F /* IPPyramidDisplacement.mm in Sources */ = {isa = PBXBuildFile; fileRef = 18C3C4671BA3B693000B6B0F /* IPPyramidDisplacement.mm */; };
-		18C3C4701BAA3DB7000B6B0F /* DeadbandStepCounterAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18C3C46F1BAA3DB7000B6B0F /* DeadbandStepCounterAction.swift */; };
 		18C3C4721BAA4301000B6B0F /* ImgDisplacementAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18C3C4711BAA4301000B6B0F /* ImgDisplacementAction.swift */; };
 		18C3C4751BAC9A7A000B6B0F /* ImgFovBoundsAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18C3C4741BAC9A7A000B6B0F /* ImgFovBoundsAction.swift */; };
 		18C3C4791BACB449000B6B0F /* MotorCalibStepAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18C3C4781BACB449000B6B0F /* MotorCalibStepAction.swift */; };
@@ -178,7 +177,6 @@
 		18C3C4641B9A2894000B6B0F /* StageMicrostepAction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StageMicrostepAction.swift; sourceTree = "<group>"; };
 		18C3C4661BA3B693000B6B0F /* IPPyramidDisplacement.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IPPyramidDisplacement.h; sourceTree = "<group>"; };
 		18C3C4671BA3B693000B6B0F /* IPPyramidDisplacement.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = IPPyramidDisplacement.mm; sourceTree = "<group>"; };
-		18C3C46F1BAA3DB7000B6B0F /* DeadbandStepCounterAction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeadbandStepCounterAction.swift; sourceTree = "<group>"; };
 		18C3C4711BAA4301000B6B0F /* ImgDisplacementAction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImgDisplacementAction.swift; sourceTree = "<group>"; };
 		18C3C4741BAC9A7A000B6B0F /* ImgFovBoundsAction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImgFovBoundsAction.swift; sourceTree = "<group>"; };
 		18C3C4781BACB449000B6B0F /* MotorCalibStepAction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MotorCalibStepAction.swift; sourceTree = "<group>"; };
@@ -323,7 +321,6 @@
 				1892F5991B4605E50084E0F8 /* StepCalibratorAction.swift */,
 				18C3C4781BACB449000B6B0F /* MotorCalibStepAction.swift */,
 				1892F5971B44953A0084E0F8 /* StepDisplacementAction.swift */,
-				18C3C46F1BAA3DB7000B6B0F /* DeadbandStepCounterAction.swift */,
 				18042C101BB61C9B0076FA24 /* DeadbandStepAction.swift */,
 			);
 			name = Calibration;
@@ -629,7 +626,6 @@
 				18C3C43F1B6ECDD7000B6B0F /* MFCSystem.swift in Sources */,
 				18DB4C971AAE7A7600165F0F /* CameraManualFocusAction.swift in Sources */,
 				183AF31F1AB0CD1C006C9503 /* CameraAutoExposureAction.swift in Sources */,
-				18C3C4701BAA3DB7000B6B0F /* DeadbandStepCounterAction.swift in Sources */,
 				18DB4C9B1AAFC31400165F0F /* CameraManualWhiteBalanceAction.swift in Sources */,
 				18ED38131A200B8B005BA3CE /* ViewController.swift in Sources */,
 				18D6B9061AE08BF1002B1A9E /* ImageDocument.swift in Sources */,

@@ -17,7 +17,7 @@ class CameraViewController: UIViewController {
     var camera: CameraSession?
     let device = DeviceConnector()
     let queue = ActionQueue()
-    let stage = AutoEnableStageState()
+    let stage = StageState()
     
     var displacer: ImgDisplacementAction?
     var bounds: ImgFovBoundsAction?
@@ -38,9 +38,7 @@ class CameraViewController: UIViewController {
         camera?.startCameraSession()
         
         device.addStatusDelegate(deviceButton)
-        deviceButton.updateDeviceStatusDisconnected()
-        stage.autoEnableOnConnection(device, actions: queue)
-        
+        deviceButton.updateDeviceStatusDisconnected()        
         queue.beginActions()
         
         // Logging stuff; uncomment if you actually want to save all these logs
@@ -81,15 +79,20 @@ class CameraViewController: UIViewController {
     
     @IBAction func test3(sender: AnyObject) {
         // Background
-        let motor = StageConstants.MOTOR_2
-        let dir = StageConstants.DIR_HIGH
-        let setdir = StageDirectionAction(device, motor: motor, dir: dir, stage: stage)
-        let deadband = DeadbandStepAction(motor: motor, device: device, displacer: displacer!)
-        let stepdis = StepDisplacementAction(motor: motor, dir: dir, steps: 25, device: device, stage: stage, displacer: displacer!)
-        queue.addAction(setdir)
-        queue.addAction(deadband)
-        queue.addAction(stepdis)
-        queue.addAction(stepdis)
+//        let motor = StageConstants.MOTOR_2
+//        let dir = StageConstants.DIR_HIGH
+//        let setdir = StageDirectionAction(device, motor: motor, dir: dir, stage: stage)
+//        let deadband = DeadbandStepAction(motor: motor, device: device, displacer: displacer!)
+//        let stepdis = StepDisplacementAction(motor: motor, dir: dir, steps: 25, device: device, stage: stage, displacer: displacer!)
+//        queue.addAction(setdir)
+//        queue.addAction(deadband)
+//        queue.addAction(stepdis)
+//        queue.addAction(stepdis)
+        queue.addAction(StageEnableAction(device, motor: StageConstants.MOTOR_1, stage: stage))
+        queue.addAction(StageEnableAction(device, motor: StageConstants.MOTOR_2, stage: stage))
+        queue.addAction(StageDisableAction(device, motor: StageConstants.MOTOR_1, stage: stage))
+        queue.addAction(StageDisableAction(device, motor: StageConstants.MOTOR_2, stage: stage))
+
     }
     
     @IBAction func mfcDir(sender: AnyObject) {
@@ -122,7 +125,9 @@ class CameraViewController: UIViewController {
 
     @IBAction func balance(sender: AnyObject) {
         // Use the iPad's built in white balance, exposure correction, and autofocus
-        queue.addAction(CameraAutoWhiteBalanceAction(camera: camera!))
+        let bal = CameraAutoWhiteBalanceAction(camera: camera!)
+        bal.timeout = 10
+        queue.addAction(bal)
         let exp = CameraAutoExposureAction(camera: camera!)
         exp.timeout = 3
         queue.addAction(exp)
@@ -149,8 +154,13 @@ class CameraViewController: UIViewController {
         } else {
             dir = StageConstants.DIR_LOW
         }
-        queue.addAction(StageDirectionAction(device, motor: motor, dir: dir, stage: stage))
-        queue.addAction(StageMoveAction(device, motor: motor, steps: steps))
+        
+//        if motor == StageConstants.MOTOR_3 {
+            queue.addAction(StageEnableStepAction(device, motor: motor, dir: dir, steps: steps, stage: stage))
+//        } else {
+//            queue.addAction(StageDirectionAction(device, motor: motor, dir: dir, stage: stage))
+//            queue.addAction(StageMoveAction(device, motor: motor, steps: steps))
+//        }
     }
     
     @IBAction func led2off(sender: AnyObject) {
@@ -159,6 +169,7 @@ class CameraViewController: UIViewController {
     
     @IBAction func led2on(sender: AnyObject) {
         device.send([0x28, 0, 0])
+        
     }
     
     @IBAction func led1off(sender: AnyObject) {

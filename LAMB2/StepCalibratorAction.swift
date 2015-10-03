@@ -26,7 +26,7 @@ class StepCalibratorAction: SequenceAction {
     init(device: DeviceConnector, stage: StageState, displacer: ImgDisplacementAction, microstep: Bool = false, autofocus: AutofocuserAction? = nil) {
         self.stage = stage
         self.microstep = microstep
-        let range = microstep ? 15 : 5
+        let range = microstep ? 30 : 10
         let micro = StageMicrostepAction(device, enabled: microstep, stage: stage)
         calib1 = MotorCalibStepAction(motor: StageConstants.MOTOR_1, device: device, stage: stage, displacer: displacer, range: range)
         calib2 = MotorCalibStepAction(motor: StageConstants.MOTOR_2, device: device, stage: stage, displacer: displacer, range: range)

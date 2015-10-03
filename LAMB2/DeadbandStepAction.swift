@@ -21,7 +21,7 @@ class DeadbandStepAction: SequenceAction, ActionCompletionDelegate {
     private(set) var dX: Int = 0
     private(set) var dY: Int = 0
     
-    init(motor: Int, device: DeviceConnector, displacer: ImgDisplacementAction, stride: UInt8 = 1, motionThreshold: Int = 15, strideLimit: Int = 100) {
+    init(motor: Int, device: DeviceConnector, displacer: ImgDisplacementAction, stride: UInt8 = 1, motionThreshold: Int = 10, strideLimit: Int = 100) {
         stepAction = StageStepAction(device, motor: motor, steps: stride)
         self.displacer = displacer
         self.threshold = motionThreshold

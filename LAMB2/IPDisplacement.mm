@@ -41,8 +41,8 @@ using namespace cv;
 
 - (id) init {
     self = [super init];
-    _roi = cv::Rect(0, 0, 400, 400);
-    _tracked = cv::Rect(0, 0, 400, 400);
+    _roi = cv::Rect(0, 0, 300, 300);
+    _tracked = cv::Rect(0, 0, 300, 300);
     _firstFrame = true;
     self.grayscale = true;
     return self;

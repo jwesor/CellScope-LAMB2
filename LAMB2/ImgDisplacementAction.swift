@@ -16,7 +16,7 @@ class ImgDisplacementAction: ImageProcessorAction {
     
     init(camera: CameraSession, displace: IPDisplacement? = nil, preprocessors: [ImageProcessor] = []) {
         self.displacement = (displace == nil) ? IPDisplacement() : displace!
-        super.init(preprocessors + [self.displacement], standby: 1, camera: camera)
+        super.init(preprocessors + [self.displacement], standby: 0, camera: camera)
     }
     
     override func cleanup() {
