@@ -21,7 +21,7 @@ class MFCMoveAction : SequenceAction {
         
         var stride = steps
         if (steps == 0) {
-            let diameter = Int(min(mfc.bounds.width, mfc.bounds.height)) / 4
+            let diameter = Int(min(mfc.fovBounds.width, mfc.fovBounds.height)) / 4
             let stepDist = max( a.x * a.x + a.y * a.y,
                                 b.x * b.x + b.y * b.y,
                                 c.x * c.x + c.y * c.y,
@@ -88,7 +88,7 @@ class MFCMoveAction : SequenceAction {
         // stride until the desired number of steps is reached. Finally, disable the motor.
         if steps1 != 0 {
             let dir1Action = MFCDirectionAction(mfc, motor: StageConstants.MOTOR_1, dir: dir1)
-            addSubAction(mfc.enable1)
+            addSubAction(mfc.motorAction(StageConstants.MOTOR_1, enable: true))
             addSubAction(mfc.displacer)
             addSubAction(dir1Action)
             let stride1Action = StageStepAction(mfc.device, motor: StageConstants.MOTOR_1, steps: stride)
@@ -102,11 +102,11 @@ class MFCMoveAction : SequenceAction {
                 addSubAction(StageStepAction(mfc.device, motor: StageConstants.MOTOR_1, steps: UInt8(remaining)))
                 addSubAction(mfc.displacer)
             }
-            addSubAction(mfc.disable1)
+            addSubAction(mfc.motorAction(StageConstants.MOTOR_1, enable: false))
         }
         if steps2 != 0 {
             let dir2Action = MFCDirectionAction(mfc, motor: StageConstants.MOTOR_2, dir: dir2)
-            addSubAction(mfc.enable2)
+            addSubAction(mfc.motorAction(StageConstants.MOTOR_2, enable: true))
             addSubAction(mfc.displacer)
             addSubAction(dir2Action)
             let stride2Action = StageStepAction(mfc.device, motor: StageConstants.MOTOR_2, steps: stride)
@@ -120,7 +120,7 @@ class MFCMoveAction : SequenceAction {
                 addSubAction(StageStepAction(mfc.device, motor: StageConstants.MOTOR_2, steps: UInt8(remaining)))
                 addSubAction(mfc.displacer)
             }
-            addSubAction(mfc.disable2)
+            addSubAction(mfc.motorAction(StageConstants.MOTOR_2, enable: false))
         }
         
         //TODO: Increase cross correlation accuracy. Background subtraction?

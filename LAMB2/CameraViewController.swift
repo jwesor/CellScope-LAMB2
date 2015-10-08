@@ -97,23 +97,6 @@ class CameraViewController: UIViewController {
     
     @IBAction func mfcDir(sender: AnyObject) {
         // MFC-related stuff is not working at the moment. Don't expect the MFC buttons to do anything useful!
-        let text = sender.currentTitle!!
-        var motor: Int
-        var dir: Bool
-        
-        if (text.rangeOfString("M1") != nil) {
-            motor = StageConstants.MOTOR_1
-        } else {
-            motor = StageConstants.MOTOR_2
-        }
-        
-        if (text.rangeOfString("HI") != nil) {
-            dir = StageConstants.DIR_HIGH
-        } else {
-            dir = StageConstants.DIR_LOW
-        }
-        
-        queue.addAction(MFCDirectionAction(mfc!, motor: motor, dir: dir, toggleEnable: true))
     }
     
     @IBAction func microstep(sender: AnyObject) {

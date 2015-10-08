@@ -13,6 +13,10 @@ class ImgFovBoundsAction: ImageProcessorAction {
     let stage: StageState
     let fov: IPFovBounds
     var ipBoundRois: [ImageProcessor]
+    private(set) var x: Int = 0
+    private(set) var y: Int = 0
+    private(set) var width: Int = 0
+    private(set) var height: Int = 0
     
     init(camera: CameraSession, stage: StageState, bindRois: [ImageProcessor] = [], fov: IPFovBounds? = nil) {
         self.stage = stage
@@ -35,6 +39,10 @@ class ImgFovBoundsAction: ImageProcessorAction {
             fov.setBoundsAsRoi(imgproc)
             imgproc.roi = true
         }
+        x = Int(fov.x)
+        y = Int(fov.y)
+        width = Int(fov.width)
+        height = Int(fov.height)
         super.cleanup()
     }
 }

@@ -8,7 +8,7 @@
 
 import Foundation
 
-class MFCDirectionAction : SequenceAction, ActionCompletionDelegate {
+class MFCDirectionAction : SequenceAction {
     
     private let mfc : MFCSystem
     private let direction : StageDirectionAction
@@ -26,16 +26,5 @@ class MFCDirectionAction : SequenceAction, ActionCompletionDelegate {
         let backlashSteps = stage.getBacklash(motor, dir: dir)
         backlash = StageMoveAction(mfc.device, motor: motor, steps: backlashSteps)
         super.init([direction])
-        direction.addCompletionDelegate(self)
-    }
-    
-    func onActionCompleted(action: AbstractAction) {
-        if direction.changed {
-            if toggleEnable {
-                addOneTimeActions([mfc.enable[motor]!, mfc.microstep, backlash, mfc.disable[motor]!, mfc.displacer])
-            } else {
-                addOneTimeActions([mfc.microstep, backlash, mfc.displacer])
-            }
-        }
     }
 }
