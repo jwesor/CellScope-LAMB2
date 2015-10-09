@@ -72,11 +72,11 @@ class MFCSystem: ActionCompletionDelegate {
     }
 
     func onActionCompleted(action: AbstractAction) {
-        if action == displacer {
+        if action === displacer {
             x += Int(displacer.dX)
             y += Int(displacer.dY)
             print("MFC \(x) \(y) \n", terminator: "")
-        } else if action == initAction || action == initNoCalibAction {
+        } else if action === initAction || action === initNoCalibAction {
             print("MFC reset")
             reset()
         }

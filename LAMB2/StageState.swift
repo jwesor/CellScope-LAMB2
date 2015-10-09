@@ -61,6 +61,10 @@ class StageState {
             return motors[motor]!.microstep[dir]!
         }
     }
+
+    func getDirection(motor: Int) -> Bool {
+        return motors[motor]!.dir
+    }
     
     func setStep(val: (x: Int, y: Int), motor: Int, dir: Bool, microstep: Bool = false) {
         if !microstep {
