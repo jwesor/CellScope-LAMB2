@@ -10,9 +10,19 @@ class MFCIntraMoveAction : SequenceAction {
 
     let mfc: MFCSystem
 
-    init(mfc: MFCSystem, motorSteps:[Int:Float] stride: UInt8 = 1) {
+    init(mfc: MFCSystem, motorSteps:[Int:Float], stride: UInt8 = 1) {
         self.mfc = mfc
         super.init()
+        
+        for (motor, steps) in motorSteps {
+            let moveAction = MFCMoveMotorStepAction(mfc: mfc, motor: motor, steps: steps)
+            addSubAction(moveAction)
+        }
+    }
+    
+    override func doExecution() {
+        print("GO MOVE")
+        super.doExecution()
     }
 
 }

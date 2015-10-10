@@ -16,5 +16,6 @@
 #import "IPColorInverter.h"
 #import "IPImageCapture.h"
 #import "IPIdleFrames.h"
+#import "IPGaussian.h"
 
 #import "IPAsyncPanTracker.h"

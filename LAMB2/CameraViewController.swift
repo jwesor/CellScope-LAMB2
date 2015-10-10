@@ -6,7 +6,7 @@
 //  Copyright (c) 2014 Fletchlab. All rights reserved.
 //
 
-class CameraViewController: UIViewController {
+class CameraViewController: UIViewController, ActionCompletionDelegate {
     
     @IBOutlet weak var gdriveButton: GDriveStatusButton!
     @IBOutlet weak var debugText: UITextView!
@@ -55,26 +55,49 @@ class CameraViewController: UIViewController {
 //        DebugUtil.setLog("action", doc: actionLog)
 //        DebugUtil.setLog("drive", doc: driveLog)
 //        DebugUtil.setLog("cycle", doc: cycleLog)
-        
-//        let d = IPPyramidDisplacement()
 //        camera?.addImageProcessor(d)
+        
               
         autofocus = AutofocuserAction(startLevel: -10, endLevel: 10, stepsPerLvl: 5, camera: camera!, device: device, stage: stage)
-        displacer = ImgDisplacementAction(camera: camera!, displace: IPPyramidDisplacement(), preprocessors: [IPEdgeDetect()])
+        displacer = ImgDisplacementAction(camera: camera!, displace: IPPyramidDisplacement(), preprocessors: [IPGaussian(), IPEdgeDetect()])
         bounds = ImgFovBoundsAction(camera: camera!, stage: stage, bindRois: [displacer!.proc])
         calib = StepCalibratorAction(device: device, stage: stage, displacer: displacer!, microstep: true)
         mfc = MFCSystem(camera: camera!, device: device, stage: stage)
+        
+        loadDefaultStageState()
+        displacer!.addCompletionDelegate(self)
+    }
+    
+    func loadDefaultStageState() {
+        let M1 = StageConstants.MOTOR_1, M2 = StageConstants.MOTOR_2
+        let HI = StageConstants.DIR_HIGH, LO = StageConstants.DIR_LOW
+        let microstep = true
+        stage.setBacklash(49, motor: M1, dir: HI, microstep: microstep)
+        stage.setBacklash(43, motor: M1, dir: LO, microstep: microstep)
+        stage.setBacklash(51, motor: M2, dir: HI, microstep: microstep)
+        stage.setBacklash(49, motor: M2, dir: LO, microstep: microstep)
+        stage.setStep((x: 5, y: 23), motor: M1, dir: HI, microstep: microstep)
+        stage.setStep((x: -2, y: -18), motor: M1, dir: LO, microstep: microstep)
+        stage.setStep((x: 18, y: 0), motor: M2, dir: HI, microstep: microstep)
+        stage.setStep((x: -16, y: 3), motor: M2, dir: LO, microstep: microstep)
     }
     
     @IBAction func test(sender: AnyObject) {
         // Initialize
         queue.addAction(bounds!)
-        queue.addAction(autofocus!)
+        queue.addAction(mfc!.initNoCalibAction)
     }
     
     @IBAction func test2(send: AnyObject) {
         // Test
-        queue.addAction(calib!)
+        queue.addAction(displacer!)
+        queue.addAction(MFCMoveAction(mfc: mfc!, x: 1000, y: 1000))
+        queue.addAction(MFCMoveAction(mfc: mfc!, x: -1000, y: -1000))
+        queue.addAction(displacer!)
+    }
+    
+    func onActionCompleted(action: AbstractAction) {
+        print("DISPLACER \(displacer!.dX) \(displacer!.dY)")
     }
     
     @IBAction func test3(sender: AnyObject) {

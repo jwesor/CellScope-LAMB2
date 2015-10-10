@@ -12,37 +12,39 @@ class MFCMoveAction : SequenceAction, ActionCompletionDelegate {
 
     private var dir1: Bool = false
     private var dir2: Bool = false
-    private var steps1: Bool = 0
-    private var steps2: Bool = 0
+    private var steps1: Float = 0
+    private var steps2: Float = 0
 
     let pre: MFCPreMoveAction
     let intra: MFCIntraMoveAction
-    let psot: MFCPostMoveAction
+    let post: MFCPostMoveAction
     
     init(mfc: MFCSystem, x: Int, y: Int, stride: UInt8 = 1) {
-        super.init()
 
         let stage = mfc.stage
-        let a = stage.getStep(StageConstants.MOTOR_1, dir: StageConstants.DIR_HIGH)
-        let b = stage.getStep(StageConstants.MOTOR_1, dir: StageConstants.DIR_LOW)
-        let c = stage.getStep(StageConstants.MOTOR_2, dir: StageConstants.DIR_HIGH)
-        let d = stage.getStep(StageConstants.MOTOR_2, dir: StageConstants.DIR_LOW)
+        let a = stage.getStep(StageConstants.MOTOR_1, dir: StageConstants.DIR_HIGH, microstep: true)
+        let b = stage.getStep(StageConstants.MOTOR_1, dir: StageConstants.DIR_LOW, microstep: true)
+        let c = stage.getStep(StageConstants.MOTOR_2, dir: StageConstants.DIR_HIGH, microstep: true)
+        let d = stage.getStep(StageConstants.MOTOR_2, dir: StageConstants.DIR_LOW, microstep: true)
 
-        let (A1, C1) = calculateSteps(p: a, q: c, X: x, Y: y)
-        let (B1, D1) = calculateSteps(p: b, q: d, X: x, Y: y)
-        let (A2, D2) = calculateSteps(p: a, q: d, X: x, Y: y)
-        let (B2, C2) = calculateSteps(p: b, q: c, X: x, Y: y)
-        let predicted = [
-            (A1 + C1): (DIR_HIGH, A1, DIR_HIGH, C1),
-            (B1 + D1): (DIR_LOW, B1, DIR_LOW, D1),
-            (A2 + D2): (DIR_HIGH, A1, DIR_LOW, D2),
-            (B2 + C2): (DIR_LOW, B2, DIR_HIGH, C2)
-        ]
-        let minSteps = min(A1+C1, B1+D1, A2+D2, B2+C2)
-        if minSteps != Float.max {
-            dir1, steps1, dir2, steps2 = predicted[minSteps]
-            var motorDirs[Int:Bool] = []
-            var motorSteps[Int:Float] = []
+        let (A1, C1) = MFCMoveAction.calculateSteps(p: a, q: c, X: x, Y: y)
+        let (B1, D1) = MFCMoveAction.calculateSteps(p: b, q: d, X: x, Y: y)
+        let (A2, D2) = MFCMoveAction.calculateSteps(p: a, q: d, X: x, Y: y)
+        let (B2, C2) = MFCMoveAction.calculateSteps(p: b, q: c, X: x, Y: y)
+        let A1C1 = (A1 < 0 || C1 < 0) ? Float(Int.max) : (A1 + C1)
+        let B1D1 = (B1 < 0 || D1 < 0) ? Float(Int.max) : (B1 + D1)
+        let A2D2 = (A2 < 0 || D2 < 0) ? Float(Int.max) : (A2 + D2)
+        let B2C2 = (B2 < 0 || C2 < 0) ? Float(Int.max) : (B2 + C2)
+        var predicted:[Float: (Bool, Float, Bool, Float)] = [:]
+        predicted[A1C1] = (StageConstants.DIR_HIGH, A1, StageConstants.DIR_HIGH, C1)
+        predicted[B1D1] = (StageConstants.DIR_LOW, B1, StageConstants.DIR_LOW, D1)
+        predicted[A2D2] = (StageConstants.DIR_HIGH, A1, StageConstants.DIR_LOW, D2)
+        predicted[B2C2] = (StageConstants.DIR_LOW, B2, StageConstants.DIR_HIGH, C2)
+        let minSteps = min(A1C1, B1D1, A2D2, B2C2)
+        if minSteps < Float(Int.max) {
+            (dir1, steps1, dir2, steps2) = predicted[minSteps]!
+            var motorDirs:[Int : Bool] = [:]
+            var motorSteps:[Int : Float] = [:]
             if round(steps1) > 0 {
                 motorDirs[StageConstants.MOTOR_1] = dir1
                 motorSteps[StageConstants.MOTOR_1] = steps1
@@ -54,13 +56,13 @@ class MFCMoveAction : SequenceAction, ActionCompletionDelegate {
             pre = MFCPreMoveAction(mfc: mfc, motorDirs: motorDirs)
             intra = MFCIntraMoveAction(mfc: mfc, motorSteps: motorSteps, stride: stride)
             post = MFCPostMoveAction(mfc: mfc, motors: Array(motorDirs.keys))
-            addSubActions([pre, intra, post])
-            pre.addCompletionDelegate(self)
         } else {
-            pre = MFCPreMoveAction(mfc: mfc, motorDirs: [])
-            intra = MFCIntraMoveAction(mfc: mfc, motorSteps: [])
-            post = MFCPostMoveAction(mfc: mfc: motors: [])
+            pre = MFCPreMoveAction(mfc: mfc, motorDirs: [:])
+            intra = MFCIntraMoveAction(mfc: mfc, motorSteps: [:])
+            post = MFCPostMoveAction(mfc: mfc, motors: [])
         }
+        super.init([pre, intra, post])
+        pre.addCompletionDelegate(self)
     }
 
     class func calculateSteps(p p: (x: Int, y: Int), q: (x: Int, y: Int), X: Int, Y: Int) -> (Float, Float) {
@@ -68,14 +70,14 @@ class MFCMoveAction : SequenceAction, ActionCompletionDelegate {
         let P = Float(v * X - u * Y) / Float(s * v - t * u)
         let Q = Float(t * X - s * Y) / Float(t * u - s * v)
         if (s * v - t * u) == 0 || (t * u - s * v) == 0 {
-            return (Float.max, Float.max)
+            return (-1, -1)
         }
         return (P, Q)
     }
     
     func onActionCompleted(action: AbstractAction) {
         if action === pre {
-
+            // TODO: Offset from enabling the motors should added into the step motions
         }
     }
 }

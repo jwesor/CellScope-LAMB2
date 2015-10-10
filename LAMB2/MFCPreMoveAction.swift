@@ -23,13 +23,13 @@ class MFCPreMoveAction : SequenceAction {
         super.init()
         addSubAction(mfc.microstep)
         addSubAction(mfc.displacer)
-        for motor, dir in motors {
+        for (motor, dir) in motorDirs {
             addSubAction(mfc.motorAction(motor, enable: true))
             addSubAction(mfc.displacer)
             addSubAction(mfc.directionAction(motor, dir: dir))
         }
 
-        for motor, _ in motors {
+        for (motor, _) in motorDirs {
             let deadband = DeadbandStepAction(motor: motor, device: mfc.device, displacer: mfc.displacer)
             addSubAction(deadband)
         }
@@ -44,6 +44,7 @@ class MFCPreMoveAction : SequenceAction {
     override func cleanup() {
         dX = mfc.x - x
         dY = mfc.y - y
+        print("MFC Premove Complete")
         super.cleanup()
     }
 }

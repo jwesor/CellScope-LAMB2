@@ -35,7 +35,11 @@
 		183FD1181BB0D61700452A1E /* BLE.swift in Sources */ = {isa = PBXBuildFile; fileRef = 183FD1171BB0D61700452A1E /* BLE.swift */; settings = {ASSET_TAGS = (); }; };
 		184C81C71B056D4F0083D926 /* IPIdleFrames.mm in Sources */ = {isa = PBXBuildFile; fileRef = 184C81C61B056D4F0083D926 /* IPIdleFrames.mm */; };
 		1852164D1BBFB1FC005BFD80 /* MFCDirectionAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1852164C1BBFB1FC005BFD80 /* MFCDirectionAction.swift */; settings = {ASSET_TAGS = (); }; };
-		185216551BBFB7BA005BFD80 /* MFCStrideAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 185216541BBFB7BA005BFD80 /* MFCStrideAction.swift */; settings = {ASSET_TAGS = (); }; };
+		1852165A1BC8982A005BFD80 /* MFCIntraMoveAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 185216561BC8982A005BFD80 /* MFCIntraMoveAction.swift */; settings = {ASSET_TAGS = (); }; };
+		1852165B1BC8982A005BFD80 /* MFCMoveMotorStepAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 185216571BC8982A005BFD80 /* MFCMoveMotorStepAction.swift */; settings = {ASSET_TAGS = (); }; };
+		1852165C1BC8982A005BFD80 /* MFCPostMoveAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 185216581BC8982A005BFD80 /* MFCPostMoveAction.swift */; settings = {ASSET_TAGS = (); }; };
+		1852165D1BC8982A005BFD80 /* MFCPreMoveAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 185216591BC8982A005BFD80 /* MFCPreMoveAction.swift */; settings = {ASSET_TAGS = (); }; };
+		185216601BC89C11005BFD80 /* IPGaussian.mm in Sources */ = {isa = PBXBuildFile; fileRef = 1852165F1BC89C11005BFD80 /* IPGaussian.mm */; settings = {ASSET_TAGS = (); }; };
 		188074E31A38F43A0039725B /* opencv2.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 188074E21A38F43A0039725B /* opencv2.framework */; };
 		188074E61A38F4A60039725B /* CameraSession.mm in Sources */ = {isa = PBXBuildFile; fileRef = 188074E51A38F4A60039725B /* CameraSession.mm */; };
 		188074E81A38F7210039725B /* CoreVideo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 188074E71A38F7210039725B /* CoreVideo.framework */; };
@@ -145,7 +149,12 @@
 		184C81C61B056D4F0083D926 /* IPIdleFrames.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = IPIdleFrames.mm; sourceTree = "<group>"; };
 		184D8DFE1A205AC600105FDA /* LAMB2-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "LAMB2-Bridging-Header.h"; sourceTree = "<group>"; };
 		1852164C1BBFB1FC005BFD80 /* MFCDirectionAction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MFCDirectionAction.swift; sourceTree = "<group>"; };
-		185216541BBFB7BA005BFD80 /* MFCStrideAction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MFCStrideAction.swift; sourceTree = "<group>"; };
+		185216561BC8982A005BFD80 /* MFCIntraMoveAction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MFCIntraMoveAction.swift; sourceTree = "<group>"; };
+		185216571BC8982A005BFD80 /* MFCMoveMotorStepAction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MFCMoveMotorStepAction.swift; sourceTree = "<group>"; };
+		185216581BC8982A005BFD80 /* MFCPostMoveAction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MFCPostMoveAction.swift; sourceTree = "<group>"; };
+		185216591BC8982A005BFD80 /* MFCPreMoveAction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MFCPreMoveAction.swift; sourceTree = "<group>"; };
+		1852165E1BC89C11005BFD80 /* IPGaussian.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IPGaussian.h; sourceTree = "<group>"; };
+		1852165F1BC89C11005BFD80 /* IPGaussian.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = IPGaussian.mm; sourceTree = "<group>"; };
 		1861AD391B6330E600278A9D /* CameraSession.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CameraSession.h; sourceTree = "<group>"; };
 		188074E21A38F43A0039725B /* opencv2.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = opencv2.framework; sourceTree = "<group>"; };
 		188074E51A38F4A60039725B /* CameraSession.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = CameraSession.mm; sourceTree = "<group>"; };
@@ -340,8 +349,11 @@
 		18C3C43B1B6EC9AE000B6B0F /* MultiFieldCoordinates */ = {
 			isa = PBXGroup;
 			children = (
+				185216561BC8982A005BFD80 /* MFCIntraMoveAction.swift */,
+				185216571BC8982A005BFD80 /* MFCMoveMotorStepAction.swift */,
+				185216581BC8982A005BFD80 /* MFCPostMoveAction.swift */,
+				185216591BC8982A005BFD80 /* MFCPreMoveAction.swift */,
 				18C3C43C1B6ECA0A000B6B0F /* MFCMoveAction.swift */,
-				185216541BBFB7BA005BFD80 /* MFCStrideAction.swift */,
 				18C3C43E1B6ECDD7000B6B0F /* MFCSystem.swift */,
 				1852164C1BBFB1FC005BFD80 /* MFCDirectionAction.swift */,
 			);
@@ -374,6 +386,8 @@
 				184C81C61B056D4F0083D926 /* IPIdleFrames.mm */,
 				182CE82B1A96E5F7002162DF /* IPAsyncPanTracker.h */,
 				182CE82C1A96E5F7002162DF /* IPAsyncPanTracker.mm */,
+				1852165E1BC89C11005BFD80 /* IPGaussian.h */,
+				1852165F1BC89C11005BFD80 /* IPGaussian.mm */,
 			);
 			name = ImageProcessors;
 			sourceTree = "<group>";
@@ -625,6 +639,7 @@
 				18042C091BB5CBC70076FA24 /* IPMotionDetectDisplacement.mm in Sources */,
 				181D49081B25098100D08A93 /* IPDisplacement.mm in Sources */,
 				183FD1141BB0CBA800452A1E /* GDriveAdapter.swift in Sources */,
+				1852165A1BC8982A005BFD80 /* MFCIntraMoveAction.swift in Sources */,
 				18C3C43F1B6ECDD7000B6B0F /* MFCSystem.swift in Sources */,
 				18DB4C971AAE7A7600165F0F /* CameraManualFocusAction.swift in Sources */,
 				183AF31F1AB0CD1C006C9503 /* CameraAutoExposureAction.swift in Sources */,
@@ -636,7 +651,6 @@
 				182CE8241A8F01B6002162DF /* CameraViewController.swift in Sources */,
 				180C3E851AE9E6F500A928FD /* StageState.swift in Sources */,
 				18E157971A68A52600DFEFFF /* DeviceTableViewController.swift in Sources */,
-				185216551BBFB7BA005BFD80 /* MFCStrideAction.swift in Sources */,
 				18D6B8F71ACF65F1002B1A9E /* TextDocument.swift in Sources */,
 				182CE82D1A96E5F7002162DF /* IPAsyncPanTracker.mm in Sources */,
 				18A0722D1AA0098D00A93391 /* ImageUtils.mm in Sources */,
@@ -674,9 +688,11 @@
 				18C3C4651B9A2894000B6B0F /* StageMicrostepAction.swift in Sources */,
 				1892F5981B44953A0084E0F8 /* StepDisplacementAction.swift in Sources */,
 				180F872A1A82F7C80001CD3C /* AbstractAction.swift in Sources */,
+				1852165B1BC8982A005BFD80 /* MFCMoveMotorStepAction.swift in Sources */,
 				18D6B9041ADF2FB0002B1A9E /* GDriveTextDocument.swift in Sources */,
 				180F87A51A8EECC70001CD3C /* ActionQueue.swift in Sources */,
 				180F879A1A8593C20001CD3C /* StageEnableStepAction.swift in Sources */,
+				1852165D1BC8982A005BFD80 /* MFCPreMoveAction.swift in Sources */,
 				18A072301AA13E6400A93391 /* IPFocusDetector.mm in Sources */,
 				18C3C4721BAA4301000B6B0F /* ImgDisplacementAction.swift in Sources */,
 				18D6B9101AE094F0002B1A9E /* ImageDocumentSeriesWriter.swift in Sources */,
@@ -690,6 +706,8 @@
 				18A0721D1A98040D00A93391 /* PhotoAlbum.swift in Sources */,
 				180F87171A7C67D90001CD3C /* IPColorInverter.mm in Sources */,
 				18C3C4791BACB449000B6B0F /* MotorCalibStepAction.swift in Sources */,
+				185216601BC89C11005BFD80 /* IPGaussian.mm in Sources */,
+				1852165C1BC8982A005BFD80 /* MFCPostMoveAction.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -52,6 +52,7 @@ class DeadbandStepAction: SequenceAction, ActionCompletionDelegate {
         }
         dX += displacer.dX
         dY += displacer.dY
+        print("Deadband \(stepCount)")
     }
     
     override func cleanup() {

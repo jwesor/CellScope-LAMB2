@@ -14,19 +14,19 @@ class MFCMoveMotorStepAction : SequenceAction, ActionCompletionDelegate {
     private let totalY: Float
     private let totalDist: Float
     private let tolerance: Float
-    private(set) var dX: Float = 0
-    private(set) var dY: Float = 0
+    private(set) var dX: Int = 0
+    private(set) var dY: Int = 0
 
     init(mfc: MFCSystem, motor: Int, steps: Float, stride: UInt8 = 1) {
         self.mfc = mfc
-        let dir = mfc.stage.getDirection(motor)
-        let (stepX, stepY) = mfc.stage.getStep(motor, dir: Bool, microstep: true)
-        totalX = stepX * steps
-        totalY * stepY * steps
+        let dir = mfc.stage.isMatchingDirection(motor, state: StageConstants.DIR_HIGH) ? StageConstants.DIR_HIGH : StageConstants.DIR_LOW
+        let (stepX, stepY) = mfc.stage.getStep(motor, dir: dir, microstep: true)
+        totalX = Float(stepX) * steps
+        totalY = Float(stepY) * steps
         totalDist = sqrt(totalX * totalX + totalY * totalY)
         stepAction = StageStepAction(mfc.device, motor: motor, steps: stride)
         tolerance = Float(stride) / steps * 0.5
-        super.init([mfc.displacer, stepAction, mfc.displacer])
+        super.init([mfc.displacer])
     }
 
     override func doExecution() {
@@ -37,18 +37,19 @@ class MFCMoveMotorStepAction : SequenceAction, ActionCompletionDelegate {
     }
 
     func onActionCompleted(action: AbstractAction) {
-        if action === mfc.displacer && dX != 0 && dY != 0 {
-            dX += displacer.dX
-            dY += displacer.dY
-            if sqrt(dX * dX + dY * dY) < (tolerance * totalDist) {
+        if action === mfc.displacer  {
+            dX += mfc.displacer.dX
+            dY += mfc.displacer.dY
+            print("Move \(sqrt(Float(dX * dX + dY * dY))) \((1 - tolerance) * totalDist)")
+            if sqrt(Float(dX * dX + dY * dY)) < (totalDist * (1 - tolerance)){
                 addOneTimeAction(stepAction)
-                addOneTimeAction(displacer)
+                addOneTimeAction(mfc.displacer)
             }
         }
     }
 
     override func cleanup() {
-        mfc.displacer.removeActionCompletionDelegate(self)
+        mfc.displacer.removeCompletionDelegate(self)
         super.cleanup()
     }
 }
