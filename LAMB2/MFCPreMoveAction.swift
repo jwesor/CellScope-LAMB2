@@ -18,21 +18,16 @@ class MFCPreMoveAction : SequenceAction {
     private(set) var dX: Int = 0
     private(set) var dY: Int = 0
 
-    init(mfc: MFCSystem, motorDirs: [Int:Bool]) {
+    init(mfc: MFCSystem, motors: [Int]) {
         self.mfc = mfc
         super.init()
         addSubAction(mfc.microstep)
         addSubAction(mfc.displacer)
-        for (motor, dir) in motorDirs {
+        for (motor) in motors {
             addSubAction(mfc.motorAction(motor, enable: true))
             addSubAction(mfc.displacer)
-            addSubAction(mfc.directionAction(motor, dir: dir))
         }
 
-        for (motor, _) in motorDirs {
-            let deadband = DeadbandStepAction(motor: motor, device: mfc.device, displacer: mfc.displacer)
-            addSubAction(deadband)
-        }
     }
 
     override func doExecution() {

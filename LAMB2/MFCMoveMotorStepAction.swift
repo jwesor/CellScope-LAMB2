@@ -17,9 +17,8 @@ class MFCMoveMotorStepAction : SequenceAction, ActionCompletionDelegate {
     private(set) var dX: Int = 0
     private(set) var dY: Int = 0
 
-    init(mfc: MFCSystem, motor: Int, steps: Float, stride: UInt8 = 1) {
+    init(mfc: MFCSystem, motor: Int, dir: Bool, steps: Float, stride: UInt8 = 1) {
         self.mfc = mfc
-        let dir = mfc.stage.isMatchingDirection(motor, state: StageConstants.DIR_HIGH) ? StageConstants.DIR_HIGH : StageConstants.DIR_LOW
         let (stepX, stepY) = mfc.stage.getStep(motor, dir: dir, microstep: true)
         totalX = Float(stepX) * steps
         totalY = Float(stepY) * steps
@@ -41,6 +40,8 @@ class MFCMoveMotorStepAction : SequenceAction, ActionCompletionDelegate {
             dX += mfc.displacer.dX
             dY += mfc.displacer.dY
             print("Move \(sqrt(Float(dX * dX + dY * dY))) \((1 - tolerance) * totalDist)")
+            print("\(totalX) \(totalY) \(dX) \(dY)")
+            //TODO: Find a better way to decide when to terminate
             if sqrt(Float(dX * dX + dY * dY)) < (totalDist * (1 - tolerance)){
                 addOneTimeAction(stepAction)
                 addOneTimeAction(mfc.displacer)

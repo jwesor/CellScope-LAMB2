@@ -53,12 +53,12 @@ class MFCSystem: ActionCompletionDelegate {
         autofocuser = AutofocuserAction(startLevel: -10, endLevel: 10, stepsPerLvl: 5, camera:camera, device: device, stage: stage)
         displacer = ImgDisplacementAction(camera: camera, displace: IPPyramidDisplacement(), preprocessors: [])
         fovBounds = ImgFovBoundsAction(camera: camera, stage: stage, bindRois:[displacer.proc])
-        calibrator = StepCalibratorAction(device: device, camera: camera, stage: stage, autofocus: autofocuser)
+        calibrator = StepCalibratorAction(device: device, stage: stage, displacer: displacer, microstep: true)
         camera.addAsyncImageProcessor(displacer.proc)
         
         microstep = StageMicrostepAction(device, enabled: true, stage: stage)
         
-        initAction = SequenceAction([calibrator, fovBounds, displacer])
+        initAction = SequenceAction([autofocuser, fovBounds, calibrator, displacer])
         initNoCalibAction = SequenceAction([autofocuser, fovBounds, displacer])
         
         initAction.addCompletionDelegate(self)

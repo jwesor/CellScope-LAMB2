@@ -10,13 +10,14 @@ class MFCIntraMoveAction : SequenceAction {
 
     let mfc: MFCSystem
 
-    init(mfc: MFCSystem, motorSteps:[Int:Float], stride: UInt8 = 1) {
+    init(mfc: MFCSystem, motorSteps:[Int: (Bool, Float)], stride: UInt8 = 1) {
         self.mfc = mfc
         super.init()
         
-        for (motor, steps) in motorSteps {
-            let moveAction = MFCMoveMotorStepAction(mfc: mfc, motor: motor, steps: steps)
-            addSubAction(moveAction)
+        for (motor, (dir, steps)) in motorSteps {
+            let dirAction = StageDirectionAction(mfc.device, motor: motor, dir: dir, stage: mfc.stage)
+            let moveAction = MFCMoveMotorStepAction(mfc: mfc, motor: motor, dir: dir, steps: steps)
+            addSubActions([dirAction, moveAction])
         }
     }
     
