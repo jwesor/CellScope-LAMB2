@@ -33,6 +33,7 @@ class MFCIntraMoveAction : SequenceAction, ActionCompletionDelegate {
             maxStep = max(maxStep, Float(x * x + y * y))
         }
         tolerance = sqrt(maxStep) * 2
+        //TODO: Speed up movement by skipping backlash/deadband where possible
         super.init([mfc.displacer])
     }
     
@@ -53,7 +54,6 @@ class MFCIntraMoveAction : SequenceAction, ActionCompletionDelegate {
             dX += mfc.displacer.dX
             dY += mfc.displacer.dY
             let distToTarget = sqrt(Float((tX - dX) * (tX - dX) + (tY - dY) * (tY - dY)))
-            print("\((dX, dY)) \((tX, tY)) \(distToTarget) \(tolerance)")
             if distToTarget > tolerance {
                 let moveAction = MFCIntraMoveStepAction(mfc: mfc, x: tX - dX, y: tY - dY)
                 addOneTimeActions([moveAction, mfc.displacer])

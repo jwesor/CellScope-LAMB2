@@ -16,20 +16,20 @@ class MFCMoveAction : SequenceAction, ActionCompletionDelegate {
     private var steps2: Float = 0
 
     let mfc: MFCSystem
-    let x: Int
-    let y: Int
+    let dX: Int
+    let dY: Int
     let stride: UInt8
     let pre: MFCPreMoveAction
     let intra: MFCIntraMoveAction
     let post: MFCPostMoveAction
     
-    init(mfc: MFCSystem, x: Int, y: Int, stride: UInt8 = 1) {
+    init(mfc: MFCSystem, dX: Int, dY: Int, stride: UInt8 = 1) {
         self.mfc = mfc
-        self.x = x
-        self.y = y
+        self.dX = dX
+        self.dY = dY
         self.stride = stride
         pre = MFCPreMoveAction(mfc: mfc, motors: [StageConstants.MOTOR_1, StageConstants.MOTOR_2])
-        intra = MFCIntraMoveAction(mfc: mfc, x: x, y: x, stride: stride)
+        intra = MFCIntraMoveAction(mfc: mfc, x: dX, y: dY, stride: stride)
         post = MFCPostMoveAction(mfc: mfc, motors: [StageConstants.MOTOR_1, StageConstants.MOTOR_2])
         super.init([pre, intra, post])
         pre.addCompletionDelegate(self)
@@ -37,9 +37,7 @@ class MFCMoveAction : SequenceAction, ActionCompletionDelegate {
     
     func onActionCompleted(action: AbstractAction) {
         if action === pre {
-            // TODO: Offset from enabling the motors should added into the step motions
-            print("adjust \((pre.dX, pre.dY)))")
-            intra.setAdjustment(adjX: pre.dX, adjY: pre.dY)
+            intra.setAdjustment(adjX: -pre.dX, adjY: -pre.dY)
         }
     }
     

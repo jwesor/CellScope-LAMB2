@@ -28,8 +28,6 @@ class MFCIntraMoveStepAction: SequenceAction {
         let (motor, dir) = bestMove
         let dirAction = mfc.directionAction(motor, dir: dir)
         let stepAction = StageStepAction(mfc.device, motor: motor, steps: stride)
-        let (bx, by) = mfc.stage.getStep(motor, dir: dir, microstep: microstep)
-        print("\((motor, dir)) \((bx, by))")
         super.init([dirAction, stepAction])
     }
     

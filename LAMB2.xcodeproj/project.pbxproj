@@ -40,6 +40,7 @@
 		1852165D1BC8982A005BFD80 /* MFCPreMoveAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 185216591BC8982A005BFD80 /* MFCPreMoveAction.swift */; settings = {ASSET_TAGS = (); }; };
 		185216601BC89C11005BFD80 /* IPGaussian.mm in Sources */ = {isa = PBXBuildFile; fileRef = 1852165F1BC89C11005BFD80 /* IPGaussian.mm */; settings = {ASSET_TAGS = (); }; };
 		185216621BCB89B1005BFD80 /* MFCIntraMoveStepAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 185216611BCB89B1005BFD80 /* MFCIntraMoveStepAction.swift */; settings = {ASSET_TAGS = (); }; };
+		185216641BCC724F005BFD80 /* MFCMoveToAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 185216631BCC724F005BFD80 /* MFCMoveToAction.swift */; settings = {ASSET_TAGS = (); }; };
 		188074E31A38F43A0039725B /* opencv2.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 188074E21A38F43A0039725B /* opencv2.framework */; };
 		188074E61A38F4A60039725B /* CameraSession.mm in Sources */ = {isa = PBXBuildFile; fileRef = 188074E51A38F4A60039725B /* CameraSession.mm */; };
 		188074E81A38F7210039725B /* CoreVideo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 188074E71A38F7210039725B /* CoreVideo.framework */; };
@@ -155,6 +156,7 @@
 		1852165E1BC89C11005BFD80 /* IPGaussian.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IPGaussian.h; sourceTree = "<group>"; };
 		1852165F1BC89C11005BFD80 /* IPGaussian.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = IPGaussian.mm; sourceTree = "<group>"; };
 		185216611BCB89B1005BFD80 /* MFCIntraMoveStepAction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MFCIntraMoveStepAction.swift; sourceTree = "<group>"; };
+		185216631BCC724F005BFD80 /* MFCMoveToAction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MFCMoveToAction.swift; sourceTree = "<group>"; };
 		1861AD391B6330E600278A9D /* CameraSession.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CameraSession.h; sourceTree = "<group>"; };
 		188074E21A38F43A0039725B /* opencv2.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = opencv2.framework; sourceTree = "<group>"; };
 		188074E51A38F4A60039725B /* CameraSession.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = CameraSession.mm; sourceTree = "<group>"; };
@@ -354,6 +356,7 @@
 				185216581BC8982A005BFD80 /* MFCPostMoveAction.swift */,
 				185216591BC8982A005BFD80 /* MFCPreMoveAction.swift */,
 				18C3C43C1B6ECA0A000B6B0F /* MFCMoveAction.swift */,
+				185216631BCC724F005BFD80 /* MFCMoveToAction.swift */,
 				18C3C43E1B6ECDD7000B6B0F /* MFCSystem.swift */,
 				1852164C1BBFB1FC005BFD80 /* MFCDirectionAction.swift */,
 			);
@@ -659,6 +662,7 @@
 				180F87A31A8EE48E0001CD3C /* ActionManager.swift in Sources */,
 				18D6B90E1AE093CB002B1A9E /* GDriveImageDocument.swift in Sources */,
 				18A072291AA004E100A93391 /* IPImageCapture.mm in Sources */,
+				185216641BCC724F005BFD80 /* MFCMoveToAction.swift in Sources */,
 				18D6B8F21ACCCB0B002B1A9E /* StageConstants.swift in Sources */,
 				18DB4C991AAFC24500165F0F /* CameraAutoWhiteBalanceAction.swift in Sources */,
 				1852164D1BBFB1FC005BFD80 /* MFCDirectionAction.swift in Sources */,
