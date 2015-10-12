@@ -120,6 +120,10 @@ class StageState {
         return fov.width != 0 && fov.height != 0
     }
     
+    func getFovDimens() -> (width: Int, height: Int) {
+        return (width: Int(fov.width), height: Int(fov.height))
+    }
+    
     func setImageProcessorRoiToFov(ip: ImageProcessor) {
         ip.roiX = fov.x
         ip.roiY = fov.y

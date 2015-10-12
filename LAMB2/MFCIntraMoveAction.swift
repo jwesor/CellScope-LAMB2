@@ -10,29 +10,20 @@ class MFCIntraMoveAction : SequenceAction, ActionCompletionDelegate {
 
     let mfc: MFCSystem
     let tolerance: Float
+    let stride: UInt8
     let x: Int, y: Int
     private var tX: Int = 0, tY: Int = 0
     private var dX: Int = 0, dY: Int = 0
     
-    static let moves: [(Int, Bool)] = [
-        (StageConstants.MOTOR_1, dir: StageConstants.DIR_HIGH),
-        (StageConstants.MOTOR_1, dir: StageConstants.DIR_LOW),
-        (StageConstants.MOTOR_2, dir: StageConstants.DIR_HIGH),
-        (StageConstants.MOTOR_2, dir: StageConstants.DIR_LOW)
-    ]
-
     init(mfc: MFCSystem, x: Int, y: Int, stride: UInt8 = 1, microstep: Bool = true) {
         self.mfc = mfc
         self.x = x
         self.y = y
+        self.stride = stride
         tX = x
         tY = y
-        var maxStep: Float = 0
-        for (motor, dir) in MFCIntraMoveAction.moves {
-            let (x, y) = mfc.stage.getStep(motor, dir: dir, microstep: microstep)
-            maxStep = max(maxStep, Float(x * x + y * y))
-        }
-        tolerance = sqrt(maxStep) * 2
+        let maxStep = MFCMoveAction.getMaxStepDist(mfc.stage, microstep: microstep)
+        tolerance = maxStep * 2
         //TODO: Speed up movement by skipping backlash/deadband where possible
         super.init([mfc.displacer])
     }
@@ -54,11 +45,18 @@ class MFCIntraMoveAction : SequenceAction, ActionCompletionDelegate {
             dX += mfc.displacer.dX
             dY += mfc.displacer.dY
             let distToTarget = sqrt(Float((tX - dX) * (tX - dX) + (tY - dY) * (tY - dY)))
-            if distToTarget > tolerance {
-                let moveAction = MFCIntraMoveStepAction(mfc: mfc, x: tX - dX, y: tY - dY)
+            let stridesRemaining = distToTarget / tolerance
+            if stridesRemaining > 1 {
+                let stepsPerStride = min(self.stride, UInt8(stridesRemaining))
+                let moveAction = MFCIntraMoveStepAction(mfc: mfc, x: tX - dX, y: tY - dY, stride: stepsPerStride)
                 addOneTimeActions([moveAction, mfc.displacer])
             }
         }
+    }
+    
+    override func cleanup() {
+        mfc.displacer.removeCompletionDelegate(self)
+        super.cleanup()
     }
 
 }

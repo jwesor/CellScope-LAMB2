@@ -12,9 +12,9 @@ class MFCIntraMoveStepAction: SequenceAction {
     
     init(mfc: MFCSystem, x: Int, y: Int, stride: UInt8 = 1, microstep: Bool = true) {
         let magA = sqrt(Float(x * x + y * y))
-        var bestMove = MFCIntraMoveAction.moves[0]
+        var bestMove = MFCMoveAction.moves[0]
         var bestSimilarity: Float = -1.0
-        for move in MFCIntraMoveAction.moves {
+        for move in MFCMoveAction.moves {
             let (motor, dir) = move
             let (bx, by) = mfc.stage.getStep(motor, dir: dir, microstep: microstep)
             let magB = sqrt(Float(bx * bx + by * by))
