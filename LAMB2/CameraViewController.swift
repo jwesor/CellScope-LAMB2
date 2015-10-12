@@ -85,7 +85,7 @@ class CameraViewController: UIViewController, ActionCompletionDelegate {
     @IBAction func test(sender: AnyObject) {
         // Initialize
         queue.addAction(bounds!)
-        queue.addAction(mfc!.initAction)
+        queue.addAction(mfc!.initNoCalibAction)
     }
     
     @IBAction func test2(send: AnyObject) {
