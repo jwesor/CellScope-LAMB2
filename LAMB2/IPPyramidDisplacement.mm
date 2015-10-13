@@ -27,8 +27,8 @@ using namespace std;
 - (id) init {
     self = [super init];
     _subDisplace = [[IPDisplacement alloc] init];
-    _subDisplace.templateWidth = 150;
-    _subDisplace.templateHeight = 150;
+    _subDisplace.templateWidth = 100;
+    _subDisplace.templateHeight = 100;
     self.searchPadding = 8;
     self.scale = 0.25;
     self.area = true;

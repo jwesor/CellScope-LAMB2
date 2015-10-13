@@ -45,9 +45,9 @@ class MFCIntraMoveAction : SequenceAction, ActionCompletionDelegate {
             dX += mfc.displacer.dX
             dY += mfc.displacer.dY
             let distToTarget = sqrt(Float((tX - dX) * (tX - dX) + (tY - dY) * (tY - dY)))
-            let stridesRemaining = distToTarget / tolerance
-            if stridesRemaining > 1 {
-                let stepsPerStride = min(self.stride, UInt8(stridesRemaining))
+            let stridesRemaining = UInt8(distToTarget / tolerance)
+            if stridesRemaining >= 1 {
+                let stepsPerStride = min(self.stride, stridesRemaining)
                 let moveAction = MFCIntraMoveStepAction(mfc: mfc, x: tX - dX, y: tY - dY, stride: stepsPerStride)
                 addOneTimeActions([moveAction, mfc.displacer])
             }

@@ -51,7 +51,7 @@ class MFCSystem: ActionCompletionDelegate {
         dirlow = [StageConstants.MOTOR_1: dir1low, StageConstants.MOTOR_2: dir2low]
         
         autofocuser = AutofocuserAction(startLevel: -10, endLevel: 10, stepsPerLvl: 5, camera:camera, device: device, stage: stage)
-        displacer = ImgDisplacementAction(camera: camera, displace: IPPyramidDisplacement(), preprocessors: [])
+        displacer = ImgDisplacementAction(camera: camera, displace: IPPyramidDisplacement(), preprocessors: [IPEdgeDetect()])
         fovBounds = ImgFovBoundsAction(camera: camera, stage: stage, bindRois:[displacer.proc])
         calibrator = StepCalibratorAction(device: device, stage: stage, displacer: displacer, microstep: true)
         camera.addAsyncImageProcessor(displacer.proc)
@@ -90,7 +90,7 @@ class MFCSystem: ActionCompletionDelegate {
         }
     }
     
-    func directionAction(motor: Int, dir: Bool) -> DeviceAction {
+    func directionAction(motor: Int, dir: Bool) -> StageDirectionAction {
         if dir == StageConstants.DIR_HIGH {
             return dirhigh[motor]!
         } else {
