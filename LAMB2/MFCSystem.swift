@@ -18,6 +18,7 @@ class MFCSystem: ActionCompletionDelegate {
     let autofocuser: AutofocuserAction
     let displacer: ImgDisplacementAction
     let fovBounds: ImgFovBoundsAction
+    let backgrounder: ImgAcquireBackgroundAction
     let initAction: AbstractAction
     let initNoCalibAction: AbstractAction
 
@@ -51,8 +52,9 @@ class MFCSystem: ActionCompletionDelegate {
         dirlow = [StageConstants.MOTOR_1: dir1low, StageConstants.MOTOR_2: dir2low]
         
         autofocuser = AutofocuserAction(startLevel: -10, endLevel: 10, stepsPerLvl: 5, camera:camera, device: device, stage: stage)
-        displacer = ImgDisplacementAction(camera: camera, displace: IPPyramidDisplacement(), preprocessors: [IPEdgeDetect()])
-        fovBounds = ImgFovBoundsAction(camera: camera, stage: stage, bindRois:[displacer.proc])
+        backgrounder = ImgAcquireBackgroundAction(camera: camera)
+        displacer = ImgDisplacementAction(camera: camera, displace: IPPyramidDisplacement(), preprocessors: [IPGradient()])
+        fovBounds = ImgFovBoundsAction(camera: camera, stage: stage, bindRois:[displacer.proc, backgrounder.proc])
         calibrator = StepCalibratorAction(device: device, stage: stage, displacer: displacer, microstep: true)
         camera.addAsyncImageProcessor(displacer.proc)
         

@@ -17,5 +17,6 @@
 #import "IPImageCapture.h"
 #import "IPIdleFrames.h"
 #import "IPGaussian.h"
+#import "IPGradient.h"
 
 #import "IPAsyncPanTracker.h"

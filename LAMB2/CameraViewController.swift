@@ -56,10 +56,9 @@ class CameraViewController: UIViewController, ActionCompletionDelegate {
 //        DebugUtil.setLog("drive", doc: driveLog)
 //        DebugUtil.setLog("cycle", doc: cycleLog)
 //        camera?.addImageProcessor(d)
-        
               
         autofocus = AutofocuserAction(startLevel: -10, endLevel: 10, stepsPerLvl: 5, camera: camera!, device: device, stage: stage)
-        displacer = ImgDisplacementAction(camera: camera!, displace: IPDisplacement(), preprocessors: [IPEdgeDetect()])
+        displacer = ImgDisplacementAction(camera: camera!, displace: IPDisplacement(), preprocessors: [IPGradient()])
         bounds = ImgFovBoundsAction(camera: camera!, stage: stage, bindRois: [displacer!.proc])
         calib = StepCalibratorAction(device: device, stage: stage, displacer: displacer!, microstep: true)
         mfc = MFCSystem(camera: camera!, device: device, stage: stage)
@@ -91,8 +90,10 @@ class CameraViewController: UIViewController, ActionCompletionDelegate {
     @IBAction func test2(send: AnyObject) {
         // Test
         queue.addAction(displacer!)
-        queue.addAction(MFCMoveToAction(mfc: mfc!, x: -800, y: 800))
-        queue.addAction(MFCMoveToAction(mfc: mfc!, x: 400, y: -600))
+        queue.addAction(MFCMoveToAction(mfc: mfc!, x: -500, y: 500))
+        queue.addAction(MFCMoveToAction(mfc: mfc!, x: 500, y: -500))
+        queue.addAction(MFCMoveToAction(mfc: mfc!, x: -500, y: -500))
+        queue.addAction(MFCMoveToAction(mfc: mfc!, x: 500, y: 500))
         queue.addAction(MFCMoveToAction(mfc: mfc!, x: 0, y: 0))
         queue.addAction(displacer!)
     }
@@ -112,11 +113,8 @@ class CameraViewController: UIViewController, ActionCompletionDelegate {
 //        queue.addAction(deadband)
 //        queue.addAction(stepdis)
 //        queue.addAction(stepdis)
-        queue.addAction(StageEnableAction(device, motor: StageConstants.MOTOR_1, stage: stage))
-        queue.addAction(StageEnableAction(device, motor: StageConstants.MOTOR_2, stage: stage))
-        queue.addAction(StageDisableAction(device, motor: StageConstants.MOTOR_1, stage: stage))
-        queue.addAction(StageDisableAction(device, motor: StageConstants.MOTOR_2, stage: stage))
-
+        queue.addAction(mfc!.fovBounds)
+        queue.addAction(mfc!.backgrounder)
     }
     
     @IBAction func mfcDir(sender: AnyObject) {

@@ -24,7 +24,6 @@ class MFCIntraMoveAction : SequenceAction, ActionCompletionDelegate {
         tY = y
         let maxStep = MFCMoveAction.getMaxStepDist(mfc.stage, microstep: microstep)
         tolerance = maxStep * 2
-        //TODO: Speed up movement by skipping backlash/deadband where possible
         super.init([mfc.displacer])
     }
     

@@ -11,6 +11,7 @@ using namespace cv;
 
 @interface IPBackgroundSubtract() {
     bool _capture;
+    bool _cropped;
     Mat _background;
 }
 @end
@@ -20,6 +21,7 @@ using namespace cv;
 - (id) init {
     self = [super init];
     _capture = true;
+    _cropped = false;
     return self;
 }
 
@@ -44,6 +46,7 @@ using namespace cv;
 
 
 - (void) reset {
+    _cropped = false;
     _capture = true;
 }
 
@@ -52,6 +55,7 @@ using namespace cv;
     if (region.x + region.width <= _background.cols && region.y + region.height <= _background.rows) {
         Mat cropped = Mat(_background, region);
         _background = cropped;
+        _cropped = true;
     }
 }
 @end
