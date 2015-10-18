@@ -12,34 +12,26 @@
 
 class MFCPreMoveAction : SequenceAction {
 
-    let mfc: MFCSystem
-    private var x: Int = 0
-    private var y: Int = 0
+    let displacer: MFCDisplacementAction
     private(set) var dX: Int = 0
     private(set) var dY: Int = 0
 
-    init(mfc: MFCSystem, motors: [Int]) {
-        self.mfc = mfc
+    init(displacer: MFCDisplacementAction, motors: [Int]) {
+        self.displacer = displacer
         super.init()
+        let mfc = displacer.mfc
         addSubAction(mfc.microstep)
-        addSubAction(mfc.displacer)
+        addSubAction(displacer)
         for (motor) in motors {
             addSubAction(mfc.motorAction(motor, enable: true))
-            addSubAction(mfc.displacer)
+            addSubAction(displacer)
         }
 
     }
 
-    override func doExecution() {
-        x = mfc.x
-        y = mfc.y
-        super.doExecution()
-    }
-
     override func cleanup() {
-        dX = mfc.x - x
-        dY = mfc.y - y
-        print("MFC Premove Complete")
+        dX = displacer.dX
+        dY = displacer.dY
         super.cleanup()
     }
 }

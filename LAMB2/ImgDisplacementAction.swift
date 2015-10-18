@@ -20,9 +20,13 @@ class ImgDisplacementAction: ImageProcessorAction {
     }
     
     override func cleanup() {
+        super.cleanup()
         dX = Int(displacement.dX)
         dY = Int(displacement.dY)
-        super.cleanup()
+    }
+
+    func reset() {
+        displacement.reset()
     }
     
 }

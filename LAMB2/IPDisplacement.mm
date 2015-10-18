@@ -37,7 +37,9 @@ using namespace cv;
 @synthesize templateY;
 @synthesize templateWidth;
 @synthesize templateHeight;
+
 @synthesize grayscale;
+@synthesize updateFrame;
 
 - (id) init {
     self = [super init];
@@ -45,6 +47,7 @@ using namespace cv;
     _tracked = cv::Rect(0, 0, 300, 300);
     _firstFrame = true;
     self.grayscale = true;
+    self.updateFrame = true;
     return self;
 }
 
@@ -102,8 +105,10 @@ using namespace cv;
     
     _dX = _roi.x - maxLoc.x - _searchRegion.x;
     _dY = _roi.y - maxLoc.y - _searchRegion.y;
-    newTemplate.copyTo(_imgTemplate);
-    
+
+    if (self.updateFrame) {
+        newTemplate.copyTo(_imgTemplate);
+    }
 }
 
 - (void) updateDisplayOverlay:(Mat &)image {

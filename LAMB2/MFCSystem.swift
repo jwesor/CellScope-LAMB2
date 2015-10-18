@@ -14,9 +14,11 @@ class MFCSystem: ActionCompletionDelegate {
     let camera: CameraSession
     let device: DeviceConnector
 
+    let displacement: IPDisplacement
+    let preprocessors: [ImageProcessor]
+
     let calibrator: StepCalibratorAction
     let autofocuser: AutofocuserAction
-    let displacer: ImgDisplacementAction
     let fovBounds: ImgFovBoundsAction
     let backgrounder: ImgAcquireBackgroundAction
     let initAction: AbstractAction
@@ -53,10 +55,10 @@ class MFCSystem: ActionCompletionDelegate {
         
         autofocuser = AutofocuserAction(startLevel: -10, endLevel: 10, stepsPerLvl: 5, camera:camera, device: device, stage: stage)
         backgrounder = ImgAcquireBackgroundAction(camera: camera)
-        displacer = ImgDisplacementAction(camera: camera, displace: IPPyramidDisplacement(), preprocessors: [IPGradient()])
-        fovBounds = ImgFovBoundsAction(camera: camera, stage: stage, bindRois:[displacer.proc, backgrounder.proc])
+
+        (displacement, preprocessors) = MFCSystem.createDisplacerComponents()
+        fovBounds = ImgFovBoundsAction(camera: camera, stage: stage, bindRois:[backgrounder.proc])
         calibrator = StepCalibratorAction(device: device, stage: stage, displacer: displacer, microstep: true)
-        camera.addAsyncImageProcessor(displacer.proc)
         
         microstep = StageMicrostepAction(device, enabled: true, stage: stage)
         
@@ -65,21 +67,14 @@ class MFCSystem: ActionCompletionDelegate {
         
         initAction.addCompletionDelegate(self)
         initNoCalibAction.addCompletionDelegate(self)
-        displacer.addCompletionDelegate(self)
     }
 
     func reset() {
-        x = 0
-        y = 0
+        setCurrentPosition(x: 0, y: 0)
     }
 
     func onActionCompleted(action: AbstractAction) {
-        if action === displacer {
-            x += Int(displacer.dX)
-            y += Int(displacer.dY)
-            print("MFC \(x) \(y) \n", terminator: "")
-        } else if action === initAction || action === initNoCalibAction {
-            print("MFC reset")
+        if action === initAction || action === initNoCalibAction {
             reset()
         }
     }
@@ -98,5 +93,23 @@ class MFCSystem: ActionCompletionDelegate {
         } else {
             return dirlow[motor]!
         }
+    }
+
+    func setCurrentPosition(x x: Int, y: Int) {
+        self.x = x
+        self.y = y
+        print("MFC \(x) \(y) \n", terminator: "")
+    }
+
+    func applyDisplacement(dX dX: Int, dY: Int) {
+        x += Int(displacer.dX)
+        y += Int(displacer.dY)
+        print("MFC \(x) \(y) \n", terminator: "")
+    }
+
+    class func createDisplacerComponents() -> (displacement: IPDispacement, preprocessors:[ImageProcessor]) {
+        let displacement = IPPyramidDisplacement()
+        let preprocessors = [IPGradient()]
+        return (displacement, preprocessors)
     }
 }

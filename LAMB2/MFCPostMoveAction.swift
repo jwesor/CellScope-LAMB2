@@ -11,14 +11,13 @@
 
 class MFCPostMoveAction : SequenceAction {
 
-    let mfc: MFCSystem
 
-    init(mfc: MFCSystem, motors: [Int]) {
-        self.mfc = mfc
+    init(displacer: MFCDisplacementAction, motors: [Int]) {
+        let mfc = displacer.mfc
         super.init()
         for motor in motors {
             addSubAction(mfc.motorAction(motor, enable: false))
         }
-        addSubAction(mfc.displacer)
+        addSubAction(displacer)
     }
 }

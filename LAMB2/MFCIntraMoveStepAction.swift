@@ -1,4 +1,7 @@
 //
+//  Takes the specified number of steps in the motor/direction that
+//  is closest to the given x and y
+//
 //  MFCIntraMoveStepAction.swift
 //  LAMB2
 //
@@ -13,13 +16,13 @@ class MFCIntraMoveStepAction: SequenceAction, ActionCompletionDelegate {
     let dirAction: StageDirectionAction
     let motor: Int
     let dir: Bool
-    let stride: UInt8
+    let steps: UInt8
     let microstep: Bool
     let mfc: MFCSystem
     
-    init(mfc: MFCSystem, x: Int, y: Int, stride: UInt8 = 1, microstep: Bool = true) {
+    init(mfc: MFCSystem, x: Int, y: Int, steps: UInt8, microstep: Bool) {
         self.mfc = mfc
-        self.stride = stride
+        self.steps = steps
         self.microstep = microstep
         let magA = sqrt(Float(x * x + y * y))
         var bestMove = MFCMoveAction.moves[0]
@@ -42,15 +45,16 @@ class MFCIntraMoveStepAction: SequenceAction, ActionCompletionDelegate {
     }
     
     func onActionCompleted(action: AbstractAction) {
+        // Determine if setting the stage direction requires skipping backlash
         if action === dirAction {
-            var steps: UInt8
+            var stepsToTake: UInt8
             if dirAction.changed {
                 let backlash = mfc.stage.getBacklash(motor, dir: dir, microstep: microstep)
-                steps = UInt8(min(backlash/4, Int(UInt8.max)))
+                stepsToTake = UInt8(min(backlash/2 + steps, Int(UInt8.max)))
             } else {
-                steps = stride
+                stepsToTake = self.steps
             }
-            addOneTimeAction(StageStepAction(mfc.device, motor: motor, steps: steps))
+            addOneTimeAction(StageStepAction(mfc.device, motor: motor, steps: stepsToTake))
         }
     }
     

@@ -25,6 +25,7 @@
 @property (readonly) int templateY;
 
 @property bool grayscale;
+@property bool updateFrame;
 
 - (void) reset;
 

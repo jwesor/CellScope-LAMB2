@@ -18,10 +18,11 @@ class MFCMoveAction : SequenceAction, ActionCompletionDelegate {
     let mfc: MFCSystem
     let dX: Int
     let dY: Int
-    let stride: UInt8
     let pre: MFCPreMoveAction
     let intra: MFCIntraMoveAction
     let post: MFCPostMoveAction
+
+    private let displacer: MFCDisplacementAction
     
     static let moves: [(Int, Bool)] = [
         (StageConstants.MOTOR_1, dir: StageConstants.DIR_HIGH),
@@ -34,19 +35,10 @@ class MFCMoveAction : SequenceAction, ActionCompletionDelegate {
         self.mfc = mfc
         self.dX = dX
         self.dY = dY
-        if (stride == 0) {
-            let (width, height) = mfc.stage.getFovDimens()
-            let diameter = Float(min(width, height)) / 8
-            let stepDist = MFCMoveAction.getMaxStepDist(mfc.stage, microstep: true)
-            self.stride = UInt8(max(Float(1), min(Float(UInt8.max), diameter/stepDist)))
-            print("\(diameter) \(stepDist)")
-        } else {
-            self.stride = stride
-        }
-        print("Stride \(self.stride)")
-        pre = MFCPreMoveAction(mfc: mfc, motors: [StageConstants.MOTOR_1, StageConstants.MOTOR_2])
-        intra = MFCIntraMoveAction(mfc: mfc, x: dX, y: dY, stride: self.stride)
-        post = MFCPostMoveAction(mfc: mfc, motors: [StageConstants.MOTOR_1, StageConstants.MOTOR_2])
+        self.displacer = MFCDisplacementAction(mfc: mfc, updateMfc: true)
+        pre = MFCPreMoveAction(displacer: displacer, motors: [StageConstants.MOTOR_1, StageConstants.MOTOR_2])
+        intra = MFCIntraMoveAction(displacer: displacer, x: dX, y: dY, stride: stride, microstep: true)
+        post = MFCPostMoveAction(displacer: displacer, motors: [StageConstants.MOTOR_1, StageConstants.MOTOR_2])
         super.init([pre, intra, post])
         pre.addCompletionDelegate(self)
     }

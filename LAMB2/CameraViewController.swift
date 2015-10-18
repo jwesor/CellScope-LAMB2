@@ -113,8 +113,6 @@ class CameraViewController: UIViewController, ActionCompletionDelegate {
 //        queue.addAction(deadband)
 //        queue.addAction(stepdis)
 //        queue.addAction(stepdis)
-        queue.addAction(mfc!.fovBounds)
-        queue.addAction(mfc!.backgrounder)
     }
     
     @IBAction func mfcDir(sender: AnyObject) {

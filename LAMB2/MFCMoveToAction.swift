@@ -14,7 +14,7 @@ class MFCMoveToAction : SequenceAction {
     let x: Int, y: Int
     let stride: UInt8
     
-    init(mfc: MFCSystem, x: Int, y: Int, stride: UInt8 = 1) {
+    init(mfc: MFCSystem, x: Int, y: Int, stride: UInt8 = 0) {
         self.mfc = mfc
         self.x = x
         self.y = y
@@ -24,7 +24,7 @@ class MFCMoveToAction : SequenceAction {
     
     override func doExecution() {
         print("TARGET MOTION \(x - mfc.x) \(y - mfc.y)")
-        let moveAction = MFCMoveAction(mfc: mfc, dX: x - mfc.x, dY: y - mfc.y)
+        let moveAction = MFCMoveAction(mfc: mfc, dX: x - mfc.x, dY: y - mfc.y, stride: stride)
         addOneTimeAction(moveAction)
         super.doExecution()
     }
