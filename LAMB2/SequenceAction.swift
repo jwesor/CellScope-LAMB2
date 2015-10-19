@@ -14,7 +14,8 @@ import Foundation
 class SequenceAction: AbstractAction, SequenceCompletionDelegate, ActionCompletionDelegate {
     
     let sequence: ActionSequencer = ActionSequencer()
-    private var uniqueActions: [AbstractAction] = [] 
+    private var uniqueActions: [AbstractAction] = []
+    private var uniqueRuntimeActions: [AbstractAction] = []
     private var repeating: [AbstractAction] = []
     
     override init() {
@@ -31,33 +32,36 @@ class SequenceAction: AbstractAction, SequenceCompletionDelegate, ActionCompleti
     func addSubAction(action: AbstractAction) {
         repeating.append(action)
         sequence.addAction(action)
-        if !uniqueActions.contains(action) {
+        if !uniqueRuntimeActions.contains(action) {
             uniqueActions.append(action)
+            uniqueRuntimeActions.append(action)
         }
     }
     
     func addSubActions(actions: [AbstractAction]) {
         for action in actions {
-            repeating.append(action)
-            sequence.addAction(action)
-            if !uniqueActions.contains(action) {
-                uniqueActions.append(action)
-            }
+            addSubAction(action)
         }
     }
     
     func addOneTimeAction(action: AbstractAction) {
         sequence.addAction(action)
+        if !uniqueRuntimeActions.contains(action) {
+            uniqueRuntimeActions.append(action)
+            if state == ActionState.RUNNING {
+                action.addCompletionDelegate(self)
+            }
+        }
     }
     
     func addOneTimeActions(actions: [AbstractAction]) {
         for action in actions {
-            sequence.addAction(action)
+            addOneTimeAction(action)
         }
     }
     
     override func doExecution() {
-        for action in uniqueActions {
+        for action in uniqueRuntimeActions {
             action.addCompletionDelegate(self)
         }
         sequence.beginActions()
@@ -72,9 +76,10 @@ class SequenceAction: AbstractAction, SequenceCompletionDelegate, ActionCompleti
         for action in repeating {
             sequence.addAction(action)
         }
-        for action in uniqueActions {
+        for action in uniqueRuntimeActions {
             action.removeCompletionDelegate(self)
         }
+        uniqueRuntimeActions = uniqueActions
     }
     
     func clearActions() {
@@ -83,6 +88,6 @@ class SequenceAction: AbstractAction, SequenceCompletionDelegate, ActionCompleti
         sequence.clearSequence()
     }
 
-    func onActionSequenceComplete(action: AbstractAction) {}
+    func onActionCompleted(action: AbstractAction) {}
     
 }
