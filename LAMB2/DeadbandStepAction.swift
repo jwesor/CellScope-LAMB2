@@ -10,7 +10,7 @@
 
 import Foundation
 
-class DeadbandStepAction: SequenceAction, ActionCompletionDelegate {
+class DeadbandStepAction: SequenceAction {
     
     let displacer: ImgDisplacementAction
     let stepAction: StageStepAction
@@ -35,28 +35,25 @@ class DeadbandStepAction: SequenceAction, ActionCompletionDelegate {
         stepCount = -1
         dX = 0
         dY = 0
-        displacer.addCompletionDelegate(self)
         super.doExecution()
     }
     
-    func onActionCompleted(action: AbstractAction) {
-        let motion = sqrt(Float(displacer.dX * displacer.dX + displacer.dY * displacer.dY))
-        if (stepCount == -1) {
-            stepCount = 0
-            addOneTimeAction(stepAction)
-            addOneTimeAction(displacer)
-        } else if motion < Float(threshold) && stepCount / stride < limit {
-            stepCount += stride
-            addOneTimeAction(stepAction)
-            addOneTimeAction(displacer)
+    override func onActionCompleted(action: AbstractAction) {
+        if action === displacer {
+            let motion = sqrt(Float(displacer.dX * displacer.dX + displacer.dY * displacer.dY))
+            if (stepCount == -1) {
+                stepCount = 0
+                addOneTimeAction(stepAction)
+                addOneTimeAction(displacer)
+            } else if motion < Float(threshold) && stepCount / stride < limit {
+                stepCount += stride
+                addOneTimeAction(stepAction)
+                addOneTimeAction(displacer)
+            }
+            dX += displacer.dX
+            dY += displacer.dY
+            print("Deadband \(stepCount)")
         }
-        dX += displacer.dX
-        dY += displacer.dY
-        print("Deadband \(stepCount)")
     }
     
-    override func cleanup() {
-        displacer.removeCompletionDelegate(self)
-        super.cleanup()
-    }
 }

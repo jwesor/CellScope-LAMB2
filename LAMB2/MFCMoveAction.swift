@@ -8,7 +8,7 @@
 
 import Foundation
 
-class MFCMoveAction : SequenceAction, ActionCompletionDelegate {
+class MFCMoveAction : SequenceAction {
 
     private var dir1: Bool = false
     private var dir2: Bool = false
@@ -40,10 +40,9 @@ class MFCMoveAction : SequenceAction, ActionCompletionDelegate {
         intra = MFCIntraMoveAction(displacer: displacer, x: dX, y: dY, stride: stride, microstep: true)
         post = MFCPostMoveAction(displacer: displacer, motors: [StageConstants.MOTOR_1, StageConstants.MOTOR_2])
         super.init([pre, intra, post])
-        pre.addCompletionDelegate(self)
     }
     
-    func onActionCompleted(action: AbstractAction) {
+    override func onActionCompleted(action: AbstractAction) {
         if action === pre {
             intra.setAdjustment(adjX: -pre.dX, adjY: -pre.dY)
         }

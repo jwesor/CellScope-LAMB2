@@ -8,7 +8,7 @@
 
 import Foundation
 
-class ScanFocusAction: SequenceAction, ActionCompletionDelegate {
+class ScanFocusAction: SequenceAction {
     
     let focusIp: IPFocusDetector
     let fovIp: IPFovBounds
@@ -41,8 +41,6 @@ class ScanFocusAction: SequenceAction, ActionCompletionDelegate {
         
         super.init()
         
-        ipAction.addCompletionDelegate(self)
-        fovAction.addCompletionDelegate(self)
         addSubAction(fovAction)
         
         let motor = StageConstants.MOTOR_3
@@ -65,8 +63,8 @@ class ScanFocusAction: SequenceAction, ActionCompletionDelegate {
         super.doExecution()
     }
     
-    func onActionCompleted(action: AbstractAction) {
-        if (action == ipAction) {
+    override func onActionCompleted(action: AbstractAction) {
+        if (action === ipAction) {
             let newFocus = focusIp.focus
             focuses.append(newFocus)
             if (newFocus > bestFocusScore) {
@@ -74,7 +72,7 @@ class ScanFocusAction: SequenceAction, ActionCompletionDelegate {
                 bestFocusLevel = currentFocusLevel
             }
             currentFocusLevel += 1
-        } else if (action == fovAction) {
+        } else if (action === fovAction) {
             fovIp.setBoundsAsRoi(focusIp)
             focusIp.roi = true
         }

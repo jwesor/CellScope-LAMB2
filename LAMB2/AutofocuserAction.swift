@@ -12,7 +12,7 @@
 
 import Foundation
 
-class AutofocuserAction : SequenceAction, ActionCompletionDelegate {
+class AutofocuserAction : SequenceAction {
     
     let scanAction: ScanFocusAction
     let antiBacklashAction: StageEnableStepAction
@@ -43,12 +43,13 @@ class AutofocuserAction : SequenceAction, ActionCompletionDelegate {
             addSubAction(moveToStartAction)
         }
         addSubActions([antiBacklashAction, scanAction, returnToStartAction])
-        returnToStartAction.addCompletionDelegate(self)
     }
     
-    func onActionCompleted(action: AbstractAction) {
-        let stepsToMove = scanAction.bestFocusLevel * stepsPerLevel
-        let moveAction = StageEnableStepAction(device, motor: StageConstants.MOTOR_3, dir: ScanFocusAction.SCAN_DIR, steps: stepsToMove, stage: stage)
-        addOneTimeAction(moveAction)
+    override func onActionCompleted(action: AbstractAction) {
+        if action === returnToStartAction {
+            let stepsToMove = scanAction.bestFocusLevel * stepsPerLevel
+            let moveAction = StageEnableStepAction(device, motor: StageConstants.MOTOR_3, dir: ScanFocusAction.SCAN_DIR, steps: stepsToMove, stage: stage)
+            addOneTimeAction(moveAction)
+        }
     }
 }

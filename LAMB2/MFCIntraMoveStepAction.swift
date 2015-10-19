@@ -11,7 +11,7 @@
 
 import Foundation
 
-class MFCIntraMoveStepAction: SequenceAction, ActionCompletionDelegate {
+class MFCIntraMoveStepAction: SequenceAction {
     
     let dirAction: StageDirectionAction
     let motor: Int
@@ -41,10 +41,9 @@ class MFCIntraMoveStepAction: SequenceAction, ActionCompletionDelegate {
         (motor, dir) = bestMove
         dirAction = mfc.directionAction(motor, dir: dir)
         super.init([dirAction])
-        dirAction.addCompletionDelegate(self)
     }
     
-    func onActionCompleted(action: AbstractAction) {
+    override func onActionCompleted(action: AbstractAction) {
         // Determine if setting the stage direction requires skipping backlash
         if action === dirAction {
             var stepsToTake: UInt8
@@ -56,11 +55,6 @@ class MFCIntraMoveStepAction: SequenceAction, ActionCompletionDelegate {
             }
             addOneTimeAction(StageStepAction(mfc.device, motor: motor, steps: stepsToTake))
         }
-    }
-    
-    override func cleanup() {
-        super.cleanup()
-        dirAction.removeCompletionDelegate(self)
     }
     
 }

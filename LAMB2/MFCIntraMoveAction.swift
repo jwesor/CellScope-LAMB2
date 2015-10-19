@@ -6,7 +6,7 @@
 //  Copyright (c) 2015 Fletchlab. All rights reserved.
 //
 
-class MFCIntraMoveAction : SequenceAction, ActionCompletionDelegate {
+class MFCIntraMoveAction : SequenceAction {
 
     let displacer: MFCDisplacementAction
     let maxStepDist: Float
@@ -47,11 +47,10 @@ class MFCIntraMoveAction : SequenceAction, ActionCompletionDelegate {
     override func doExecution() {
         dX = 0
         dY = 0
-        displacer.addCompletionDelegate(self)
         super.doExecution()
     }
     
-    func onActionCompleted(action: AbstractAction) {
+    override func onActionCompleted(action: AbstractAction) {
         if action === displacer {
             dX += displacer.dX
             dY += displacer.dY
@@ -65,7 +64,4 @@ class MFCIntraMoveAction : SequenceAction, ActionCompletionDelegate {
         }
     }
     
-    override func cleanup() {
-        displacer.removeCompletionDelegate(self)
-    }
 }

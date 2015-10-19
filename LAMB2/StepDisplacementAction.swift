@@ -8,7 +8,7 @@
 
 import Foundation
 
-class StepDisplacementAction: SequenceAction, ActionCompletionDelegate {
+class StepDisplacementAction: SequenceAction {
     
     let displacer: ImgDisplacementAction
     let stepAction: StageStepAction
@@ -37,23 +37,23 @@ class StepDisplacementAction: SequenceAction, ActionCompletionDelegate {
         dX = []
         dY = []
         stepCounter = 0
-        displacer.addCompletionDelegate(self)
         super.doExecution()
     }
     
-    func onActionCompleted(action: AbstractAction) {
-        if (stepCounter > 0) {
-            dX.append(Int(displacer.dX))
-            dY.append(Int(displacer.dY))
+    override func onActionCompleted(action: AbstractAction) {
+        if displacer === action {
+            if (stepCounter > 0) {
+                dX.append(Int(displacer.dX))
+                dY.append(Int(displacer.dY))
+            }
+            print("\(dX) \(dY)")
+            stepCounter += stride
         }
-        print("\(dX) \(dY)")
-        stepCounter += stride
     }
     
     override func cleanup() {
         aveX = getAveX()
         aveY = getAveY()
-        displacer.removeCompletionDelegate(self)
         super.cleanup()
     }
     
