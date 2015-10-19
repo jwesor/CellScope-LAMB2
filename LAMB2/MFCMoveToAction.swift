@@ -23,7 +23,6 @@ class MFCMoveToAction : SequenceAction {
     }
     
     override func doExecution() {
-        print("TARGET MOTION \(x - mfc.x) \(y - mfc.y)")
         let moveAction = MFCMoveAction(mfc: mfc, dX: x - mfc.x, dY: y - mfc.y, stride: stride)
         addOneTimeAction(moveAction)
         super.doExecution()

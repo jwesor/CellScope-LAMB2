@@ -21,7 +21,6 @@ class MFCDisplacementAction : ImgDisplacementAction {
     init(mfc: MFCSystem, displace: IPDisplacement, preprocessors: [ImageProcessor], updateMfc: Bool) {
     	self.mfc = mfc
     	self.updateMfc = updateMfc
-        print("init displacement")
     	super.init(camera: mfc.camera, displace: displace, preprocessors: preprocessors)
     }
 
@@ -34,8 +33,8 @@ class MFCDisplacementAction : ImgDisplacementAction {
     }
 
     override func cleanup() {
+        super.cleanup()
     	if updateMfc {
-            print("d \(self.dX) \(self.dY)")
     		mfc.applyDisplacement(dX: self.dX, dY: self.dY)
     	}
     }

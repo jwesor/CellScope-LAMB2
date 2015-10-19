@@ -41,6 +41,7 @@ class MFCIntraMoveAction : SequenceAction, ActionCompletionDelegate {
     func setAdjustment(adjX adjX: Int, adjY: Int) {
         tX = x + adjX
         tY = y + adjY
+        print("adjust \((adjX, adjY))")
     }
     
     override func doExecution() {
@@ -54,7 +55,6 @@ class MFCIntraMoveAction : SequenceAction, ActionCompletionDelegate {
         if action === displacer {
             dX += displacer.dX
             dY += displacer.dY
-            print("\((dX, dY)) \((tX, tY))")
             let distToTarget = sqrt(Float((tX - dX) * (tX - dX) + (tY - dY) * (tY - dY)))
             if distToTarget > tolerance && distToTarget > maxStepDist {
                 let stridesRemaining = UInt8(min(Float(UInt8.max), distToTarget / maxStepDist))
