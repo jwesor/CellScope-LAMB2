@@ -17,10 +17,10 @@ class MFCSystem: ActionCompletionDelegate {
     let displacement: IPDisplacement
     let preprocessors: [ImageProcessor]
 
-    let calibrator: StepCalibratorAction
+    private let calibrator: StepCalibratorAction
+    private let fovBounds: ImgFovBoundsAction
+    
     let autofocuser: AutofocuserAction
-    let fovBounds: ImgFovBoundsAction
-    let backgrounder: ImgAcquireBackgroundAction
     let initAction: AbstractAction
     let initNoCalibAction: AbstractAction
 
@@ -54,16 +54,17 @@ class MFCSystem: ActionCompletionDelegate {
         dirlow = [StageConstants.MOTOR_1: dir1low, StageConstants.MOTOR_2: dir2low]
         
         autofocuser = AutofocuserAction(startLevel: -10, endLevel: 10, stepsPerLvl: 5, camera:camera, device: device, stage: stage)
-        backgrounder = ImgAcquireBackgroundAction(camera: camera)
-
+        
         (displacement, preprocessors) = MFCSystem.createDisplacerComponents()
-        fovBounds = ImgFovBoundsAction(camera: camera, stage: stage, bindRois:[backgrounder.proc])
-        calibrator = StepCalibratorAction(device: device, stage: stage, displacer: displacer, microstep: true)
+        fovBounds = ImgFovBoundsAction(camera: camera, stage: stage)
+        
+        let initDisplacer = ImgDisplacementAction(camera: camera, displace: displacement, preprocessors: preprocessors)
+        calibrator = StepCalibratorAction(device: device, stage: stage, displacer: initDisplacer, microstep: true)
         
         microstep = StageMicrostepAction(device, enabled: true, stage: stage)
         
-        initAction = SequenceAction([autofocuser, fovBounds, calibrator, displacer])
-        initNoCalibAction = SequenceAction([autofocuser, fovBounds, displacer])
+        initAction = SequenceAction([autofocuser, fovBounds, calibrator, initDisplacer])
+        initNoCalibAction = SequenceAction([autofocuser, fovBounds, initDisplacer])
         
         initAction.addCompletionDelegate(self)
         initNoCalibAction.addCompletionDelegate(self)
@@ -102,12 +103,12 @@ class MFCSystem: ActionCompletionDelegate {
     }
 
     func applyDisplacement(dX dX: Int, dY: Int) {
-        x += Int(displacer.dX)
-        y += Int(displacer.dY)
+        x += dX
+        y += dY
         print("MFC \(x) \(y) \n", terminator: "")
     }
 
-    class func createDisplacerComponents() -> (displacement: IPDispacement, preprocessors:[ImageProcessor]) {
+    class func createDisplacerComponents() -> (displacement: IPDisplacement, preprocessors:[ImageProcessor]) {
         let displacement = IPPyramidDisplacement()
         let preprocessors = [IPGradient()]
         return (displacement, preprocessors)

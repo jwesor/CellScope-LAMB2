@@ -129,6 +129,7 @@ class StageState {
         ip.roiY = fov.y
         ip.roiWidth = fov.width
         ip.roiHeight = fov.height
+        ip.roi = true
     }
 }
 

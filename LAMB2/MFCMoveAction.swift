@@ -22,7 +22,7 @@ class MFCMoveAction : SequenceAction, ActionCompletionDelegate {
     let intra: MFCIntraMoveAction
     let post: MFCPostMoveAction
 
-    private let displacer: MFCDisplacementAction
+    let displacer: MFCDisplacementAction
     
     static let moves: [(Int, Bool)] = [
         (StageConstants.MOTOR_1, dir: StageConstants.DIR_HIGH),
@@ -35,7 +35,7 @@ class MFCMoveAction : SequenceAction, ActionCompletionDelegate {
         self.mfc = mfc
         self.dX = dX
         self.dY = dY
-        self.displacer = MFCDisplacementAction(mfc: mfc, updateMfc: true)
+        displacer = MFCDisplacementAction(mfc: mfc, updateMfc: true)
         pre = MFCPreMoveAction(displacer: displacer, motors: [StageConstants.MOTOR_1, StageConstants.MOTOR_2])
         intra = MFCIntraMoveAction(displacer: displacer, x: dX, y: dY, stride: stride, microstep: true)
         post = MFCPostMoveAction(displacer: displacer, motors: [StageConstants.MOTOR_1, StageConstants.MOTOR_2])

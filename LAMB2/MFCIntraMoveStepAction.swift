@@ -50,12 +50,18 @@ class MFCIntraMoveStepAction: SequenceAction, ActionCompletionDelegate {
             var stepsToTake: UInt8
             if dirAction.changed {
                 let backlash = mfc.stage.getBacklash(motor, dir: dir, microstep: microstep)
-                stepsToTake = UInt8(min(backlash/2 + steps, Int(UInt8.max)))
+                stepsToTake = UInt8(min((backlash/2) + Int(steps), Int(UInt8.max)))
             } else {
                 stepsToTake = self.steps
             }
+            print("steps \(stepsToTake)")
             addOneTimeAction(StageStepAction(mfc.device, motor: motor, steps: stepsToTake))
         }
+    }
+    
+    override func cleanup() {
+        super.cleanup()
+        dirAction.removeCompletionDelegate(self)
     }
     
 }

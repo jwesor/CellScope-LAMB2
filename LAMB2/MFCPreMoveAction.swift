@@ -18,6 +18,7 @@ class MFCPreMoveAction : SequenceAction {
 
     init(displacer: MFCDisplacementAction, motors: [Int]) {
         self.displacer = displacer
+        print("\(displacer)")
         super.init()
         let mfc = displacer.mfc
         addSubAction(mfc.microstep)

@@ -34,6 +34,7 @@ class ImgFovBoundsAction: ImageProcessorAction {
     }
     
     override func cleanup() {
+        super.cleanup()
         stage.setFovBounds(fov.x, y: fov.y, width: fov.width, height: fov.height)
         for imgproc in ipBoundRois {
             fov.setBoundsAsRoi(imgproc)
@@ -43,6 +44,5 @@ class ImgFovBoundsAction: ImageProcessorAction {
         y = Int(fov.y)
         width = Int(fov.width)
         height = Int(fov.height)
-        super.cleanup()
     }
 }

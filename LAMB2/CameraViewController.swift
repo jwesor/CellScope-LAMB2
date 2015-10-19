@@ -91,10 +91,11 @@ class CameraViewController: UIViewController, ActionCompletionDelegate {
         // Test
         queue.addAction(displacer!)
         queue.addAction(MFCMoveToAction(mfc: mfc!, x: -500, y: 500))
-        queue.addAction(MFCMoveToAction(mfc: mfc!, x: 500, y: -500))
-        queue.addAction(MFCMoveToAction(mfc: mfc!, x: -500, y: -500))
-        queue.addAction(MFCMoveToAction(mfc: mfc!, x: 500, y: 500))
+////        queue.addAction(MFCMoveToAction(mfc: mfc!, x: 500, y: -500))
+////        queue.addAction(MFCMoveToAction(mfc: mfc!, x: -500, y: -500))
+////        queue.addAction(MFCMoveToAction(mfc: mfc!, x: 500, y: 500))
         queue.addAction(MFCMoveToAction(mfc: mfc!, x: 0, y: 0))
+        queue.addAction(MFCDisplacementAction(mfc: mfc!))
         queue.addAction(displacer!)
     }
     

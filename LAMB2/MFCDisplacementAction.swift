@@ -11,8 +11,8 @@ import Foundation
 class MFCDisplacementAction : ImgDisplacementAction {
 
     let mfc: MFCSystem
-    let displacement: IPDisplacement
     let updateMfc: Bool
+    var firstRun: Bool = true
 
     convenience init(mfc: MFCSystem, updateMfc: Bool = true) {
         self.init(mfc: mfc, displace: mfc.displacement, preprocessors: mfc.preprocessors, updateMfc: updateMfc)
@@ -21,18 +21,21 @@ class MFCDisplacementAction : ImgDisplacementAction {
     init(mfc: MFCSystem, displace: IPDisplacement, preprocessors: [ImageProcessor], updateMfc: Bool) {
     	self.mfc = mfc
     	self.updateMfc = updateMfc
-        self.displacement = displacement
-    	super.init(camera: mfc.camera, displace: displacement, preprocessors: preprocessors)
+        print("init displacement")
+    	super.init(camera: mfc.camera, displace: displace, preprocessors: preprocessors)
     }
 
     override func doExecution() {
         displacement.updateFrame = updateMfc
-        setRoiToStage(mfc.stage)
+        if firstRun {
+            setRoiToStage(mfc.stage)
+        }
         super.doExecution()
     }
 
     override func cleanup() {
     	if updateMfc {
+            print("d \(self.dX) \(self.dY)")
     		mfc.applyDisplacement(dX: self.dX, dY: self.dY)
     	}
     }
