@@ -26,6 +26,7 @@ class MFCWaypointMoveToAction : SequenceAction {
 
     override func doExecution() {
         initialMove = true
+        print("inital move to \((waypoint.x, waypoint.y))")
         let approxMove = MFCMoveToAction(mfc: mfc, x: waypoint.x, y: waypoint.y, stride: 0)
         addOneTimeActions([approxMove, displacementAction])
         super.doExecution()
@@ -35,7 +36,9 @@ class MFCWaypointMoveToAction : SequenceAction {
         if action === displacementAction && initialMove {
             initialMove = false
             let dX = displacementAction.dX, dY = displacementAction.dY //Offset to the waypoint
-            let preciseMove = MFCMoveAction(mfc: mfc, dX: dX, y: dY, stride: 1)
+            print("precise move by \((dX, dY))")
+            let preciseMove = MFCMoveAction(mfc: mfc, dX: dX, dY: dY, stride: 1)
+            //TODO: Could make this even more precise by setting distance tolerance based on the step being taken
             addOneTimeActions([preciseMove, displacementAction])
         }
     }

@@ -13,7 +13,6 @@ class MFCWaypoint {
     let mfc: MFCSystem
     let displacement: IPDisplacement
     let preprocessors: [ImageProcessor]
-    let displacer: ImgDisplacementAction
     let id: String
 
     private(set) var x: Int = 0
@@ -30,8 +29,8 @@ class MFCWaypoint {
         self.y = y
     }
 
-    func applyDisplacement(dX dX: Int, dy: Int) {
-        self.dX = x
-        self.dY = y
+    func applyDisplacement(dX dX: Int, dY: Int) {
+        x += dX
+        y += dY
     }
 }

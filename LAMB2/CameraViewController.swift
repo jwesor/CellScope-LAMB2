@@ -90,13 +90,14 @@ class CameraViewController: UIViewController, ActionCompletionDelegate {
     @IBAction func test2(send: AnyObject) {
         // Test
         queue.addAction(displacer!)
+        let waypoint = MFCWaypoint(mfc: mfc!)
+        queue.addAction(MFCWaypointInitAction(waypoint: waypoint))
         queue.addAction(MFCMoveToAction(mfc: mfc!, x: -500, y: 500))
         queue.addAction(MFCMoveToAction(mfc: mfc!, x: 500, y: -500))
-        queue.addAction(MFCMoveToAction(mfc: mfc!, x: -500, y: -500))
-        queue.addAction(MFCMoveToAction(mfc: mfc!, x: 500, y: 500))
-        queue.addAction(MFCMoveToAction(mfc: mfc!, x: 0, y: 0))
+        queue.addAction(MFCWaypointMoveToAction(waypoint: waypoint))
         queue.addAction(MFCDisplacementAction(mfc: mfc!))
         queue.addAction(displacer!)
+        //TODO: HUGE memory leak somewhere!
     }
     
     func onActionCompleted(action: AbstractAction) {

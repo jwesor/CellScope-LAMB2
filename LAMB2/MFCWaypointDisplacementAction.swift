@@ -16,18 +16,18 @@ import Foundation
 class MFCWaypointDisplacementAction : MFCDisplacementAction {
 
     let waypoint: MFCWaypoint
-    let updateMfc: Bool
+    let updateMfcToWaypoint: Bool
 
     init(waypoint: MFCWaypoint, updateMfc: Bool) {
         self.waypoint = waypoint
-        self.updateMfc = updateMfc
-        super.init(mfc: mfc, displace: waypoint.displacement, preprocessors: waypoints.preprocessors, updateMfc: false)
+        self.updateMfcToWaypoint = updateMfc
+        super.init(mfc: waypoint.mfc, displace: waypoint.displacement, preprocessors: waypoint.preprocessors, updateMfc: false)
     }
 
     override func cleanup() {
         super.cleanup()
-        if updateMfc {
-            waypoint.mfc.setCurrentPosition(x: x + self.dX, y: y + self.dY)
+        if updateMfcToWaypoint {
+            waypoint.mfc.setCurrentPosition(x: waypoint.x + self.dX, y: waypoint.y + self.dY)
         }
     }
 

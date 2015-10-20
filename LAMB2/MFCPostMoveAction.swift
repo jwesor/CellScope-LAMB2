@@ -11,7 +11,6 @@
 
 class MFCPostMoveAction : SequenceAction {
 
-
     init(displacer: MFCDisplacementAction, motors: [Int]) {
         let mfc = displacer.mfc
         super.init()

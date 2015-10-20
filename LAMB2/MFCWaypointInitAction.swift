@@ -13,11 +13,10 @@ import Foundation
 class MFCWaypointInitAction : MFCDisplacementAction {
 
     let waypoint: MFCWaypoint
-    let updateMfc: Bool
 
     init(waypoint: MFCWaypoint) {
         self.waypoint = waypoint
-        super.init(mfc: mfc, displace: waypoint.displacement, preprocessors: waypoints.preprocessors, updateMfc: true)
+        super.init(mfc: waypoint.mfc, displace: waypoint.displacement, preprocessors: waypoint.preprocessors, updateMfc: true)
     }
 
     override func doExecution() {
@@ -27,7 +26,7 @@ class MFCWaypointInitAction : MFCDisplacementAction {
 
     override func cleanup() {
         super.cleanup()
-        waypoint.setCurrentPosition(x: mfc.x, y: mfc.y)
+        waypoint.setLocation(x: waypoint.mfc.x, y: waypoint.mfc.y)
     }
 
 }
