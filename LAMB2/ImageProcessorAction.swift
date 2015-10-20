@@ -73,6 +73,7 @@ class ImageProcessorAction: AbstractAction, AsyncImageProcessorDelegate {
     func setRoiToStage(stage: StageState) {
         if stage.isFovBounded() {
             stage.setImageProcessorRoiToFov(self.proc)
+            self.proc.roi = true
         }
     }
     

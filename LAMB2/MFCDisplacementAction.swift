@@ -26,7 +26,7 @@ class MFCDisplacementAction : ImgDisplacementAction {
 
     override func doExecution() {
         displacement.updateFrame = updateMfc
-        if firstRun {
+        if mfc.stage.isFovBounded() && !proc.roi {
             setRoiToStage(mfc.stage)
         }
         super.doExecution()
