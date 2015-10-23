@@ -57,4 +57,14 @@ using namespace cv;
     [_subDisplace reset];
 }
 
+- (void) setUpdateFrame:(bool)updateFrame {
+    [super setUpdateFrame:updateFrame];
+    [_subDisplace setUpdateFrame:updateFrame];
+}
+
+- (void) setGrayscale:(bool)grayscale {
+    [super setGrayscale:grayscale];
+    [_subDisplace setGrayscale:grayscale];
+}
+
 @end

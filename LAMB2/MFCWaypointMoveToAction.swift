@@ -35,7 +35,7 @@ class MFCWaypointMoveToAction : SequenceAction {
     override func onActionCompleted(action: AbstractAction) {
         if action === displacementAction && initialMove {
             initialMove = false
-            let dX = displacementAction.dX, dY = displacementAction.dY //Offset to the waypoint
+            let dX = -displacementAction.dX, dY = -displacementAction.dY //Offset to the waypoint
             print("precise move by \((dX, dY))")
             let preciseMove = MFCMoveAction(mfc: mfc, dX: dX, dY: dY, stride: 0)
             //TODO: Could make this even more precise by setting distance tolerance based on the step being taken

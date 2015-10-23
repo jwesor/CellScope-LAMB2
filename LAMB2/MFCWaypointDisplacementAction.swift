@@ -27,6 +27,7 @@ class MFCWaypointDisplacementAction : MFCDisplacementAction {
     override func cleanup() {
         super.cleanup()
         if updateMfcToWaypoint {
+            print("\((waypoint.x, waypoint.y)) + \((self.dX, self.dY))")
             waypoint.mfc.setCurrentPosition(x: waypoint.x + self.dX, y: waypoint.y + self.dY)
         }
     }
