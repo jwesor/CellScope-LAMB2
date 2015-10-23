@@ -101,7 +101,6 @@ class CameraViewController: UIViewController, ActionCompletionDelegate {
         queue.addAction(mfc!.autofocuser)
         queue.addAction(MFCWaypointInitAction(waypoint: waypoint2!))
         queue.addAction(MFCWaypointMoveToAction(waypoint: waypoint1!))
-        //TODO: HUGE memory leak somewhere!
     }
     
     func onActionCompleted(action: AbstractAction) {
@@ -110,7 +109,6 @@ class CameraViewController: UIViewController, ActionCompletionDelegate {
     
     @IBAction func test3(sender: AnyObject) {
         // Background
-        queue.addAction(mfc!.autofocuser)
         queue.addAction(MFCWaypointMoveToAction(waypoint: waypoint1!))
 //        let motor = StageConstants.MOTOR_2
 //        let dir = StageConstants.DIR_HIGH
@@ -125,7 +123,6 @@ class CameraViewController: UIViewController, ActionCompletionDelegate {
     
     @IBAction func mfcDir(sender: AnyObject) {
         // MFC-related stuff is not working at the moment. Don't expect the MFC buttons to do anything useful!
-        queue.addAction(mfc!.autofocuser)
         queue.addAction(MFCWaypointMoveToAction(waypoint: waypoint2!))
     }
     

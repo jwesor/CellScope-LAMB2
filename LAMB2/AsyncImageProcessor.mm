@@ -64,6 +64,7 @@ using namespace cv;
                 }
                 currentFrame = 0;
             }
+            currentImage.release();
         }];
         [self.queue addOperation:operation];
     }

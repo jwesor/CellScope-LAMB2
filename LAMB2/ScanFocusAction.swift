@@ -27,7 +27,7 @@ class ScanFocusAction: SequenceAction {
         
         focusIp = IPFocusDetector()
         asyncIpWrapper = AsyncImageMultiProcessor.initWithProcessors([focusIp])
-        asyncIpWrapper.defaultStandby = 1
+        asyncIpWrapper.defaultStandby = 0
         asyncIpWrapper.enabled = false
         ipAction = ImageProcessorAction(asyncIpWrapper)
         

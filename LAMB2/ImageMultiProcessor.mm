@@ -46,6 +46,9 @@ using namespace cv;
             [imgproc process:currentImage];
         }
     }
+    if (self.isolated) {
+        currentImage.release();
+    }
 }
 
 - (void) updateDisplayOverlay: (Mat&)image {

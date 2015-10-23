@@ -30,6 +30,7 @@ using namespace cv;
         Mat mat = image.clone();
         UIImage *uiimage = [ImageUtils imageWithCVMat:mat];
         [writer writeImage:uiimage];
+        mat.release();
     } else {
         NSLog(@"IPImageCapture: No ImageFileWriter was set.");
     }
