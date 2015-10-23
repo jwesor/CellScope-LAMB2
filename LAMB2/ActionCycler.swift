@@ -10,24 +10,18 @@ import Foundation
 
 class ActionCycler {
     
-    let queue: ActionManager
-    var running: Bool
-    var times: [Double]
-    var actions: [Double: [AbstractAction]]
-    var cycleDuration: Double
-    var postCycleDelay: Double
-    var remainingIterations: Int
-    var currentTimeIndex: Int
+    let queue: ActionQueue
+    var running: Bool = false
+    var delays: [Double] = []
+    var actions: [Double: [AbstractAction]] = [:]
+    var cycleDuration: Double = 0
+    var postCycleDelay: Double = 0
+    var remainingIterations: Int = 0
+    var currentTimeIndex: Int = 0
+    var currentTime: Double = 0
     
-    init(queue: ActionManager) {
-        self.queue = queue
-        times = [Double]()
-        actions = [Double: [AbstractAction]]()
-        cycleDuration = 0
-        postCycleDelay = 0
-        running = false
-        remainingIterations = 0
-        currentTimeIndex = 0
+    init(actionQueue: ActionQueue) {
+        queue = actionQueue
     }
     
     func setPostCycleDelayDuration(delay: Double) {
@@ -42,7 +36,7 @@ class ActionCycler {
         if actions[cycleDuration] != nil {
             actions[cycleDuration]!.append(action)
         } else {
-            times.append(delay)
+            delays.append(delay)
             actions[cycleDuration] = [action]
         }
     }
@@ -56,41 +50,47 @@ class ActionCycler {
     }
     
     func runCycles(iterations: Int) {
-        if (running || times.count == 0 || iterations <= 0) {
+        if (running || delays.count == 0 || iterations <= 0) {
             return
         }
+        print("starting cycles!")
+        print("\(actions)")
+        print("\(delays)")
         DebugUtil.setLogEnabled("action", enabled: true)
         DebugUtil.setLogEnabled("cycle", enabled: true)
         DebugUtil.setLogEnabled("drive", enabled: true)
         DebugUtil.log("cycle", "initiated cycle for \(iterations) iterations")
         running = true
-        remainingIterations = iterations + 1
-        currentTimeIndex = times.count
+        remainingIterations = iterations
+        currentTimeIndex = delays.count
         nextAction()
     }
     
     func nextAction() {
         currentTimeIndex += 1
         var additionalDelay = 0.0
-        if currentTimeIndex >= times.count {
+        if currentTimeIndex >= delays.count {
             additionalDelay = postCycleDelay
             currentTimeIndex = 0
+            currentTime = 0
             remainingIterations -= 1
             DebugUtil.log("cycle", "cycle iterations remaining: \(remainingIterations)")
         }
-        if remainingIterations > 0 {
-            let currentTime = times[currentTimeIndex] + additionalDelay
-            if (currentTime == 0) {
-                for action in actions[currentTime]! {
+        if remainingIterations >= 0 {
+            let currentDelay = delays[currentTimeIndex]
+            currentTime += currentDelay
+            print("next action is in \(currentDelay)")
+            if (currentDelay == 0) {
+                for action in actions[currentDelay]! {
                     queue.addAction(action)
                     DebugUtil.log("cycle", "adding \(action)\(action.logName)")
                 }
                 nextAction()
             } else {
-                let delayTime = dispatch_time(DISPATCH_TIME_NOW, Int64(currentTime * Double(NSEC_PER_SEC)))
-                DebugUtil.log("cycle", "waiting to execute \(self.actions[currentTime]) after \(currentTime) seconds")
+                let delayTime = dispatch_time(DISPATCH_TIME_NOW, Int64((currentDelay + additionalDelay) * Double(NSEC_PER_SEC)))
+                DebugUtil.log("cycle", "waiting to execute \(self.actions[currentTime]) after \(currentDelay) seconds")
                 dispatch_after(delayTime, dispatch_get_main_queue(), { () -> Void in
-                    for action in self.actions[currentTime]! {
+                    for action in self.actions[self.currentTime]! {
                         self.queue.addAction(action)
                         DebugUtil.log("cycle", "adding \(action)\(action.logName)")
                     }
