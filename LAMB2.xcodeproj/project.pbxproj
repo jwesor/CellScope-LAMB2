@@ -48,6 +48,7 @@
 		185216771BD706D0005BFD80 /* MFCWaypointInitAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 185216721BD706D0005BFD80 /* MFCWaypointInitAction.swift */; settings = {ASSET_TAGS = (); }; };
 		185216781BD706D0005BFD80 /* MFCWaypointMoveToAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 185216731BD706D0005BFD80 /* MFCWaypointMoveToAction.swift */; settings = {ASSET_TAGS = (); }; };
 		185216791BD706D0005BFD80 /* MFCWaypointUpdateAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 185216741BD706D0005BFD80 /* MFCWaypointUpdateAction.swift */; settings = {ASSET_TAGS = (); }; };
+		1852167B1BDAD30F005BFD80 /* ImgCaptureAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1852167A1BDAD30F005BFD80 /* ImgCaptureAction.swift */; settings = {ASSET_TAGS = (); }; };
 		188074E31A38F43A0039725B /* opencv2.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 188074E21A38F43A0039725B /* opencv2.framework */; };
 		188074E61A38F4A60039725B /* CameraSession.mm in Sources */ = {isa = PBXBuildFile; fileRef = 188074E51A38F4A60039725B /* CameraSession.mm */; };
 		188074E81A38F7210039725B /* CoreVideo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 188074E71A38F7210039725B /* CoreVideo.framework */; };
@@ -172,6 +173,7 @@
 		185216721BD706D0005BFD80 /* MFCWaypointInitAction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MFCWaypointInitAction.swift; sourceTree = "<group>"; };
 		185216731BD706D0005BFD80 /* MFCWaypointMoveToAction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MFCWaypointMoveToAction.swift; sourceTree = "<group>"; };
 		185216741BD706D0005BFD80 /* MFCWaypointUpdateAction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MFCWaypointUpdateAction.swift; sourceTree = "<group>"; };
+		1852167A1BDAD30F005BFD80 /* ImgCaptureAction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImgCaptureAction.swift; sourceTree = "<group>"; };
 		1861AD391B6330E600278A9D /* CameraSession.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CameraSession.h; sourceTree = "<group>"; };
 		188074E21A38F43A0039725B /* opencv2.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = opencv2.framework; sourceTree = "<group>"; };
 		188074E51A38F4A60039725B /* CameraSession.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = CameraSession.mm; sourceTree = "<group>"; };
@@ -430,6 +432,7 @@
 			children = (
 				180F879B1A8C21D90001CD3C /* ImageProcessorAction.swift */,
 				18C3C4711BAA4301000B6B0F /* ImgDisplacementAction.swift */,
+				1852167A1BDAD30F005BFD80 /* ImgCaptureAction.swift */,
 				18C3C4741BAC9A7A000B6B0F /* ImgFovBoundsAction.swift */,
 				185216651BD16E3D005BFD80 /* ImgAcquireBackgroundAction.swift */,
 			);
@@ -735,6 +738,7 @@
 				180F879A1A8593C20001CD3C /* StageEnableStepAction.swift in Sources */,
 				1852165D1BC8982A005BFD80 /* MFCPreMoveAction.swift in Sources */,
 				18A072301AA13E6400A93391 /* IPFocusDetector.mm in Sources */,
+				1852167B1BDAD30F005BFD80 /* ImgCaptureAction.swift in Sources */,
 				18C3C4721BAA4301000B6B0F /* ImgDisplacementAction.swift in Sources */,
 				18D6B9101AE094F0002B1A9E /* ImageDocumentSeriesWriter.swift in Sources */,
 				18C3C43D1B6ECA0A000B6B0F /* MFCMoveAction.swift in Sources */,

@@ -111,6 +111,7 @@ class MFCSystem: ActionCompletionDelegate {
     class func createDisplacerComponents() -> (displacement: IPDisplacement, preprocessors:[ImageProcessor]) {
         let displacement = IPPyramidDisplacement()
         let preprocessors = [IPGradient()]
+        // Gradient improves accuracy, but slows displacement down quite a bit.
         return (displacement, preprocessors)
     }
 }

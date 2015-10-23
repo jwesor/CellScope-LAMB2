@@ -51,11 +51,11 @@ class ActionCycler {
         addAction(SequenceAction(sequence), delay: delay)
     }
     
-    func startCycle(duration: Double) {
-        startCycle(ceil(duration / (cycleDuration + postCycleDelay)))
+    func runForDuration(duration: Double) {
+        runCycles(Int(ceil(duration / (cycleDuration + postCycleDelay))))
     }
     
-    func startCycle(iterations: Int) {
+    func runCycles(iterations: Int) {
         if (running || times.count == 0 || iterations <= 0) {
             return
         }

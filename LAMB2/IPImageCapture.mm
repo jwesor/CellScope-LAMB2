@@ -11,10 +11,6 @@
 
 using namespace cv;
 
-@interface IPImageCapture()
-@property id<ImageFileWriter> writer;
-@end
-
 @implementation IPImageCapture
 
 @synthesize writer;

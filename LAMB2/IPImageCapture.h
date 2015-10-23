@@ -19,6 +19,8 @@
 
 @interface IPImageCapture : ImageProcessor
 
+@property id<ImageFileWriter> writer;
+
 + (IPImageCapture *) initWithWriter: (id<ImageFileWriter>) album;
 
 @end

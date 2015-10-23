@@ -39,7 +39,7 @@ class MFCWaypointMoveToAction : SequenceAction {
             print("precise move by \((dX, dY))")
             let preciseMove = MFCMoveAction(mfc: mfc, dX: dX, dY: dY, stride: 0)
             //TODO: Could make this even more precise by setting distance tolerance based on the step being taken
-            addOneTimeActions([preciseMove, displacementAction])
+            addOneTimeActions([preciseMove, mfc.autofocuser, displacementAction])
         }
     }
 }

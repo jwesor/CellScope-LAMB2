@@ -27,6 +27,12 @@ class CameraViewController: UIViewController, ActionCompletionDelegate {
     
     var waypoint1: MFCWaypoint?
     var waypoint2: MFCWaypoint?
+    var waypoint3: MFCWaypoint?
+    var waypoint4: MFCWaypoint?
+    
+    let photos:PhotoAlbum = PhotoAlbum(name: "waypoints_test")
+    var captureAction:ImgCaptureAction?
+    var cycler: ActionCycler?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -59,6 +65,8 @@ class CameraViewController: UIViewController, ActionCompletionDelegate {
 //        DebugUtil.setLog("drive", doc: driveLog)
 //        DebugUtil.setLog("cycle", doc: cycleLog)
 //        camera?.addImageProcessor(d)
+        
+        captureAction = ImgCaptureAction(camera: camera!, writer: photos)
               
         autofocus = AutofocuserAction(startLevel: -10, endLevel: 10, stepsPerLvl: 5, camera: camera!, device: device, stage: stage)
         displacer = ImgDisplacementAction(camera: camera!, displace: IPDisplacement(), preprocessors: [IPGradient()])
@@ -71,6 +79,14 @@ class CameraViewController: UIViewController, ActionCompletionDelegate {
         
         waypoint1 = MFCWaypoint(mfc: mfc!)
         waypoint2 = MFCWaypoint(mfc: mfc!)
+        waypoint3 = MFCWaypoint(mfc: mfc!)
+        waypoint4 = MFCWaypoint(mfc: mfc!)
+        
+        cycler = ActionCycler(queue: queue)
+        cycler?.addActionSequence([MFCWaypointMoveToAction(waypoint: waypoint1!), captureAction!], delay: 15)
+        cycler?.addActionSequence([MFCWaypointMoveToAction(waypoint: waypoint2!), captureAction!], delay: 15)
+        cycler?.addActionSequence([MFCWaypointMoveToAction(waypoint: waypoint3!), captureAction!], delay: 15)
+        cycler?.addActionSequence([MFCWaypointMoveToAction(waypoint: waypoint4!), captureAction!], delay: 15)
     }
     
     func loadDefaultStageState() {
@@ -97,10 +113,12 @@ class CameraViewController: UIViewController, ActionCompletionDelegate {
         // Test
         queue.addAction(mfc!.autofocuser)
         queue.addAction(MFCWaypointInitAction(waypoint: waypoint1!))
-        queue.addAction(MFCMoveToAction(mfc: mfc!, x: 500, y: -500))
-        queue.addAction(mfc!.autofocuser)
+        queue.addAction(MFCMoveToAction(mfc: mfc!, x: 700, y: 700))
         queue.addAction(MFCWaypointInitAction(waypoint: waypoint2!))
-        queue.addAction(MFCWaypointMoveToAction(waypoint: waypoint1!))
+        queue.addAction(MFCMoveToAction(mfc: mfc!, x: 500, y: -700))
+        queue.addAction(MFCWaypointInitAction(waypoint: waypoint3!))
+        queue.addAction(MFCMoveToAction(mfc: mfc!, x: -600, y: 200))
+        queue.addAction(MFCWaypointInitAction(waypoint: waypoint4!))
     }
     
     func onActionCompleted(action: AbstractAction) {
@@ -109,7 +127,7 @@ class CameraViewController: UIViewController, ActionCompletionDelegate {
     
     @IBAction func test3(sender: AnyObject) {
         // Background
-        queue.addAction(MFCWaypointMoveToAction(waypoint: waypoint1!))
+        cycler!.runCycles(10)
 //        let motor = StageConstants.MOTOR_2
 //        let dir = StageConstants.DIR_HIGH
 //        let setdir = StageDirectionAction(device, motor: motor, dir: dir, stage: stage)
@@ -123,7 +141,7 @@ class CameraViewController: UIViewController, ActionCompletionDelegate {
     
     @IBAction func mfcDir(sender: AnyObject) {
         // MFC-related stuff is not working at the moment. Don't expect the MFC buttons to do anything useful!
-        queue.addAction(MFCWaypointMoveToAction(waypoint: waypoint2!))
+        queue.addAction(captureAction!)
     }
     
     @IBAction func microstep(sender: AnyObject) {
