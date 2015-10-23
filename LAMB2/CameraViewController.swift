@@ -25,6 +25,9 @@ class CameraViewController: UIViewController, ActionCompletionDelegate {
     var calib: StepCalibratorAction?
     var mfc: MFCSystem?
     
+    var waypoint1: MFCWaypoint?
+    var waypoint2: MFCWaypoint?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -65,6 +68,9 @@ class CameraViewController: UIViewController, ActionCompletionDelegate {
         
         loadDefaultStageState()
         displacer!.addCompletionDelegate(self)
+        
+        waypoint1 = MFCWaypoint(mfc: mfc!)
+        waypoint2 = MFCWaypoint(mfc: mfc!)
     }
     
     func loadDefaultStageState() {
@@ -89,14 +95,12 @@ class CameraViewController: UIViewController, ActionCompletionDelegate {
     
     @IBAction func test2(send: AnyObject) {
         // Test
-        queue.addAction(displacer!)
-        let waypoint = MFCWaypoint(mfc: mfc!)
-        queue.addAction(MFCWaypointInitAction(waypoint: waypoint))
-        queue.addAction(MFCMoveToAction(mfc: mfc!, x: -500, y: 500))
+        queue.addAction(mfc!.autofocuser)
+        queue.addAction(MFCWaypointInitAction(waypoint: waypoint1!))
         queue.addAction(MFCMoveToAction(mfc: mfc!, x: 500, y: -500))
-        queue.addAction(MFCWaypointMoveToAction(waypoint: waypoint))
-        queue.addAction(MFCDisplacementAction(mfc: mfc!))
-        queue.addAction(displacer!)
+        queue.addAction(mfc!.autofocuser)
+        queue.addAction(MFCWaypointInitAction(waypoint: waypoint2!))
+        queue.addAction(MFCWaypointMoveToAction(waypoint: waypoint1!))
         //TODO: HUGE memory leak somewhere!
     }
     
@@ -106,6 +110,8 @@ class CameraViewController: UIViewController, ActionCompletionDelegate {
     
     @IBAction func test3(sender: AnyObject) {
         // Background
+        queue.addAction(mfc!.autofocuser)
+        queue.addAction(MFCWaypointMoveToAction(waypoint: waypoint1!))
 //        let motor = StageConstants.MOTOR_2
 //        let dir = StageConstants.DIR_HIGH
 //        let setdir = StageDirectionAction(device, motor: motor, dir: dir, stage: stage)
@@ -119,6 +125,8 @@ class CameraViewController: UIViewController, ActionCompletionDelegate {
     
     @IBAction func mfcDir(sender: AnyObject) {
         // MFC-related stuff is not working at the moment. Don't expect the MFC buttons to do anything useful!
+        queue.addAction(mfc!.autofocuser)
+        queue.addAction(MFCWaypointMoveToAction(waypoint: waypoint2!))
     }
     
     @IBAction func microstep(sender: AnyObject) {

@@ -28,7 +28,7 @@ class MFCWaypointMoveToAction : SequenceAction {
         initialMove = true
         print("inital move to \((waypoint.x, waypoint.y))")
         let approxMove = MFCMoveToAction(mfc: mfc, x: waypoint.x, y: waypoint.y, stride: 0)
-        addOneTimeActions([approxMove, displacementAction])
+        addOneTimeActions([approxMove, mfc.autofocuser, displacementAction])
         super.doExecution()
     }
 
