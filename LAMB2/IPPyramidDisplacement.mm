@@ -27,10 +27,11 @@ using namespace std;
 - (id) init {
     self = [super init];
     _subDisplace = [[IPDisplacement alloc] init];
-    _subDisplace.templateWidth = 100;
-    _subDisplace.templateHeight = 100;
     self.searchPadding = 8;
     self.scale = 0.25;
+    _subDisplace.templateWidth = self.templateWidth * self.scale;
+    _subDisplace.templateHeight = self.templateHeight * self.scale;
+    NSLog(@"%d %d %d %d", _subDisplace.templateWidth, _subDisplace.templateHeight, self.templateWidth, self.templateHeight);
     self.area = true;
     
     return self;
@@ -79,6 +80,16 @@ using namespace std;
 - (void) setGrayscale:(bool)grayscale {
     [super setGrayscale:grayscale];
     [_subDisplace setGrayscale:grayscale];
+}
+
+- (void) setTemplateWidth:(int)templateWidth {
+    [super setTemplateWidth:templateWidth];
+    _subDisplace.templateWidth = templateWidth * scale;
+}
+
+- (void) setTemplateHeight:(int)templateHeight {
+    [super setTemplateHeight:templateHeight];
+    _subDisplace.templateHeight = templateHeight * scale;
 }
 
 @end

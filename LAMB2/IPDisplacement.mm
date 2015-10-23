@@ -63,8 +63,8 @@ using namespace cv;
         _searchRegion.width = _bounds.width;
         _searchRegion.height = _bounds.height;
     } else {
-        _searchRegion.x = _area.x;
-        _searchRegion.y = _area.y;
+        _searchRegion.x = MAX(0, _area.x);
+        _searchRegion.y = MAX(0, _area.y);
         _searchRegion.width = MIN(_area.width + _roi.width,
                                   _bounds.width - _area.x);
         _searchRegion.height = MIN(_area.height + _roi.height,
@@ -105,6 +105,7 @@ using namespace cv;
     
     _dX = _roi.x - maxLoc.x - _searchRegion.x;
     _dY = _roi.y - maxLoc.y - _searchRegion.y;
+    
 
     if (self.updateFrame) {
         newTemplate.copyTo(_imgTemplate);

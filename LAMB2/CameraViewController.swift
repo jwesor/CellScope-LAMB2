@@ -6,7 +6,7 @@
 //  Copyright (c) 2014 Fletchlab. All rights reserved.
 //
 
-class CameraViewController: UIViewController, ActionCompletionDelegate {
+class CameraViewController: UIViewController, ActionCompletionDelegate  {
     
     @IBOutlet weak var gdriveButton: GDriveStatusButton!
     @IBOutlet weak var debugText: UITextView!
@@ -19,10 +19,10 @@ class CameraViewController: UIViewController, ActionCompletionDelegate {
     let queue = ActionQueue()
     let stage = StageState()
     
-    var displacer: ImgDisplacementAction?
+    var displacer1: IPDisplacement = IPDisplacement()
+    var displacer2: IPPyramidDisplacement = IPPyramidDisplacement()
     var bounds: ImgFovBoundsAction?
     var autofocus: AutofocuserAction?
-    var calib: StepCalibratorAction?
     var mfc: MFCSystem?
     
     var waypoint1: MFCWaypoint?
@@ -66,27 +66,36 @@ class CameraViewController: UIViewController, ActionCompletionDelegate {
 //        DebugUtil.setLog("cycle", doc: cycleLog)
 //        camera?.addImageProcessor(d)
         
+        
+//        let asyncmulti = AsyncImageMultiProcessor.initWithProcessors([displacer1, displacer2])
+//        displacer1.enabled = true
+//        
+//        displacer2.enabled = true
+//        
+////        camera!.addAsyncImageProcessor(asyncmulti)
+//        asyncmulti.enabled = true
+//        
+//        camera!.addImageProcessor(displacer2)
+        
         captureAction = ImgCaptureAction(camera: camera!, writer: photos)
               
         autofocus = AutofocuserAction(startLevel: -10, endLevel: 10, stepsPerLvl: 5, camera: camera!, device: device, stage: stage)
-        displacer = ImgDisplacementAction(camera: camera!, displace: IPDisplacement(), preprocessors: [IPGradient()])
-        bounds = ImgFovBoundsAction(camera: camera!, stage: stage, bindRois: [displacer!.proc])
-        calib = StepCalibratorAction(device: device, stage: stage, displacer: displacer!, microstep: true)
+        bounds = ImgFovBoundsAction(camera: camera!, stage: stage, bindRois: [])
         mfc = MFCSystem(camera: camera!, device: device, stage: stage)
         
         loadDefaultStageState()
-        displacer!.addCompletionDelegate(self)
         
         waypoint1 = MFCWaypoint(mfc: mfc!)
         waypoint2 = MFCWaypoint(mfc: mfc!)
         waypoint3 = MFCWaypoint(mfc: mfc!)
         waypoint4 = MFCWaypoint(mfc: mfc!)
         
-        cycler = ActionCycler(queue: queue)
-        cycler?.addActionSequence([MFCWaypointMoveToAction(waypoint: waypoint1!), captureAction!], delay: 15)
-        cycler?.addActionSequence([MFCWaypointMoveToAction(waypoint: waypoint2!), captureAction!], delay: 15)
-        cycler?.addActionSequence([MFCWaypointMoveToAction(waypoint: waypoint3!), captureAction!], delay: 15)
-        cycler?.addActionSequence([MFCWaypointMoveToAction(waypoint: waypoint4!), captureAction!], delay: 15)
+        cycler = ActionCycler(actionQueue: queue)
+        cycler?.addActionSequence([MFCWaypointMoveToAction(waypoint: waypoint1!), captureAction!], delay: 0)
+        cycler?.addActionSequence([MFCWaypointMoveToAction(waypoint: waypoint2!), captureAction!], delay: 45)
+        cycler?.addActionSequence([MFCWaypointMoveToAction(waypoint: waypoint3!), captureAction!], delay: 45)
+        cycler?.addActionSequence([MFCWaypointMoveToAction(waypoint: waypoint4!), captureAction!], delay: 45)
+        cycler?.setPostCycleDelayDuration(45)
     }
     
     func loadDefaultStageState() {
@@ -113,16 +122,25 @@ class CameraViewController: UIViewController, ActionCompletionDelegate {
         // Test
         queue.addAction(mfc!.autofocuser)
         queue.addAction(MFCWaypointInitAction(waypoint: waypoint1!))
+        queue.addAction(captureAction!)
+        
         queue.addAction(MFCMoveToAction(mfc: mfc!, x: 700, y: 700))
+        queue.addAction(mfc!.autofocuser)
         queue.addAction(MFCWaypointInitAction(waypoint: waypoint2!))
+        queue.addAction(captureAction!)
+        
         queue.addAction(MFCMoveToAction(mfc: mfc!, x: 500, y: -700))
+        queue.addAction(mfc!.autofocuser)
         queue.addAction(MFCWaypointInitAction(waypoint: waypoint3!))
+        queue.addAction(captureAction!)
+        
         queue.addAction(MFCMoveToAction(mfc: mfc!, x: -600, y: 200))
+        queue.addAction(mfc!.autofocuser)
         queue.addAction(MFCWaypointInitAction(waypoint: waypoint4!))
+        queue.addAction(captureAction!)
     }
     
     func onActionCompleted(action: AbstractAction) {
-        print("DISPLACER \(displacer!.dX) \(displacer!.dY)")
     }
     
     @IBAction func test3(sender: AnyObject) {
