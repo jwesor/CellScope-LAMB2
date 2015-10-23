@@ -6,7 +6,7 @@
 //  Copyright (c) 2014 Fletchlab. All rights reserved.
 //
 
-class CameraViewController: UIViewController, ActionCompletionDelegate {
+class CameraViewController: UIViewController {
     
     @IBOutlet weak var gdriveButton: GDriveStatusButton!
     @IBOutlet weak var debugText: UITextView!
@@ -15,24 +15,15 @@ class CameraViewController: UIViewController, ActionCompletionDelegate {
     @IBOutlet weak var deviceButton: DeviceStatusButton!
     
     var camera: CameraSession?
-    let device = DeviceConnector()
-    let queue = ActionQueue()
-    let stage = StageState()
+    let device: DeviceConnector = DeviceConnector()
+    let queue: ActionManager = ActionQueue()
+    let drive: GDriveAdapter = GDriveAdapter()
+    let stage: StageState = StageState()
     
     var displacer: ImgDisplacementAction?
-    var bounds: ImgFovBoundsAction?
     var autofocus: AutofocuserAction?
     var calib: StepCalibratorAction?
     var mfc: MFCSystem?
-    
-    var waypoint1: MFCWaypoint?
-    var waypoint2: MFCWaypoint?
-    var waypoint3: MFCWaypoint?
-    var waypoint4: MFCWaypoint?
-    
-    let photos:PhotoAlbum = PhotoAlbum(name: "waypoints_test")
-    var captureAction:ImgCaptureAction?
-    var cycler: ActionCycler?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -47,101 +38,65 @@ class CameraViewController: UIViewController, ActionCompletionDelegate {
         camera?.startCameraSession()
         
         device.addStatusDelegate(deviceButton)
-        deviceButton.updateDeviceStatusDisconnected()        
+        deviceButton.updateDeviceStatusDisconnected()
+        
         queue.beginActions()
         
         // Logging stuff; uncomment if you actually want to save all these logs
         // TODO: Make sure logging still works after the upgrade to Xcode 7.0
-//        let dateFormat = NSDateFormatter()
-//        dateFormat.dateFormat = "yyyyMMddHHmm"
-//        let datestring = dateFormat.stringFromDate(NSDate())
-//        let directory = DocumentDirectory("lamb2_\(datestring)")
+        //        let dateFormat = NSDateFormatter()
+        //        dateFormat.dateFormat = "yyyyMMddHHmm"
+        //        let datestring = dateFormat.stringFromDate(NSDate())
+        //        let directory = DocumentDirectory("lamb2_\(datestring)")
         
-//        let actionLog = TextDocument("action.log", directory: directory)
-//        let driveLog = TextDocument("drive.log", directory: directory)
-//        let cycleLog = TextDocument("cycle.log", directory: directory)
+        //        let actionLog = TextDocument("action.log", directory: directory)
+        //        let driveLog = TextDocument("drive.log", directory: directory)
+        //        let cycleLog = TextDocument("cycle.log", directory: directory)
         
-//        DebugUtil.setLog("action", doc: actionLog)
-//        DebugUtil.setLog("drive", doc: driveLog)
-//        DebugUtil.setLog("cycle", doc: cycleLog)
-//        camera?.addImageProcessor(d)
+        //        DebugUtil.setLog("action", doc: actionLog)
+        //        DebugUtil.setLog("drive", doc: driveLog)
+        //        DebugUtil.setLog("cycle", doc: cycleLog)
         
-        captureAction = ImgCaptureAction(camera: camera!, writer: photos)
-              
+        
         autofocus = AutofocuserAction(startLevel: -10, endLevel: 10, stepsPerLvl: 5, camera: camera!, device: device, stage: stage)
-        displacer = ImgDisplacementAction(camera: camera!, displace: IPDisplacement(), preprocessors: [IPGradient()])
-        bounds = ImgFovBoundsAction(camera: camera!, stage: stage, bindRois: [displacer!.proc])
-        calib = StepCalibratorAction(device: device, stage: stage, displacer: displacer!, microstep: true)
+        displacer = ImgDisplacementAction(camera: camera!)
+        calib = StepCalibratorAction(device: device, stage: stage, displacer: displacer!)
         mfc = MFCSystem(camera: camera!, device: device, stage: stage)
-        
-        loadDefaultStageState()
-        displacer!.addCompletionDelegate(self)
-        
-        waypoint1 = MFCWaypoint(mfc: mfc!)
-        waypoint2 = MFCWaypoint(mfc: mfc!)
-        waypoint3 = MFCWaypoint(mfc: mfc!)
-        waypoint4 = MFCWaypoint(mfc: mfc!)
-        
-        cycler = ActionCycler(queue: queue)
-        cycler?.addActionSequence([MFCWaypointMoveToAction(waypoint: waypoint1!), captureAction!], delay: 15)
-        cycler?.addActionSequence([MFCWaypointMoveToAction(waypoint: waypoint2!), captureAction!], delay: 15)
-        cycler?.addActionSequence([MFCWaypointMoveToAction(waypoint: waypoint3!), captureAction!], delay: 15)
-        cycler?.addActionSequence([MFCWaypointMoveToAction(waypoint: waypoint4!), captureAction!], delay: 15)
-    }
-    
-    func loadDefaultStageState() {
-        let M1 = StageConstants.MOTOR_1, M2 = StageConstants.MOTOR_2
-        let HI = StageConstants.DIR_HIGH, LO = StageConstants.DIR_LOW
-        let microstep = true
-        stage.setBacklash(49, motor: M1, dir: HI, microstep: microstep)
-        stage.setBacklash(43, motor: M1, dir: LO, microstep: microstep)
-        stage.setBacklash(51, motor: M2, dir: HI, microstep: microstep)
-        stage.setBacklash(49, motor: M2, dir: LO, microstep: microstep)
-        stage.setStep((x: 5, y: 23), motor: M1, dir: HI, microstep: microstep)
-        stage.setStep((x: -2, y: -18), motor: M1, dir: LO, microstep: microstep)
-        stage.setStep((x: 18, y: 0), motor: M2, dir: HI, microstep: microstep)
-        stage.setStep((x: -16, y: 3), motor: M2, dir: LO, microstep: microstep)
     }
     
     @IBAction func test(sender: AnyObject) {
         // Initialize
-        queue.addAction(bounds!)
-        queue.addAction(mfc!.initNoCalibAction)
+        queue.addAction(autofocus!)
     }
     
     @IBAction func test2(send: AnyObject) {
         // Test
-        queue.addAction(mfc!.autofocuser)
-        queue.addAction(MFCWaypointInitAction(waypoint: waypoint1!))
-        queue.addAction(MFCMoveToAction(mfc: mfc!, x: 700, y: 700))
-        queue.addAction(MFCWaypointInitAction(waypoint: waypoint2!))
-        queue.addAction(MFCMoveToAction(mfc: mfc!, x: 500, y: -700))
-        queue.addAction(MFCWaypointInitAction(waypoint: waypoint3!))
-        queue.addAction(MFCMoveToAction(mfc: mfc!, x: -600, y: 200))
-        queue.addAction(MFCWaypointInitAction(waypoint: waypoint4!))
-    }
-    
-    func onActionCompleted(action: AbstractAction) {
-        print("DISPLACER \(displacer!.dX) \(displacer!.dY)")
+        queue.addAction(calib!)
     }
     
     @IBAction func test3(sender: AnyObject) {
         // Background
-        cycler!.runCycles(10)
-//        let motor = StageConstants.MOTOR_2
-//        let dir = StageConstants.DIR_HIGH
-//        let setdir = StageDirectionAction(device, motor: motor, dir: dir, stage: stage)
-//        let deadband = DeadbandStepAction(motor: motor, device: device, displacer: displacer!)
-//        let stepdis = StepDisplacementAction(motor: motor, dir: dir, steps: 25, device: device, stage: stage, displacer: displacer!)
-//        queue.addAction(setdir)
-//        queue.addAction(deadband)
-//        queue.addAction(stepdis)
-//        queue.addAction(stepdis)
     }
     
     @IBAction func mfcDir(sender: AnyObject) {
         // MFC-related stuff is not working at the moment. Don't expect the MFC buttons to do anything useful!
-        queue.addAction(captureAction!)
+        let text = sender.currentTitle!!
+        var motor: Int
+        var dir: Bool
+        
+        if (text.rangeOfString("M1") != nil) {
+            motor = StageConstants.MOTOR_1
+        } else {
+            motor = StageConstants.MOTOR_2
+        }
+        
+        if (text.rangeOfString("HI") != nil) {
+            dir = StageConstants.DIR_HIGH
+        } else {
+            dir = StageConstants.DIR_LOW
+        }
+        
+        queue.addAction(MFCDirectionAction(mfc!, motor: motor, dir: dir, toggleEnable: true))
     }
     
     @IBAction func microstep(sender: AnyObject) {
@@ -150,12 +105,10 @@ class CameraViewController: UIViewController, ActionCompletionDelegate {
         
         queue.addAction(StageMicrostepAction(device, enabled: toggle, stage: stage))
     }
-
+    
     @IBAction func balance(sender: AnyObject) {
         // Use the iPad's built in white balance, exposure correction, and autofocus
-        let bal = CameraAutoWhiteBalanceAction(camera: camera!)
-        bal.timeout = 10
-        queue.addAction(bal)
+        queue.addAction(CameraAutoWhiteBalanceAction(camera: camera!))
         let exp = CameraAutoExposureAction(camera: camera!)
         exp.timeout = 3
         queue.addAction(exp)
@@ -182,13 +135,7 @@ class CameraViewController: UIViewController, ActionCompletionDelegate {
         } else {
             dir = StageConstants.DIR_LOW
         }
-        
-//        if motor == StageConstants.MOTOR_3 {
-            queue.addAction(StageEnableStepAction(device, motor: motor, dir: dir, steps: steps, stage: stage))
-//        } else {
-//            queue.addAction(StageDirectionAction(device, motor: motor, dir: dir, stage: stage))
-//            queue.addAction(StageMoveAction(device, motor: motor, steps: steps))
-//        }
+        queue.addAction(StageEnableStepAction(device, motor: motor, dir: dir, steps:steps, stage: stage))
     }
     
     @IBAction func led2off(sender: AnyObject) {
@@ -197,7 +144,6 @@ class CameraViewController: UIViewController, ActionCompletionDelegate {
     
     @IBAction func led2on(sender: AnyObject) {
         device.send([0x28, 0, 0])
-        
     }
     
     @IBAction func led1off(sender: AnyObject) {
@@ -214,10 +160,6 @@ class CameraViewController: UIViewController, ActionCompletionDelegate {
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if (segue.identifier == "listBLEDevices") {
-            if device.connected {
-                device.send([StageDisableAction.getDisableCode(StageConstants.MOTOR_1), 0x0, 0x0])
-                device.send([StageDisableAction.getDisableCode(StageConstants.MOTOR_2), 0x0, 0x0])
-            }
             device.scanForPeripherals()
             let table = segue.destinationViewController as! DeviceTableViewController
             table.device = device
