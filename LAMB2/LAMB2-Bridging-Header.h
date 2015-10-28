@@ -18,5 +18,4 @@
 #import "IPIdleFrames.h"
 #import "IPGaussian.h"
 #import "IPGradient.h"
-
-#import "IPAsyncPanTracker.h"
+#import "IPDetectContourTrackables.h"

@@ -8,6 +8,7 @@
 
 #import "IPFovBounds.h"
 using namespace cv;
+using namespace std;
 
 @interface IPFovBounds () {
     int _x, _y, _width, _height;
@@ -36,11 +37,11 @@ using namespace cv;
     cvtColor(image, grayscale, CV_BGR2GRAY);
     Mat binary;
     threshold(grayscale, binary, _threshold, 255, THRESH_BINARY);
-    Mat hierarchy;
-    std::vector<Mat> contours;
+    vector<Vec4i> hierarchy;
+    vector<vector<cv::Point>> contours;
     findContours(binary, contours, hierarchy, RETR_EXTERNAL, CHAIN_APPROX_SIMPLE);
     double maxArea = 0;
-    Mat largestContour;
+    vector<cv::Point> largestContour;
     for (int i = 0; i < contours.size(); i ++) {
         double area = contourArea(contours[i]);
         if (area > maxArea) {
