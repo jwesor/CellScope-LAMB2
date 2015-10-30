@@ -26,7 +26,7 @@ class MFCDisplacementAction : ImgDisplacementAction {
     }
 
     override func doExecution() {
-        displacement.updateFrame = updateMfc
+        displacement.updateTemplate = updateMfc
         super.doExecution()
     }
 

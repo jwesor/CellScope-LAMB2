@@ -46,8 +46,8 @@ using namespace std;
     // Find the bounding box for the upper level template location
     int subX1 = int((_subDisplace.templateX - _subDisplace.dX) / scale);
     int subY1 = int((_subDisplace.templateY - _subDisplace.dY) / scale);
-    int subX2 = int((_subDisplace.templateX + _subDisplace.templateWidth) / scale);
-    int subY2 = int((_subDisplace.templateY + _subDisplace.templateHeight) / scale);
+    int subX2 = subX1 + int((_subDisplace.templateWidth) / scale);
+    int subY2 = subY1 + int((_subDisplace.templateHeight) / scale);
     _upperTemplate.x = subX1;
     _upperTemplate.y = subY1;
     _upperTemplate.width = subX2 - subX1;
@@ -63,7 +63,7 @@ using namespace std;
 }
 
 - (void) updateDisplayOverlay:(Mat &)image {
-    rectangle(image, _upperTemplate, Scalar(255, 0, 0, 255));
+    rectangle(image, _upperTemplate, Scalar(0, 255, 255, 255));
     [super updateDisplayOverlay:image];
 }
 

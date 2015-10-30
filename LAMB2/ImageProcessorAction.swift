@@ -52,7 +52,7 @@ class ImageProcessorAction: AbstractAction, AsyncImageProcessorDelegate {
         if (removeWhenDone) {
             camera?.addAsyncImageProcessor(proc)
         }
-        if (stage != nil) && (stage.isFovBounded() && !proc.roi) {
+        if (stage != nil) && (stage!.isFovBounded() && !proc.roi) {
             setRoiToStage(stage!)
         }
         proc.addDelegate(self)
@@ -83,10 +83,10 @@ class ImageProcessorAction: AbstractAction, AsyncImageProcessorDelegate {
     }
     
     func setRoi(x x: Int, y: Int, width: Int, height: Int) {
-        proc.roiX = x
-        proc.roiY = y
-        proc.roiWidth = width
-        proc.roiHeight = height
+        proc.roiX = Int32(x)
+        proc.roiY = Int32(y)
+        proc.roiWidth = Int32(width)
+        proc.roiHeight = Int32(height)
         proc.roi = true
     }
 }

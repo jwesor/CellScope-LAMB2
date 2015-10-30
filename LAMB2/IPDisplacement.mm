@@ -52,7 +52,7 @@ using namespace cv;
     self.grayscale = true;
     self.updateTemplate = true;
     self.centerTemplate = true;
-    self.trackTemplate = true;
+    self.trackTemplate = false;
     return self;
 }
 
@@ -68,12 +68,12 @@ using namespace cv;
         _searchRegion.width = _bounds.width;
         _searchRegion.height = _bounds.height;
     } else {
-        _searchRegion.x = _area.x;
-        _searchRegion.y = _area.y;
+        _searchRegion.x = MIN(_area.x, _bounds.width - _roi.width);
+        _searchRegion.y = MIN(_area.y, _bounds.height - _roi.height);
         _searchRegion.width = MIN(_area.width + _roi.width,
-                                  _bounds.width - _area.x);
+                                  _bounds.width - _searchRegion.x);
         _searchRegion.height = MIN(_area.height + _roi.height,
-                                   _bounds.height - _area.y);
+                                   _bounds.height - _searchRegion.y);
     }
 
     if (self.centerTemplate) {
@@ -152,16 +152,16 @@ using namespace cv;
     return _roi.height;
 }
 
-- (void) setTemplateX:(int)templateX {
-    _roi.x = templateX;
+- (void) setTemplateX:(int)x {
+    _roi.x = x;
 }
 
 - (int) templateX {
     return _roi.x;
 }
 
-- (void) setTemplateY:(int)templateY {
-    _roi.y = tepmlateY;
+- (void) setTemplateY:(int)y {
+    _roi.y = y;
 }
 
 - (int) templateY {

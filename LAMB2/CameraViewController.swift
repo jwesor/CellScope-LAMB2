@@ -77,6 +77,11 @@ class CameraViewController: UIViewController, ActionCompletionDelegate  {
 //        
 //        camera!.addImageProcessor(displacer2)
         
+        let displace = IPPyramidDisplacement()
+        displace.trackTemplate = true
+        camera!.addImageProcessor(displace)
+        displace.enabled = true
+        
         captureAction = ImgCaptureAction(camera: camera!, writer: photos)
               
         autofocus = AutofocuserAction(startLevel: -10, endLevel: 10, stepsPerLvl: 5, camera: camera!, device: device, stage: stage)

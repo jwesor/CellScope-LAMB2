@@ -10,7 +10,6 @@ import Foundation
 
 class ImgFovBoundsAction: ImageProcessorAction {
     
-    let stage: StageState
     let fov: IPFovBounds
     let runOnce: Bool
     var ipBoundRois: [ImageProcessor]
@@ -21,11 +20,10 @@ class ImgFovBoundsAction: ImageProcessorAction {
     private var run: Bool = false
     
     init(camera: CameraSession, stage: StageState, bindRois: [ImageProcessor] = [], runOnce: Bool = true, fov: IPFovBounds? = nil) {
-        self.stage = stage
         self.fov = (fov == nil) ? IPFovBounds() : fov!
         self.ipBoundRois = bindRois
         self.runOnce = runOnce
-        super.init([self.fov], camera: camera)
+        super.init([self.fov], camera: camera, stage: stage)
     }
     
     func bindImageProcesosrRoi(imgproc: ImageProcessor) {
@@ -36,7 +34,7 @@ class ImgFovBoundsAction: ImageProcessorAction {
         ipBoundRois.append(imgprocAction.proc)
     }
 
-    override doExecution() {
+    override func doExecution() {
         if (!runOnce) {
             super.doExecution()
         } else if (!run) {
@@ -49,7 +47,7 @@ class ImgFovBoundsAction: ImageProcessorAction {
     
     override func cleanup() {
         super.cleanup()
-        stage.setFovBounds(fov.x, y: fov.y, width: fov.width, height: fov.height)
+        stage?.setFovBounds(fov.x, y: fov.y, width: fov.width, height: fov.height)
         for imgproc in ipBoundRois {
             fov.setBoundsAsRoi(imgproc)
             imgproc.roi = true

@@ -8,7 +8,6 @@
 
 #import "IPBackgroundSubtract.h"
 #import "IPDisplacement.h"
-#import "IPMotionDetectDisplacement.h"
 #import "IPPyramidDisplacement.h"
 #import "IPFovBounds.h"
 #import "IPFocusDetector.h"
@@ -18,4 +17,3 @@
 #import "IPIdleFrames.h"
 #import "IPGaussian.h"
 #import "IPGradient.h"
-#import "IPDetectContourTrackables.h"
