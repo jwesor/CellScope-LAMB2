@@ -28,5 +28,10 @@ class ImgDisplacementAction: ImageProcessorAction {
     func reset() {
         displacement.reset()
     }
-    
+
+    func locationRelativeToTemplate(x x: Int, y: Int) -> (x: Int, y: Int) {
+        let relX = x - Int(displacement.templateX)
+        let relY = y - Int(displacement.templateY)
+        return (x: relX, y: relY)
+    }
 }

@@ -33,13 +33,16 @@ using namespace cv;
 
 @synthesize dX = _dX;
 @synthesize dY = _dY;
+
 @synthesize templateX;
 @synthesize templateY;
 @synthesize templateWidth;
 @synthesize templateHeight;
+@synthesize centerTemplate;
 
 @synthesize grayscale;
-@synthesize updateFrame;
+@synthesize updateTemplate;
+@synthesize trackTemplate;
 
 - (id) init {
     self = [super init];
@@ -47,7 +50,9 @@ using namespace cv;
     _tracked = cv::Rect(0, 0, 300, 300);
     _firstFrame = true;
     self.grayscale = true;
-    self.updateFrame = true;
+    self.updateTemplate = true;
+    self.centerTemplate = true;
+    self.trackTemplate = true;
     return self;
 }
 
@@ -63,17 +68,19 @@ using namespace cv;
         _searchRegion.width = _bounds.width;
         _searchRegion.height = _bounds.height;
     } else {
-        _searchRegion.x = MAX(0, _area.x);
-        _searchRegion.y = MAX(0, _area.y);
+        _searchRegion.x = _area.x;
+        _searchRegion.y = _area.y;
         _searchRegion.width = MIN(_area.width + _roi.width,
                                   _bounds.width - _area.x);
         _searchRegion.height = MIN(_area.height + _roi.height,
                                    _bounds.height - _area.y);
     }
-    
-    _roi.x = (_bounds.width - _roi.width) / 2;
-    _roi.y = (_bounds.height - _roi.height) / 2;
-    
+
+    if (self.centerTemplate) {
+        _roi.x = (_bounds.width - _roi.width) / 2;
+        _roi.y = (_bounds.height - _roi.height) / 2;
+    }
+
     Mat imageColor;
     if (self.grayscale) {
         cvtColor(image, imageColor, CV_BGRA2GRAY);
@@ -82,10 +89,9 @@ using namespace cv;
     }
     Mat imgReference(imageColor, _searchRegion);
     
-    Mat newTemplate(imageColor, _roi);
-    
     if (_imgTemplate.empty() || _firstFrame) {
         _firstFrame = false;
+        Mat newTemplate(imageColor, _roi);
         newTemplate.copyTo(_imgTemplate);
     }
     
@@ -107,7 +113,13 @@ using namespace cv;
     _dY = _roi.y - maxLoc.y - _searchRegion.y;
     
 
-    if (self.updateFrame) {
+    if (self.updateTemplate) {
+        if (self.trackTemplate) {
+            self.centerTemplate = false;
+            _roi.x = _tracked.x;
+            _roi.y = _tracked.y;
+        }
+        Mat newTemplate(imageColor, _roi);
         newTemplate.copyTo(_imgTemplate);
     }
 }
@@ -115,33 +127,7 @@ using namespace cv;
 - (void) updateDisplayOverlay:(Mat &)image {
     rectangle(image, _bounds, Scalar(0, 0, 255, 255));
     rectangle(image, _searchRegion, Scalar(255, 0, 0, 255));
-    rectangle(image, _roi, Scalar(0, 255, 0, 255));
     rectangle(image, _tracked, Scalar(255, 255, 0, 255));
-}
-
-- (void) updateTemplate:(Mat &)image {
-    _bounds.x = 0;
-    _bounds.y = 0;
-    _bounds.width = image.cols;
-    _bounds.height = image.rows;
-    
-    _roi.x = (image.cols - _roi.width) / 2;
-    _roi.y = (image.rows - _roi.height) / 2;
-    
-    Mat imgReference;
-    if (self.grayscale) {
-        cvtColor(image, imgReference, CV_BGRA2GRAY);
-    } else {
-        imgReference = image;
-    }
-    
-    Mat newTemplate;
-    newTemplate = Mat(imgReference, _roi);
-    newTemplate.copyTo(_imgTemplate);
-    _tracked.x = _roi.x;
-    _tracked.y = _roi.y;
-    _dX = 0;
-    _dY = 0;
 }
 
 - (void) setTemplateImage:(Mat&) image {
@@ -166,12 +152,20 @@ using namespace cv;
     return _roi.height;
 }
 
+- (void) setTemplateX:(int)templateX {
+    _roi.x = templateX;
+}
+
 - (int) templateX {
-    return _tracked.x;
+    return _roi.x;
+}
+
+- (void) setTemplateY:(int)templateY {
+    _roi.y = tepmlateY;
 }
 
 - (int) templateY {
-    return _tracked.y;
+    return _roi.y;
 }
 
 - (void) reset {

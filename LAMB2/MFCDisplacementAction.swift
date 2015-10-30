@@ -22,13 +22,11 @@ class MFCDisplacementAction : ImgDisplacementAction {
     	self.mfc = mfc
     	self.updateMfc = updateMfc
     	super.init(camera: mfc.camera, displace: displace, preprocessors: preprocessors)
+        self.stage = mfc.stage
     }
 
     override func doExecution() {
         displacement.updateFrame = updateMfc
-        if mfc.stage.isFovBounded() && !proc.roi {
-            setRoiToStage(mfc.stage)
-        }
         super.doExecution()
     }
 

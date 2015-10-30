@@ -44,8 +44,8 @@ using namespace std;
     [_subDisplace processImage:scaled];
     
     // Find the bounding box for the upper level template location
-    int subX1 = int(_subDisplace.templateX / scale);
-    int subY1 = int(_subDisplace.templateY / scale);
+    int subX1 = int((_subDisplace.templateX - _subDisplace.dX) / scale);
+    int subY1 = int((_subDisplace.templateY - _subDisplace.dY) / scale);
     int subX2 = int((_subDisplace.templateX + _subDisplace.templateWidth) / scale);
     int subY2 = int((_subDisplace.templateY + _subDisplace.templateHeight) / scale);
     _upperTemplate.x = subX1;
@@ -53,8 +53,8 @@ using namespace std;
     _upperTemplate.width = subX2 - subX1;
     _upperTemplate.height = subY2 - subY1;
     
-    self.areaX = (subX2 + subX1) / 2 - self.searchPadding - self.templateWidth / 2;
-    self.areaY = (subY2 + subY1) / 2 - self.searchPadding - self.templateHeight / 2;
+    self.areaX = MAX(0, (subX2 + subX1) / 2 - self.searchPadding - self.templateWidth / 2);
+    self.areaY = MAX(0, (subY2 + subY1) / 2 - self.searchPadding - self.templateHeight / 2);
 
     self.areaWidth = self.searchPadding * 2;
     self.areaHeight = self.searchPadding * 2;
@@ -72,9 +72,14 @@ using namespace std;
     [_subDisplace reset];
 }
 
-- (void) setUpdateFrame:(bool)updateFrame {
-    [super setUpdateFrame:updateFrame];
-    [_subDisplace setUpdateFrame:updateFrame];
+- (void) setUpdateTemplate:(bool)updateTemplate {
+    [super setUpdateTemplate:updateTemplate];
+    [_subDisplace setUpdateTemplate:updateTemplate];
+}
+
+- (void) setTrackTemplate:(bool)trackTemplate {
+    [super setTrackTemplate:trackTemplate];
+    [_subDisplace setTrackTemplate:trackTemplate];
 }
 
 - (void) setGrayscale:(bool)grayscale {

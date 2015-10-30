@@ -18,9 +18,10 @@ class ImageProcessorAction: AbstractAction, AsyncImageProcessorDelegate {
     
     let proc:AsyncImageProcessor
     var camera: CameraSession?
-    var begun:Bool
-    var disableWhenDone:Bool
-    var removeWhenDone: Bool
+    var stage: StageState?
+    private var begun:Bool
+    private var disableWhenDone:Bool
+    private var removeWhenDone: Bool
     
     init(_ processor: AsyncImageProcessor) {
         proc = processor
@@ -30,7 +31,7 @@ class ImageProcessorAction: AbstractAction, AsyncImageProcessorDelegate {
         super.init()
     }
     
-    init(_ processors: [ImageProcessor], standby: Int32 = 0, camera: CameraSession? = nil) {
+    init(_ processors: [ImageProcessor], standby: Int32 = 0, camera: CameraSession? = nil, stage: StageState? = nil) {
         proc = AsyncImageMultiProcessor.initWithProcessors(processors)
         proc.defaultStandby = standby
         proc.enabled = false
@@ -38,6 +39,7 @@ class ImageProcessorAction: AbstractAction, AsyncImageProcessorDelegate {
         disableWhenDone = false
         removeWhenDone = camera != nil
         self.camera = camera
+        self.stage = stage
         super.init()
     }
 
@@ -49,6 +51,9 @@ class ImageProcessorAction: AbstractAction, AsyncImageProcessorDelegate {
         }
         if (removeWhenDone) {
             camera?.addAsyncImageProcessor(proc)
+        }
+        if (stage != nil) && (stage.isFovBounded() && !proc.roi) {
+            setRoiToStage(stage!)
         }
         proc.addDelegate(self)
     }
@@ -77,4 +82,11 @@ class ImageProcessorAction: AbstractAction, AsyncImageProcessorDelegate {
         }
     }
     
+    func setRoi(x x: Int, y: Int, width: Int, height: Int) {
+        proc.roiX = x
+        proc.roiY = y
+        proc.roiWidth = width
+        proc.roiHeight = height
+        proc.roi = true
+    }
 }
