@@ -19,8 +19,6 @@ typedef struct _ContourTrackable {
 @interface IPDetectContourTrackables : ImageProcessor
 
 @property int threshold;
-@property int blocksize;
-@property int c;
 @property (readonly) int detectedCount;
 
 - (ContourTrackable) getDetectedTrackable: (int)index;

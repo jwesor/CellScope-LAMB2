@@ -21,14 +21,10 @@ using namespace std;
 
 @synthesize threshold = _threshold;
 @synthesize detectedCount = _count;
-@synthesize blocksize;
-@synthesize c;
 
 - (id) init {
     self = [super init];
     _threshold = 50;
-    self.blocksize = 1;
-    self.c = 0;
     return self;
 }
 
@@ -39,9 +35,7 @@ using namespace std;
     Mat grayscale;
     cvtColor(image, grayscale, CV_BGR2GRAY);
     Mat binary;
-//    threshold(grayscale, binary, _threshold, 255, THRESH_BINARY);
-    adaptiveThreshold(grayscale, binary, 255, ADAPTIVE_THRESH_GAUSSIAN_C, THRESH_BINARY, self.blocksize, self.c);
-    cvtColor(binary, image, CV_GRAY2BGRA);
+    threshold(grayscale, binary, _threshold, 255, THRESH_BINARY);
     vector<Vec4i> hierarchy;
     vector<vector<cv::Point>> contours;
     findContours(binary, contours, hierarchy, RETR_EXTERNAL, CHAIN_APPROX_SIMPLE);
