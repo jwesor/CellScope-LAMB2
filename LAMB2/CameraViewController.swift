@@ -34,6 +34,8 @@ class CameraViewController: UIViewController, ActionCompletionDelegate  {
     var captureAction:ImgCaptureAction?
     var cycler: ActionCycler?
     
+    let detect = IPDetectContourTrackables()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -77,10 +79,10 @@ class CameraViewController: UIViewController, ActionCompletionDelegate  {
 //        
 //        camera!.addImageProcessor(displacer2)
         
-        let displace = IPPyramidDisplacement()
-        displace.trackTemplate = true
-        camera!.addImageProcessor(displace)
-        displace.enabled = true
+        
+        camera!.addImageProcessor(detect)
+        detect.enabled = true
+
         
         captureAction = ImgCaptureAction(camera: camera!, writer: photos)
               
@@ -150,7 +152,8 @@ class CameraViewController: UIViewController, ActionCompletionDelegate  {
     
     @IBAction func test3(sender: AnyObject) {
         // Background
-        cycler!.runCycles(10)
+        detect.enabled = !detect.enabled
+//        cycler!.runCycles(10)
 //        let motor = StageConstants.MOTOR_2
 //        let dir = StageConstants.DIR_HIGH
 //        let setdir = StageDirectionAction(device, motor: motor, dir: dir, stage: stage)
@@ -164,7 +167,19 @@ class CameraViewController: UIViewController, ActionCompletionDelegate  {
     
     @IBAction func mfcDir(sender: AnyObject) {
         // MFC-related stuff is not working at the moment. Don't expect the MFC buttons to do anything useful!
-        queue.addAction(captureAction!)
+//        queue.addAction(captureAction!)
+        
+        let text = sender.currentTitle!!
+        if (text.rangeOfString("M1 HI") != nil) {
+            detect.blocksize += 2;
+        } else if (text.rangeOfString("M1 LO") != nil) {
+            detect.blocksize -= 2;
+        } else if (text.rangeOfString("M2 HI") != nil) {
+            detect.c += 1;
+        } else {
+            detect.c -= 1;
+        }
+        print("block \(detect.blocksize), c \(detect.c)");
     }
     
     @IBAction func microstep(sender: AnyObject) {

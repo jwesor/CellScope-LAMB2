@@ -17,3 +17,5 @@
 #import "IPIdleFrames.h"
 #import "IPGaussian.h"
 #import "IPGradient.h"
+
+#import "IPDetectContourTrackables.h"

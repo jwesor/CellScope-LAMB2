@@ -52,6 +52,7 @@
 		188074E81A38F7210039725B /* CoreVideo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 188074E71A38F7210039725B /* CoreVideo.framework */; };
 		188074EA1A38F72D0039725B /* AssetsLibrary.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 188074E91A38F72D0039725B /* AssetsLibrary.framework */; };
 		188074EC1A38F7350039725B /* CoreMedia.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 188074EB1A38F7350039725B /* CoreMedia.framework */; };
+		188C5D661BF178F1007BF98F /* IPDetectContourTrackables.mm in Sources */ = {isa = PBXBuildFile; fileRef = 188C5D651BF178F1007BF98F /* IPDetectContourTrackables.mm */; };
 		1892F5981B44953A0084E0F8 /* StepDisplacementAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1892F5971B44953A0084E0F8 /* StepDisplacementAction.swift */; };
 		1892F59A1B4605E50084E0F8 /* StepCalibratorAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1892F5991B4605E50084E0F8 /* StepCalibratorAction.swift */; };
 		1892F59D1B4620B60084E0F8 /* IPFovBounds.mm in Sources */ = {isa = PBXBuildFile; fileRef = 1892F59C1B4620B60084E0F8 /* IPFovBounds.mm */; };
@@ -173,6 +174,8 @@
 		188074E71A38F7210039725B /* CoreVideo.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreVideo.framework; path = System/Library/Frameworks/CoreVideo.framework; sourceTree = SDKROOT; };
 		188074E91A38F72D0039725B /* AssetsLibrary.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AssetsLibrary.framework; path = System/Library/Frameworks/AssetsLibrary.framework; sourceTree = SDKROOT; };
 		188074EB1A38F7350039725B /* CoreMedia.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMedia.framework; path = System/Library/Frameworks/CoreMedia.framework; sourceTree = SDKROOT; };
+		188C5D641BF178F1007BF98F /* IPDetectContourTrackables.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IPDetectContourTrackables.h; sourceTree = "<group>"; };
+		188C5D651BF178F1007BF98F /* IPDetectContourTrackables.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = IPDetectContourTrackables.mm; sourceTree = "<group>"; };
 		1892F5971B44953A0084E0F8 /* StepDisplacementAction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StepDisplacementAction.swift; sourceTree = "<group>"; };
 		1892F5991B4605E50084E0F8 /* StepCalibratorAction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StepCalibratorAction.swift; sourceTree = "<group>"; };
 		1892F59B1B4620B60084E0F8 /* IPFovBounds.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IPFovBounds.h; sourceTree = "<group>"; };
@@ -372,6 +375,15 @@
 			name = Displacement;
 			sourceTree = "<group>";
 		};
+		188C5D631BF1738D007BF98F /* Tracking */ = {
+			isa = PBXGroup;
+			children = (
+				188C5D641BF178F1007BF98F /* IPDetectContourTrackables.h */,
+				188C5D651BF178F1007BF98F /* IPDetectContourTrackables.mm */,
+			);
+			name = Tracking;
+			sourceTree = "<group>";
+		};
 		18A072311AA13E6F00A93391 /* Autofocus */ = {
 			isa = PBXGroup;
 			children = (
@@ -400,6 +412,7 @@
 		18C3C4521B8D0B37000B6B0F /* ImageProcessors */ = {
 			isa = PBXGroup;
 			children = (
+				188C5D631BF1738D007BF98F /* Tracking */,
 				18C3C45E1B9668DA000B6B0F /* IPBackgroundSubtract.h */,
 				18C3C45F1B9668DA000B6B0F /* IPBackgroundSubtract.mm */,
 				180F87151A7C67D90001CD3C /* IPColorInverter.h */,
@@ -690,6 +703,7 @@
 				18A0722D1AA0098D00A93391 /* ImageUtils.mm in Sources */,
 				185216621BCB89B1005BFD80 /* MFCIntraMoveStepAction.swift in Sources */,
 				188074E61A38F4A60039725B /* CameraSession.mm in Sources */,
+				188C5D661BF178F1007BF98F /* IPDetectContourTrackables.mm in Sources */,
 				180F87A31A8EE48E0001CD3C /* ActionManager.swift in Sources */,
 				18D6B90E1AE093CB002B1A9E /* GDriveImageDocument.swift in Sources */,
 				185216791BD706D0005BFD80 /* MFCWaypointUpdateAction.swift in Sources */,

@@ -111,8 +111,8 @@ class MFCSystem: ActionCompletionDelegate {
     func imgPointToMfcLocation(imX imX: Int, imY: Int) -> (x: Int, y: Int) {
         let originX = displacement.templateX
         let originY = displacement.templateY
-        let relX = imX - originX
-        let relY = imY - originY
+        let relX = imX - Int(originX)
+        let relY = imY - Int(originY)
         return (x: self.x + relX, y: self.y + relY)
     }
 

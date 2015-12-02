@@ -11,7 +11,6 @@ using namespace cv;
 using namespace std;
 
 @interface IPDetectContourTrackables() {
-    int _threshold;
     int _count;
     vector<cv::Rect> _rects;
 }
@@ -19,16 +18,16 @@ using namespace std;
 
 @implementation IPDetectContourTrackables
 
-@synthesize threshold = _threshold;
 @synthesize detectedCount = _count;
 @synthesize blocksize;
 @synthesize c;
 
 - (id) init {
     self = [super init];
-    _threshold = 50;
-    self.blocksize = 1;
-    self.c = 0;
+    self.blocksize = 7;
+    self.c = 3;
+    self.minsize = 10;
+    self.maxsize = 25;
     return self;
 }
 
@@ -39,21 +38,28 @@ using namespace std;
     Mat grayscale;
     cvtColor(image, grayscale, CV_BGR2GRAY);
     Mat binary;
-//    threshold(grayscale, binary, _threshold, 255, THRESH_BINARY);
-    adaptiveThreshold(grayscale, binary, 255, ADAPTIVE_THRESH_GAUSSIAN_C, THRESH_BINARY, self.blocksize, self.c);
+    adaptiveThreshold(grayscale, binary, 255, ADAPTIVE_THRESH_GAUSSIAN_C, THRESH_BINARY_INV, self.blocksize, self.c);
     cvtColor(binary, image, CV_GRAY2BGRA);
     vector<Vec4i> hierarchy;
     vector<vector<cv::Point>> contours;
-    findContours(binary, contours, hierarchy, RETR_EXTERNAL, CHAIN_APPROX_SIMPLE);
-    
+    findContours(binary, contours, hierarchy, RETR_CCOMP, CHAIN_APPROX_SIMPLE);
     _rects.resize(contours.size());
+    _count = 0;
     for (int i = 0; i < contours.size(); i ++) {
-        _rects[i] = boundingRect(contours[i]);
+        if (hierarchy[i][3] == -1) { // Picks positive contours only
+            cv::Rect bounds = boundingRect(contours[i]);
+            if (bounds.width >= self.minsize && bounds.height <= self.maxsize &&
+                bounds.height >= self.minsize && bounds.height <= self.maxsize) {
+                _count += 1;
+                _rects[_count] = bounds;
+            }
+        }
     }
+    _rects.resize(_count);
 }
 
 - (void) updateDisplayOverlay:(Mat &)image {
-    Scalar color = Scalar(0, 0, 255, 255);
+    Scalar color = Scalar(0, 255, 255, 255);
     for (int i = 0; i < _count; i++) {
         rectangle(image, _rects[i], color);
     }
