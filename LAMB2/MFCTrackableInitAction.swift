@@ -21,13 +21,21 @@ class MFCTrackableInitAction : ImageProcessorAction {
         self.height = height
         self.trackable = trackable
         self.waypoint = waypoint
-        super.init(trackable.getImageProcessors(), standby: 0, camera: trackable.waypoint.mfc)
-        self.stage = waypoint.mfc.stage
+        let mfc = waypoint.mfc
+        super.init(trackable.getImageProcessors(), standby: 0, camera: mfc.camera, stage: mfc.stage)
     }
 
     override func doExecution() {
-        trackable.initRelativeToWaypoint(waypoint, imX: imX, imY: imY, width: width, height: height)
+        trackable.displacement.centerTemplate = false
+        trackable.displacement.templateX = Int32(imX)
+        trackable.displacement.templateY = Int32(imY)
+        trackable.displacement.templateWidth = Int32(width)
+        trackable.displacement.templateHeight = Int32(width)
         super.doExecution()
+    }
+
+    override func cleanup() {
+        trackable.initRelativeToWaypoint(waypoint, imX: imX, imY: imY, width: width, height: height)
     }
 
 }

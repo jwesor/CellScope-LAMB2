@@ -8,36 +8,27 @@
 
 import Foundation
 
-class MFCTrackableDetectionAction : SequenceAction {
+class MFCTrackableDetectionAction : ImageProcessorAction {
    
-    let waypoint: MFCWaypoint
-    let positionAction: MFCWaypointDisplacementAction
-    let detectAction: ImageProcessorAction
     let detector: IPDetectContourTrackables = IPDetectContourTrackables()
-    var detectedTrackables: [MFCTrackable] = []
+    private(set) var detectedTrackables: [MFCTrackable : (imX: Int, imY: Int, width: Int, height: Int)] = [:]
    
-    init(waypoint: MFCWaypoint) {
-        self.waypoint = waypoint
-        positionAction = MFCWaypointDisplacementAction(waypoint: waypoint, updateMfc: true)
-        let mfc = waypoint.mfc
-        detectAction = ([detector], standby: 0, camera: mfc.camera, stage: mfc.stage)
-        super.init([positionAction, detectAction])
+    init() {
+        super.init([detector], standby: 0, camera: mfc.camera, stage: mfc.stage)
     }
 
-    override func onActionCompleted(action: AbstractAction) {
-        if action === detectAction {
-            detectedTrackables = []
-            let counts = processor.detectedCount
-            for i in 0...counts-1 {
-                let trackable = MFCTrackable()
-                detectedTrackables.append(trackable)
+    override func doExecution() {
+        detectedTrackables = [:]
+        super.doExecution()
+    }
 
-                let result = detector.getDetectedTrackable(i)
-                let x = Int(result.x), y = Int(result.y), width = Int(result.width), height = Int(result.height)
-
-                let initAction = MFCTrackableInitAction(trackable: trackable, waypoint: waypoint, imX: x, imY: y, width: width, height: height)
-                addOneTimeAction(initAction)
-            }
+    override func cleanup() {
+        let counts = processor.detectedCount
+        for i in 0...counts-1 {
+            let trackable = MFCTrackable()
+            let result = detector.getDetectedTrackable(i)
+            let x = Int(result.x), y = Int(result.y), width = Int(result.width), height = Int(result.height)
+             detectedTrackables[trackable] = (x: imX, y: imY, width: width, height: height)
         }
     }
 

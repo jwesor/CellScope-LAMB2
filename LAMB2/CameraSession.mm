@@ -24,10 +24,12 @@ using namespace cv;
     bool _capturedDirty;
     NSMutableArray *_processors;
     CameraSession *_parent;
+    NSDate *_currentTime;
 }
 
 @property NSMutableArray *processors;
 @property CameraSession *parent;
+@proeprty NSDate *currentFrameTime = _currentTime;
 
 - (UIImage *) captureImage;
 
@@ -298,6 +300,8 @@ using namespace cv;
 #pragma mark - Protocol CvVideoCameraDelegate
 
 - (void) processImage:(Mat&)image {
+    _currentTime = [NSDate date];
+
     // Do some OpenCV stuff with the image
     if (_parent.enableCapture) {
         @synchronized (_parent) {
@@ -309,6 +313,7 @@ using namespace cv;
     @synchronized (_processors) {
         for (ImageProcessor *imgproc in _processors) {
             if (imgproc.enabled) {
+                imageProcess.currentFrameTime = _currentTime;
                 [imgproc process:image];
             }
         }

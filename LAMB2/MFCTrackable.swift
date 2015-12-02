@@ -13,6 +13,11 @@ class MFCTrackable {
     private(set) var waypoint: MFCWaypoint?
     let displacement: IPDisplacement()
     private(set) var x: Int, y: Int
+    private(set) var timeZero: NSDate?
+    private var timestamps: [NSTimeInterval] = []
+    private var positions: [(x: Int, y: Int)] = []
+    private var waypoints: [MFCWaypoint]
+    var recordHistory: Bool = true
     
     init(x: Int = 0, y: Int = 0) {
         diplacement = IPDisplacement()
@@ -23,26 +28,34 @@ class MFCTrackable {
         self.y = y
     }
 
-    func setLocation(x x: Int, y: Int) {
+    func updateLocation(time: NSDate, x: Int, y: Int) {
         self.x = x
         self.y = y
+        if self.recordHistory {
+            positions.append((x: x, y: y))
+            timestamps.append(time.timeIntervalSinceDate(timeZero))
+        }
     }
 
-    func initRelativeToWaypoint(waypoint: MFCWaypoint, imX: Int, imY: Int, width: Int, height: Int) {
+    func updateWaypointAndLocation(time: NSDate, waypoint: MFCWaypoint, x: Int, y: Int) {
+        updateLocation(time, x: x, y: y)
+        if self.recordHistory {
+            waypoints.append(waypoint)
+        }
+    }
+
+    func initRelativeToWaypoint(waypoint: MFCWaypoint, time: NSDate, imX: Int, imY: Int, width: Int, height: Int) {
         self.waypoint = waypoint
         (x, y) = waypoint.mfc = mfc.imgPointToMfcLocation(imX: imX, imY: imY)
         displacement.templateX = Int32(x)
         displacement.templateY = Int32(y)
         displacement.templateWidth = Int32(width)
         displacement.templateHeight = Int32(height)
+        timeZero = time
+        self.updateWaypointAndLocation(time, waypoint: waypoint, x: x, y: y)
     }
 
-    func applyDisplacement(dX dX: Int, dY: Int) {
-        x += dX
-        y += dY
-    }
-
-    func getImageProcessors() -> [ImageProcessor] {
+    func getImageProcessors() -> [getImageProcessorseProcessor] {
         return [displacement]
     }
 
