@@ -14,6 +14,7 @@ using namespace cv;
     NSMutableArray *_delegates;
     Mat currentImage;
     int currentFrame;
+    NSDate *_lastProcessedFrameTime;
 }
 @end
 
@@ -57,6 +58,7 @@ using namespace cv;
                     [delegate onBeginImageProcess];
                 }
             }
+            _lastProcessedFrameTime = [super currentFrameTime];
             [self processImageAsync: currentImage];
             if (currentFrame >= framesToProcess) {
                 for (id <AsyncImageProcessorDelegate> delegate in _delegates) {
@@ -80,5 +82,9 @@ using namespace cv;
 }
 
 - (void) processImageAsync: (Mat&)currentImage {}
+
+- (NSDate*) currentFrameTime {
+    return _lastProcessedFrameTime;
+}
 
 @end

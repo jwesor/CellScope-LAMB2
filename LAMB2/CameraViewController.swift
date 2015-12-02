@@ -34,7 +34,7 @@ class CameraViewController: UIViewController, ActionCompletionDelegate  {
     var captureAction:ImgCaptureAction?
     var cycler: ActionCycler?
     
-    let detect = IPDetectContourTrackables()
+    let detect = IPDisplacement()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -79,8 +79,8 @@ class CameraViewController: UIViewController, ActionCompletionDelegate  {
 //        
 //        camera!.addImageProcessor(displacer2)
         
-        
-        camera!.addImageProcessor(detect)
+        let proc = AsyncImageMultiProcessor.initWithProcessors([detect])
+        camera!.addAsyncImageProcessor(proc)
         detect.enabled = true
 
         
@@ -168,18 +168,6 @@ class CameraViewController: UIViewController, ActionCompletionDelegate  {
     @IBAction func mfcDir(sender: AnyObject) {
         // MFC-related stuff is not working at the moment. Don't expect the MFC buttons to do anything useful!
 //        queue.addAction(captureAction!)
-        
-        let text = sender.currentTitle!!
-        if (text.rangeOfString("M1 HI") != nil) {
-            detect.blocksize += 2;
-        } else if (text.rangeOfString("M1 LO") != nil) {
-            detect.blocksize -= 2;
-        } else if (text.rangeOfString("M2 HI") != nil) {
-            detect.c += 1;
-        } else {
-            detect.c -= 1;
-        }
-        print("block \(detect.blocksize), c \(detect.c)");
     }
     
     @IBAction func microstep(sender: AnyObject) {

@@ -27,6 +27,7 @@
 @property (nonatomic, getter = getWhiteBalance, setter = setWhiteBalance:) bool continuousAutoWhiteBalance;
 @property (nonatomic, getter = getExposure, setter = setExposure:) bool continuousAutoExposure;
 @property (readonly) AVCaptureDevice *captureDevice;
+@property (readonly) NSDate *currentFrameTime;
 
 /* Create a new camera session with a preview inside of this view.
  */

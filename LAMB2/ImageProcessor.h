@@ -23,5 +23,6 @@
 @property (nonatomic) int roiX;
 @property (nonatomic) int roiY;
 @property bool roi;
+@property NSDate *currentFrameTime;
 
 @end

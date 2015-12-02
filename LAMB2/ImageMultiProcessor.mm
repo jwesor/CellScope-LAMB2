@@ -43,6 +43,7 @@ using namespace cv;
     }
     for (ImageProcessor* imgproc in processors) {
         if (imgproc.enabled) {
+            imgproc.currentFrameTime = self.currentFrameTime;
             [imgproc process:currentImage];
         }
     }
