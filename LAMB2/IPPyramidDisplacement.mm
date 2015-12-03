@@ -31,7 +31,6 @@ using namespace std;
     self.scale = 0.25;
     _subDisplace.templateWidth = self.templateWidth * self.scale;
     _subDisplace.templateHeight = self.templateHeight * self.scale;
-    NSLog(@"%d %d %d %d", _subDisplace.templateWidth, _subDisplace.templateHeight, self.templateWidth, self.templateHeight);
     self.area = true;
     
     return self;

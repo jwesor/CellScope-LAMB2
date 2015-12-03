@@ -50,8 +50,8 @@ using namespace std;
             cv::Rect bounds = boundingRect(contours[i]);
             if (bounds.width >= self.minsize && bounds.height <= self.maxsize &&
                 bounds.height >= self.minsize && bounds.height <= self.maxsize) {
-                _count += 1;
                 _rects[_count] = bounds;
+                _count += 1;
             }
         }
     }

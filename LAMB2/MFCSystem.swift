@@ -109,11 +109,17 @@ class MFCSystem: ActionCompletionDelegate {
     }
 
     func imgPointToMfcLocation(imX imX: Int, imY: Int) -> (x: Int, y: Int) {
-        let originX = displacement.templateX
-        let originY = displacement.templateY
-        let relX = imX - Int(originX)
-        let relY = imY - Int(originY)
+        let originX = Int(displacement.templateX)
+        let originY = Int(displacement.templateY)
+        let relX = imX - originX
+        let relY = imY - originY
         return (x: self.x + relX, y: self.y + relY)
+    }
+    
+    func mfcLocationToImgPoint(x x:Int, y: Int) -> (imX: Int, imY: Int) {
+        let originX = Int(displacement.templateX)
+        let originY = Int(displacement.templateY)
+        return (imX: x - self.x + originX, imY: y - self.y + originY)
     }
 
     class func createDisplacerComponents() -> (displacement: IPDisplacement, preprocessors:[ImageProcessor]) {

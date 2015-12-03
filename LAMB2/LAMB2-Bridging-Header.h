@@ -5,6 +5,7 @@
 
 #import "AsyncImageProcessor.h"
 #import "AsyncImageMultiProcessor.h"
+#import "ImageMultiProcessor.h"
 
 #import "IPBackgroundSubtract.h"
 #import "IPDisplacement.h"

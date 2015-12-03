@@ -20,6 +20,7 @@ using namespace cv;
     Mat _imgTemplate;
     int _dX, _dY;
     bool _firstFrame;
+    double _score;
 }
 @end
 
@@ -33,6 +34,7 @@ using namespace cv;
 
 @synthesize dX = _dX;
 @synthesize dY = _dY;
+@synthesize score = _score;
 
 @synthesize templateX;
 @synthesize templateY;
@@ -97,7 +99,7 @@ using namespace cv;
     
     Mat corrResult;
     corrResult.create(imgReference.cols - _imgTemplate.cols + 1, imgReference.rows - _imgTemplate.rows + 1, CV_32FC1);
-    
+
     matchTemplate(imgReference, _imgTemplate, corrResult, TM_CCORR_NORMED);
     normalize(corrResult, corrResult, 0, 1, NORM_MINMAX, -1, Mat());
     double minVal;
@@ -111,7 +113,7 @@ using namespace cv;
     
     _dX = _roi.x - maxLoc.x - _searchRegion.x;
     _dY = _roi.y - maxLoc.y - _searchRegion.y;
-    
+    _score = maxVal;
 
     if (self.updateTemplate) {
         if (self.trackTemplate) {

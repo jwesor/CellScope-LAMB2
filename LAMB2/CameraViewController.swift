@@ -25,16 +25,14 @@ class CameraViewController: UIViewController, ActionCompletionDelegate  {
     var autofocus: AutofocuserAction?
     var mfc: MFCSystem?
     
-    var waypoint1: MFCWaypoint?
-    var waypoint2: MFCWaypoint?
-    var waypoint3: MFCWaypoint?
-    var waypoint4: MFCWaypoint?
-    
     let photos:PhotoAlbum = PhotoAlbum(name: "waypoints_test")
     var captureAction:ImgCaptureAction?
     var cycler: ActionCycler?
     
-    let detect = IPDisplacement()
+    var waypoint: MFCWaypoint?
+    var detectAction: MFCTrackableDetectionAction?
+    var batchInitAction: MFCTrackableWaypointBatchInitAction?
+    var trackables: [MFCTrackable] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -51,6 +49,7 @@ class CameraViewController: UIViewController, ActionCompletionDelegate  {
         device.addStatusDelegate(deviceButton)
         deviceButton.updateDeviceStatusDisconnected()        
         queue.beginActions()
+        cycler = ActionCycler(actionQueue: queue)
         
         // Logging stuff; uncomment if you actually want to save all these logs
         // TODO: Make sure logging still works after the upgrade to Xcode 7.0
@@ -79,11 +78,6 @@ class CameraViewController: UIViewController, ActionCompletionDelegate  {
 //        
 //        camera!.addImageProcessor(displacer2)
         
-        let proc = AsyncImageMultiProcessor.initWithProcessors([detect])
-        camera!.addAsyncImageProcessor(proc)
-        detect.enabled = true
-
-        
         captureAction = ImgCaptureAction(camera: camera!, writer: photos)
               
         autofocus = AutofocuserAction(startLevel: -10, endLevel: 10, stepsPerLvl: 5, camera: camera!, device: device, stage: stage)
@@ -92,17 +86,9 @@ class CameraViewController: UIViewController, ActionCompletionDelegate  {
         
         loadDefaultStageState()
         
-        waypoint1 = MFCWaypoint(mfc: mfc!)
-        waypoint2 = MFCWaypoint(mfc: mfc!)
-        waypoint3 = MFCWaypoint(mfc: mfc!)
-        waypoint4 = MFCWaypoint(mfc: mfc!)
-        
-        cycler = ActionCycler(actionQueue: queue)
-        cycler?.addActionSequence([MFCWaypointMoveToAction(waypoint: waypoint1!), captureAction!], delay: 0)
-        cycler?.addActionSequence([MFCWaypointMoveToAction(waypoint: waypoint2!), captureAction!], delay: 45)
-        cycler?.addActionSequence([MFCWaypointMoveToAction(waypoint: waypoint3!), captureAction!], delay: 45)
-        cycler?.addActionSequence([MFCWaypointMoveToAction(waypoint: waypoint4!), captureAction!], delay: 45)
-        cycler?.setPostCycleDelayDuration(45)
+        waypoint = MFCWaypoint(mfc: mfc!)
+        detectAction = MFCTrackableDetectionAction(mfc: mfc!)
+        detectAction?.addCompletionDelegate(self)
     }
     
     func loadDefaultStageState() {
@@ -121,53 +107,41 @@ class CameraViewController: UIViewController, ActionCompletionDelegate  {
     
     @IBAction func test(sender: AnyObject) {
         // Initialize
-        queue.addAction(bounds!)
         queue.addAction(mfc!.initNoCalibAction)
+        queue.addAction(MFCWaypointInitAction(waypoint: waypoint!))
+        queue.addAction(detectAction!)
     }
     
     @IBAction func test2(send: AnyObject) {
         // Test
-        queue.addAction(mfc!.autofocuser)
-        queue.addAction(MFCWaypointInitAction(waypoint: waypoint1!))
-        queue.addAction(captureAction!)
-        
-        queue.addAction(MFCMoveToAction(mfc: mfc!, x: 700, y: 700))
-        queue.addAction(mfc!.autofocuser)
-        queue.addAction(MFCWaypointInitAction(waypoint: waypoint2!))
-        queue.addAction(captureAction!)
-        
-        queue.addAction(MFCMoveToAction(mfc: mfc!, x: 500, y: -700))
-        queue.addAction(mfc!.autofocuser)
-        queue.addAction(MFCWaypointInitAction(waypoint: waypoint3!))
-        queue.addAction(captureAction!)
-        
-        queue.addAction(MFCMoveToAction(mfc: mfc!, x: -600, y: 200))
-        queue.addAction(mfc!.autofocuser)
-        queue.addAction(MFCWaypointInitAction(waypoint: waypoint4!))
-        queue.addAction(captureAction!)
+        queue.addAction(batchInitAction!)
     }
     
     func onActionCompleted(action: AbstractAction) {
+        if action === detectAction! {
+            batchInitAction = MFCTrackableWaypointBatchInitAction(waypoint: waypoint!, trackables: detectAction!.detectedTrackables, params: detectAction!.trackableParams)
+            self.trackables += detectAction!.detectedTrackables
+        }
     }
     
     @IBAction func test3(sender: AnyObject) {
         // Background
-        detect.enabled = !detect.enabled
-//        cycler!.runCycles(10)
-//        let motor = StageConstants.MOTOR_2
-//        let dir = StageConstants.DIR_HIGH
-//        let setdir = StageDirectionAction(device, motor: motor, dir: dir, stage: stage)
-//        let deadband = DeadbandStepAction(motor: motor, device: device, displacer: displacer!)
-//        let stepdis = StepDisplacementAction(motor: motor, dir: dir, steps: 25, device: device, stage: stage, displacer: displacer!)
-//        queue.addAction(setdir)
-//        queue.addAction(deadband)
-//        queue.addAction(stepdis)
-//        queue.addAction(stepdis)
+        for trackable in trackables {
+            queue.addAction(MFCTrackablePositionUpdateAction(trackable: trackable))
+        }
     }
     
     @IBAction func mfcDir(sender: AnyObject) {
         // MFC-related stuff is not working at the moment. Don't expect the MFC buttons to do anything useful!
 //        queue.addAction(captureAction!)
+        let proc = AsyncImageMultiProcessor.init()
+        mfc!.stage.setImageProcessorRoiToFov(proc)
+        for trackable in trackables {
+            trackable.displacement.enabled = true
+            trackable.displacement.updateTemplate = false
+            proc.addImageProcessor(trackable.displacement)
+        }
+        camera!.addAsyncImageProcessor(proc)
     }
     
     @IBAction func microstep(sender: AnyObject) {

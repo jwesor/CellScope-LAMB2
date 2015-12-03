@@ -49,11 +49,12 @@ class ImageProcessorAction: AbstractAction, AsyncImageProcessorDelegate {
             disableWhenDone = true
             proc.enabled = true
         }
+        if (stage != nil) && (stage!.isFovBounded() && !proc.roi) {
+            print("\(self)")
+            setRoiToStage(stage!)
+        }
         if (removeWhenDone) {
             camera?.addAsyncImageProcessor(proc)
-        }
-        if (stage != nil) && (stage!.isFovBounded() && !proc.roi) {
-            setRoiToStage(stage!)
         }
         proc.addDelegate(self)
     }

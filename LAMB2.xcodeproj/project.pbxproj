@@ -53,6 +53,11 @@
 		188074EA1A38F72D0039725B /* AssetsLibrary.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 188074E91A38F72D0039725B /* AssetsLibrary.framework */; };
 		188074EC1A38F7350039725B /* CoreMedia.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 188074EB1A38F7350039725B /* CoreMedia.framework */; };
 		188C5D661BF178F1007BF98F /* IPDetectContourTrackables.mm in Sources */ = {isa = PBXBuildFile; fileRef = 188C5D651BF178F1007BF98F /* IPDetectContourTrackables.mm */; };
+		188C5D6C1C0FB7F1007BF98F /* MFCTrackable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 188C5D671C0FB7F1007BF98F /* MFCTrackable.swift */; };
+		188C5D6D1C0FB7F1007BF98F /* MFCTrackableWaypointBatchInitAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 188C5D681C0FB7F1007BF98F /* MFCTrackableWaypointBatchInitAction.swift */; };
+		188C5D6E1C0FB7F1007BF98F /* MFCTrackableDetectionAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 188C5D691C0FB7F1007BF98F /* MFCTrackableDetectionAction.swift */; };
+		188C5D6F1C0FB7F1007BF98F /* MFCTrackableInitAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 188C5D6A1C0FB7F1007BF98F /* MFCTrackableInitAction.swift */; };
+		188C5D701C0FB7F1007BF98F /* MFCTrackablePositionUpdateAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 188C5D6B1C0FB7F1007BF98F /* MFCTrackablePositionUpdateAction.swift */; };
 		1892F5981B44953A0084E0F8 /* StepDisplacementAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1892F5971B44953A0084E0F8 /* StepDisplacementAction.swift */; };
 		1892F59A1B4605E50084E0F8 /* StepCalibratorAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1892F5991B4605E50084E0F8 /* StepCalibratorAction.swift */; };
 		1892F59D1B4620B60084E0F8 /* IPFovBounds.mm in Sources */ = {isa = PBXBuildFile; fileRef = 1892F59C1B4620B60084E0F8 /* IPFovBounds.mm */; };
@@ -176,6 +181,11 @@
 		188074EB1A38F7350039725B /* CoreMedia.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMedia.framework; path = System/Library/Frameworks/CoreMedia.framework; sourceTree = SDKROOT; };
 		188C5D641BF178F1007BF98F /* IPDetectContourTrackables.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IPDetectContourTrackables.h; sourceTree = "<group>"; };
 		188C5D651BF178F1007BF98F /* IPDetectContourTrackables.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = IPDetectContourTrackables.mm; sourceTree = "<group>"; };
+		188C5D671C0FB7F1007BF98F /* MFCTrackable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MFCTrackable.swift; sourceTree = "<group>"; };
+		188C5D681C0FB7F1007BF98F /* MFCTrackableWaypointBatchInitAction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MFCTrackableWaypointBatchInitAction.swift; sourceTree = "<group>"; };
+		188C5D691C0FB7F1007BF98F /* MFCTrackableDetectionAction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MFCTrackableDetectionAction.swift; sourceTree = "<group>"; };
+		188C5D6A1C0FB7F1007BF98F /* MFCTrackableInitAction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MFCTrackableInitAction.swift; sourceTree = "<group>"; };
+		188C5D6B1C0FB7F1007BF98F /* MFCTrackablePositionUpdateAction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MFCTrackablePositionUpdateAction.swift; sourceTree = "<group>"; };
 		1892F5971B44953A0084E0F8 /* StepDisplacementAction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StepDisplacementAction.swift; sourceTree = "<group>"; };
 		1892F5991B4605E50084E0F8 /* StepCalibratorAction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StepCalibratorAction.swift; sourceTree = "<group>"; };
 		1892F59B1B4620B60084E0F8 /* IPFovBounds.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IPFovBounds.h; sourceTree = "<group>"; };
@@ -384,6 +394,18 @@
 			name = Tracking;
 			sourceTree = "<group>";
 		};
+		188C5D711C0FB801007BF98F /* Tracking */ = {
+			isa = PBXGroup;
+			children = (
+				188C5D671C0FB7F1007BF98F /* MFCTrackable.swift */,
+				188C5D681C0FB7F1007BF98F /* MFCTrackableWaypointBatchInitAction.swift */,
+				188C5D691C0FB7F1007BF98F /* MFCTrackableDetectionAction.swift */,
+				188C5D6A1C0FB7F1007BF98F /* MFCTrackableInitAction.swift */,
+				188C5D6B1C0FB7F1007BF98F /* MFCTrackablePositionUpdateAction.swift */,
+			);
+			name = Tracking;
+			sourceTree = "<group>";
+		};
 		18A072311AA13E6F00A93391 /* Autofocus */ = {
 			isa = PBXGroup;
 			children = (
@@ -397,6 +419,7 @@
 			isa = PBXGroup;
 			children = (
 				1852166F1BD706C5005BFD80 /* Waypoint */,
+				188C5D711C0FB801007BF98F /* Tracking */,
 				185216561BC8982A005BFD80 /* MFCIntraMoveAction.swift */,
 				185216611BCB89B1005BFD80 /* MFCIntraMoveStepAction.swift */,
 				185216581BC8982A005BFD80 /* MFCPostMoveAction.swift */,
@@ -709,6 +732,7 @@
 				185216791BD706D0005BFD80 /* MFCWaypointUpdateAction.swift in Sources */,
 				18A072291AA004E100A93391 /* IPImageCapture.mm in Sources */,
 				185216641BCC724F005BFD80 /* MFCMoveToAction.swift in Sources */,
+				188C5D701C0FB7F1007BF98F /* MFCTrackablePositionUpdateAction.swift in Sources */,
 				18D6B8F21ACCCB0B002B1A9E /* StageConstants.swift in Sources */,
 				18DB4C991AAFC24500165F0F /* CameraAutoWhiteBalanceAction.swift in Sources */,
 				18D6B8EE1ACCC6DD002B1A9E /* StageDirectionAction.swift in Sources */,
@@ -721,11 +745,13 @@
 				180F879C1A8C21D90001CD3C /* ImageProcessorAction.swift in Sources */,
 				18D6B8EC1ACCC630002B1A9E /* StageEnableAction.swift in Sources */,
 				185216771BD706D0005BFD80 /* MFCWaypointInitAction.swift in Sources */,
+				188C5D6D1C0FB7F1007BF98F /* MFCTrackableWaypointBatchInitAction.swift in Sources */,
 				18042C171BBC7FB40076FA24 /* DeviceStatusDelegate.swift in Sources */,
 				18C3C4631B967AA6000B6B0F /* IPEdgeDetect.mm in Sources */,
 				18ED38111A200B8B005BA3CE /* LAMB2.xcdatamodeld in Sources */,
 				1892F59D1B4620B60084E0F8 /* IPFovBounds.mm in Sources */,
 				184C81C71B056D4F0083D926 /* IPIdleFrames.mm in Sources */,
+				188C5D6E1C0FB7F1007BF98F /* MFCTrackableDetectionAction.swift in Sources */,
 				180F87241A82F7700001CD3C /* DeviceAction.swift in Sources */,
 				18C3C4511B8CFAA0000B6B0F /* StageMoveAction.swift in Sources */,
 				18DB4C8F1AA4FA8700165F0F /* ScanFocusAction.swift in Sources */,
@@ -751,6 +777,7 @@
 				18D6B9101AE094F0002B1A9E /* ImageDocumentSeriesWriter.swift in Sources */,
 				18C3C43D1B6ECA0A000B6B0F /* MFCMoveAction.swift in Sources */,
 				180F87211A82F7530001CD3C /* ActionSequencer.swift in Sources */,
+				188C5D6F1C0FB7F1007BF98F /* MFCTrackableInitAction.swift in Sources */,
 				1892F59A1B4605E50084E0F8 /* StepCalibratorAction.swift in Sources */,
 				18C3C4551B9524EE000B6B0F /* ImageMultiProcessor.mm in Sources */,
 				18DB4C911AA7C67500165F0F /* DebugUtil.swift in Sources */,
@@ -759,6 +786,7 @@
 				18A0721D1A98040D00A93391 /* PhotoAlbum.swift in Sources */,
 				180F87171A7C67D90001CD3C /* IPColorInverter.mm in Sources */,
 				18C3C4791BACB449000B6B0F /* MotorCalibStepAction.swift in Sources */,
+				188C5D6C1C0FB7F1007BF98F /* MFCTrackable.swift in Sources */,
 				185216601BC89C11005BFD80 /* IPGaussian.mm in Sources */,
 				1852166C1BD1741F005BFD80 /* IPGradient.mm in Sources */,
 				1852165C1BC8982A005BFD80 /* MFCPostMoveAction.swift in Sources */,
