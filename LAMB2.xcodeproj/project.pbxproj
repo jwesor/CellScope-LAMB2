@@ -26,6 +26,8 @@
 		181D49081B25098100D08A93 /* IPDisplacement.mm in Sources */ = {isa = PBXBuildFile; fileRef = 181D49071B25098100D08A93 /* IPDisplacement.mm */; };
 		182CE8241A8F01B6002162DF /* CameraViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 182CE8231A8F01B6002162DF /* CameraViewController.swift */; };
 		182CE82A1A96E0CF002162DF /* AsyncImageMultiProcessor.mm in Sources */ = {isa = PBXBuildFile; fileRef = 182CE8291A96E0CF002162DF /* AsyncImageMultiProcessor.mm */; };
+		183A51161C1D4F4F00562932 /* NativeCameraSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = 183A51151C1D4F4F00562932 /* NativeCameraSession.swift */; };
+		183A51181C1D4F5800562932 /* NativeCapturePhotoAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 183A51171C1D4F5800562932 /* NativeCapturePhotoAction.swift */; };
 		183AF31F1AB0CD1C006C9503 /* CameraAutoExposureAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 183AF31E1AB0CD1C006C9503 /* CameraAutoExposureAction.swift */; };
 		183AF3211AB0CD87006C9503 /* CameraManualExposureAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 183AF3201AB0CD87006C9503 /* CameraManualExposureAction.swift */; };
 		183AF3231AB12A4A006C9503 /* CameraExposureBiasAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 183AF3221AB12A4A006C9503 /* CameraExposureBiasAction.swift */; };
@@ -148,6 +150,8 @@
 		182CE8231A8F01B6002162DF /* CameraViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CameraViewController.swift; sourceTree = "<group>"; };
 		182CE8281A96E0CF002162DF /* AsyncImageMultiProcessor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AsyncImageMultiProcessor.h; sourceTree = "<group>"; };
 		182CE8291A96E0CF002162DF /* AsyncImageMultiProcessor.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = AsyncImageMultiProcessor.mm; sourceTree = "<group>"; };
+		183A51151C1D4F4F00562932 /* NativeCameraSession.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NativeCameraSession.swift; sourceTree = "<group>"; };
+		183A51171C1D4F5800562932 /* NativeCapturePhotoAction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NativeCapturePhotoAction.swift; sourceTree = "<group>"; };
 		183AF31E1AB0CD1C006C9503 /* CameraAutoExposureAction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CameraAutoExposureAction.swift; sourceTree = "<group>"; };
 		183AF3201AB0CD87006C9503 /* CameraManualExposureAction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CameraManualExposureAction.swift; sourceTree = "<group>"; };
 		183AF3221AB12A4A006C9503 /* CameraExposureBiasAction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CameraExposureBiasAction.swift; sourceTree = "<group>"; };
@@ -506,6 +510,7 @@
 				183AF31E1AB0CD1C006C9503 /* CameraAutoExposureAction.swift */,
 				183AF3201AB0CD87006C9503 /* CameraManualExposureAction.swift */,
 				183AF3221AB12A4A006C9503 /* CameraExposureBiasAction.swift */,
+				183A51171C1D4F5800562932 /* NativeCapturePhotoAction.swift */,
 			);
 			name = Camera;
 			sourceTree = "<group>";
@@ -555,6 +560,7 @@
 				184D8DFE1A205AC600105FDA /* LAMB2-Bridging-Header.h */,
 				18ED380B1A200B8B005BA3CE /* Supporting Files */,
 				180F871B1A7C730F0001CD3C /* Camera */,
+				183A51151C1D4F4F00562932 /* NativeCameraSession.swift */,
 				18C3C4521B8D0B37000B6B0F /* ImageProcessors */,
 				18D6B8F51ACF65A7002B1A9E /* IO */,
 				180F871C1A7C73340001CD3C /* Device */,
@@ -748,8 +754,10 @@
 				188C5D6D1C0FB7F1007BF98F /* MFCTrackableWaypointBatchInitAction.swift in Sources */,
 				18042C171BBC7FB40076FA24 /* DeviceStatusDelegate.swift in Sources */,
 				18C3C4631B967AA6000B6B0F /* IPEdgeDetect.mm in Sources */,
+				183A51181C1D4F5800562932 /* NativeCapturePhotoAction.swift in Sources */,
 				18ED38111A200B8B005BA3CE /* LAMB2.xcdatamodeld in Sources */,
 				1892F59D1B4620B60084E0F8 /* IPFovBounds.mm in Sources */,
+				183A51161C1D4F4F00562932 /* NativeCameraSession.swift in Sources */,
 				184C81C71B056D4F0083D926 /* IPIdleFrames.mm in Sources */,
 				188C5D6E1C0FB7F1007BF98F /* MFCTrackableDetectionAction.swift in Sources */,
 				180F87241A82F7700001CD3C /* DeviceAction.swift in Sources */,

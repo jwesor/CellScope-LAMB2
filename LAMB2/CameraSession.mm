@@ -35,7 +35,8 @@ using namespace cv;
 @end
 
 
-@interface CameraSession() {    bool started;
+@interface CameraSession() {
+    bool started;
     CvVideoCamera *_videoCamera;
     CameraVideoProcessor *_videoProcessor;
     NSMutableArray *_processors;
