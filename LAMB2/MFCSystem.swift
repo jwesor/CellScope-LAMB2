@@ -11,7 +11,7 @@ import Foundation
 class MFCSystem: ActionCompletionDelegate {
     
     let stage: StageState
-    let camera: CameraSession
+    let camera: CvCameraSession
     let device: DeviceConnector
 
     let displacement: IPDisplacement
@@ -34,7 +34,7 @@ class MFCSystem: ActionCompletionDelegate {
     private(set) var x: Int = 0
     private(set) var y: Int = 0
 
-    init(camera: CameraSession, device: DeviceConnector, stage: StageState) {
+    init(camera: CvCameraSession, device: DeviceConnector, stage: StageState) {
         self.camera = camera
         self.stage = stage
         self.device = device

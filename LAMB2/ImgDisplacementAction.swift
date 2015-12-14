@@ -14,7 +14,7 @@ class ImgDisplacementAction: ImageProcessorAction {
     private(set) var dX: Int = 0
     private(set) var dY: Int = 0
     
-    init(camera: CameraSession, displace: IPDisplacement? = nil, preprocessors: [ImageProcessor] = []) {
+    init(camera: CvCameraSession, displace: IPDisplacement? = nil, preprocessors: [ImageProcessor] = []) {
         self.displacement = (displace == nil) ? IPDisplacement() : displace!
         super.init(preprocessors + [self.displacement], standby: 0, camera: camera)
     }

@@ -1,57 +1,58 @@
 //
-//  CameraSession.m
+//  CvCameraSession.m
 //  LAMB2
 //
 //  Created by Fletcher Lab Mac Mini on 12/2/14.
 //  Copyright (c) 2014 Fletchlab. All rights reserved.
 //
 
-#import "CameraSession.h"
+#import "CvCameraSession.h"
 #import "ImageProcessor+CvInterface.hpp"
 #import <opencv2/videoio/cap_ios.h>
 #import <AssetsLibrary/AssetsLibrary.h>
-#import "ImageUtils.hpp"
+#import "CvImageUtils.hpp"
 using namespace cv;
 
 // As of OpenCV 3.0, CvVideoCameraDelegate implementation needs to be done internally
-// so that CameraSession itself does not need to implement the protocol.
-// This is to prevent CameraSession.h from having to import any opencv libraries,
+// so that CvCameraSession itself does not need to implement the protocol.
+// This is to prevent CvCameraSession.h from having to import any opencv libraries,
 // which would otherwise cause issues when bridging CameraSession.h to Swift.
 
-@interface CameraVideoProcessor : NSObject <CvVideoCameraDelegate> {
+@interface CvCameraVideoProcessor : NSObject <CvVideoCameraDelegate> {
     UIImage *_capturedImage;
     Mat _currentImg;
     bool _capturedDirty;
     NSMutableArray *_processors;
-    CameraSession *_parent;
+    CvCameraSession *_parent;
     NSDate *_currentTime;
 }
 
 @property NSMutableArray *processors;
-@property CameraSession *parent;
+@property CvCameraSession *parent;
 
 - (UIImage *) captureImage;
 
 @end
 
 
-@interface CameraSession() {
-    bool started;
+@interface CvCameraSession() {
+    bool _started;
     CvVideoCamera *_videoCamera;
-    CameraVideoProcessor *_videoProcessor;
+    CvCameraVideoProcessor *_videoProcessor;
     NSMutableArray *_processors;
     UIImageView *_imageView;
     AVCaptureDevice *_device;
 }
 
-- (void) bindVideoProcessor:(CameraVideoProcessor *) cvp;
+- (void) bindVideoProcessor:(CvCameraVideoProcessor *) cvp;
 
 @end
 
 
-@implementation CameraSession
+@implementation CvCameraSession
 
 @synthesize enableCapture;
+@synthesize started = _started;
 @synthesize opQueue;
 @synthesize continuousAutoFocus = _autofocus;
 @synthesize continuousAutoWhiteBalance = _autowhite;
@@ -59,12 +60,12 @@ using namespace cv;
 @synthesize captureDevice = _device;
 @synthesize currentFrameTime = _currentTime;
 
-+ (CameraSession *) initWithPreview:(UIView *)view {
-    CameraSession *session = [[CameraSession alloc] init];
++ (CvCameraSession *) initWithPreview:(UIView *)view {
+    CvCameraSession *session = [[CvCameraSession alloc] init];
     
     UIImageView *preview = [[UIImageView alloc] initWithFrame:view.bounds];
     session->_imageView = preview;
-    session->_videoProcessor = [[CameraVideoProcessor alloc] init];
+    session->_videoProcessor = [[CvCameraVideoProcessor alloc] init];
     [session bindVideoProcessor:session->_videoProcessor];
     session->_videoCamera = [[CvVideoCamera alloc] init];
     session->_videoCamera.parentView = preview;
@@ -89,21 +90,26 @@ using namespace cv;
     _autofocus = true;
     _autowhite = true;
     _autoexpose = true;
-    started = false;
+    _started = false;
     return self;
 }
 
-- (void) bindVideoProcessor:(CameraVideoProcessor *)cvp {
+- (void) bindVideoProcessor:(CvCameraVideoProcessor *)cvp {
     cvp.processors = _processors;
     cvp.parent = self;
 }
 
 - (void) startCameraSession {
     [_videoCamera start];
-    started = true;
+    _started = true;
     self.continuousAutoFocus = _autofocus;
     self.continuousAutoWhiteBalance = _autowhite;
     self.continuousAutoExposure = _autoexpose;
+}
+
+- (void) stopCameraSession {
+    [_videoCamera stop];
+    _started = false;
 }
 
 - (float) getAspectRatio {
@@ -175,25 +181,6 @@ using namespace cv;
     return _autofocus;
 }
 
-- (bool) doSingleAutoFocus {
-    if (self.continuousAutoFocus)
-        return true;
-    AVCaptureDevice *device = self.captureDevice;
-    NSError *error = nil;
-    if (device == nil)
-        return false;
-    if ([device lockForConfiguration:&error]) {
-        if ([device isFocusModeSupported:AVCaptureFocusModeAutoFocus]) {
-            device.focusMode = AVCaptureFocusModeAutoFocus;
-            [device unlockForConfiguration];
-            return true;
-        }
-    } else {
-        NSLog(@"unable to lock device for autofocus configuration %@", [error localizedDescription]);
-    }
-    return false;
-}
-
 - (void) setWhiteBalance:(bool)continuousAutoWhiteBalance {
     NSError *error = nil;
     AVCaptureDevice *device = self.captureDevice;
@@ -222,25 +209,6 @@ using namespace cv;
         _autowhite = device.whiteBalanceMode == AVCaptureWhiteBalanceModeContinuousAutoWhiteBalance;
     }
     return _autowhite;
-}
-
-- (bool) doSingleAutoWhiteBalance {
-    if (self.continuousAutoWhiteBalance)
-        return true;
-    AVCaptureDevice *device = self.captureDevice;
-    NSError *error = nil;
-    if (device == nil)
-        return false;
-    if ([device lockForConfiguration:&error]) {
-        if ([device isWhiteBalanceModeSupported:AVCaptureWhiteBalanceModeAutoWhiteBalance]) {
-            device.whiteBalanceMode = AVCaptureWhiteBalanceModeAutoWhiteBalance;
-            [device unlockForConfiguration];
-            return true;
-        }
-    } else {
-        NSLog(@"unable to lock device for white balance configuration %@", [error localizedDescription]);
-    }
-    return false;
 }
 
 - (void) setExposure:(bool)continuousAutoExposure {
@@ -273,27 +241,9 @@ using namespace cv;
     return _autoexpose;
 }
 
-- (bool) doSingleAutoExposure {
-    if (self.continuousAutoExposure)
-        return true;
-    AVCaptureDevice *device = self.captureDevice;
-    NSError *error = nil;
-    if (device == nil)
-        return false;
-    if ([device lockForConfiguration:&error]) {
-        if ([device isExposureModeSupported:AVCaptureExposureModeAutoExpose]) {
-            device.exposureMode = AVCaptureExposureModeAutoExpose;
-            [device unlockForConfiguration];
-            return true;
-        }
-    } else {
-        NSLog(@"unable to lock device for exposure configuration %@", [error localizedDescription]);
-    }
-    return false;
-}
 @end
 
-@implementation CameraVideoProcessor
+@implementation CvCameraVideoProcessor
 
 @synthesize processors = _processors;
 @synthesize parent = _parent;
@@ -329,7 +279,7 @@ using namespace cv;
 
 - (UIImage *) captureImage {
     if (_capturedDirty) {
-        _capturedImage = [ImageUtils imageWithCVMat:_currentImg];
+        _capturedImage = [CvImageUtils imageWithCVMat:_currentImg];
         _capturedDirty = false;
     }
     return _capturedImage;

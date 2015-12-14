@@ -9,11 +9,13 @@
 import Foundation
 import AVFoundation
 
-class NativeCameraSession {
+class NativeCameraSession: CameraSessionProtocol {
     
     let captureSession: AVCaptureSession = AVCaptureSession()
     let stillImageOutput = AVCaptureStillImageOutput()
-    var captureDevice: AVCaptureDevice?
+    var input: AVCaptureDeviceInput?
+    @objc private(set) var started: Bool = false
+    @objc var captureDevice: AVCaptureDevice?
     
     init() {
         let devices = AVCaptureDevice.devices()
@@ -28,9 +30,8 @@ class NativeCameraSession {
         stillImageOutput.highResolutionStillImageOutputEnabled = true
     }
     
-    func startCameraSession() {
+    @objc func startCameraSession() {
         do {
-            let input: AVCaptureDeviceInput?
             try input = AVCaptureDeviceInput(device: captureDevice)
             captureSession.addInput(input!)
         } catch _ {
@@ -38,11 +39,16 @@ class NativeCameraSession {
         }
         captureSession.addOutput(stillImageOutput)
         captureSession.startRunning()
+        started = true
     }
     
-    func stopCameraSession() {
+    @objc func stopCameraSession() {
         captureSession.stopRunning()
         captureSession.removeOutput(stillImageOutput)
+        if let captureInput = input {
+            captureSession.removeInput(captureInput)
+        }
+        started = false
     }
     
 }

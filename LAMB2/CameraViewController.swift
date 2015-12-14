@@ -14,7 +14,7 @@ class CameraViewController: UIViewController, ActionCompletionDelegate  {
     @IBOutlet weak var preview: UIView!
     @IBOutlet weak var deviceButton: DeviceStatusButton!
     
-    var camera: CameraSession?
+    var camera: CvCameraSession?
     let device = DeviceConnector()
     let queue = ActionQueue()
     let stage = StageState()
@@ -42,7 +42,7 @@ class CameraViewController: UIViewController, ActionCompletionDelegate  {
         DebugUtil.debugView = debugText
         DebugUtil.log("initializing...")
         
-        camera = CameraSession.initWithPreview(preview)
+        camera = CvCameraSession.initWithPreview(preview)
         camera?.continuousAutoFocus = false
         camera?.continuousAutoWhiteBalance = false
         camera?.continuousAutoExposure = false
@@ -86,8 +86,20 @@ class CameraViewController: UIViewController, ActionCompletionDelegate  {
 //        captureAction = ImgCaptureAction(camera: camera!, writer: photos)
         
         let nativeCamera = NativeCameraSession()
-        let nativeCaptureAction = NativeCapturePhotoAction(camera: nativeCamera, album: photos)
-        captureAction = CameraPausedForSequenceAction([nativeCaptureAction], camera: camera!)
+        let nativeCaptureAction = NativeCapturePhotoAction(nativeCamera, album: photos)
+        let nativeAutoExposure = CameraAutoExposureAction(nativeCamera)
+        let autoExposure = CameraAutoExposureAction(camera!)
+        nativeAutoExposure.timeout = 5
+        autoExposure.timeout = 5
+        captureAction = SequenceAction([
+            CameraStopSessionAction(camera!),
+            CameraStartSessionAction(nativeCamera),
+            nativeAutoExposure,
+            nativeCaptureAction,
+            CameraStopSessionAction(nativeCamera),
+            CameraStartSessionAction(camera!),
+            autoExposure
+        ])
         
         autofocus = AutofocuserAction(startLevel: -10, endLevel: 10, stepsPerLvl: 5, camera: camera!, device: device, stage: stage)
         bounds = ImgFovBoundsAction(camera: camera!, stage: stage, bindRois: [])
@@ -125,50 +137,50 @@ class CameraViewController: UIViewController, ActionCompletionDelegate  {
         //        queue.addAction(batchInitAction!)
         
         let (fovWidth, fovHeight) = stage.getFovDimens()
-        let dX = Int(Float(fovWidth) * 0.75)
-        let dY = Int(Float(fovHeight) * 0.75)
+        let dX = Int(Float(fovWidth) * 0.6)
+        let dY = Int(Float(fovHeight) * 0.6)
         
         // 0, 0
         queue.addAction(mfc!.autofocuser)
         queue.addAction(captureAction!)
         
         // 1, 0
-        queue.addAction(MFCMoveAction(mfc: mfc!, dX: dX, dY: 0))
+        queue.addAction(MFCMoveToAction(mfc: mfc!, x: dX * 1, y: dY * 0))
         queue.addAction(mfc!.autofocuser)
         queue.addAction(captureAction!)
         
         // 2, 0
-        queue.addAction(MFCMoveAction(mfc: mfc!, dX: dX, dY: 0))
+        queue.addAction(MFCMoveToAction(mfc: mfc!, x: dX * 2, y: dY * 0))
         queue.addAction(mfc!.autofocuser)
         queue.addAction(captureAction!)
         
         // 2, 1
-        queue.addAction(MFCMoveAction(mfc: mfc!, dX: 0, dY: dY))
+        queue.addAction(MFCMoveToAction(mfc: mfc!, x: dX * 2, y: dY * 1))
         queue.addAction(mfc!.autofocuser)
         queue.addAction(captureAction!)
         
         // 1, 1
-        queue.addAction(MFCMoveAction(mfc: mfc!, dX: -dX, dY: 0))
+        queue.addAction(MFCMoveToAction(mfc: mfc!, x: dX * 1, y: dY * 1))
         queue.addAction(mfc!.autofocuser)
         queue.addAction(captureAction!)
         
         // 0, 1
-        queue.addAction(MFCMoveAction(mfc: mfc!, dX: -dX, dY: 0))
+        queue.addAction(MFCMoveToAction(mfc: mfc!, x: dX * 0, y: dY * 1))
         queue.addAction(mfc!.autofocuser)
         queue.addAction(captureAction!)
         
         // 0, 2
-        queue.addAction(MFCMoveAction(mfc: mfc!, dX: 0, dY: dY))
+        queue.addAction(MFCMoveToAction(mfc: mfc!, x: dX * 0, y: dY * 2))
         queue.addAction(mfc!.autofocuser)
         queue.addAction(captureAction!)
         
         // 1, 2
-        queue.addAction(MFCMoveAction(mfc: mfc!, dX: dX, dY: 0))
+        queue.addAction(MFCMoveToAction(mfc: mfc!, x: dX * 1, y: dY * 2))
         queue.addAction(mfc!.autofocuser)
         queue.addAction(captureAction!)
         
         // 2, 2
-        queue.addAction(MFCMoveAction(mfc: mfc!, dX: dX, dY: 0))
+        queue.addAction(MFCMoveToAction(mfc: mfc!, x: dX * 2, y: dY * 2))
         queue.addAction(mfc!.autofocuser)
         queue.addAction(captureAction!)
         
@@ -229,13 +241,13 @@ class CameraViewController: UIViewController, ActionCompletionDelegate  {
 
     @IBAction func balance(sender: AnyObject) {
         // Use the iPad's built in white balance, exposure correction, and autofocus
-        let bal = CameraAutoWhiteBalanceAction(camera: camera!)
+        let bal = CameraAutoWhiteBalanceAction(camera!)
         bal.timeout = 10
         queue.addAction(bal)
-        let exp = CameraAutoExposureAction(camera: camera!)
+        let exp = CameraAutoExposureAction(camera!)
         exp.timeout = 3
         queue.addAction(exp)
-        queue.addAction(CameraAutoFocusAction(camera: camera!))
+        queue.addAction(CameraAutoFocusAction(camera!))
     }
     
     @IBAction func moveXPlus(sender: AnyObject) {

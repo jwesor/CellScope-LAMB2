@@ -22,7 +22,7 @@ class AutofocuserAction : SequenceAction {
     let device: DeviceConnector
     let stage: StageState
 
-    init(startLevel: Int, endLevel: Int, stepsPerLvl: UInt8, camera: CameraSession, device: DeviceConnector, stage: StageState) {
+    init(startLevel: Int, endLevel: Int, stepsPerLvl: UInt8, camera: CvCameraSession, device: DeviceConnector, stage: StageState) {
         self.stepsPerLevel = Int(stepsPerLvl)
         self.device = device
         self.stage = stage

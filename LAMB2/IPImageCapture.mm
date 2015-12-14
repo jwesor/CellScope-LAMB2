@@ -7,7 +7,7 @@
 //
 
 #import "IPImageCapture.h"
-#import "ImageUtils.hpp"
+#import "CvImageUtils.hpp"
 
 using namespace cv;
 
@@ -24,7 +24,7 @@ using namespace cv;
 - (void) processImage: (Mat&)image {
     if (writer != nil) {
         Mat mat = image.clone();
-        UIImage *uiimage = [ImageUtils imageWithCVMat:mat];
+        UIImage *uiimage = [CvImageUtils imageWithCVMat:mat];
         [writer writeImage:uiimage];
         mat.release();
     } else {

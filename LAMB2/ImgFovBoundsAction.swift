@@ -19,7 +19,7 @@ class ImgFovBoundsAction: ImageProcessorAction {
     private(set) var height: Int = 0
     private var run: Bool = false
     
-    init(camera: CameraSession, stage: StageState, bindRois: [ImageProcessor] = [], runOnce: Bool = true, fov: IPFovBounds? = nil) {
+    init(camera: CvCameraSession, stage: StageState, bindRois: [ImageProcessor] = [], runOnce: Bool = true, fov: IPFovBounds? = nil) {
         self.fov = (fov == nil) ? IPFovBounds() : fov!
         self.ipBoundRois = bindRois
         self.runOnce = runOnce

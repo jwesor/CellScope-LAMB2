@@ -1,5 +1,5 @@
 //
-//  NativeCapturePhotoAction
+//  NativeCapturePhotoAction.swift
 //  LAMB2
 //
 //  Created by Fletcher Lab Mac Mini on 12/12/15.
@@ -14,7 +14,7 @@ class NativeCapturePhotoAction: AbstractAction {
     let camera: NativeCameraSession
     let album: PhotoAlbum
     
-    init(camera: NativeCameraSession, album: PhotoAlbum) {
+    init(_ camera: NativeCameraSession, album: PhotoAlbum) {
         self.camera = camera
         self.album = album
         super.init()

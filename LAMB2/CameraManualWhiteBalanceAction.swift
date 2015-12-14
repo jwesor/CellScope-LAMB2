@@ -12,16 +12,16 @@ import Foundation
 
 class CameraManualWhiteBalanceAction : AbstractAction {
     
-    let camera: CameraSession
+    let camera: CameraSessionProtocol
     let gains: AVCaptureWhiteBalanceGains
     
-    init(camera: CameraSession, red: Float, green: Float, blue: Float) {
+    init(_ camera: CameraSessionProtocol, red: Float, green: Float, blue: Float) {
         self.camera = camera
         self.gains = AVCaptureWhiteBalanceGains(redGain: red, greenGain: green, blueGain: blue)
         super.init()
     }
     
-    init(camera: CameraSession, gains: AVCaptureWhiteBalanceGains) {
+    init(camera: CameraSessionProtocol, gains: AVCaptureWhiteBalanceGains) {
         self.camera = camera
         self.gains = gains
         super.init()

@@ -12,7 +12,7 @@ class ImgAcquireBackgroundAction : ImageProcessorAction {
     
     let background: IPBackgroundSubtract
     
-    init(camera: CameraSession, ipBackground: IPBackgroundSubtract? = nil) {
+    init(camera: CvCameraSession, ipBackground: IPBackgroundSubtract? = nil) {
         background = (ipBackground == nil) ? IPBackgroundSubtract() : ipBackground!
         super.init([self.background], camera: camera)
     }

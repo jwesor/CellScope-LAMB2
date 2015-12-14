@@ -13,10 +13,10 @@ import Foundation
 
 class CameraManualFocusAction : AbstractAction {
     
-    let camera: CameraSession
+    let camera: CameraSessionProtocol
     let lensPos: Float
     
-    init(camera: CameraSession, lensPosition: Float) {
+    init(_ camera: CameraSessionProtocol, lensPosition: Float) {
         self.camera = camera
         self.lensPos = lensPosition
         super.init()

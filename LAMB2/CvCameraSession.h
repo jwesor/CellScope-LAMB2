@@ -1,5 +1,5 @@
 //
-//  CameraSession.h
+//  CvCameraSession.h
 //  LAMB2
 //
 //  Base camera class that will take every frame and
@@ -12,10 +12,11 @@
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
 #import <AVFoundation/AVFoundation.h>
+#import "CameraSessionProtocol.h"
 #import "ImageProcessor.h"
 #import "AsyncImageProcessor.h"
 
-@interface CameraSession : NSObject
+@interface CvCameraSession : NSObject<CameraSessionProtocol>
 
 /* enableCapture must be toggled true in order for captureImage to work.
  * Since this will add an extra Mat.clone() call with every frame, leave
@@ -26,26 +27,18 @@
 @property (nonatomic, getter = getAutoFocus, setter = setAutoFocus:) bool continuousAutoFocus;
 @property (nonatomic, getter = getWhiteBalance, setter = setWhiteBalance:) bool continuousAutoWhiteBalance;
 @property (nonatomic, getter = getExposure, setter = setExposure:) bool continuousAutoExposure;
-@property (readonly) AVCaptureDevice *captureDevice;
 @property (readonly) NSDate *currentFrameTime;
 
 /* Create a new camera session with a preview inside of this view.
  */
-+ (CameraSession *) initWithPreview: (UIView*) view;
++ (CvCameraSession *) initWithPreview: (UIView*) view;
 
-- (void) startCameraSession;
 
 - (void) addImageProcessor: (ImageProcessor *) imgproc;
 
 - (void) addAsyncImageProcessor: (AsyncImageProcessor *) imgproc;
 
 - (void) removeImageProcessor: (ImageProcessor *) imgproc;
-
-- (bool) doSingleAutoFocus;
-
-- (bool) doSingleAutoWhiteBalance;
-
-- (bool) doSingleAutoExposure;
 
 /* Convert the current frame into a UIImage for saving or
  * whatever other purposes. enableCapture must be true,

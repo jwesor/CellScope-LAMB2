@@ -15,7 +15,7 @@ class StepCalibratorAction: SequenceAction {
     let calib1: MotorCalibStepAction
     let calib2: MotorCalibStepAction
 
-    convenience init(device: DeviceConnector, camera: CameraSession, stage: StageState, autofocus: AutofocuserAction? = nil) {
+    convenience init(device: DeviceConnector, camera: CvCameraSession, stage: StageState, autofocus: AutofocuserAction? = nil) {
         let displacer = ImgDisplacementAction(camera: camera)
         if stage.isFovBounded() {
             stage.setImageProcessorRoiToFov(displacer.proc)

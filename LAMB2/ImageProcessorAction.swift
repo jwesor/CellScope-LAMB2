@@ -17,7 +17,7 @@ import Foundation
 class ImageProcessorAction: AbstractAction, AsyncImageProcessorDelegate {
     
     let proc:AsyncImageProcessor
-    var camera: CameraSession?
+    var camera: CvCameraSession?
     var stage: StageState?
     private var begun:Bool
     private var disableWhenDone:Bool
@@ -31,7 +31,7 @@ class ImageProcessorAction: AbstractAction, AsyncImageProcessorDelegate {
         super.init()
     }
     
-    init(_ processors: [ImageProcessor], standby: Int32 = 0, camera: CameraSession? = nil, stage: StageState? = nil) {
+    init(_ processors: [ImageProcessor], standby: Int32 = 0, camera: CvCameraSession? = nil, stage: StageState? = nil) {
         proc = AsyncImageMultiProcessor.initWithProcessors(processors)
         proc.defaultStandby = standby
         proc.enabled = false
