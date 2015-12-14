@@ -26,13 +26,15 @@ class CameraViewController: UIViewController, ActionCompletionDelegate  {
     var mfc: MFCSystem?
     
     let photos:PhotoAlbum = PhotoAlbum(name: "waypoints_test")
-    var captureAction:ImgCaptureAction?
+    var captureAction:AbstractAction?
     var cycler: ActionCycler?
     
     var waypoint: MFCWaypoint?
     var detectAction: MFCTrackableDetectionAction?
     var batchInitAction: MFCTrackableWaypointBatchInitAction?
     var trackables: [MFCTrackable] = []
+    
+    let detect = IPDetectContourTrackables()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -50,6 +52,9 @@ class CameraViewController: UIViewController, ActionCompletionDelegate  {
         deviceButton.updateDeviceStatusDisconnected()        
         queue.beginActions()
         cycler = ActionCycler(actionQueue: queue)
+        
+//        camera!.addImageProcessor(detect)
+//        detect.enabled = true
         
         // Logging stuff; uncomment if you actually want to save all these logs
         // TODO: Make sure logging still works after the upgrade to Xcode 7.0
@@ -78,8 +83,12 @@ class CameraViewController: UIViewController, ActionCompletionDelegate  {
 //        
 //        camera!.addImageProcessor(displacer2)
         
-        captureAction = ImgCaptureAction(camera: camera!, writer: photos)
-              
+//        captureAction = ImgCaptureAction(camera: camera!, writer: photos)
+        
+        let nativeCamera = NativeCameraSession()
+        let nativeCaptureAction = NativeCapturePhotoAction(camera: nativeCamera, album: photos)
+        captureAction = CameraPausedForSequenceAction([nativeCaptureAction], camera: camera!)
+        
         autofocus = AutofocuserAction(startLevel: -10, endLevel: 10, stepsPerLvl: 5, camera: camera!, device: device, stage: stage)
         bounds = ImgFovBoundsAction(camera: camera!, stage: stage, bindRois: [])
         mfc = MFCSystem(camera: camera!, device: device, stage: stage)
@@ -108,40 +117,107 @@ class CameraViewController: UIViewController, ActionCompletionDelegate  {
     @IBAction func test(sender: AnyObject) {
         // Initialize
         queue.addAction(mfc!.initNoCalibAction)
-        queue.addAction(MFCWaypointInitAction(waypoint: waypoint!))
-        queue.addAction(detectAction!)
+//        queue.addAction(MFCWaypointInitAction(waypoint: waypoint!))
     }
     
     @IBAction func test2(send: AnyObject) {
         // Test
-        queue.addAction(batchInitAction!)
+        //        queue.addAction(batchInitAction!)
+        
+        let (fovWidth, fovHeight) = stage.getFovDimens()
+        let dX = Int(Float(fovWidth) * 0.75)
+        let dY = Int(Float(fovHeight) * 0.75)
+        
+        // 0, 0
+        queue.addAction(mfc!.autofocuser)
+        queue.addAction(captureAction!)
+        
+        // 1, 0
+        queue.addAction(MFCMoveAction(mfc: mfc!, dX: dX, dY: 0))
+        queue.addAction(mfc!.autofocuser)
+        queue.addAction(captureAction!)
+        
+        // 2, 0
+        queue.addAction(MFCMoveAction(mfc: mfc!, dX: dX, dY: 0))
+        queue.addAction(mfc!.autofocuser)
+        queue.addAction(captureAction!)
+        
+        // 2, 1
+        queue.addAction(MFCMoveAction(mfc: mfc!, dX: 0, dY: dY))
+        queue.addAction(mfc!.autofocuser)
+        queue.addAction(captureAction!)
+        
+        // 1, 1
+        queue.addAction(MFCMoveAction(mfc: mfc!, dX: -dX, dY: 0))
+        queue.addAction(mfc!.autofocuser)
+        queue.addAction(captureAction!)
+        
+        // 0, 1
+        queue.addAction(MFCMoveAction(mfc: mfc!, dX: -dX, dY: 0))
+        queue.addAction(mfc!.autofocuser)
+        queue.addAction(captureAction!)
+        
+        // 0, 2
+        queue.addAction(MFCMoveAction(mfc: mfc!, dX: 0, dY: dY))
+        queue.addAction(mfc!.autofocuser)
+        queue.addAction(captureAction!)
+        
+        // 1, 2
+        queue.addAction(MFCMoveAction(mfc: mfc!, dX: dX, dY: 0))
+        queue.addAction(mfc!.autofocuser)
+        queue.addAction(captureAction!)
+        
+        // 2, 2
+        queue.addAction(MFCMoveAction(mfc: mfc!, dX: dX, dY: 0))
+        queue.addAction(mfc!.autofocuser)
+        queue.addAction(captureAction!)
+        
+        
     }
     
     func onActionCompleted(action: AbstractAction) {
         if action === detectAction! {
             batchInitAction = MFCTrackableWaypointBatchInitAction(waypoint: waypoint!, trackables: detectAction!.detectedTrackables, params: detectAction!.trackableParams)
             self.trackables += detectAction!.detectedTrackables
+        } else {123
+            print("\(Double(displacer2.dX), Double(displacer2.dY), sqrt(pow(Double(displacer2.dX), 2) + pow(Double(displacer2.dY), 2)))")
         }
     }
     
     @IBAction func test3(sender: AnyObject) {
         // Background
-        for trackable in trackables {
-            queue.addAction(MFCTrackablePositionUpdateAction(trackable: trackable))
-        }
+//        for trackable in trackables {
+//            queue.addAction(MFCTrackablePositionUpdateAction(trackable: trackable))
+        //        }
+        queue.addAction(captureAction!)
+//        detect.enabled = !detect.enabled
     }
     
     @IBAction func mfcDir(sender: AnyObject) {
         // MFC-related stuff is not working at the moment. Don't expect the MFC buttons to do anything useful!
-//        queue.addAction(captureAction!)
-        let proc = AsyncImageMultiProcessor.init()
-        mfc!.stage.setImageProcessorRoiToFov(proc)
-        for trackable in trackables {
-            trackable.displacement.enabled = true
-            trackable.displacement.updateTemplate = false
-            proc.addImageProcessor(trackable.displacement)
+        queue.addAction(captureAction!)
+        
+        let drawer = IPDrawTrackables()
+//        drawer.roi = true
+//        stage.setImageProcessorRoiToFov(drawer)
+        drawer.resetToCount(detectAction!.detector.detectedCount)
+        for i in 1...detectAction!.detectedTrackables.count {
+            drawer.addTrackable(detectAction!.detector.getDetectedTrackable(Int32(i)))
         }
-        camera!.addAsyncImageProcessor(proc)
+        camera!.addImageProcessor(drawer)
+        drawer.enabled = true
+        
+//        let text = sender.currentTitle!!
+//        if (text.rangeOfString("M1 HI") != nil) {
+//            detect.blocksize += 2;
+//        } else if (text.rangeOfString("M1 LO") != nil) {
+//            detect.blocksize -= 2;
+//        } else if (text.rangeOfString("M2 HI") != nil) {
+//            detect.c += 1;
+//        } else {
+//            detect.c -= 1;
+//        }
+//        print("block \(detect.blocksize), c \(detect.c)");
     }
     
     @IBAction func microstep(sender: AnyObject) {

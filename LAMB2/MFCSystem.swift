@@ -63,8 +63,10 @@ class MFCSystem: ActionCompletionDelegate {
         
         microstep = StageMicrostepAction(device, enabled: true, stage: stage)
         
-        initAction = SequenceAction([autofocuser, fovBounds, calibrator, initDisplacer])
-        initNoCalibAction = SequenceAction([autofocuser, fovBounds, initDisplacer])
+        let powerCycler = SequenceAction([enable1, enable2, disable1, disable2])
+        
+        initAction = SequenceAction([powerCycler, autofocuser, fovBounds, calibrator, initDisplacer])
+        initNoCalibAction = SequenceAction([powerCycler, autofocuser, fovBounds, initDisplacer])
         
         initAction.addCompletionDelegate(self)
         initNoCalibAction.addCompletionDelegate(self)

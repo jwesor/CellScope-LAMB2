@@ -26,8 +26,8 @@ using namespace std;
     self = [super init];
     self.blocksize = 7;
     self.c = 3;
-    self.minsize = 10;
-    self.maxsize = 25;
+    self.minsize = 15;
+    self.maxsize = 35;
     return self;
 }
 
@@ -49,7 +49,9 @@ using namespace std;
         if (hierarchy[i][3] == -1) { // Picks positive contours only
             cv::Rect bounds = boundingRect(contours[i]);
             if (bounds.width >= self.minsize && bounds.height <= self.maxsize &&
-                bounds.height >= self.minsize && bounds.height <= self.maxsize) {
+                bounds.height >= self.minsize && bounds.height <= self.maxsize &&
+                float(bounds.width) / bounds.height > 0.5 &&
+                float(bounds.height) / bounds.width > 0.5) {
                 _rects[_count] = bounds;
                 _count += 1;
             }

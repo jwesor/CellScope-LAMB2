@@ -20,3 +20,4 @@
 #import "IPGradient.h"
 
 #import "IPDetectContourTrackables.h"
+#import "IPDrawTrackables.h"
