@@ -115,6 +115,8 @@
 		18ED38181A200B8B005BA3CE /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 18ED38171A200B8B005BA3CE /* Images.xcassets */; };
 		18ED381B1A200B8B005BA3CE /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 18ED38191A200B8B005BA3CE /* LaunchScreen.xib */; };
 		18ED38271A200B8C005BA3CE /* LAMB2Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18ED38261A200B8C005BA3CE /* LAMB2Tests.swift */; };
+		18FBD4001C76A399003FC747 /* MinDurationAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18FBD3FF1C76A399003FC747 /* MinDurationAction.swift */; };
+		18FBD4021C76AC4A003FC747 /* CycleAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18FBD4011C76AC4A003FC747 /* CycleAction.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -264,6 +266,8 @@
 		18ED38201A200B8C005BA3CE /* LAMB2Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = LAMB2Tests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		18ED38251A200B8C005BA3CE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		18ED38261A200B8C005BA3CE /* LAMB2Tests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LAMB2Tests.swift; sourceTree = "<group>"; };
+		18FBD3FF1C76A399003FC747 /* MinDurationAction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MinDurationAction.swift; sourceTree = "<group>"; };
+		18FBD4011C76AC4A003FC747 /* CycleAction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CycleAction.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -341,6 +345,8 @@
 				180F87291A82F7C80001CD3C /* AbstractAction.swift */,
 				180F87941A858FF20001CD3C /* SequenceAction.swift */,
 				1810C2A71AB3C97900197C7E /* HangAction.swift */,
+				18FBD3FF1C76A399003FC747 /* MinDurationAction.swift */,
+				18FBD4011C76AC4A003FC747 /* CycleAction.swift */,
 				180F87981A85934B0001CD3C /* Device */,
 				18DB4C941AAE679800165F0F /* Camera */,
 				18C3C4731BAA430A000B6B0F /* Img */,
@@ -738,6 +744,7 @@
 				18ED38131A200B8B005BA3CE /* ViewController.swift in Sources */,
 				18D6B9061AE08BF1002B1A9E /* ImageDocument.swift in Sources */,
 				1810C2A81AB3C97900197C7E /* HangAction.swift in Sources */,
+				18FBD4021C76AC4A003FC747 /* CycleAction.swift in Sources */,
 				18E157A11A70290300DFEFFF /* DeviceStatusButton.swift in Sources */,
 				182CE8241A8F01B6002162DF /* CameraViewController.swift in Sources */,
 				180C3E851AE9E6F500A928FD /* StageState.swift in Sources */,
@@ -804,6 +811,7 @@
 				18D6B9101AE094F0002B1A9E /* ImageDocumentSeriesWriter.swift in Sources */,
 				183A511B1C1D50FE00562932 /* IPDrawTrackables.mm in Sources */,
 				18C3C43D1B6ECA0A000B6B0F /* MFCMoveAction.swift in Sources */,
+				18FBD4001C76A399003FC747 /* MinDurationAction.swift in Sources */,
 				180F87211A82F7530001CD3C /* ActionSequencer.swift in Sources */,
 				188C5D6F1C0FB7F1007BF98F /* MFCTrackableInitAction.swift in Sources */,
 				1892F59A1B4605E50084E0F8 /* StepCalibratorAction.swift in Sources */,

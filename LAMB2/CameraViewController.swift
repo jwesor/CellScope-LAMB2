@@ -128,7 +128,18 @@ class CameraViewController: UIViewController, ActionCompletionDelegate  {
     
     @IBAction func test(sender: AnyObject) {
         // Initialize
-        queue.addAction(mfc!.initNoCalibAction)
+//        cycler!.addAction(captureAction!, delay: 0)
+//        cycler!.addAction(captureAction!, delay: 5)
+//        cycler!.addAction(captureAction!, delay: 10)
+//        cycler!.setPostCycleDelayDuration(20)
+//        cycler!.runCycles(4)
+        let cycle = CycleAction(cycles: 3)
+        cycle.setInitialDelay(5)
+        cycle.addActionWithMinDuration(captureAction!, seconds: 8)
+        cycle.addActionWithMinDuration(captureAction!, seconds: 12)
+        cycle.addActionWithMinDuration(captureAction!, seconds: 16)
+        queue.addAction(cycle)
+//        queue.addAction(mfc!.initNoCalibAction)
 //        queue.addAction(MFCWaypointInitAction(waypoint: waypoint!))
     }
     
