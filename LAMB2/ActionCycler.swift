@@ -61,33 +61,36 @@ class ActionCycler {
         DebugUtil.setLogEnabled("drive", enabled: true)
         DebugUtil.log("cycle", "initiated cycle for \(iterations) iterations")
         running = true
-        remainingIterations = iterations
-        currentTimeIndex = delays.count
+        remainingIterations = iterations - 1
+        currentTimeIndex = -1
+        currentTime = 0
         nextAction()
     }
     
-    func nextAction() {
+    private func nextAction() {
         currentTimeIndex += 1
-        var additionalDelay = 0.0
+        var currentDelay = 0.0
         if currentTimeIndex >= delays.count {
-            additionalDelay = postCycleDelay
+            currentDelay += postCycleDelay
             currentTimeIndex = 0
             currentTime = 0
             remainingIterations -= 1
             DebugUtil.log("cycle", "cycle iterations remaining: \(remainingIterations)")
         }
         if remainingIterations >= 0 {
-            let currentDelay = delays[currentTimeIndex]
-            currentTime += currentDelay
+            currentDelay += delays[currentTimeIndex]
+            currentTime += delays[currentTimeIndex]
             print("next action is in \(currentDelay)")
             if (currentDelay == 0) {
+                // No delay, add next set of actions immediately
                 for action in actions[currentDelay]! {
                     queue.addAction(action)
                     DebugUtil.log("cycle", "adding \(action)\(action.logName)")
                 }
                 nextAction()
             } else {
-                let delayTime = dispatch_time(DISPATCH_TIME_NOW, Int64((currentDelay + additionalDelay) * Double(NSEC_PER_SEC)))
+                // Add actions after currentDelay sections
+                let delayTime = dispatch_time(DISPATCH_TIME_NOW, Int64((currentDelay) * Double(NSEC_PER_SEC)))
                 DebugUtil.log("cycle", "waiting to execute \(self.actions[currentTime]) after \(currentDelay) seconds")
                 dispatch_after(delayTime, dispatch_get_main_queue(), { () -> Void in
                     for action in self.actions[self.currentTime]! {
@@ -102,7 +105,7 @@ class ActionCycler {
         }
     }
     
-    func cyclesComplete() {
+    private func cyclesComplete() {
         DebugUtil.log("cycle", "cycles completed")
         DebugUtil.setLogEnabled("action", enabled: false)
         DebugUtil.setLogEnabled("cycle", enabled: false)
