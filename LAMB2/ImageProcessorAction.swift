@@ -17,10 +17,11 @@ import Foundation
 class ImageProcessorAction: AbstractAction, AsyncImageProcessorDelegate {
     
     let proc:AsyncImageProcessor
-    var camera: CameraSession?
-    var begun:Bool
-    var disableWhenDone:Bool
-    var removeWhenDone: Bool
+    var camera: CvCameraSession?
+    var stage: StageState?
+    private var begun:Bool
+    private var disableWhenDone:Bool
+    private var removeWhenDone: Bool
     
     init(_ processor: AsyncImageProcessor) {
         proc = processor
@@ -30,7 +31,7 @@ class ImageProcessorAction: AbstractAction, AsyncImageProcessorDelegate {
         super.init()
     }
     
-    init(_ processors: [ImageProcessor], standby: Int32 = 0, camera: CameraSession? = nil) {
+    init(_ processors: [ImageProcessor], standby: Int32 = 0, camera: CvCameraSession? = nil, stage: StageState? = nil) {
         proc = AsyncImageMultiProcessor.initWithProcessors(processors)
         proc.defaultStandby = standby
         proc.enabled = false
@@ -38,6 +39,7 @@ class ImageProcessorAction: AbstractAction, AsyncImageProcessorDelegate {
         disableWhenDone = false
         removeWhenDone = camera != nil
         self.camera = camera
+        self.stage = stage
         super.init()
     }
 
@@ -46,6 +48,10 @@ class ImageProcessorAction: AbstractAction, AsyncImageProcessorDelegate {
         if (!proc.enabled) {
             disableWhenDone = true
             proc.enabled = true
+        }
+        if (stage != nil) && (stage!.isFovBounded() && !proc.roi) {
+            print("\(self)")
+            setRoiToStage(stage!)
         }
         if (removeWhenDone) {
             camera?.addAsyncImageProcessor(proc)
@@ -77,4 +83,11 @@ class ImageProcessorAction: AbstractAction, AsyncImageProcessorDelegate {
         }
     }
     
+    func setRoi(x x: Int, y: Int, width: Int, height: Int) {
+        proc.roiX = Int32(x)
+        proc.roiY = Int32(y)
+        proc.roiWidth = Int32(width)
+        proc.roiHeight = Int32(height)
+        proc.roi = true
+    }
 }

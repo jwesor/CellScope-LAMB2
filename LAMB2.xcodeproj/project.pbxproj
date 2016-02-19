@@ -7,10 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		18042C091BB5CBC70076FA24 /* IPMotionDetectDisplacement.mm in Sources */ = {isa = PBXBuildFile; fileRef = 18042C081BB5CBC70076FA24 /* IPMotionDetectDisplacement.mm */; settings = {ASSET_TAGS = (); }; };
-		18042C111BB61C9B0076FA24 /* DeadbandStepAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18042C101BB61C9B0076FA24 /* DeadbandStepAction.swift */; settings = {ASSET_TAGS = (); }; };
-		18042C151BBC7E020076FA24 /* AutoEnableStageState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18042C141BBC7E010076FA24 /* AutoEnableStageState.swift */; settings = {ASSET_TAGS = (); }; };
-		18042C171BBC7FB40076FA24 /* DeviceStatusDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18042C161BBC7FB40076FA24 /* DeviceStatusDelegate.swift */; settings = {ASSET_TAGS = (); }; };
+		18042C111BB61C9B0076FA24 /* DeadbandStepAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18042C101BB61C9B0076FA24 /* DeadbandStepAction.swift */; };
+		18042C151BBC7E020076FA24 /* AutoEnableStageState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18042C141BBC7E010076FA24 /* AutoEnableStageState.swift */; };
+		18042C171BBC7FB40076FA24 /* DeviceStatusDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18042C161BBC7FB40076FA24 /* DeviceStatusDelegate.swift */; };
 		180C3E851AE9E6F500A928FD /* StageState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 180C3E841AE9E6F500A928FD /* StageState.swift */; };
 		180F87171A7C67D90001CD3C /* IPColorInverter.mm in Sources */ = {isa = PBXBuildFile; fileRef = 180F87161A7C67D90001CD3C /* IPColorInverter.mm */; };
 		180F87191A7C6DD30001CD3C /* ImageProcessor.mm in Sources */ = {isa = PBXBuildFile; fileRef = 180F87181A7C6DD30001CD3C /* ImageProcessor.mm */; };
@@ -27,40 +26,51 @@
 		181D49081B25098100D08A93 /* IPDisplacement.mm in Sources */ = {isa = PBXBuildFile; fileRef = 181D49071B25098100D08A93 /* IPDisplacement.mm */; };
 		182CE8241A8F01B6002162DF /* CameraViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 182CE8231A8F01B6002162DF /* CameraViewController.swift */; };
 		182CE82A1A96E0CF002162DF /* AsyncImageMultiProcessor.mm in Sources */ = {isa = PBXBuildFile; fileRef = 182CE8291A96E0CF002162DF /* AsyncImageMultiProcessor.mm */; };
-		182CE82D1A96E5F7002162DF /* IPAsyncPanTracker.mm in Sources */ = {isa = PBXBuildFile; fileRef = 182CE82C1A96E5F7002162DF /* IPAsyncPanTracker.mm */; };
+		183A51161C1D4F4F00562932 /* NativeCameraSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = 183A51151C1D4F4F00562932 /* NativeCameraSession.swift */; };
+		183A51181C1D4F5800562932 /* NativeCapturePhotoAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 183A51171C1D4F5800562932 /* NativeCapturePhotoAction.swift */; };
+		183A511B1C1D50FE00562932 /* IPDrawTrackables.mm in Sources */ = {isa = PBXBuildFile; fileRef = 183A511A1C1D50FE00562932 /* IPDrawTrackables.mm */; };
+		183A51241C1E811D00562932 /* CameraStartSessionAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 183A51221C1E811D00562932 /* CameraStartSessionAction.swift */; };
+		183A51251C1E811D00562932 /* CameraStopSessionAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 183A51231C1E811D00562932 /* CameraStopSessionAction.swift */; };
+		183A512C1C1E91FA00562932 /* CameraAutoAdjustParamsAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 183A512B1C1E91FA00562932 /* CameraAutoAdjustParamsAction.swift */; };
 		183AF31F1AB0CD1C006C9503 /* CameraAutoExposureAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 183AF31E1AB0CD1C006C9503 /* CameraAutoExposureAction.swift */; };
 		183AF3211AB0CD87006C9503 /* CameraManualExposureAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 183AF3201AB0CD87006C9503 /* CameraManualExposureAction.swift */; };
 		183AF3231AB12A4A006C9503 /* CameraExposureBiasAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 183AF3221AB12A4A006C9503 /* CameraExposureBiasAction.swift */; };
-		183FD1141BB0CBA800452A1E /* GDriveAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 183FD1131BB0CBA800452A1E /* GDriveAdapter.swift */; settings = {ASSET_TAGS = (); }; };
-		183FD1181BB0D61700452A1E /* BLE.swift in Sources */ = {isa = PBXBuildFile; fileRef = 183FD1171BB0D61700452A1E /* BLE.swift */; settings = {ASSET_TAGS = (); }; };
+		183FD1141BB0CBA800452A1E /* GDriveAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 183FD1131BB0CBA800452A1E /* GDriveAdapter.swift */; };
+		183FD1181BB0D61700452A1E /* BLE.swift in Sources */ = {isa = PBXBuildFile; fileRef = 183FD1171BB0D61700452A1E /* BLE.swift */; };
 		184C81C71B056D4F0083D926 /* IPIdleFrames.mm in Sources */ = {isa = PBXBuildFile; fileRef = 184C81C61B056D4F0083D926 /* IPIdleFrames.mm */; };
-		1852165A1BC8982A005BFD80 /* MFCIntraMoveAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 185216561BC8982A005BFD80 /* MFCIntraMoveAction.swift */; settings = {ASSET_TAGS = (); }; };
-		1852165C1BC8982A005BFD80 /* MFCPostMoveAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 185216581BC8982A005BFD80 /* MFCPostMoveAction.swift */; settings = {ASSET_TAGS = (); }; };
-		1852165D1BC8982A005BFD80 /* MFCPreMoveAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 185216591BC8982A005BFD80 /* MFCPreMoveAction.swift */; settings = {ASSET_TAGS = (); }; };
-		185216601BC89C11005BFD80 /* IPGaussian.mm in Sources */ = {isa = PBXBuildFile; fileRef = 1852165F1BC89C11005BFD80 /* IPGaussian.mm */; settings = {ASSET_TAGS = (); }; };
-		185216621BCB89B1005BFD80 /* MFCIntraMoveStepAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 185216611BCB89B1005BFD80 /* MFCIntraMoveStepAction.swift */; settings = {ASSET_TAGS = (); }; };
-		185216641BCC724F005BFD80 /* MFCMoveToAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 185216631BCC724F005BFD80 /* MFCMoveToAction.swift */; settings = {ASSET_TAGS = (); }; };
-		185216661BD16E3D005BFD80 /* ImgAcquireBackgroundAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 185216651BD16E3D005BFD80 /* ImgAcquireBackgroundAction.swift */; settings = {ASSET_TAGS = (); }; };
-		1852166C1BD1741F005BFD80 /* IPGradient.mm in Sources */ = {isa = PBXBuildFile; fileRef = 1852166B1BD1741F005BFD80 /* IPGradient.mm */; settings = {ASSET_TAGS = (); }; };
-		1852166E1BD46C51005BFD80 /* MFCDisplacementAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1852166D1BD46C51005BFD80 /* MFCDisplacementAction.swift */; settings = {ASSET_TAGS = (); }; };
-		185216751BD706D0005BFD80 /* MFCWaypoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 185216701BD706D0005BFD80 /* MFCWaypoint.swift */; settings = {ASSET_TAGS = (); }; };
-		185216761BD706D0005BFD80 /* MFCWaypointDisplacementAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 185216711BD706D0005BFD80 /* MFCWaypointDisplacementAction.swift */; settings = {ASSET_TAGS = (); }; };
-		185216771BD706D0005BFD80 /* MFCWaypointInitAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 185216721BD706D0005BFD80 /* MFCWaypointInitAction.swift */; settings = {ASSET_TAGS = (); }; };
-		185216781BD706D0005BFD80 /* MFCWaypointMoveToAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 185216731BD706D0005BFD80 /* MFCWaypointMoveToAction.swift */; settings = {ASSET_TAGS = (); }; };
-		185216791BD706D0005BFD80 /* MFCWaypointUpdateAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 185216741BD706D0005BFD80 /* MFCWaypointUpdateAction.swift */; settings = {ASSET_TAGS = (); }; };
-		1852167B1BDAD30F005BFD80 /* ImgCaptureAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1852167A1BDAD30F005BFD80 /* ImgCaptureAction.swift */; settings = {ASSET_TAGS = (); }; };
+		1852165A1BC8982A005BFD80 /* MFCIntraMoveAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 185216561BC8982A005BFD80 /* MFCIntraMoveAction.swift */; };
+		1852165C1BC8982A005BFD80 /* MFCPostMoveAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 185216581BC8982A005BFD80 /* MFCPostMoveAction.swift */; };
+		1852165D1BC8982A005BFD80 /* MFCPreMoveAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 185216591BC8982A005BFD80 /* MFCPreMoveAction.swift */; };
+		185216601BC89C11005BFD80 /* IPGaussian.mm in Sources */ = {isa = PBXBuildFile; fileRef = 1852165F1BC89C11005BFD80 /* IPGaussian.mm */; };
+		185216621BCB89B1005BFD80 /* MFCIntraMoveStepAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 185216611BCB89B1005BFD80 /* MFCIntraMoveStepAction.swift */; };
+		185216641BCC724F005BFD80 /* MFCMoveToAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 185216631BCC724F005BFD80 /* MFCMoveToAction.swift */; };
+		185216661BD16E3D005BFD80 /* ImgAcquireBackgroundAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 185216651BD16E3D005BFD80 /* ImgAcquireBackgroundAction.swift */; };
+		1852166C1BD1741F005BFD80 /* IPGradient.mm in Sources */ = {isa = PBXBuildFile; fileRef = 1852166B1BD1741F005BFD80 /* IPGradient.mm */; };
+		1852166E1BD46C51005BFD80 /* MFCDisplacementAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1852166D1BD46C51005BFD80 /* MFCDisplacementAction.swift */; };
+		185216751BD706D0005BFD80 /* MFCWaypoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 185216701BD706D0005BFD80 /* MFCWaypoint.swift */; };
+		185216761BD706D0005BFD80 /* MFCWaypointDisplacementAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 185216711BD706D0005BFD80 /* MFCWaypointDisplacementAction.swift */; };
+		185216771BD706D0005BFD80 /* MFCWaypointInitAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 185216721BD706D0005BFD80 /* MFCWaypointInitAction.swift */; };
+		185216781BD706D0005BFD80 /* MFCWaypointMoveToAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 185216731BD706D0005BFD80 /* MFCWaypointMoveToAction.swift */; };
+		185216791BD706D0005BFD80 /* MFCWaypointUpdateAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 185216741BD706D0005BFD80 /* MFCWaypointUpdateAction.swift */; };
+		1852167B1BDAD30F005BFD80 /* ImgCaptureAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1852167A1BDAD30F005BFD80 /* ImgCaptureAction.swift */; };
 		188074E31A38F43A0039725B /* opencv2.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 188074E21A38F43A0039725B /* opencv2.framework */; };
-		188074E61A38F4A60039725B /* CameraSession.mm in Sources */ = {isa = PBXBuildFile; fileRef = 188074E51A38F4A60039725B /* CameraSession.mm */; };
+		188074E61A38F4A60039725B /* CvCameraSession.mm in Sources */ = {isa = PBXBuildFile; fileRef = 188074E51A38F4A60039725B /* CvCameraSession.mm */; };
 		188074E81A38F7210039725B /* CoreVideo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 188074E71A38F7210039725B /* CoreVideo.framework */; };
 		188074EA1A38F72D0039725B /* AssetsLibrary.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 188074E91A38F72D0039725B /* AssetsLibrary.framework */; };
 		188074EC1A38F7350039725B /* CoreMedia.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 188074EB1A38F7350039725B /* CoreMedia.framework */; };
+		188C5D661BF178F1007BF98F /* IPDetectContourTrackables.mm in Sources */ = {isa = PBXBuildFile; fileRef = 188C5D651BF178F1007BF98F /* IPDetectContourTrackables.mm */; };
+		188C5D6C1C0FB7F1007BF98F /* MFCTrackable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 188C5D671C0FB7F1007BF98F /* MFCTrackable.swift */; };
+		188C5D6D1C0FB7F1007BF98F /* MFCTrackableWaypointBatchInitAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 188C5D681C0FB7F1007BF98F /* MFCTrackableWaypointBatchInitAction.swift */; };
+		188C5D6E1C0FB7F1007BF98F /* MFCTrackableDetectionAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 188C5D691C0FB7F1007BF98F /* MFCTrackableDetectionAction.swift */; };
+		188C5D6F1C0FB7F1007BF98F /* MFCTrackableInitAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 188C5D6A1C0FB7F1007BF98F /* MFCTrackableInitAction.swift */; };
+		188C5D701C0FB7F1007BF98F /* MFCTrackablePositionUpdateAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 188C5D6B1C0FB7F1007BF98F /* MFCTrackablePositionUpdateAction.swift */; };
 		1892F5981B44953A0084E0F8 /* StepDisplacementAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1892F5971B44953A0084E0F8 /* StepDisplacementAction.swift */; };
 		1892F59A1B4605E50084E0F8 /* StepCalibratorAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1892F5991B4605E50084E0F8 /* StepCalibratorAction.swift */; };
 		1892F59D1B4620B60084E0F8 /* IPFovBounds.mm in Sources */ = {isa = PBXBuildFile; fileRef = 1892F59C1B4620B60084E0F8 /* IPFovBounds.mm */; };
 		18A0721D1A98040D00A93391 /* PhotoAlbum.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18A0721C1A98040D00A93391 /* PhotoAlbum.swift */; };
-		18A0721F1A981AEF00A93391 /* CapturePhotoAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18A0721E1A981AEF00A93391 /* CapturePhotoAction.swift */; };
+		18A0721F1A981AEF00A93391 /* CvCameraCaptureAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18A0721E1A981AEF00A93391 /* CvCameraCaptureAction.swift */; };
 		18A072291AA004E100A93391 /* IPImageCapture.mm in Sources */ = {isa = PBXBuildFile; fileRef = 18A072281AA004E100A93391 /* IPImageCapture.mm */; };
-		18A0722D1AA0098D00A93391 /* ImageUtils.mm in Sources */ = {isa = PBXBuildFile; fileRef = 18A0722C1AA0098D00A93391 /* ImageUtils.mm */; };
+		18A0722D1AA0098D00A93391 /* CvImageUtils.mm in Sources */ = {isa = PBXBuildFile; fileRef = 18A0722C1AA0098D00A93391 /* CvImageUtils.mm */; };
 		18A072301AA13E6400A93391 /* IPFocusDetector.mm in Sources */ = {isa = PBXBuildFile; fileRef = 18A0722F1AA13E6400A93391 /* IPFocusDetector.mm */; };
 		18A072331AA1404800A93391 /* AutofocuserAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18A072321AA1404800A93391 /* AutofocuserAction.swift */; };
 		18A5513A1AE878B9001AFC84 /* ActionCycler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18A551391AE878B9001AFC84 /* ActionCycler.swift */; };
@@ -118,11 +128,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		18042C071BB5CBC70076FA24 /* IPMotionDetectDisplacement.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IPMotionDetectDisplacement.h; sourceTree = "<group>"; };
-		18042C081BB5CBC70076FA24 /* IPMotionDetectDisplacement.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = IPMotionDetectDisplacement.mm; sourceTree = "<group>"; };
 		18042C0B1BB5EF930076FA24 /* ImageProcessor+CvInterface.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = "ImageProcessor+CvInterface.hpp"; sourceTree = "<group>"; };
 		18042C0C1BB5F30D0076FA24 /* ImageProcessor+CvExtension.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = "ImageProcessor+CvExtension.hpp"; sourceTree = "<group>"; };
-		18042C0D1BB5F8770076FA24 /* IPDisplacement+UpdateTemplate.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = "IPDisplacement+UpdateTemplate.hpp"; sourceTree = "<group>"; };
 		18042C101BB61C9B0076FA24 /* DeadbandStepAction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeadbandStepAction.swift; sourceTree = "<group>"; };
 		18042C141BBC7E010076FA24 /* AutoEnableStageState.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AutoEnableStageState.swift; sourceTree = "<group>"; };
 		18042C161BBC7FB40076FA24 /* DeviceStatusDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeviceStatusDelegate.swift; sourceTree = "<group>"; };
@@ -147,8 +154,14 @@
 		182CE8231A8F01B6002162DF /* CameraViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CameraViewController.swift; sourceTree = "<group>"; };
 		182CE8281A96E0CF002162DF /* AsyncImageMultiProcessor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AsyncImageMultiProcessor.h; sourceTree = "<group>"; };
 		182CE8291A96E0CF002162DF /* AsyncImageMultiProcessor.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = AsyncImageMultiProcessor.mm; sourceTree = "<group>"; };
-		182CE82B1A96E5F7002162DF /* IPAsyncPanTracker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IPAsyncPanTracker.h; sourceTree = "<group>"; };
-		182CE82C1A96E5F7002162DF /* IPAsyncPanTracker.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = IPAsyncPanTracker.mm; sourceTree = "<group>"; };
+		183A51151C1D4F4F00562932 /* NativeCameraSession.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NativeCameraSession.swift; sourceTree = "<group>"; };
+		183A51171C1D4F5800562932 /* NativeCapturePhotoAction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NativeCapturePhotoAction.swift; sourceTree = "<group>"; };
+		183A51191C1D50FE00562932 /* IPDrawTrackables.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IPDrawTrackables.h; sourceTree = "<group>"; };
+		183A511A1C1D50FE00562932 /* IPDrawTrackables.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = IPDrawTrackables.mm; sourceTree = "<group>"; };
+		183A51221C1E811D00562932 /* CameraStartSessionAction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CameraStartSessionAction.swift; sourceTree = "<group>"; };
+		183A51231C1E811D00562932 /* CameraStopSessionAction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CameraStopSessionAction.swift; sourceTree = "<group>"; };
+		183A512A1C1E8A4000562932 /* CameraSessionProtocol.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CameraSessionProtocol.h; sourceTree = "<group>"; };
+		183A512B1C1E91FA00562932 /* CameraAutoAdjustParamsAction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CameraAutoAdjustParamsAction.swift; sourceTree = "<group>"; };
 		183AF31E1AB0CD1C006C9503 /* CameraAutoExposureAction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CameraAutoExposureAction.swift; sourceTree = "<group>"; };
 		183AF3201AB0CD87006C9503 /* CameraManualExposureAction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CameraManualExposureAction.swift; sourceTree = "<group>"; };
 		183AF3221AB12A4A006C9503 /* CameraExposureBiasAction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CameraExposureBiasAction.swift; sourceTree = "<group>"; };
@@ -174,23 +187,30 @@
 		185216731BD706D0005BFD80 /* MFCWaypointMoveToAction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MFCWaypointMoveToAction.swift; sourceTree = "<group>"; };
 		185216741BD706D0005BFD80 /* MFCWaypointUpdateAction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MFCWaypointUpdateAction.swift; sourceTree = "<group>"; };
 		1852167A1BDAD30F005BFD80 /* ImgCaptureAction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImgCaptureAction.swift; sourceTree = "<group>"; };
-		1861AD391B6330E600278A9D /* CameraSession.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CameraSession.h; sourceTree = "<group>"; };
+		1861AD391B6330E600278A9D /* CvCameraSession.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CvCameraSession.h; sourceTree = "<group>"; };
 		188074E21A38F43A0039725B /* opencv2.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = opencv2.framework; sourceTree = "<group>"; };
-		188074E51A38F4A60039725B /* CameraSession.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = CameraSession.mm; sourceTree = "<group>"; };
+		188074E51A38F4A60039725B /* CvCameraSession.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = CvCameraSession.mm; sourceTree = "<group>"; };
 		188074E71A38F7210039725B /* CoreVideo.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreVideo.framework; path = System/Library/Frameworks/CoreVideo.framework; sourceTree = SDKROOT; };
 		188074E91A38F72D0039725B /* AssetsLibrary.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AssetsLibrary.framework; path = System/Library/Frameworks/AssetsLibrary.framework; sourceTree = SDKROOT; };
 		188074EB1A38F7350039725B /* CoreMedia.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMedia.framework; path = System/Library/Frameworks/CoreMedia.framework; sourceTree = SDKROOT; };
+		188C5D641BF178F1007BF98F /* IPDetectContourTrackables.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IPDetectContourTrackables.h; sourceTree = "<group>"; };
+		188C5D651BF178F1007BF98F /* IPDetectContourTrackables.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = IPDetectContourTrackables.mm; sourceTree = "<group>"; };
+		188C5D671C0FB7F1007BF98F /* MFCTrackable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MFCTrackable.swift; sourceTree = "<group>"; };
+		188C5D681C0FB7F1007BF98F /* MFCTrackableWaypointBatchInitAction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MFCTrackableWaypointBatchInitAction.swift; sourceTree = "<group>"; };
+		188C5D691C0FB7F1007BF98F /* MFCTrackableDetectionAction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MFCTrackableDetectionAction.swift; sourceTree = "<group>"; };
+		188C5D6A1C0FB7F1007BF98F /* MFCTrackableInitAction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MFCTrackableInitAction.swift; sourceTree = "<group>"; };
+		188C5D6B1C0FB7F1007BF98F /* MFCTrackablePositionUpdateAction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MFCTrackablePositionUpdateAction.swift; sourceTree = "<group>"; };
 		1892F5971B44953A0084E0F8 /* StepDisplacementAction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StepDisplacementAction.swift; sourceTree = "<group>"; };
 		1892F5991B4605E50084E0F8 /* StepCalibratorAction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StepCalibratorAction.swift; sourceTree = "<group>"; };
 		1892F59B1B4620B60084E0F8 /* IPFovBounds.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IPFovBounds.h; sourceTree = "<group>"; };
 		1892F59C1B4620B60084E0F8 /* IPFovBounds.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = IPFovBounds.mm; sourceTree = "<group>"; };
 		18A0721C1A98040D00A93391 /* PhotoAlbum.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhotoAlbum.swift; sourceTree = "<group>"; };
-		18A0721E1A981AEF00A93391 /* CapturePhotoAction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CapturePhotoAction.swift; sourceTree = "<group>"; };
+		18A0721E1A981AEF00A93391 /* CvCameraCaptureAction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CvCameraCaptureAction.swift; sourceTree = "<group>"; };
 		18A072271AA004E100A93391 /* IPImageCapture.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IPImageCapture.h; sourceTree = "<group>"; };
 		18A072281AA004E100A93391 /* IPImageCapture.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = IPImageCapture.mm; sourceTree = "<group>"; };
 		18A0722A1AA0086F00A93391 /* LAMB2-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "LAMB2-Prefix.pch"; sourceTree = "<group>"; };
-		18A0722B1AA0098D00A93391 /* ImageUtils.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = ImageUtils.hpp; sourceTree = "<group>"; };
-		18A0722C1AA0098D00A93391 /* ImageUtils.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = ImageUtils.mm; sourceTree = "<group>"; };
+		18A0722B1AA0098D00A93391 /* CvImageUtils.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = CvImageUtils.hpp; sourceTree = "<group>"; };
+		18A0722C1AA0098D00A93391 /* CvImageUtils.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = CvImageUtils.mm; sourceTree = "<group>"; };
 		18A0722E1AA13E6400A93391 /* IPFocusDetector.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IPFocusDetector.h; sourceTree = "<group>"; };
 		18A0722F1AA13E6400A93391 /* IPFocusDetector.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = IPFocusDetector.mm; sourceTree = "<group>"; };
 		18A072321AA1404800A93391 /* AutofocuserAction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AutofocuserAction.swift; sourceTree = "<group>"; };
@@ -270,7 +290,7 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		180F871A1A7C72F50001CD3C /* ImgProc */ = {
+		180F871A1A7C72F50001CD3C /* ImageProcCore */ = {
 			isa = PBXGroup;
 			children = (
 				180F87141A7C666E0001CD3C /* ImageProcessor.h */,
@@ -284,17 +304,18 @@
 				182CE8281A96E0CF002162DF /* AsyncImageMultiProcessor.h */,
 				182CE8291A96E0CF002162DF /* AsyncImageMultiProcessor.mm */,
 			);
-			name = ImgProc;
+			name = ImageProcCore;
 			sourceTree = "<group>";
 		};
 		180F871B1A7C730F0001CD3C /* Camera */ = {
 			isa = PBXGroup;
 			children = (
-				180F871A1A7C72F50001CD3C /* ImgProc */,
-				1861AD391B6330E600278A9D /* CameraSession.h */,
-				188074E51A38F4A60039725B /* CameraSession.mm */,
-				18A0722B1AA0098D00A93391 /* ImageUtils.hpp */,
-				18A0722C1AA0098D00A93391 /* ImageUtils.mm */,
+				183A512A1C1E8A4000562932 /* CameraSessionProtocol.h */,
+				1861AD391B6330E600278A9D /* CvCameraSession.h */,
+				188074E51A38F4A60039725B /* CvCameraSession.mm */,
+				18A0722B1AA0098D00A93391 /* CvImageUtils.hpp */,
+				18A0722C1AA0098D00A93391 /* CvImageUtils.mm */,
+				183A51151C1D4F4F00562932 /* NativeCameraSession.swift */,
 			);
 			name = Camera;
 			sourceTree = "<group>";
@@ -368,6 +389,40 @@
 			name = Waypoint;
 			sourceTree = "<group>";
 		};
+		1852168C1BE16F67005BFD80 /* Displacement */ = {
+			isa = PBXGroup;
+			children = (
+				181D49061B25098100D08A93 /* IPDisplacement.h */,
+				181D49071B25098100D08A93 /* IPDisplacement.mm */,
+				18C3C4661BA3B693000B6B0F /* IPPyramidDisplacement.h */,
+				18C3C4671BA3B693000B6B0F /* IPPyramidDisplacement.mm */,
+			);
+			name = Displacement;
+			sourceTree = "<group>";
+		};
+		188C5D631BF1738D007BF98F /* Tracking */ = {
+			isa = PBXGroup;
+			children = (
+				188C5D641BF178F1007BF98F /* IPDetectContourTrackables.h */,
+				188C5D651BF178F1007BF98F /* IPDetectContourTrackables.mm */,
+				183A51191C1D50FE00562932 /* IPDrawTrackables.h */,
+				183A511A1C1D50FE00562932 /* IPDrawTrackables.mm */,
+			);
+			name = Tracking;
+			sourceTree = "<group>";
+		};
+		188C5D711C0FB801007BF98F /* Tracking */ = {
+			isa = PBXGroup;
+			children = (
+				188C5D671C0FB7F1007BF98F /* MFCTrackable.swift */,
+				188C5D681C0FB7F1007BF98F /* MFCTrackableWaypointBatchInitAction.swift */,
+				188C5D691C0FB7F1007BF98F /* MFCTrackableDetectionAction.swift */,
+				188C5D6A1C0FB7F1007BF98F /* MFCTrackableInitAction.swift */,
+				188C5D6B1C0FB7F1007BF98F /* MFCTrackablePositionUpdateAction.swift */,
+			);
+			name = Tracking;
+			sourceTree = "<group>";
+		};
 		18A072311AA13E6F00A93391 /* Autofocus */ = {
 			isa = PBXGroup;
 			children = (
@@ -381,6 +436,7 @@
 			isa = PBXGroup;
 			children = (
 				1852166F1BD706C5005BFD80 /* Waypoint */,
+				188C5D711C0FB801007BF98F /* Tracking */,
 				185216561BC8982A005BFD80 /* MFCIntraMoveAction.swift */,
 				185216611BCB89B1005BFD80 /* MFCIntraMoveStepAction.swift */,
 				185216581BC8982A005BFD80 /* MFCPostMoveAction.swift */,
@@ -396,19 +452,14 @@
 		18C3C4521B8D0B37000B6B0F /* ImageProcessors */ = {
 			isa = PBXGroup;
 			children = (
+				188C5D631BF1738D007BF98F /* Tracking */,
 				18C3C45E1B9668DA000B6B0F /* IPBackgroundSubtract.h */,
 				18C3C45F1B9668DA000B6B0F /* IPBackgroundSubtract.mm */,
 				180F87151A7C67D90001CD3C /* IPColorInverter.h */,
 				180F87161A7C67D90001CD3C /* IPColorInverter.mm */,
-				181D49061B25098100D08A93 /* IPDisplacement.h */,
 				1852166A1BD1741F005BFD80 /* IPGradient.h */,
 				1852166B1BD1741F005BFD80 /* IPGradient.mm */,
-				181D49071B25098100D08A93 /* IPDisplacement.mm */,
-				18042C0D1BB5F8770076FA24 /* IPDisplacement+UpdateTemplate.hpp */,
-				18C3C4661BA3B693000B6B0F /* IPPyramidDisplacement.h */,
-				18C3C4671BA3B693000B6B0F /* IPPyramidDisplacement.mm */,
-				18042C071BB5CBC70076FA24 /* IPMotionDetectDisplacement.h */,
-				18042C081BB5CBC70076FA24 /* IPMotionDetectDisplacement.mm */,
+				1852168C1BE16F67005BFD80 /* Displacement */,
 				18A0722E1AA13E6400A93391 /* IPFocusDetector.h */,
 				18A0722F1AA13E6400A93391 /* IPFocusDetector.mm */,
 				18C3C4611B967AA6000B6B0F /* IPEdgeDetect.h */,
@@ -419,8 +470,6 @@
 				18A072281AA004E100A93391 /* IPImageCapture.mm */,
 				184C81C51B056D4F0083D926 /* IPIdleFrames.h */,
 				184C81C61B056D4F0083D926 /* IPIdleFrames.mm */,
-				182CE82B1A96E5F7002162DF /* IPAsyncPanTracker.h */,
-				182CE82C1A96E5F7002162DF /* IPAsyncPanTracker.mm */,
 				1852165E1BC89C11005BFD80 /* IPGaussian.h */,
 				1852165F1BC89C11005BFD80 /* IPGaussian.mm */,
 			);
@@ -466,7 +515,8 @@
 		18DB4C941AAE679800165F0F /* Camera */ = {
 			isa = PBXGroup;
 			children = (
-				18A0721E1A981AEF00A93391 /* CapturePhotoAction.swift */,
+				183A51221C1E811D00562932 /* CameraStartSessionAction.swift */,
+				183A51231C1E811D00562932 /* CameraStopSessionAction.swift */,
 				18DB4C921AAE670900165F0F /* CameraAutoFocusAction.swift */,
 				18DB4C961AAE7A7600165F0F /* CameraManualFocusAction.swift */,
 				18DB4C981AAFC24500165F0F /* CameraAutoWhiteBalanceAction.swift */,
@@ -474,6 +524,9 @@
 				183AF31E1AB0CD1C006C9503 /* CameraAutoExposureAction.swift */,
 				183AF3201AB0CD87006C9503 /* CameraManualExposureAction.swift */,
 				183AF3221AB12A4A006C9503 /* CameraExposureBiasAction.swift */,
+				183A512B1C1E91FA00562932 /* CameraAutoAdjustParamsAction.swift */,
+				18A0721E1A981AEF00A93391 /* CvCameraCaptureAction.swift */,
+				183A51171C1D4F5800562932 /* NativeCapturePhotoAction.swift */,
 			);
 			name = Camera;
 			sourceTree = "<group>";
@@ -523,6 +576,7 @@
 				184D8DFE1A205AC600105FDA /* LAMB2-Bridging-Header.h */,
 				18ED380B1A200B8B005BA3CE /* Supporting Files */,
 				180F871B1A7C730F0001CD3C /* Camera */,
+				180F871A1A7C72F50001CD3C /* ImageProcCore */,
 				18C3C4521B8D0B37000B6B0F /* ImageProcessors */,
 				18D6B8F51ACF65A7002B1A9E /* IO */,
 				180F871C1A7C73340001CD3C /* Device */,
@@ -666,6 +720,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				183A512C1C1E91FA00562932 /* CameraAutoAdjustParamsAction.swift in Sources */,
 				183AF3231AB12A4A006C9503 /* CameraExposureBiasAction.swift in Sources */,
 				18D6B8F41ACCCC78002B1A9E /* StageStepAction.swift in Sources */,
 				18D6B90A1AE08D31002B1A9E /* DocumentDirectory.swift in Sources */,
@@ -673,7 +728,6 @@
 				182CE82A1A96E0CF002162DF /* AsyncImageMultiProcessor.mm in Sources */,
 				18D6B9021AD36FB6002B1A9E /* GDriveStatusButton.swift in Sources */,
 				183FD1181BB0D61700452A1E /* BLE.swift in Sources */,
-				18042C091BB5CBC70076FA24 /* IPMotionDetectDisplacement.mm in Sources */,
 				181D49081B25098100D08A93 /* IPDisplacement.mm in Sources */,
 				183FD1141BB0CBA800452A1E /* GDriveAdapter.swift in Sources */,
 				1852165A1BC8982A005BFD80 /* MFCIntraMoveAction.swift in Sources */,
@@ -691,16 +745,17 @@
 				18E157971A68A52600DFEFFF /* DeviceTableViewController.swift in Sources */,
 				18D6B8F71ACF65F1002B1A9E /* TextDocument.swift in Sources */,
 				1852166E1BD46C51005BFD80 /* MFCDisplacementAction.swift in Sources */,
-				182CE82D1A96E5F7002162DF /* IPAsyncPanTracker.mm in Sources */,
 				185216761BD706D0005BFD80 /* MFCWaypointDisplacementAction.swift in Sources */,
-				18A0722D1AA0098D00A93391 /* ImageUtils.mm in Sources */,
+				18A0722D1AA0098D00A93391 /* CvImageUtils.mm in Sources */,
 				185216621BCB89B1005BFD80 /* MFCIntraMoveStepAction.swift in Sources */,
-				188074E61A38F4A60039725B /* CameraSession.mm in Sources */,
+				188074E61A38F4A60039725B /* CvCameraSession.mm in Sources */,
+				188C5D661BF178F1007BF98F /* IPDetectContourTrackables.mm in Sources */,
 				180F87A31A8EE48E0001CD3C /* ActionManager.swift in Sources */,
 				18D6B90E1AE093CB002B1A9E /* GDriveImageDocument.swift in Sources */,
 				185216791BD706D0005BFD80 /* MFCWaypointUpdateAction.swift in Sources */,
 				18A072291AA004E100A93391 /* IPImageCapture.mm in Sources */,
 				185216641BCC724F005BFD80 /* MFCMoveToAction.swift in Sources */,
+				188C5D701C0FB7F1007BF98F /* MFCTrackablePositionUpdateAction.swift in Sources */,
 				18D6B8F21ACCCB0B002B1A9E /* StageConstants.swift in Sources */,
 				18DB4C991AAFC24500165F0F /* CameraAutoWhiteBalanceAction.swift in Sources */,
 				18D6B8EE1ACCC6DD002B1A9E /* StageDirectionAction.swift in Sources */,
@@ -713,21 +768,27 @@
 				180F879C1A8C21D90001CD3C /* ImageProcessorAction.swift in Sources */,
 				18D6B8EC1ACCC630002B1A9E /* StageEnableAction.swift in Sources */,
 				185216771BD706D0005BFD80 /* MFCWaypointInitAction.swift in Sources */,
+				188C5D6D1C0FB7F1007BF98F /* MFCTrackableWaypointBatchInitAction.swift in Sources */,
 				18042C171BBC7FB40076FA24 /* DeviceStatusDelegate.swift in Sources */,
 				18C3C4631B967AA6000B6B0F /* IPEdgeDetect.mm in Sources */,
+				183A51241C1E811D00562932 /* CameraStartSessionAction.swift in Sources */,
+				183A51181C1D4F5800562932 /* NativeCapturePhotoAction.swift in Sources */,
 				18ED38111A200B8B005BA3CE /* LAMB2.xcdatamodeld in Sources */,
 				1892F59D1B4620B60084E0F8 /* IPFovBounds.mm in Sources */,
+				183A51161C1D4F4F00562932 /* NativeCameraSession.swift in Sources */,
 				184C81C71B056D4F0083D926 /* IPIdleFrames.mm in Sources */,
+				188C5D6E1C0FB7F1007BF98F /* MFCTrackableDetectionAction.swift in Sources */,
 				180F87241A82F7700001CD3C /* DeviceAction.swift in Sources */,
 				18C3C4511B8CFAA0000B6B0F /* StageMoveAction.swift in Sources */,
 				18DB4C8F1AA4FA8700165F0F /* ScanFocusAction.swift in Sources */,
-				18A0721F1A981AEF00A93391 /* CapturePhotoAction.swift in Sources */,
+				18A0721F1A981AEF00A93391 /* CvCameraCaptureAction.swift in Sources */,
 				18A072331AA1404800A93391 /* AutofocuserAction.swift in Sources */,
 				18C3C4751BAC9A7A000B6B0F /* ImgFovBoundsAction.swift in Sources */,
 				18042C111BB61C9B0076FA24 /* DeadbandStepAction.swift in Sources */,
 				180F87951A858FF20001CD3C /* SequenceAction.swift in Sources */,
 				185216751BD706D0005BFD80 /* MFCWaypoint.swift in Sources */,
 				18ED380E1A200B8B005BA3CE /* AppDelegate.swift in Sources */,
+				183A51251C1E811D00562932 /* CameraStopSessionAction.swift in Sources */,
 				18D6B8F01ACCCA31002B1A9E /* StageDisableAction.swift in Sources */,
 				18C3C4651B9A2894000B6B0F /* StageMicrostepAction.swift in Sources */,
 				1892F5981B44953A0084E0F8 /* StepDisplacementAction.swift in Sources */,
@@ -741,8 +802,10 @@
 				1852167B1BDAD30F005BFD80 /* ImgCaptureAction.swift in Sources */,
 				18C3C4721BAA4301000B6B0F /* ImgDisplacementAction.swift in Sources */,
 				18D6B9101AE094F0002B1A9E /* ImageDocumentSeriesWriter.swift in Sources */,
+				183A511B1C1D50FE00562932 /* IPDrawTrackables.mm in Sources */,
 				18C3C43D1B6ECA0A000B6B0F /* MFCMoveAction.swift in Sources */,
 				180F87211A82F7530001CD3C /* ActionSequencer.swift in Sources */,
+				188C5D6F1C0FB7F1007BF98F /* MFCTrackableInitAction.swift in Sources */,
 				1892F59A1B4605E50084E0F8 /* StepCalibratorAction.swift in Sources */,
 				18C3C4551B9524EE000B6B0F /* ImageMultiProcessor.mm in Sources */,
 				18DB4C911AA7C67500165F0F /* DebugUtil.swift in Sources */,
@@ -751,6 +814,7 @@
 				18A0721D1A98040D00A93391 /* PhotoAlbum.swift in Sources */,
 				180F87171A7C67D90001CD3C /* IPColorInverter.mm in Sources */,
 				18C3C4791BACB449000B6B0F /* MotorCalibStepAction.swift in Sources */,
+				188C5D6C1C0FB7F1007BF98F /* MFCTrackable.swift in Sources */,
 				185216601BC89C11005BFD80 /* IPGaussian.mm in Sources */,
 				1852166C1BD1741F005BFD80 /* IPGradient.mm in Sources */,
 				1852165C1BC8982A005BFD80 /* MFCPostMoveAction.swift in Sources */,
@@ -895,7 +959,7 @@
 					"$(PROJECT_DIR)",
 				);
 				INFOPLIST_FILE = LAMB2/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				OTHER_LDFLAGS = (
@@ -926,7 +990,7 @@
 					"$(PROJECT_DIR)",
 				);
 				INFOPLIST_FILE = LAMB2/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				OTHER_LDFLAGS = (

@@ -13,18 +13,18 @@ import Foundation
 
 class CameraManualExposureAction : AbstractAction {
     
-    let camera: CameraSession
+    let camera: CameraSessionProtocol
     let dur: CMTime
     let iso: Float
     
-    init(camera: CameraSession, milliseconds: Int64, iso: Float) {
+    init(_ camera: CameraSessionProtocol, milliseconds: Int64, iso: Float) {
         self.camera = camera
         self.dur = CMTime(value: milliseconds, timescale: 1000, flags: [], epoch: 0)
         self.iso = iso
         super.init()
     }
     
-    init(camera: CameraSession, duration: CMTime, iso: Float) {
+    init(camera: CameraSessionProtocol, duration: CMTime, iso: Float) {
         self.camera = camera
         self.dur = duration
         self.iso = iso

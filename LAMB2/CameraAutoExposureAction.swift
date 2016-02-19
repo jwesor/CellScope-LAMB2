@@ -10,23 +10,44 @@
 //
 
 import Foundation
+import AVFoundation
 
 class CameraAutoExposureAction : AbstractAction {
     
-    let camera: CameraSession
+    let camera: CameraSessionProtocol
     
-    init(camera: CameraSession) {
+    init(_ camera: CameraSessionProtocol) {
         self.camera = camera
         super.init()
     }
     
     override func doExecution() {
         camera.captureDevice.addObserver(self, forKeyPath: "adjustingExposure", options: NSKeyValueObservingOptions.New, context: nil)
-        if (!camera.continuousAutoExposure) {
-            let success = camera.doSingleAutoExposure()
+        if camera.captureDevice.exposureMode != AVCaptureExposureMode.ContinuousAutoExposure {
+            let success = doSingleAutoExposure()
             if (!success) {
                 finish()
             }
+        }
+    }
+    
+    private func doSingleAutoExposure() -> Bool {
+        if let device = camera.captureDevice {
+            do {
+                try device.lockForConfiguration()
+            } catch _ {
+                print("Unable to lock device for configuration!")
+                return false
+            }
+            if device.isExposureModeSupported(AVCaptureExposureMode.AutoExpose) {
+                device.exposureMode = AVCaptureExposureMode.AutoExpose
+                device.unlockForConfiguration()
+                return true
+            } else {
+                return false
+            }
+        } else {
+            return false
         }
     }
     

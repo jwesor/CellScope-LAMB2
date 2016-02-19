@@ -39,6 +39,7 @@ using namespace cv;
 - (void) processImageAsync: (Mat&)currentImage {
     for (ImageProcessor *imgproc in processors) {
         if (imgproc.enabled) {
+            imgproc.currentFrameTime = self.currentFrameTime;
             [imgproc process:currentImage];
         }
     }

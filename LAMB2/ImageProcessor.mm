@@ -10,6 +10,7 @@
 
 @interface ImageProcessor () {
     cv::Rect _region;
+    NSDate *_currentFrameTime;
 }
 @end
 
@@ -22,6 +23,7 @@
 @synthesize roiX;
 @synthesize roiY;
 @synthesize roi;
+@synthesize currentFrameTime = _currentFrameTime;
 
 - (id) init {
     self = [super init];

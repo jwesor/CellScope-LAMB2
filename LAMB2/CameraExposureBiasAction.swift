@@ -13,10 +13,10 @@ import Foundation
 
 class CameraExposureBiasAction : AbstractAction {
     
-    let camera: CameraSession
+    let camera: CameraSessionProtocol
     let bias: Float
     
-    init(camera: CameraSession, bias: Float) {
+    init(_ camera: CameraSessionProtocol, bias: Float) {
         self.camera = camera
         self.bias = bias
         super.init()

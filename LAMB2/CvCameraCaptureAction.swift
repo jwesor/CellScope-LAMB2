@@ -1,5 +1,5 @@
 //
-//  CapturePhotoAction
+//  CvCameraCaptureAction
 //  LAMB2
 //
 //  Action that directly captures and saves and image
@@ -14,12 +14,12 @@
 
 import Foundation
 
-class CapturePhotoAction : AbstractAction, PhotoAlbumSaveDelegate {
+class CvCameraCaptureAction : AbstractAction, PhotoAlbumSaveDelegate {
     let album: PhotoAlbum
-    let camera: CameraSession
+    let camera: CvCameraSession
     let id: String
     
-    init(album: PhotoAlbum, camera: CameraSession) {
+    init(_ camera: CvCameraSession, album: PhotoAlbum) {
         self.album = album
         self.camera = camera
         self.id = "\(album.albumName) save action \(NSNumber(double: NSDate().timeIntervalSince1970).stringValue)"

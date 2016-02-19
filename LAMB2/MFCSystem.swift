@@ -11,7 +11,7 @@ import Foundation
 class MFCSystem: ActionCompletionDelegate {
     
     let stage: StageState
-    let camera: CameraSession
+    let camera: CvCameraSession
     let device: DeviceConnector
 
     let displacement: IPDisplacement
@@ -34,7 +34,7 @@ class MFCSystem: ActionCompletionDelegate {
     private(set) var x: Int = 0
     private(set) var y: Int = 0
 
-    init(camera: CameraSession, device: DeviceConnector, stage: StageState) {
+    init(camera: CvCameraSession, device: DeviceConnector, stage: StageState) {
         self.camera = camera
         self.stage = stage
         self.device = device
@@ -63,8 +63,10 @@ class MFCSystem: ActionCompletionDelegate {
         
         microstep = StageMicrostepAction(device, enabled: true, stage: stage)
         
-        initAction = SequenceAction([autofocuser, fovBounds, calibrator, initDisplacer])
-        initNoCalibAction = SequenceAction([autofocuser, fovBounds, initDisplacer])
+        let powerCycler = SequenceAction([enable1, enable2, disable1, disable2])
+        
+        initAction = SequenceAction([powerCycler, autofocuser, fovBounds, calibrator, initDisplacer])
+        initNoCalibAction = SequenceAction([powerCycler, autofocuser, fovBounds, initDisplacer])
         
         initAction.addCompletionDelegate(self)
         initNoCalibAction.addCompletionDelegate(self)
@@ -106,6 +108,20 @@ class MFCSystem: ActionCompletionDelegate {
         x += dX
         y += dY
         print("MFC \(x) \(y) \n", terminator: "")
+    }
+
+    func imgPointToMfcLocation(imX imX: Int, imY: Int) -> (x: Int, y: Int) {
+        let originX = Int(displacement.templateX)
+        let originY = Int(displacement.templateY)
+        let relX = imX - originX
+        let relY = imY - originY
+        return (x: self.x + relX, y: self.y + relY)
+    }
+    
+    func mfcLocationToImgPoint(x x:Int, y: Int) -> (imX: Int, imY: Int) {
+        let originX = Int(displacement.templateX)
+        let originY = Int(displacement.templateY)
+        return (imX: x - self.x + originX, imY: y - self.y + originY)
     }
 
     class func createDisplacerComponents() -> (displacement: IPDisplacement, preprocessors:[ImageProcessor]) {

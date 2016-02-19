@@ -1,15 +1,15 @@
 //
-//  ImageUtils.m
+//  CvImageUtils.m
 //  LAMB2
 //
 //  Created by Fletcher Lab Mac Mini on 2/26/15.
 //  Copyright (c) 2015 Fletchlab. All rights reserved.
 //
 
-#import "ImageUtils.h"
+#import "CvImageUtils.hpp"
 using namespace cv;
 
-@implementation ImageUtils
+@implementation CvImageUtils
 
 + (UIImage *)imageWithCVMat:(Mat&)cvMat {
     

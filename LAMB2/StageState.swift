@@ -125,6 +125,7 @@ class StageState {
     }
     
     func setImageProcessorRoiToFov(ip: ImageProcessor) {
+        print("\(self, fov.x, fov.y, fov.width, fov.height)");
         ip.roiX = fov.x
         ip.roiY = fov.y
         ip.roiWidth = fov.width

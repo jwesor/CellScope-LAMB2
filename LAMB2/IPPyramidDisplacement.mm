@@ -27,10 +27,10 @@ using namespace std;
 - (id) init {
     self = [super init];
     _subDisplace = [[IPDisplacement alloc] init];
-    _subDisplace.templateWidth = 100;
-    _subDisplace.templateHeight = 100;
     self.searchPadding = 8;
     self.scale = 0.25;
+    _subDisplace.templateWidth = self.templateWidth * self.scale;
+    _subDisplace.templateHeight = self.templateHeight * self.scale;
     self.area = true;
     
     return self;
@@ -43,17 +43,17 @@ using namespace std;
     [_subDisplace processImage:scaled];
     
     // Find the bounding box for the upper level template location
-    int subX1 = int(_subDisplace.templateX / scale);
-    int subY1 = int(_subDisplace.templateY / scale);
-    int subX2 = int((_subDisplace.templateX + _subDisplace.templateWidth) / scale);
-    int subY2 = int((_subDisplace.templateY + _subDisplace.templateHeight) / scale);
+    int subX1 = int((_subDisplace.templateX - _subDisplace.dX) / scale);
+    int subY1 = int((_subDisplace.templateY - _subDisplace.dY) / scale);
+    int subX2 = subX1 + int((_subDisplace.templateWidth) / scale);
+    int subY2 = subY1 + int((_subDisplace.templateHeight) / scale);
     _upperTemplate.x = subX1;
     _upperTemplate.y = subY1;
     _upperTemplate.width = subX2 - subX1;
     _upperTemplate.height = subY2 - subY1;
     
-    self.areaX = (subX2 + subX1) / 2 - self.searchPadding - self.templateWidth / 2;
-    self.areaY = (subY2 + subY1) / 2 - self.searchPadding - self.templateHeight / 2;
+    self.areaX = MAX(0, (subX2 + subX1) / 2 - self.searchPadding - self.templateWidth / 2);
+    self.areaY = MAX(0, (subY2 + subY1) / 2 - self.searchPadding - self.templateHeight / 2);
 
     self.areaWidth = self.searchPadding * 2;
     self.areaHeight = self.searchPadding * 2;
@@ -62,7 +62,7 @@ using namespace std;
 }
 
 - (void) updateDisplayOverlay:(Mat &)image {
-    rectangle(image, _upperTemplate, Scalar(255, 0, 0, 255));
+    rectangle(image, _upperTemplate, Scalar(0, 255, 255, 255));
     [super updateDisplayOverlay:image];
 }
 
@@ -71,14 +71,29 @@ using namespace std;
     [_subDisplace reset];
 }
 
-- (void) setUpdateFrame:(bool)updateFrame {
-    [super setUpdateFrame:updateFrame];
-    [_subDisplace setUpdateFrame:updateFrame];
+- (void) setUpdateTemplate:(bool)updateTemplate {
+    [super setUpdateTemplate:updateTemplate];
+    [_subDisplace setUpdateTemplate:updateTemplate];
+}
+
+- (void) setTrackTemplate:(bool)trackTemplate {
+    [super setTrackTemplate:trackTemplate];
+    [_subDisplace setTrackTemplate:trackTemplate];
 }
 
 - (void) setGrayscale:(bool)grayscale {
     [super setGrayscale:grayscale];
     [_subDisplace setGrayscale:grayscale];
+}
+
+- (void) setTemplateWidth:(int)templateWidth {
+    [super setTemplateWidth:templateWidth];
+    _subDisplace.templateWidth = templateWidth * scale;
+}
+
+- (void) setTemplateHeight:(int)templateHeight {
+    [super setTemplateHeight:templateHeight];
+    _subDisplace.templateHeight = templateHeight * scale;
 }
 
 @end

@@ -9,13 +9,14 @@
 //
 
 import Foundation
+import AVFoundation
 
 class CameraAutoWhiteBalanceAction : AbstractAction {
     
-    let camera: CameraSession
+    let camera: CameraSessionProtocol
     var autoOnOff: Bool
     
-    init(camera: CameraSession) {
+    init(_ camera: CameraSessionProtocol) {
         self.camera = camera
         autoOnOff = false
         super.init()
@@ -23,15 +24,50 @@ class CameraAutoWhiteBalanceAction : AbstractAction {
     
     override func doExecution() {
         camera.captureDevice.addObserver(self, forKeyPath: "adjustingWhiteBalance", options: NSKeyValueObservingOptions.New, context: nil)
-        if (!camera.continuousAutoWhiteBalance) {
-            let success = camera.doSingleAutoWhiteBalance()
+        if camera.captureDevice.whiteBalanceMode != AVCaptureWhiteBalanceMode.ContinuousAutoWhiteBalance {
+            let success = doSingleAutoWhiteBalance()
             if (!success) {
                 // Seems like auto white balance is not currently supported. Here's a workaround that enables continuous auto white balance then goes back to locked
                 autoOnOff = true
-                camera.continuousAutoWhiteBalance = true
-                if (!camera.continuousAutoWhiteBalance) {
+                setWhiteBalanceMode(AVCaptureWhiteBalanceMode.ContinuousAutoWhiteBalance)
+                if camera.captureDevice.whiteBalanceMode != AVCaptureWhiteBalanceMode.ContinuousAutoWhiteBalance {
                     finish()
                 }
+            }
+        }
+    }
+    
+    private func doSingleAutoWhiteBalance() -> Bool {
+        if let device = camera.captureDevice {
+            do {
+                try device.lockForConfiguration()
+            } catch _ {
+                print("Unable to lock device for configuration!")
+                return false
+            }
+            if device.isWhiteBalanceModeSupported(AVCaptureWhiteBalanceMode.AutoWhiteBalance) {
+                device.whiteBalanceMode = AVCaptureWhiteBalanceMode.AutoWhiteBalance
+                device.unlockForConfiguration()
+                return true
+            } else {
+                return false
+            }
+        } else {
+            return false
+        }
+    }
+    
+    private func setWhiteBalanceMode(mode: AVCaptureWhiteBalanceMode) {
+        if let device = camera.captureDevice {
+            do {
+                try device.lockForConfiguration()
+            } catch _ {
+                print("Unable to lock device for configuration!")
+                return
+            }
+            if device.isWhiteBalanceModeSupported(AVCaptureWhiteBalanceMode.ContinuousAutoWhiteBalance) {
+                device.whiteBalanceMode = AVCaptureWhiteBalanceMode.ContinuousAutoWhiteBalance;
+                device.unlockForConfiguration()
             }
         }
     }
@@ -44,7 +80,7 @@ class CameraAutoWhiteBalanceAction : AbstractAction {
                 if (!balancing) {
                     //white balancing is done
                     if (self.autoOnOff) {
-                        camera.continuousAutoWhiteBalance = false
+                        setWhiteBalanceMode(AVCaptureWhiteBalanceMode.Locked)
                     }
                     finish()
                 }

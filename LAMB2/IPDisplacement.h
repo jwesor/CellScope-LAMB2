@@ -18,14 +18,17 @@
 
 @property (readonly) int dY;
 @property (readonly) int dX;
+@property (readonly) double score;
 
 @property (nonatomic) int templateWidth;
 @property (nonatomic) int templateHeight;
-@property (readonly) int templateX;
-@property (readonly) int templateY;
+@property (nonatomic) int templateX;
+@property (nonatomic) int templateY;
+@property bool centerTemplate;
 
 @property bool grayscale;
-@property bool updateFrame;
+@property bool updateTemplate;
+@property bool trackTemplate;
 
 - (void) reset;
 
