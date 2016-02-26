@@ -10,7 +10,7 @@ import Foundation
 
 class MFCWaypoint {
 
-    let mfc: MFCSystem
+    unowned let mfc: MFCSystem
     let displacement: IPDisplacement
     let preprocessors: [ImageProcessor]
     let id: String

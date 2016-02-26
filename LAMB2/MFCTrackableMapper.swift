@@ -8,7 +8,7 @@
 
 class MFCTrackableMapper {
     
-    let mfc: MFCSystem
+    unowned let mfc: MFCSystem
     private(set) var trackables: [MFCTrackable] = []
     private(set) var waypoints: [MFCWaypoint] = []
     private(set) var waypointIndex: Int = 0

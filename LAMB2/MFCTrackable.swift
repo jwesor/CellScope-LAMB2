@@ -12,8 +12,8 @@ class MFCTrackable {
     
     private(set) var initalized: Bool = false
     private(set) var waypoint: MFCWaypoint?
-    let mfc: MFCSystem
-    let mapper: MFCTrackableMapper
+    unowned let mfc: MFCSystem
+    unowned let mapper: MFCTrackableMapper
     let displacement: IPDisplacement = IPPyramidDisplacement()
     private(set) var width: Int, height: Int
     private(set) var x: Int, y: Int
