@@ -80,10 +80,10 @@ class MFCTrackable {
         timeZero = time
         self.updateWaypointAndLocation(time, waypoint: waypoint, x: x, y: y)
         for delegate in updateDelegates {
-            delegate.onTrackableInitializedje(self)
+            delegate.onTrackableInitialized(self)
         }
         initalized = true
-        mapper.registerTrackableWaypoint(waypoint)
+        mapper.registerTrackable(self, waypoint: waypoint)
     }
 
     func addUpdateDelegate(delegate: MFCTrackableUpdatedDelegate) {

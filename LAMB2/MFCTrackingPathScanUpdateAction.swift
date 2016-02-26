@@ -9,11 +9,12 @@
 class MFCTrackingPathScanUpdateAction: SequenceAction {
 
 	let mfc: MFCSystem
-	let mapper: MFCMapper
+	let mapper: MFCTrackableMapper
 
-	init(mapper: MFCMapper) {
+	init(mapper: MFCTrackableMapper) {
 		self.mapper = mapper
 		self.mfc = mapper.mfc
+        super.init()
 	}
 
 }

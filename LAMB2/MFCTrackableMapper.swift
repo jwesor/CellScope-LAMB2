@@ -19,10 +19,10 @@ class MFCTrackableMapper {
     }
 
     func registerTrackable(trackable: MFCTrackable, waypoint: MFCWaypoint) {
-        if !trackables.contains(trackable) {
+        if !trackables.contains({$0 === trackable}) {
             trackables.append(trackable)
         }
-        if !waypoints.contains(waypoint) {
+        if !waypoints.contains({$0 === waypoint}) {
             waypoints.append(waypoint)
         }
     }
@@ -44,8 +44,8 @@ class MFCTrackableMapper {
             // a new trackable would be redundant.
             let tX = trackable.x
             let tY = trackable.y
-            let tWidth = trackable.w
-            let tHeight = trackable.h
+            let tWidth = trackable.width
+            let tHeight = trackable.height
             let minWidth = min(width, tWidth)
             let minHeight = min(height, tHeight)
             if abs(x - tX) <= minWidth || abs(y - tY) <= minHeight {
@@ -53,7 +53,7 @@ class MFCTrackableMapper {
                 let overlapWidth = min(max(x, tX) - min(x + width, tX + tWidth), 0)
                 let overlapHeight = min(max(y, tY) - min(y + height, tY + tHeight), 0)
                 let overlapArea = overlapWidth * overlapHeight
-                if overlapArea > area * overlapThreshold {
+                if Double(overlapArea) > Double(area) * overlapThreshold {
                     return true
                 }
             }
@@ -62,12 +62,12 @@ class MFCTrackableMapper {
     }
 
     func getExpectedTrackablesAtWaypoint(waypoint: MFCWaypoint) -> [MFCTrackable] {
-        var found = []
+        var found: [MFCTrackable] = []
         for t in trackables {
-            if t.waypoint == waypiont {
+            if t.waypoint === waypoint {
                 found.append(t)
             }
         }
-        return t
+        return found
     }
 }

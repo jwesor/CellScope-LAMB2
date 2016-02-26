@@ -10,25 +10,23 @@ import Foundation
 
 class MFCTrackableDetectInitAction : SequenceAction {
 
-    let waypoint: MFCWaypoint
-    let detectAction: MFCTrackableDetectAction
+    unowned let mfc: MFCSystem
+    unowned let mapper: MFCTrackableMapper
+    unowned let waypoint: MFCWaypoint
+    private let detectAction: MFCTrackableDetectAction
 
-    init(mfc: MFCSystem) {
-        waypoint = MFCWaypoint(mfc: mfc)
+    init(mapper: MFCTrackableMapper, waypoint: MFCWaypoint) {
+        self.mapper = mapper
+        self.waypoint = waypoint
+        self.mfc = mapper.mfc
         let wpInitAction = MFCWaypointInitAction(waypoint: waypoint)
         detectAction = MFCTrackableDetectAction(mfc: mfc)
         super.init([wpInitAction, detectAction])
     }
 
-    init(waypoint: MFCWaypoint) {
-        self.waypoint = waypoint
-        detectAction = MFCTrackableDetectAction(mfc: waypoint.mfc)
-        super.init([detectAction])
-    }
-
     override func onActionCompleted(action: AbstractAction) {
         if action === detectAction {
-            let initAction = MFCTrackableBatchInitAction(waypoint: waypoint, trackables: detectAction.detectedTrackables, params: detectAction.trackableParams)
+            let initAction = MFCTrackableBatchInitAction(mapper: mapper, waypoint: waypoint, params: detectAction.trackableParams)
             addOneTimeAction(initAction)
         }
     }

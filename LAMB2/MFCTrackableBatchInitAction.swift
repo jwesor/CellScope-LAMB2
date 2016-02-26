@@ -11,18 +11,20 @@ import Foundation
 class MFCTrackableBatchInitAction : ImageProcessorAction {
 
     private let waypoint : MFCWaypoint
-    private(set) let trackables : [MFCTrackable]
-    private(set) let trackableParams:[(imX: Int, imY: Int, width: Int, height: Int)]
+    let trackables : [MFCTrackable]
+    private var trackableParams:[(imX: Int, imY: Int, width: Int, height: Int)]
 
-    init(waypoint: MFCWaypoint, trackables: [MFCTrackable], params: [(imX:Int, imY:Int, width: Int, height: Int)]) {
+    init(mapper: MFCTrackableMapper, waypoint: MFCWaypoint, params: [(imX:Int, imY:Int, width: Int, height: Int)]) {
         self.waypoint = waypoint
-        self.trackables = trackables
         self.trackableParams = params
         var imgprocessors: [ImageProcessor] = []
-        let counts = min(trackables.count, params.count)
-        for i in 0...counts-1 {
-            imgprocessors += [trackables[i].displacement]
+        var tmpTrackables: [MFCTrackable] = []
+        for _ in params {
+            let trackable = MFCTrackable(mapper: mapper)
+            tmpTrackables.append(trackable)
+            imgprocessors += [trackable.displacement]
         }
+        trackables = tmpTrackables
         let mfc = waypoint.mfc
         super.init(imgprocessors, standby: 0, camera: mfc.camera, stage: mfc.stage)
     }

@@ -28,4 +28,6 @@
 
 - (void) addImageProcessor: (ImageProcessor *) proc;
 
+- (void) removeAllImageProcessors;
+
 @end

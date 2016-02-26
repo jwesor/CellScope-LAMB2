@@ -36,6 +36,10 @@ using namespace cv;
     [processors addObject:proc];
 }
 
+- (void) removeAllImageProcessors {
+    [processors removeAllObjects];
+}
+
 - (void) processImageAsync: (Mat&)currentImage {
     for (ImageProcessor *imgproc in processors) {
         if (imgproc.enabled) {

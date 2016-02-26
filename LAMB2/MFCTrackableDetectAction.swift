@@ -12,7 +12,6 @@ class MFCTrackableDetectAction : ImageProcessorAction {
    
     let mfc: MFCSystem
     let detector: IPDetectContourTrackables = IPDetectContourTrackables()
-    private(set) var detectedTrackables: [MFCTrackable] = []
     private(set) var trackableParams: [(imX: Int, imY: Int, width: Int, height: Int)] = []
    
     init(mfc: MFCSystem) {
@@ -21,7 +20,6 @@ class MFCTrackableDetectAction : ImageProcessorAction {
     }
 
     override func doExecution() {
-        detectedTrackables = []
         trackableParams = []
         super.doExecution()
     }
@@ -29,10 +27,8 @@ class MFCTrackableDetectAction : ImageProcessorAction {
     override func cleanup() {
         let counts = detector.detectedCount
         for i in 0...counts-1 {
-            let trackable = MFCTrackable(mfc: self.mfc)
             let result = detector.getDetectedTrackable(i)
             let x = Int(result.x), y = Int(result.y), width = Int(result.width), height = Int(result.height)
-            detectedTrackables.append(trackable)
             trackableParams.append((imX: x, imY: y, width: width, height: height))
         }
     }

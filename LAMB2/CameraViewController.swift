@@ -24,6 +24,7 @@ class CameraViewController: UIViewController, ActionCompletionDelegate  {
     var bounds: ImgFovBoundsAction?
     var autofocus: AutofocuserAction?
     var mfc: MFCSystem?
+    var mapper: MFCTrackableMapper?
     
     let photos:PhotoAlbum = PhotoAlbum(name: "waypoints_test")
     var captureAction:AbstractAction?
@@ -104,6 +105,7 @@ class CameraViewController: UIViewController, ActionCompletionDelegate  {
         autofocus = AutofocuserAction(startLevel: -10, endLevel: 10, stepsPerLvl: 5, camera: camera!, device: device, stage: stage)
         bounds = ImgFovBoundsAction(camera: camera!, stage: stage, bindRois: [])
         mfc = MFCSystem(camera: camera!, device: device, stage: stage)
+        mapper = MFCTrackableMapper(mfc: mfc!)
         
         loadDefaultStageState()
         
@@ -200,9 +202,7 @@ class CameraViewController: UIViewController, ActionCompletionDelegate  {
     
     func onActionCompleted(action: AbstractAction) {
         if action === detectAction! {
-            batchInitAction = MFCTrackableBatchInitAction(waypoint: waypoint!, trackables: detectAction!.detectedTrackables, params: detectAction!.trackableParams)
-            self.trackables += detectAction!.detectedTrackables
-        } else {123
+        } else {
             print("\(Double(displacer2.dX), Double(displacer2.dY), sqrt(pow(Double(displacer2.dX), 2) + pow(Double(displacer2.dY), 2)))")
         }
     }
@@ -224,7 +224,7 @@ class CameraViewController: UIViewController, ActionCompletionDelegate  {
 //        drawer.roi = true
 //        stage.setImageProcessorRoiToFov(drawer)
         drawer.resetToCount(detectAction!.detector.detectedCount)
-        for i in 1...detectAction!.detectedTrackables.count {
+        for i in 1...detectAction!.trackableParams.count {
             drawer.addTrackable(detectAction!.detector.getDetectedTrackable(Int32(i)))
         }
         camera!.addImageProcessor(drawer)
