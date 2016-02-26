@@ -30,8 +30,8 @@ class CameraViewController: UIViewController, ActionCompletionDelegate  {
     var cycler: ActionCycler?
     
     var waypoint: MFCWaypoint?
-    var detectAction: MFCTrackableDetectionAction?
-    var batchInitAction: MFCTrackableWaypointBatchInitAction?
+    var detectAction: MFCTrackableDetectAction?
+    var batchInitAction: MFCTrackableBatchInitAction?
     var trackables: [MFCTrackable] = []
     
     let detect = IPDetectContourTrackables()
@@ -108,7 +108,7 @@ class CameraViewController: UIViewController, ActionCompletionDelegate  {
         loadDefaultStageState()
         
         waypoint = MFCWaypoint(mfc: mfc!)
-        detectAction = MFCTrackableDetectionAction(mfc: mfc!)
+        detectAction = MFCTrackableDetectAction(mfc: mfc!)
         detectAction?.addCompletionDelegate(self)
     }
     
@@ -200,7 +200,7 @@ class CameraViewController: UIViewController, ActionCompletionDelegate  {
     
     func onActionCompleted(action: AbstractAction) {
         if action === detectAction! {
-            batchInitAction = MFCTrackableWaypointBatchInitAction(waypoint: waypoint!, trackables: detectAction!.detectedTrackables, params: detectAction!.trackableParams)
+            batchInitAction = MFCTrackableBatchInitAction(waypoint: waypoint!, trackables: detectAction!.detectedTrackables, params: detectAction!.trackableParams)
             self.trackables += detectAction!.detectedTrackables
         } else {123
             print("\(Double(displacer2.dX), Double(displacer2.dY), sqrt(pow(Double(displacer2.dX), 2) + pow(Double(displacer2.dY), 2)))")

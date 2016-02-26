@@ -10,8 +10,10 @@ import Foundation
 
 class MFCTrackable {
     
+    private(set) var initalized: Bool = false
     private(set) var waypoint: MFCWaypoint?
     let mfc: MFCSystem
+    let mapper: MFCTrackableMapper
     let displacement: IPDisplacement = IPPyramidDisplacement()
     private(set) var width: Int, height: Int
     private(set) var x: Int, y: Int
@@ -19,10 +21,12 @@ class MFCTrackable {
     private var timestamps: [NSTimeInterval] = []
     private var positions: [(x: Int, y: Int)] = []
     private var waypoints: [MFCWaypoint] = []
+    private var updateDelegates: [MFCTrackableUpdatedDelegate] = []
     var recordHistory: Bool = true
     
-    init(mfc: MFCSystem, x: Int = 0, y: Int = 0, width: Int = 0, height: Int = 0) {
-        self.mfc = mfc
+    init(mapper: MFCTrackableMapper, x: Int = 0, y: Int = 0, width: Int = 0, height: Int = 0) {
+        self.mfc = mapper.mfc
+        self.mapper = mapper
         displacement.updateTemplate = true
         displacement.centerTemplate = false
         displacement.trackTemplate = true
@@ -43,12 +47,18 @@ class MFCTrackable {
                 timestamps.append(time.timeIntervalSince1970)
             }
         }
+        for delegate in updateDelegates {
+            delegate.onTrackableUpdated(self)
+        }
     }
 
     func updateWaypointAndLocation(time: NSDate, waypoint: MFCWaypoint, x: Int, y: Int) {
         updateLocation(time, x: x, y: y)
         if self.recordHistory {
             waypoints.append(waypoint)
+        }
+        for delegate in updateDelegates {
+            delegate.onTrackableUpdated(self)
         }
     }
     
@@ -69,6 +79,19 @@ class MFCTrackable {
         self.height = height
         timeZero = time
         self.updateWaypointAndLocation(time, waypoint: waypoint, x: x, y: y)
+        for delegate in updateDelegates {
+            delegate.onTrackableInitializedje(self)
+        }
+        initalized = true
+        mapper.registerTrackableWaypoint(waypoint)
     }
 
+    func addUpdateDelegate(delegate: MFCTrackableUpdatedDelegate) {
+        updateDelegates.append(delegate)
+    }
+}
+
+protocol MFCTrackableUpdatedDelegate {
+    func onTrackableInitialized(trackable: MFCTrackable)
+    func onTrackableUpdated(trackable: MFCTrackable)
 }

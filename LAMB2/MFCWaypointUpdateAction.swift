@@ -2,8 +2,7 @@
 //  MFCWaypointUpdateAction
 //  LAMB2
 //
-//  Finds the displacement from the current position to the waypoint, then moves the 
-//  waypoint to the current position.
+//  Updates the waypoint's underlying image processor to a new frame
 //
 //  Created by Fletcher Lab Mac Mini on 8/2/15.
 //  Copyright (c) 2015 Fletchlab. All rights reserved.
@@ -17,13 +16,24 @@ class MFCWaypointUpdateAction : MFCDisplacementAction {
 
     init(waypoint: MFCWaypoint) {
         self.waypoint = waypoint
-        super.init(mfc: waypoint.mfc, displace: waypoint.displacement, preprocessors: waypoint.preprocessors, updateMfc: true)
+        super.init(mfc: waypoint.mfc, displace: waypoint.displacement, preprocessors: waypoint.preprocessors, updateMfc: false)
+    }
+
+    override func doExecution() {
+        let originX = Int(waypoint.displacement.templateX)
+        let originY = Int(waypoint.displacement.templateY)
+        waypoint.displacement.centerTemplate = false
+        let offsetX = waypoint.x - waypoint.mfc.x
+        let offsetY = waypoint.y - waypoint.mfc.y
+        waypoint.displacement.templateX = Int32(originX + offsetX)
+        waypoint.displacement.templateY = Int32(originY + offsetY)
+        waypoint.displacement.reset()
+        super.doExecution()
     }
 
     override func cleanup() {
         super.cleanup()
-        waypoint.applyDisplacement(dX: self.dX, dY: self.dY)
-        waypoint.mfc.setCurrentPosition(x: waypoint.x, y: waypoint.y)
+        waypoint.displacement.centerTemplate = true
     }
 
 }

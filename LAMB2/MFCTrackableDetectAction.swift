@@ -1,5 +1,5 @@
 //
-//  MFCTrackableDetectionAction.swift
+//  MFCTrackableDetectAction.swift
 //  LAMB2
 //
 //  Created by Fletcher Lab Mac Mini on 10/28/15.
@@ -8,7 +8,7 @@
 
 import Foundation
 
-class MFCTrackableDetectionAction : ImageProcessorAction {
+class MFCTrackableDetectAction : ImageProcessorAction {
    
     let mfc: MFCSystem
     let detector: IPDetectContourTrackables = IPDetectContourTrackables()

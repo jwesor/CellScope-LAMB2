@@ -14,11 +14,11 @@ class MFCTrackablePositionUpdateAction : ImageProcessorAction {
     let mfc: MFCSystem
     private(set) var inFov: Bool = false
     
-	init(trackable: MFCTrackable) {
+    init(trackable: MFCTrackable) {
         self.trackable = trackable
         self.mfc = trackable.mfc
         super.init([trackable.displacement], standby: 0, camera: mfc.camera, stage: mfc.stage)
-	}
+    }
     
     override func doExecution() {
         let (imX, imY) = mfc.mfcLocationToImgPoint(x: trackable.x, y: trackable.y)

@@ -1,5 +1,5 @@
 //
-//  MFCTrackableWaypointBatchInitAction
+//  MFCTrackableBatchInitAction
 //  LAMB2
 //
 //  Created by Fletcher Lab Mac Mini on 10/28/15.
@@ -8,11 +8,11 @@
 
 import Foundation
 
-class MFCTrackableWaypointBatchInitAction : ImageProcessorAction {
+class MFCTrackableBatchInitAction : ImageProcessorAction {
 
     private let waypoint : MFCWaypoint
-    private let trackables : [MFCTrackable]
-    private let trackableParams:[(imX: Int, imY: Int, width: Int, height: Int)]
+    private(set) let trackables : [MFCTrackable]
+    private(set) let trackableParams:[(imX: Int, imY: Int, width: Int, height: Int)]
 
     init(waypoint: MFCWaypoint, trackables: [MFCTrackable], params: [(imX:Int, imY:Int, width: Int, height: Int)]) {
         self.waypoint = waypoint
