@@ -13,14 +13,14 @@ class MFCTrackable {
     private(set) var initalized: Bool = false
     private(set) var waypoint: MFCWaypoint?
     unowned let mfc: MFCSystem
-    unowned let mapper: MFCTrackableMapper
+    let mapper: MFCTrackableMapper
     let displacement: IPDisplacement = IPPyramidDisplacement()
     private(set) var width: Int, height: Int
     private(set) var x: Int, y: Int
     private(set) var timeZero: NSDate?
     private var timestamps: [NSTimeInterval] = []
     private var positions: [(x: Int, y: Int)] = []
-    private var waypoints: [MFCWaypoint] = []
+    private var waypoints: [MFCWaypoint?] = []
     private var updateDelegates: [MFCTrackableUpdatedDelegate] = []
     var recordHistory: Bool = true
     
@@ -36,7 +36,14 @@ class MFCTrackable {
         self.height = height
     }
 
-    func updateLocation(time: NSDate, x: Int, y: Int) {
+    func updateLocation(time: NSDate, dX: Int, dY: Int, newWaypoint: MFCWaypoint? = nil) {
+        self.updateLocation(time, x: dX + x, y: dY + y, newWaypoint: newWaypoint)
+    }
+    
+    func updateLocation(time: NSDate, x: Int, y: Int, newWaypoint: MFCWaypoint? = nil) {
+        if newWaypoint != nil {
+            self.waypoint = newWaypoint
+        }
         self.x = x
         self.y = y
         if self.recordHistory {
@@ -46,15 +53,6 @@ class MFCTrackable {
             } else {
                 timestamps.append(time.timeIntervalSince1970)
             }
-        }
-        for delegate in updateDelegates {
-            delegate.onTrackableUpdated(self)
-        }
-    }
-
-    func updateWaypointAndLocation(time: NSDate, waypoint: MFCWaypoint, x: Int, y: Int) {
-        updateLocation(time, x: x, y: y)
-        if self.recordHistory {
             waypoints.append(waypoint)
         }
         for delegate in updateDelegates {
@@ -78,7 +76,7 @@ class MFCTrackable {
         self.width = width
         self.height = height
         timeZero = time
-        self.updateWaypointAndLocation(time, waypoint: waypoint, x: x, y: y)
+        self.updateLocation(time, x: x, y: y, newWaypoint: waypoint)
         for delegate in updateDelegates {
             delegate.onTrackableInitialized(self)
         }

@@ -70,4 +70,19 @@ class MFCTrackableMapper {
         }
         return found
     }
+    
+    func getClosestWaypoint(trackable: MFCTrackable) -> MFCWaypoint {
+        var minD2 = Int.max
+        var closest = trackable.waypoint != nil ? trackable.waypoint! : waypoints[0]
+        for waypoint in waypoints {
+            let dX = trackable.x - waypoint.x
+            let dY = trackable.y - waypoint.y
+            let d2 = dX * dX + dY * dY
+            if d2 < minD2 {
+                closest = waypoint
+                minD2 = d2
+            }
+        }
+        return closest
+    }
 }

@@ -120,7 +120,7 @@
 		18FBD4101C8103E7003FC747 /* MFCTrackableDetectInitAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18FBD4091C8103E7003FC747 /* MFCTrackableDetectInitAction.swift */; };
 		18FBD4111C8103E7003FC747 /* MFCTrackableMapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18FBD40A1C8103E7003FC747 /* MFCTrackableMapper.swift */; };
 		18FBD4131C8103E7003FC747 /* MFCTrackingPathScanInitAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18FBD40C1C8103E7003FC747 /* MFCTrackingPathScanInitAction.swift */; };
-		18FBD4141C8103E7003FC747 /* MFCTrackingPathScanUpdateAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18FBD40D1C8103E7003FC747 /* MFCTrackingPathScanUpdateAction.swift */; };
+		18FBD4141C8103E7003FC747 /* MFCTrackingPathScanNextWaypointAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18FBD40D1C8103E7003FC747 /* MFCTrackingPathScanNextWaypointAction.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -275,7 +275,7 @@
 		18FBD4091C8103E7003FC747 /* MFCTrackableDetectInitAction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MFCTrackableDetectInitAction.swift; sourceTree = "<group>"; };
 		18FBD40A1C8103E7003FC747 /* MFCTrackableMapper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MFCTrackableMapper.swift; sourceTree = "<group>"; };
 		18FBD40C1C8103E7003FC747 /* MFCTrackingPathScanInitAction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MFCTrackingPathScanInitAction.swift; sourceTree = "<group>"; };
-		18FBD40D1C8103E7003FC747 /* MFCTrackingPathScanUpdateAction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MFCTrackingPathScanUpdateAction.swift; sourceTree = "<group>"; };
+		18FBD40D1C8103E7003FC747 /* MFCTrackingPathScanNextWaypointAction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MFCTrackingPathScanNextWaypointAction.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -432,8 +432,7 @@
 				18FBD4081C8103E7003FC747 /* MFCTrackableDetectAction.swift */,
 				18FBD4091C8103E7003FC747 /* MFCTrackableDetectInitAction.swift */,
 				18FBD40A1C8103E7003FC747 /* MFCTrackableMapper.swift */,
-				18FBD40C1C8103E7003FC747 /* MFCTrackingPathScanInitAction.swift */,
-				18FBD40D1C8103E7003FC747 /* MFCTrackingPathScanUpdateAction.swift */,
+				18FBD4151C810F6F003FC747 /* PathScan */,
 				188C5D671C0FB7F1007BF98F /* MFCTrackable.swift */,
 				188C5D6A1C0FB7F1007BF98F /* MFCTrackableInitAction.swift */,
 				188C5D6B1C0FB7F1007BF98F /* MFCTrackablePositionUpdateAction.swift */,
@@ -635,6 +634,15 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
+		18FBD4151C810F6F003FC747 /* PathScan */ = {
+			isa = PBXGroup;
+			children = (
+				18FBD40C1C8103E7003FC747 /* MFCTrackingPathScanInitAction.swift */,
+				18FBD40D1C8103E7003FC747 /* MFCTrackingPathScanNextWaypointAction.swift */,
+			);
+			name = PathScan;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -787,7 +795,7 @@
 				180F879F1A8C23740001CD3C /* AsyncImageProcessor.mm in Sources */,
 				18C3C4601B9668DA000B6B0F /* IPBackgroundSubtract.mm in Sources */,
 				180F879C1A8C21D90001CD3C /* ImageProcessorAction.swift in Sources */,
-				18FBD4141C8103E7003FC747 /* MFCTrackingPathScanUpdateAction.swift in Sources */,
+				18FBD4141C8103E7003FC747 /* MFCTrackingPathScanNextWaypointAction.swift in Sources */,
 				18D6B8EC1ACCC630002B1A9E /* StageEnableAction.swift in Sources */,
 				185216771BD706D0005BFD80 /* MFCWaypointInitAction.swift in Sources */,
 				18042C171BBC7FB40076FA24 /* DeviceStatusDelegate.swift in Sources */,
