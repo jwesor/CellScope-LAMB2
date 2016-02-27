@@ -9,9 +9,11 @@
 class MFCTrackableMapper {
     
     unowned let mfc: MFCSystem
-    private(set) var trackables: [MFCTrackable] = []
-    private(set) var waypoints: [MFCWaypoint] = []
-    private(set) var waypointIndex: Int = 0
+    private var trackables: [MFCTrackable] = []
+    private var waypoints: [MFCWaypoint] = []
+    private var trackablesByWaypoint: [MFCWaypoint : [MFCTrackable]] = [:]
+    private var waypointsByTrackable: [MFCTrackable : MFCWaypoint] = [:]
+    private var trackableHistories: [MFCTrackable : MFCTrackableMapHistory] = [:]
     var overlapThreshold = 0.8
 
     init(mfc: MFCSystem) {
@@ -19,18 +21,16 @@ class MFCTrackableMapper {
     }
 
     func registerTrackable(trackable: MFCTrackable, waypoint: MFCWaypoint) {
-        if !trackables.contains({$0 === trackable}) {
-            trackables.append(trackable)
+        guard trackableHistories[trackable] == nil else {
+            return
         }
-        if !waypoints.contains({$0 === waypoint}) {
+        trackableHistories[trackable] = MFCTrackableMapHistory(trackable: trackable)
+        waypointsByTrackable[trackable] = waypoint
+        if trackablesByWaypoint[waypoint] == nil {
+            trackablesByWaypoint[waypoint] = []
             waypoints.append(waypoint)
         }
-    }
-
-    func nextWaypoint() -> MFCWaypoint {
-        let currentWaypoint = waypoints[waypointIndex]
-        waypointIndex = (waypointIndex + 1) % waypoints.count
-        return currentWaypoint
+        trackablesByWaypoint[waypoint]?.append(trackable)
     }
 
     func isRedundantTrackable(bounds: (imX: Int, imY: Int, width: Int, height: Int)) -> Bool {
@@ -62,13 +62,7 @@ class MFCTrackableMapper {
     }
 
     func getExpectedTrackablesAtWaypoint(waypoint: MFCWaypoint) -> [MFCTrackable] {
-        var found: [MFCTrackable] = []
-        for t in trackables {
-            if t.waypoint === waypoint {
-                found.append(t)
-            }
-        }
-        return found
+        return trackablesByWaypoint[waypoint]!
     }
     
     func getClosestWaypoint(trackable: MFCTrackable) -> MFCWaypoint {

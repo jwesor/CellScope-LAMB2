@@ -8,7 +8,7 @@
 
 import Foundation
 
-class MFCWaypoint {
+class MFCWaypoint : NSObject {
 
     unowned let mfc: MFCSystem
     let displacement: IPDisplacement

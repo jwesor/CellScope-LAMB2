@@ -61,7 +61,7 @@
 		188C5D661BF178F1007BF98F /* IPDetectContourTrackables.mm in Sources */ = {isa = PBXBuildFile; fileRef = 188C5D651BF178F1007BF98F /* IPDetectContourTrackables.mm */; };
 		188C5D6C1C0FB7F1007BF98F /* MFCTrackable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 188C5D671C0FB7F1007BF98F /* MFCTrackable.swift */; };
 		188C5D6F1C0FB7F1007BF98F /* MFCTrackableInitAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 188C5D6A1C0FB7F1007BF98F /* MFCTrackableInitAction.swift */; };
-		188C5D701C0FB7F1007BF98F /* MFCTrackablePositionUpdateAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 188C5D6B1C0FB7F1007BF98F /* MFCTrackablePositionUpdateAction.swift */; };
+		188C5D701C0FB7F1007BF98F /* MFCTrackableUpdateAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 188C5D6B1C0FB7F1007BF98F /* MFCTrackableUpdateAction.swift */; };
 		1892F5981B44953A0084E0F8 /* StepDisplacementAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1892F5971B44953A0084E0F8 /* StepDisplacementAction.swift */; };
 		1892F59A1B4605E50084E0F8 /* StepCalibratorAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1892F5991B4605E50084E0F8 /* StepCalibratorAction.swift */; };
 		1892F59D1B4620B60084E0F8 /* IPFovBounds.mm in Sources */ = {isa = PBXBuildFile; fileRef = 1892F59C1B4620B60084E0F8 /* IPFovBounds.mm */; };
@@ -121,6 +121,8 @@
 		18FBD4111C8103E7003FC747 /* MFCTrackableMapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18FBD40A1C8103E7003FC747 /* MFCTrackableMapper.swift */; };
 		18FBD4131C8103E7003FC747 /* MFCTrackingPathScanInitAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18FBD40C1C8103E7003FC747 /* MFCTrackingPathScanInitAction.swift */; };
 		18FBD4141C8103E7003FC747 /* MFCTrackingPathScanNextWaypointAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18FBD40D1C8103E7003FC747 /* MFCTrackingPathScanNextWaypointAction.swift */; };
+		18FBD4191C811C12003FC747 /* MFCTrackableMapHistory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18FBD4181C811C12003FC747 /* MFCTrackableMapHistory.swift */; };
+		18FBD41B1C812551003FC747 /* MFCTrackableDisplacementAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18FBD41A1C812551003FC747 /* MFCTrackableDisplacementAction.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -203,7 +205,7 @@
 		188C5D651BF178F1007BF98F /* IPDetectContourTrackables.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = IPDetectContourTrackables.mm; sourceTree = "<group>"; };
 		188C5D671C0FB7F1007BF98F /* MFCTrackable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MFCTrackable.swift; sourceTree = "<group>"; };
 		188C5D6A1C0FB7F1007BF98F /* MFCTrackableInitAction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MFCTrackableInitAction.swift; sourceTree = "<group>"; };
-		188C5D6B1C0FB7F1007BF98F /* MFCTrackablePositionUpdateAction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MFCTrackablePositionUpdateAction.swift; sourceTree = "<group>"; };
+		188C5D6B1C0FB7F1007BF98F /* MFCTrackableUpdateAction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MFCTrackableUpdateAction.swift; sourceTree = "<group>"; };
 		1892F5971B44953A0084E0F8 /* StepDisplacementAction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StepDisplacementAction.swift; sourceTree = "<group>"; };
 		1892F5991B4605E50084E0F8 /* StepCalibratorAction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StepCalibratorAction.swift; sourceTree = "<group>"; };
 		1892F59B1B4620B60084E0F8 /* IPFovBounds.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IPFovBounds.h; sourceTree = "<group>"; };
@@ -276,6 +278,8 @@
 		18FBD40A1C8103E7003FC747 /* MFCTrackableMapper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MFCTrackableMapper.swift; sourceTree = "<group>"; };
 		18FBD40C1C8103E7003FC747 /* MFCTrackingPathScanInitAction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MFCTrackingPathScanInitAction.swift; sourceTree = "<group>"; };
 		18FBD40D1C8103E7003FC747 /* MFCTrackingPathScanNextWaypointAction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MFCTrackingPathScanNextWaypointAction.swift; sourceTree = "<group>"; };
+		18FBD4181C811C12003FC747 /* MFCTrackableMapHistory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MFCTrackableMapHistory.swift; sourceTree = "<group>"; };
+		18FBD41A1C812551003FC747 /* MFCTrackableDisplacementAction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MFCTrackableDisplacementAction.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -432,10 +436,11 @@
 				18FBD4081C8103E7003FC747 /* MFCTrackableDetectAction.swift */,
 				18FBD4091C8103E7003FC747 /* MFCTrackableDetectInitAction.swift */,
 				18FBD40A1C8103E7003FC747 /* MFCTrackableMapper.swift */,
-				18FBD4151C810F6F003FC747 /* PathScan */,
 				188C5D671C0FB7F1007BF98F /* MFCTrackable.swift */,
+				18FBD4181C811C12003FC747 /* MFCTrackableMapHistory.swift */,
 				188C5D6A1C0FB7F1007BF98F /* MFCTrackableInitAction.swift */,
-				188C5D6B1C0FB7F1007BF98F /* MFCTrackablePositionUpdateAction.swift */,
+				18FBD41A1C812551003FC747 /* MFCTrackableDisplacementAction.swift */,
+				188C5D6B1C0FB7F1007BF98F /* MFCTrackableUpdateAction.swift */,
 			);
 			name = Tracking;
 			sourceTree = "<group>";
@@ -454,6 +459,7 @@
 			children = (
 				1852166F1BD706C5005BFD80 /* Waypoint */,
 				188C5D711C0FB801007BF98F /* Tracking */,
+				18FBD4151C810F6F003FC747 /* PathScan */,
 				185216561BC8982A005BFD80 /* MFCIntraMoveAction.swift */,
 				185216611BCB89B1005BFD80 /* MFCIntraMoveStepAction.swift */,
 				185216581BC8982A005BFD80 /* MFCPostMoveAction.swift */,
@@ -783,8 +789,9 @@
 				185216791BD706D0005BFD80 /* MFCWaypointUpdateAction.swift in Sources */,
 				18A072291AA004E100A93391 /* IPImageCapture.mm in Sources */,
 				185216641BCC724F005BFD80 /* MFCMoveToAction.swift in Sources */,
-				188C5D701C0FB7F1007BF98F /* MFCTrackablePositionUpdateAction.swift in Sources */,
+				188C5D701C0FB7F1007BF98F /* MFCTrackableUpdateAction.swift in Sources */,
 				18D6B8F21ACCCB0B002B1A9E /* StageConstants.swift in Sources */,
+				18FBD41B1C812551003FC747 /* MFCTrackableDisplacementAction.swift in Sources */,
 				18DB4C991AAFC24500165F0F /* CameraAutoWhiteBalanceAction.swift in Sources */,
 				18D6B8EE1ACCC6DD002B1A9E /* StageDirectionAction.swift in Sources */,
 				183AF3211AB0CD87006C9503 /* CameraManualExposureAction.swift in Sources */,
@@ -794,6 +801,7 @@
 				18C3C4681BA3B693000B6B0F /* IPPyramidDisplacement.mm in Sources */,
 				180F879F1A8C23740001CD3C /* AsyncImageProcessor.mm in Sources */,
 				18C3C4601B9668DA000B6B0F /* IPBackgroundSubtract.mm in Sources */,
+				18FBD4191C811C12003FC747 /* MFCTrackableMapHistory.swift in Sources */,
 				180F879C1A8C21D90001CD3C /* ImageProcessorAction.swift in Sources */,
 				18FBD4141C8103E7003FC747 /* MFCTrackingPathScanNextWaypointAction.swift in Sources */,
 				18D6B8EC1ACCC630002B1A9E /* StageEnableAction.swift in Sources */,

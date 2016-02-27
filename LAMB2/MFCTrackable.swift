@@ -8,21 +8,13 @@
 
 import Foundation
 
-class MFCTrackable {
+class MFCTrackable : NSObject {
     
-    private(set) var initalized: Bool = false
-    private(set) var waypoint: MFCWaypoint?
     unowned let mfc: MFCSystem
     let mapper: MFCTrackableMapper
     let displacement: IPDisplacement = IPPyramidDisplacement()
-    private(set) var width: Int, height: Int
-    private(set) var x: Int, y: Int
-    private(set) var timeZero: NSDate?
-    private var timestamps: [NSTimeInterval] = []
-    private var positions: [(x: Int, y: Int)] = []
-    private var waypoints: [MFCWaypoint?] = []
-    private var updateDelegates: [MFCTrackableUpdatedDelegate] = []
-    var recordHistory: Bool = true
+    var width: Int, height: Int
+    var x: Int, y: Int
     
     init(mapper: MFCTrackableMapper, x: Int = 0, y: Int = 0, width: Int = 0, height: Int = 0) {
         self.mfc = mapper.mfc
@@ -35,38 +27,10 @@ class MFCTrackable {
         self.width = width
         self.height = height
     }
-
-    func updateLocation(time: NSDate, dX: Int, dY: Int, newWaypoint: MFCWaypoint? = nil) {
-        self.updateLocation(time, x: dX + x, y: dY + y, newWaypoint: newWaypoint)
-    }
     
-    func updateLocation(time: NSDate, x: Int, y: Int, newWaypoint: MFCWaypoint? = nil) {
-        if newWaypoint != nil {
-            self.waypoint = newWaypoint
-        }
-        self.x = x
-        self.y = y
-        if self.recordHistory {
-            positions.append((x: x, y: y))
-            if timeZero != nil {
-                timestamps.append(time.timeIntervalSinceDate(timeZero!))
-            } else {
-                timestamps.append(time.timeIntervalSince1970)
-            }
-            waypoints.append(waypoint)
-        }
-        for delegate in updateDelegates {
-            delegate.onTrackableUpdated(self)
-        }
-    }
-    
-    func initRelativeToWaypoint(waypoint: MFCWaypoint, imX: Int, imY: Int, width: Int, height: Int) {
-        let time = displacement.currentFrameTime
-        self.initRelativeToWaypoint(waypoint, time: time, imX: imX, imY: imY, width: width, height: height)
-    }
-
     func initRelativeToWaypoint(waypoint: MFCWaypoint, time: NSDate, imX: Int, imY: Int, width: Int, height: Int) {
         let mfc = waypoint.mfc
+        // TODO: move waypoint-related operations to mapper
         self.waypoint = waypoint
         let (x, y) = mfc.imgPointToMfcLocation(imX: imX, imY: imY)
         displacement.templateX = Int32(x)
@@ -75,21 +39,6 @@ class MFCTrackable {
         displacement.templateHeight = Int32(height)
         self.width = width
         self.height = height
-        timeZero = time
-        self.updateLocation(time, x: x, y: y, newWaypoint: waypoint)
-        for delegate in updateDelegates {
-            delegate.onTrackableInitialized(self)
-        }
-        initalized = true
         mapper.registerTrackable(self, waypoint: waypoint)
     }
-
-    func addUpdateDelegate(delegate: MFCTrackableUpdatedDelegate) {
-        updateDelegates.append(delegate)
-    }
-}
-
-protocol MFCTrackableUpdatedDelegate {
-    func onTrackableInitialized(trackable: MFCTrackable)
-    func onTrackableUpdated(trackable: MFCTrackable)
 }
