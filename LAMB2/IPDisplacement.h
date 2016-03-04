@@ -18,6 +18,8 @@
 
 @property (readonly) int dY;
 @property (readonly) int dX;
+@property (readonly) int matchedX;
+@property (readonly) int matchedY;
 @property (readonly) double score;
 
 @property (nonatomic) int templateWidth;

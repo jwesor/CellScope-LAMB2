@@ -22,6 +22,12 @@ class MFCTrackableUpdateAction : MFCTrackableDisplacementAction {
     }
     
     override func cleanup() {
-        // TODO: make this update trackable location
+        if self.inFov {
+            let imX = Int(trackable.displacement.matchedX)
+            let imY = Int(trackable.displacement.matchedY)
+            let (x, y) = trackable.mfc.imgPointToMfcLocation(imX: imX, imY: imY)
+            trackable.x = x
+            trackable.y = y
+        }
     }
 }

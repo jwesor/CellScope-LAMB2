@@ -18,7 +18,7 @@ using namespace cv;
     cv::Rect _tracked;
     cv::Rect _bounds;
     Mat _imgTemplate;
-    int _dX, _dY;
+    int _dX, _dY, _matchedX, _matchedY;
     bool _firstFrame;
     double _score;
 }
@@ -34,6 +34,8 @@ using namespace cv;
 
 @synthesize dX = _dX;
 @synthesize dY = _dY;
+@synthesize matchedX = _matchedX;
+@synthesize matchedY = _matchedY;
 @synthesize score = _score;
 
 @synthesize templateX;
@@ -111,8 +113,10 @@ using namespace cv;
     _tracked.x = maxLoc.x + _searchRegion.x;
     _tracked.y = maxLoc.y + _searchRegion.y;
     
-    _dX = _roi.x - maxLoc.x - _searchRegion.x;
-    _dY = _roi.y - maxLoc.y - _searchRegion.y;
+    _matchedX = maxLoc.x + _searchRegion.x;
+    _matchedY = maxLoc.y + _searchRegion.y;
+    _dX = _roi.x - _matchedX;
+    _dY = _roi.y - _matchedY;
     _score = maxVal;
 
     if (self.updateTemplate) {

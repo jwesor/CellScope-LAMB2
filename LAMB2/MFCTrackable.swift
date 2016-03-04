@@ -28,10 +28,8 @@ class MFCTrackable : NSObject {
         self.height = height
     }
     
-    func initRelativeToWaypoint(waypoint: MFCWaypoint, time: NSDate, imX: Int, imY: Int, width: Int, height: Int) {
-        let mfc = waypoint.mfc
-        // TODO: move waypoint-related operations to mapper
-        self.waypoint = waypoint
+    func initAtImageLocation(imLoc: (imX: Int, imY: Int), width: Int, height: Int) {
+        let (imX, imY) = imLoc
         let (x, y) = mfc.imgPointToMfcLocation(imX: imX, imY: imY)
         displacement.templateX = Int32(x)
         displacement.templateY = Int32(y)
@@ -39,6 +37,5 @@ class MFCTrackable : NSObject {
         displacement.templateHeight = Int32(height)
         self.width = width
         self.height = height
-        mapper.registerTrackable(self, waypoint: waypoint)
     }
 }

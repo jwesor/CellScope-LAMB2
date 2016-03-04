@@ -16,6 +16,7 @@ class MFCTrackableDisplacementAction : ImageProcessorAction {
     let mfc: MFCSystem
     var updateFrame: Bool = false // Update the snapshot of the trackable?
     var searchWidth, searchHeight: Int
+    private var imX: Int = 0, imY: Int = 0
     private(set) var inFov: Bool = false
     
     init(trackable: MFCTrackable, searchWidth: Int = 0, searchHeight: Int = 0) {
@@ -31,7 +32,7 @@ class MFCTrackableDisplacementAction : ImageProcessorAction {
     }
     
     override func doExecution() {
-        let (imX, imY) = mfc.mfcLocationToImgPoint(x: trackable.x, y: trackable.y)
+        (imX, imY) = mfc.mfcLocationToImgPoint(x: trackable.x, y: trackable.y)
         let (fovWidth, fovHeight) = mfc.stage.getFovDimens()
         if imX >= 0 && imY >= 0 && imX + trackable.width < fovWidth && imY + trackable.height < fovHeight {
             if searchWidth <= 0 || searchHeight <= 0 {

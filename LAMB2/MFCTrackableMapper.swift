@@ -20,11 +20,13 @@ class MFCTrackableMapper {
         self.mfc = mfc
     }
 
-    func registerTrackable(trackable: MFCTrackable, waypoint: MFCWaypoint) {
+    func registerTrackable(trackable: MFCTrackable, waypoint: MFCWaypoint, time: NSDate) {
         guard trackableHistories[trackable] == nil else {
             return
         }
         trackableHistories[trackable] = MFCTrackableMapHistory(trackable: trackable)
+        trackableHistories[trackable]?.setStartTime(time)
+        trackableHistories[trackable]?.update(time, waypoint: waypoint)
         waypointsByTrackable[trackable] = waypoint
         if trackablesByWaypoint[waypoint] == nil {
             trackablesByWaypoint[waypoint] = []
@@ -67,7 +69,7 @@ class MFCTrackableMapper {
     
     func getClosestWaypoint(trackable: MFCTrackable) -> MFCWaypoint {
         var minD2 = Int.max
-        var closest = trackable.waypoint != nil ? trackable.waypoint! : waypoints[0]
+        var closest = waypointsByTrackable[trackable] != nil ? waypointsByTrackable[trackable]! : waypoints[0]
         for waypoint in waypoints {
             let dX = trackable.x - waypoint.x
             let dY = trackable.y - waypoint.y

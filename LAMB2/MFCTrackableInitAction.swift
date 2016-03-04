@@ -39,10 +39,7 @@ class MFCTrackableInitAction : ImageProcessorAction {
     }
     
     override func cleanup() {
-        let mfc = trackable.mfc
-        let (x, y) = mfc.imgPointToMfcLocation(imX: imX, imY: imY)
-        trackable.x = x
-        trackable.y = y
+        trackable.initAtImageLocation((imX: imX, imY: imY), width: width, height: height)
     }
 
 }

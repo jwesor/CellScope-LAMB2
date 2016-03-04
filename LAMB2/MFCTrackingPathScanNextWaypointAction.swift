@@ -24,7 +24,8 @@ class MFCTrackingPathScanNextWaypointAction: SequenceAction {
     override func doExecution() {
         let trackables = mapper.getExpectedTrackablesAtWaypoint(waypoint)
         for trackable in trackables {
-            let updateAction = MFCTrackablePositionUpdateAction(trackable: trackable)
+            // TODO: make this a batch update action
+            let updateAction = MFCTrackableUpdateAction(trackable: trackable)
             addOneTimeAction(updateAction)
         }
         super.doExecution()
